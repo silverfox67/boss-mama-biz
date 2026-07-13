@@ -5,6 +5,23 @@
 
 const CORRECT_PIN = '2026';
 
+// ── Mobile Sidebar Toggle ───────────────────
+const hamburgerBtn    = document.getElementById('hamburger-btn');
+const sidebarEl       = document.querySelector('.sidebar');
+const sidebarOverlay  = document.getElementById('sidebar-overlay');
+
+function closeSidebar() {
+    sidebarEl?.classList.remove('open');
+    sidebarOverlay?.classList.remove('visible');
+}
+
+hamburgerBtn?.addEventListener('click', () => {
+    sidebarEl?.classList.toggle('open');
+    sidebarOverlay?.classList.toggle('visible');
+});
+
+sidebarOverlay?.addEventListener('click', closeSidebar);
+
 // ── PIN Authentication ──────────────────────
 const pinScreen   = document.getElementById('pin-screen');
 const dashboard   = document.getElementById('dashboard');
@@ -76,6 +93,8 @@ document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', (e) => {
         e.preventDefault();
         showSection(item.dataset.section);
+        // Close sidebar on mobile after selection
+        if (window.innerWidth <= 768) closeSidebar();
     });
 });
 

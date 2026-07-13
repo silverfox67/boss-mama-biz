@@ -878,7 +878,7 @@ h1, h2, h3 { font-family: var(--font-heading); }
 .link-card:hover .link-arrow { color: var(--primary); transform: translateX(4px); }
 
 /* ============================================
-   RESPONSIVE
+   RESPONSIVE — TABLET
    ============================================ */
 @media (max-width: 1024px) {
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -887,18 +887,175 @@ h1, h2, h3 { font-family: var(--font-heading); }
     .infra-grid { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 768px) {
-    .sidebar { width: 220px; }
-    .main-content { margin-left: 220px; padding: 1.5rem; }
-    .stats-grid { grid-template-columns: 1fr 1fr; }
-    .email-card { flex-direction: column; align-items: flex-start; }
+/* ============================================
+   MOBILE HEADER (hidden on desktop)
+   ============================================ */
+.mobile-header {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 56px;
+    background: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    z-index: 300;
+    backdrop-filter: blur(10px);
 }
 
-@media (max-width: 600px) {
-    .dashboard { flex-direction: column; }
-    .sidebar { width: 100%; height: auto; position: relative; }
-    .main-content { margin-left: 0; }
-    .stats-grid { grid-template-columns: 1fr 1fr; }
+.hamburger-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--primary);
+    font-size: 1.3rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.hamburger-btn:hover { background: var(--primary-glow); }
+
+.mobile-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+}
+
+.mobile-logo-text {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+.mobile-logo-sub {
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+/* Sidebar overlay */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 150;
+    backdrop-filter: blur(2px);
+}
+
+.sidebar-overlay.visible { display: block; }
+
+/* ============================================
+   RESPONSIVE — MOBILE (≤ 768px)
+   ============================================ */
+@media (max-width: 768px) {
+
+    /* Show mobile header */
+    .mobile-header { display: flex; }
+
+    /* Sidebar: slide in from left */
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 200;
+        width: var(--sidebar-w);
+    }
+
+    .sidebar.open { transform: translateX(0); }
+
+    /* Main content: full width, padded below mobile header */
+    .main-content {
+        margin-left: 0;
+        padding: 1.2rem 1rem;
+        padding-top: 72px;
+        max-width: 100vw;
+    }
+
+    /* Section header */
+    .section-header h1 { font-size: 1.4rem; }
+
+    /* Stats: 2x2 */
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .stat-value { font-size: 1.5rem; }
+
+    /* Action items: stack */
+    .action-item { flex-wrap: wrap; }
+    .action-item .btn-action-sm { margin-left: auto; }
+
+    /* Infra grid: 1 col */
+    .infra-grid { grid-template-columns: 1fr; }
+
+    /* Asset card header: stack */
+    .asset-card-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .asset-card-title { flex-wrap: wrap; }
+
+    /* Funnel cards: 1 col */
+    .funnel-grid { grid-template-columns: 1fr; }
+    .funnel-card { flex-direction: row; }
+    .funnel-meta { gap: 0.5rem; }
+
+    /* Email tabs: horizontal scroll */
+    .email-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .email-tabs::-webkit-scrollbar { display: none; }
+    .email-tab { white-space: nowrap; flex-shrink: 0; }
+
+    /* Email sequence: stack label */
+    .email-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    /* Email node: stack vertically */
+    .email-node { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .email-connector { margin: 0 0 0 10px; height: 16px; }
+
+    /* Links: 1 col */
+    .links-grid { grid-template-columns: 1fr; }
+
+    /* Kanban: 1 col */
+    .kanban-board { grid-template-columns: 1fr; }
+
+    /* Note form row: stack */
+    .note-form-row { flex-direction: column; }
+
+    /* Priority banner: stack */
+    .priority-banner { flex-direction: column; align-items: flex-start; }
+
+    /* Stats highlight card */
+    .stat-card.highlight { grid-column: span 2; }
+
+    /* Funnel progress */
+    .funnel-progress-wrap { margin-bottom: 0.5rem; }
+}
+
+/* ============================================
+   RESPONSIVE — SMALL MOBILE (≤ 400px)
+   ============================================ */
+@media (max-width: 400px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .stat-card { padding: 1rem 0.75rem; }
+    .main-content { padding: 0.75rem; padding-top: 68px; }
+    .glass-card { padding: 1rem; }
+    .funnel-card { flex-direction: column; }
+    .funnel-num { font-size: 1.8rem; }
 }
 
 /* ============================================
