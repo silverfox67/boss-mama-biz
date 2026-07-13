@@ -163,12 +163,45 @@ h1, h2, h3 { font-family: var(--font-heading); }
     box-shadow: 0 0 10px var(--primary-glow);
 }
 
-.pin-hidden-input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    width: 1px;
-    height: 1px;
+.pin-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 240px;
+}
+
+.pin-key {
+    background: rgba(255,248,232,0.05);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 600;
+    height: 58px;
+    cursor: pointer;
+    transition: var(--transition);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.pin-key:hover,
+.pin-key:active {
+    background: var(--primary-glow);
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: scale(0.96);
+}
+
+.pin-key-del {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+
+.pin-key-empty {
+    /* spacer cell for 0 centering */
 }
 
 .pin-error {

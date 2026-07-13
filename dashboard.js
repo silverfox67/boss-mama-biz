@@ -23,59 +23,86 @@ hamburgerBtn?.addEventListener('click', () => {
 sidebarOverlay?.addEventListener('click', closeSidebar);
 
 // ── PIN Authentication ──────────────────────
-const pinScreen   = document.getElementById('pin-screen');
-const dashboard   = document.getElementById('dashboard');
-const pinInput    = document.getElementById('pin-input');
-const pinError    = document.getElementById('pin-error');
-const pinDots     = [
+const pinScreen = document.getElementById('pin-screen');
+const dashboard = document.getElementById('dashboard');
+const pinError  = document.getElementById('pin-error');
+const pinDots   = [
     document.getElementById('dot-0'),
     document.getElementById('dot-1'),
     document.getElementById('dot-2'),
     document.getElementById('dot-3'),
 ];
 
-// Focus the hidden input on any click
-document.addEventListener('click', () => {
-    if (pinScreen && !pinScreen.classList.contains('hidden')) {
-        pinInput.focus();
-    }
-});
+let pinEntry = []; // track entered digits
 
-if (pinInput) {
-    pinInput.addEventListener('input', () => {
-        const val = pinInput.value;
+function updateDots() {
+    pinDots.forEach((dot, i) => {
+        dot.classList.toggle('filled', i < pinEntry.length);
+    });
+}
 
-        // Update dots
-        pinDots.forEach((dot, i) => {
-            dot.classList.toggle('filled', i < val.length);
-        });
+function unlockDashboard() {
+    pinScreen.style.opacity = '0';
+    pinScreen.style.transition = 'opacity 0.5s ease';
+    setTimeout(() => {
+        pinScreen.classList.add('hidden');
+        dashboard.classList.remove('hidden');
+        dashboard.style.animation = 'fadeUp 0.5s ease';
+    }, 450);
+}
 
-        // Hide error when typing
+function wrongPin() {
+    pinError.classList.add('visible');
+    document.querySelector('.pin-box').classList.add('shake');
+    setTimeout(() => {
+        document.querySelector('.pin-box').classList.remove('shake');
+        pinEntry = [];
+        updateDots();
+    }, 450);
+}
+
+// Keypad button clicks
+document.querySelectorAll('.pin-key[data-digit]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        if (pinEntry.length >= 4) return;
+        pinEntry.push(btn.dataset.digit);
         pinError.classList.remove('visible');
+        updateDots();
 
-        // Check PIN when 4 digits entered
-        if (val.length === 4) {
-            if (val === CORRECT_PIN) {
-                pinScreen.style.opacity = '0';
-                pinScreen.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => {
-                    pinScreen.classList.add('hidden');
-                    dashboard.classList.remove('hidden');
-                    dashboard.style.animation = 'fadeUp 0.5s ease';
-                }, 450);
+        if (pinEntry.length === 4) {
+            const entered = pinEntry.join('');
+            if (entered === CORRECT_PIN) {
+                unlockDashboard();
             } else {
-                // Wrong PIN
-                pinError.classList.add('visible');
-                document.querySelector('.pin-box').classList.add('shake');
-                setTimeout(() => {
-                    document.querySelector('.pin-box').classList.remove('shake');
-                    pinInput.value = '';
-                    pinDots.forEach(d => d.classList.remove('filled'));
-                }, 450);
+                wrongPin();
             }
         }
     });
-}
+});
+
+// Delete key
+document.getElementById('pin-delete')?.addEventListener('click', () => {
+    pinEntry.pop();
+    pinError.classList.remove('visible');
+    updateDots();
+});
+
+// Also support physical keyboard for desktop
+document.addEventListener('keydown', (e) => {
+    if (pinScreen.classList.contains('hidden')) return;
+    if (e.key >= '0' && e.key <= '9' && pinEntry.length < 4) {
+        pinEntry.push(e.key);
+        pinError.classList.remove('visible');
+        updateDots();
+        if (pinEntry.length === 4) {
+            pinEntry.join('') === CORRECT_PIN ? unlockDashboard() : wrongPin();
+        }
+    } else if (e.key === 'Backspace') {
+        pinEntry.pop();
+        updateDots();
+    }
+});
+
 
 // ── Section Navigation ──────────────────────
 function showSection(name) {
