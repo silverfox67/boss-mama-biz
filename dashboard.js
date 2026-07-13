@@ -63,7 +63,8 @@ function wrongPin() {
 
 // Keypad button clicks
 document.querySelectorAll('.pin-key[data-digit]').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
         if (pinEntry.length >= 4) return;
         pinEntry.push(btn.dataset.digit);
         pinError.classList.remove('visible');
@@ -81,7 +82,8 @@ document.querySelectorAll('.pin-key[data-digit]').forEach(btn => {
 });
 
 // Delete key
-document.getElementById('pin-delete')?.addEventListener('click', () => {
+document.getElementById('pin-delete')?.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
     pinEntry.pop();
     pinError.classList.remove('visible');
     updateDots();
