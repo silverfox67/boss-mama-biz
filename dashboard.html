@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss Mama Biz | Business Dashboard</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<!-- ===== PIN LOGIN SCREEN ===== -->
+<div id="pin-screen" class="pin-screen">
+    <div class="pin-box">
+        <div class="pin-logo">
+            <span class="pin-logo-text">BOSS MAMA BIZ</span>
+            <span class="pin-logo-sub">BUSINESS DASHBOARD</span>
+        </div>
+        <p class="pin-label">Enter your 4-digit PIN</p>
+        <div class="pin-dots" id="pin-dots">
+            <span class="pin-dot" id="dot-0"></span>
+            <span class="pin-dot" id="dot-1"></span>
+            <span class="pin-dot" id="dot-2"></span>
+            <span class="pin-dot" id="dot-3"></span>
+        </div>
+        <input type="password" id="pin-input" class="pin-hidden-input" maxlength="4" inputmode="numeric" autocomplete="off" autofocus>
+        <p class="pin-error" id="pin-error">Incorrect PIN. Try again.</p>
+        <p class="pin-hint">Click anywhere to activate the PIN field</p>
+    </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="dashboard" class="dashboard hidden">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <span class="sidebar-logo-text">BOSS MAMA BIZ</span>
+            <span class="sidebar-logo-sub">EST. 2023</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-section="overview">
+                <span class="nav-icon">📊</span>
+                <span>Overview</span>
+            </a>
+            <a href="#" class="nav-item urgent" data-section="assets">
+                <span class="nav-icon">📋</span>
+                <span>Assets Needed</span>
+                <span class="nav-badge">!</span>
+            </a>
+            <a href="#" class="nav-item" data-section="funnels">
+                <span class="nav-icon">🔁</span>
+                <span>Sales Funnels</span>
+            </a>
+            <a href="#" class="nav-item" data-section="emails">
+                <span class="nav-icon">📧</span>
+                <span>Email Sequences</span>
+            </a>
+            <a href="#" class="nav-item" data-section="links">
+                <span class="nav-icon">⚡</span>
+                <span>Quick Links</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="/" class="sidebar-back-link">← Back to Website</a>
+            <span class="sidebar-version">v1.0 · Build July 2026</span>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- ── OVERVIEW ── -->
+        <section id="section-overview" class="dash-section active">
+            <div class="section-header">
+                <h1>Welcome back, Kristan 👑</h1>
+                <p>Here's where your business stands today.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-icon">👥</span>
+                    <div class="stat-value">—</div>
+                    <div class="stat-label">Total Subscribers</div>
+                    <div class="stat-sub"><a href="https://app.brevo.com" target="_blank">View in Brevo →</a></div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🔁</span>
+                    <div class="stat-value">0 / 4</div>
+                    <div class="stat-label">Funnels Live</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">📦</span>
+                    <div class="stat-value">0 / 4</div>
+                    <div class="stat-label">Products Connected</div>
+                </div>
+                <div class="stat-card highlight">
+                    <span class="stat-icon">✅</span>
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Setup Tasks Complete</div>
+                </div>
+            </div>
+
+            <div class="glass-card action-card">
+                <h3>🔴 Your Action Items — Start Here</h3>
+                <p>Everything else is built and waiting. We just need a few things from you!</p>
+                <div class="action-list">
+                    <div class="action-item priority" id="goto-assets-btn">
+                        <span class="action-num">1</span>
+                        <div class="action-text">
+                            <strong>Provide your product files & links</strong>
+                            <p>Your PDFs, course links, and Stan Store URLs so we can wire up your funnels.</p>
+                        </div>
+                        <a href="#" class="btn-action-sm" data-section="assets">Go →</a>
+                    </div>
+                    <div class="action-item">
+                        <span class="action-num">2</span>
+                        <div class="action-text">
+                            <strong>Set up your Stripe account</strong>
+                            <p>We need Stripe payment links to replace the checkout mockup on your site.</p>
+                        </div>
+                        <a href="https://stripe.com/register" target="_blank" class="btn-action-sm">Go →</a>
+                    </div>
+                    <div class="action-item">
+                        <span class="action-num">3</span>
+                        <div class="action-text">
+                            <strong>Verify your email forwarding</strong>
+                            <p>Check <strong>kristanoconnor559@gmail.com</strong> for a Cloudflare email — click the link to activate <em>kristan@bossmamabiz.com</em>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card infra-card">
+                <h3>✅ What's Already Live</h3>
+                <div class="infra-grid">
+                    <div class="infra-item done"><span>✅</span> bossmamabiz.com is live</div>
+                    <div class="infra-item done"><span>✅</span> Auto-deploys from GitHub</div>
+                    <div class="infra-item done"><span>✅</span> Email capture → Brevo List #10</div>
+                    <div class="infra-item done"><span>✅</span> kristan@bossmamabiz.com routing active</div>
+                    <div class="infra-item done"><span>✅</span> SSL + Cloudflare CDN</div>
+                    <div class="infra-item pending"><span>⏳</span> Stripe payments (needs setup)</div>
+                    <div class="infra-item pending"><span>⏳</span> Email automations (needs assets)</div>
+                    <div class="infra-item pending"><span>⏳</span> Product delivery pages</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── ASSETS NEEDED ── -->
+        <section id="section-assets" class="dash-section">
+            <div class="section-header">
+                <h1>📋 Assets Needed From You</h1>
+                <p>Paste your links from Stan Store. This is all we need to finish building your 4 sales funnels!</p>
+            </div>
+
+            <div class="priority-banner">
+                <span class="priority-badge">⭐ STEP 1 — DO THIS FIRST</span>
+                <p>Once submitted, we can finish all 4 funnels and have your business running on full autopilot. Takes about 5 minutes!</p>
+            </div>
+
+            <form id="assets-form">
+
+                <!-- Product 1 -->
+                <div class="glass-card asset-card" id="asset-1">
+                    <div class="asset-card-header">
+                        <div class="asset-card-title">
+                            <span class="asset-tag free">FREE</span>
+                            <div>
+                                <h3>Free Side Hustle Roadmap</h3>
+                                <p>Your lead magnet — the free 5-step checklist</p>
+                            </div>
+                        </div>
+                        <div class="asset-status-badge pending">⏳ Pending</div>
+                    </div>
+                    <div class="asset-fields">
+                        <div class="field-group">
+                            <label for="roadmap-link">PDF Download Link <span class="field-req">*</span></label>
+                            <input type="url" id="roadmap-link" name="roadmap-link" placeholder="https://drive.google.com/file/..." class="dash-input">
+                            <p class="field-help">Google Drive, Dropbox, Stan Store, or any shareable link to the PDF</p>
+                        </div>
+                        <div class="field-group">
+                            <label for="roadmap-notes">Notes about this product</label>
+                            <input type="text" id="roadmap-notes" name="roadmap-notes" placeholder="e.g. '5-page PDF, made in Canva'" class="dash-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="glass-card asset-card" id="asset-2">
+                    <div class="asset-card-header">
+                        <div class="asset-card-title">
+                            <span class="asset-tag low">$27</span>
+                            <div>
+                                <h3>Create & Sell Your First Product</h3>
+                                <p>Your entry-level paid guide</p>
+                            </div>
+                        </div>
+                        <div class="asset-status-badge pending">⏳ Pending</div>
+                    </div>
+                    <div class="asset-fields">
+                        <div class="field-group">
+                            <label for="guide-link">Product / Download Link <span class="field-req">*</span></label>
+                            <input type="url" id="guide-link" name="guide-link" placeholder="https://stan.store/..." class="dash-input">
+                        </div>
+                        <div class="field-group">
+                            <label for="guide-stripe">Stripe Payment Link (if you have one)</label>
+                            <input type="url" id="guide-stripe" name="guide-stripe" placeholder="https://buy.stripe.com/..." class="dash-input">
+                        </div>
+                        <div class="field-group">
+                            <label for="guide-notes">What's included?</label>
+                            <input type="text" id="guide-notes" name="guide-notes" placeholder="Format, page count, video length, etc." class="dash-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="glass-card asset-card" id="asset-3">
+                    <div class="asset-card-header">
+                        <div class="asset-card-title">
+                            <span class="asset-tag mid">$197</span>
+                            <div>
+                                <h3>Boss VA Training Academy</h3>
+                                <p>Your virtual assistant training course</p>
+                            </div>
+                        </div>
+                        <div class="asset-status-badge pending">⏳ Pending</div>
+                    </div>
+                    <div class="asset-fields">
+                        <div class="field-group">
+                            <label for="academy-link">Course Access Link <span class="field-req">*</span></label>
+                            <input type="url" id="academy-link" name="academy-link" placeholder="https://stan.store/... or Teachable/Notion link" class="dash-input">
+                        </div>
+                        <div class="field-group">
+                            <label for="academy-stripe">Stripe Payment Link</label>
+                            <input type="url" id="academy-stripe" name="academy-stripe" placeholder="https://buy.stripe.com/..." class="dash-input">
+                        </div>
+                        <div class="field-group">
+                            <label for="academy-notes">What's included in the Academy?</label>
+                            <textarea id="academy-notes" name="academy-notes" placeholder="e.g. '5 video modules, Canva templates, portfolio workshop, job board access...'" class="dash-input dash-textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="glass-card asset-card" id="asset-4">
+                    <div class="asset-card-header">
+                        <div class="asset-card-title">
+                            <span class="asset-tag high">$597</span>
+                            <div>
+                                <h3>The Boss Suite</h3>
+                                <p>Your flagship done-for-you business system</p>
+                            </div>
+                        </div>
+                        <div class="asset-status-badge pending">⏳ Pending</div>
+                    </div>
+                    <div class="asset-fields">
+                        <div class="field-group">
+                            <label for="suite-link">Suite Access / Download Link <span class="field-req">*</span></label>
+                            <input type="url" id="suite-link" name="suite-link" placeholder="https://..." class="dash-input">
+                        </div>
+                        <div class="field-group">
+                            <label for="suite-stripe">Stripe Payment Link</label>
+                            <input type="url" id="suite-stripe" name="suite-stripe" placeholder="https://buy.stripe.com/..." class="dash-input">
+                        </div>
+                        <div class="field-group">
+                            <label for="suite-notes">What's included in the Boss Suite?</label>
+                            <textarea id="suite-notes" name="suite-notes" placeholder="e.g. 'Funnel templates, 3 resell products, MRR license, email scripts, automation setup...'" class="dash-input dash-textarea"></textarea>
+                        </div>
+                        <div class="field-group">
+                            <label for="suite-affiliate">Affiliate Commission Structure</label>
+                            <input type="text" id="suite-affiliate" name="suite-affiliate" placeholder="e.g. '50% tier 1, 10% tier 2 — tracked via...' " class="dash-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Assets -->
+                <div class="glass-card asset-card" id="asset-personal">
+                    <div class="asset-card-header">
+                        <div class="asset-card-title">
+                            <span class="asset-tag personal">YOU</span>
+                            <div>
+                                <h3>Personal Assets</h3>
+                                <p>For branded emails and payment setup</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="asset-fields">
+                        <div class="field-group">
+                            <label for="headshot-link">Your Headshot Photo Link</label>
+                            <input type="url" id="headshot-link" name="headshot-link" placeholder="Google Drive, Dropbox, or image URL" class="dash-input">
+                        </div>
+                        <div class="field-group">
+                            <label for="stripe-email">Your Stripe Account Email (or "Not set up yet")</label>
+                            <input type="text" id="stripe-email" name="stripe-email" placeholder="your@email.com or 'not set up yet'" class="dash-input">
+                        </div>
+                        <div class="field-group">
+                            <label for="extra-notes">Anything else we should know?</label>
+                            <textarea id="extra-notes" name="extra-notes" placeholder="Any other links, notes, or questions..." class="dash-input dash-textarea" style="min-height: 80px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="assets-submit-wrapper">
+                    <button type="submit" class="btn-primary-dash" id="assets-submit-btn">
+                        📤 Submit My Assets to Todd
+                    </button>
+                    <p class="submit-note">This emails everything to kristan@bossmamabiz.com so we can finish your funnels.</p>
+                </div>
+            </form>
+        </section>
+
+        <!-- ── FUNNELS ── -->
+        <section id="section-funnels" class="dash-section">
+            <div class="section-header">
+                <h1>🔁 Your 4 Sales Funnels</h1>
+                <p>Each funnel runs completely automatically once a customer enters. Zero ongoing work from you.</p>
+            </div>
+
+            <div class="funnel-grid">
+                <div class="glass-card funnel-card">
+                    <div class="funnel-num">1</div>
+                    <div class="funnel-info">
+                        <div class="funnel-tag free">FREE OFFER FUNNEL</div>
+                        <h3>Free Roadmap Funnel</h3>
+                        <p>Someone opts in for the free roadmap → receives PDF → gets 6 nurture emails over 10 days → sold toward $27 guide then $597 suite</p>
+                        <div class="funnel-meta">
+                            <span>📧 6 Emails</span>
+                            <span>📅 10 Days</span>
+                            <span>🎯 Sells: $27 + $597</span>
+                        </div>
+                        <div class="funnel-progress-wrap">
+                            <div class="funnel-progress-bar"><div class="funnel-progress-fill" style="width: 20%"></div></div>
+                            <span class="funnel-pct">20%</span>
+                        </div>
+                        <div class="funnel-status needs-assets">⏳ Waiting on Assets</div>
+                    </div>
+                </div>
+
+                <div class="glass-card funnel-card">
+                    <div class="funnel-num">2</div>
+                    <div class="funnel-info">
+                        <div class="funnel-tag low">$27 BUYER FUNNEL</div>
+                        <h3>Digital Guide Buyer Funnel</h3>
+                        <p>Purchases $27 guide → instant delivery → 4 follow-up emails over 6 days → upsold to $197 VA Academy</p>
+                        <div class="funnel-meta">
+                            <span>📧 4 Emails</span>
+                            <span>📅 6 Days</span>
+                            <span>🎯 Sells: $197</span>
+                        </div>
+                        <div class="funnel-progress-wrap">
+                            <div class="funnel-progress-bar"><div class="funnel-progress-fill" style="width: 10%"></div></div>
+                            <span class="funnel-pct">10%</span>
+                        </div>
+                        <div class="funnel-status not-started">🔴 Not Started</div>
+                    </div>
+                </div>
+
+                <div class="glass-card funnel-card">
+                    <div class="funnel-num">3</div>
+                    <div class="funnel-info">
+                        <div class="funnel-tag mid">$197 BUYER FUNNEL</div>
+                        <h3>VA Academy Buyer Funnel</h3>
+                        <p>Joins VA Academy → onboarding email + 3 follow-ups over 10 days → upsold to The Boss Suite $597</p>
+                        <div class="funnel-meta">
+                            <span>📧 4 Emails</span>
+                            <span>📅 10 Days</span>
+                            <span>🎯 Sells: $597</span>
+                        </div>
+                        <div class="funnel-progress-wrap">
+                            <div class="funnel-progress-bar"><div class="funnel-progress-fill" style="width: 10%"></div></div>
+                            <span class="funnel-pct">10%</span>
+                        </div>
+                        <div class="funnel-status not-started">🔴 Not Started</div>
+                    </div>
+                </div>
+
+                <div class="glass-card funnel-card">
+                    <div class="funnel-num">4</div>
+                    <div class="funnel-info">
+                        <div class="funnel-tag high">$597 BUYER FUNNEL</div>
+                        <h3>Boss Suite Buyer Funnel</h3>
+                        <p>Purchases The Boss Suite → full onboarding delivery → 3 follow-ups over 7 days → activated as affiliates to refer others</p>
+                        <div class="funnel-meta">
+                            <span>📧 4 Emails</span>
+                            <span>📅 7 Days</span>
+                            <span>🎯 Goal: Referrals</span>
+                        </div>
+                        <div class="funnel-progress-wrap">
+                            <div class="funnel-progress-bar"><div class="funnel-progress-fill" style="width: 10%"></div></div>
+                            <span class="funnel-pct">10%</span>
+                        </div>
+                        <div class="funnel-status not-started">🔴 Not Started</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── EMAIL SEQUENCES ── -->
+        <section id="section-emails" class="dash-section">
+            <div class="section-header">
+                <h1>📧 Email Sequence Map</h1>
+                <p>All 18 emails across your 4 automated funnels. These send without you doing anything.</p>
+            </div>
+
+            <div class="email-tabs">
+                <button class="email-tab active" data-funnel="f1">Funnel 1: Free Roadmap</button>
+                <button class="email-tab" data-funnel="f2">Funnel 2: $27 Buyer</button>
+                <button class="email-tab" data-funnel="f3">Funnel 3: $197 Buyer</button>
+                <button class="email-tab" data-funnel="f4">Funnel 4: $597 Buyer</button>
+            </div>
+
+            <div id="email-funnel-f1" class="email-funnel-content active">
+                <div class="email-sequence">
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 0</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "Your Free Roadmap is here! 🎉"</div>
+                            <div class="email-goal">Deliver PDF download link + warm welcome</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 1</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "The #1 mistake moms make when starting online"</div>
+                            <div class="email-goal">Educate + build trust + increase open rate</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 3</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "How I made my first $27 — step by step"</div>
+                            <div class="email-goal">Story sell → pitch $27 Create & Sell Guide</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 5</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "Real talk: what online income actually looks like"</div>
+                            <div class="email-goal">Overcome objections + keep engagement</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 7</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "The shortcut I wish I had from day one"</div>
+                            <div class="email-goal">Hard pitch → $197 VA Training Academy</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 10</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "Before you go — one last thing"</div>
+                            <div class="email-goal">Boss Suite $597 pitch + urgency close</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="email-funnel-f2" class="email-funnel-content">
+                <div class="email-sequence">
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 0</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "You're in! Here's your guide 📥"</div>
+                            <div class="email-goal">Deliver product download + warm welcome</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 2</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "Quick tip to get your first product live faster"</div>
+                            <div class="email-goal">Add value + build momentum</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 4</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "What if you could also get HIRED for your skills?"</div>
+                            <div class="email-goal">Introduce VA Academy angle</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 6</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "Inside the Boss VA Training Academy"</div>
+                            <div class="email-goal">Full pitch → $197 VA Academy</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="email-funnel-f3" class="email-funnel-content">
+                <div class="email-sequence">
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 0</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "Welcome to Boss VA Academy! 🎓"</div>
+                            <div class="email-goal">Deliver access link + next steps</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 1</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "Your first assignment (takes 10 min)"</div>
+                            <div class="email-goal">Drive engagement + reduce churn</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 5</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "The secret the top earners use"</div>
+                            <div class="email-goal">Tease Boss Suite concept</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 10</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "Want done-for-you funnels on top of your skills?"</div>
+                            <div class="email-goal">Full pitch → Boss Suite $597</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="email-funnel-f4" class="email-funnel-content">
+                <div class="email-sequence">
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 0</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "You're a Boss! Here's everything 👑"</div>
+                            <div class="email-goal">Deliver full suite + onboarding instructions</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 1</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "How to make your first sale in 48 hours"</div>
+                            <div class="email-goal">Quick win setup guide</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 3</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "Your affiliate link is ready 🔗"</div>
+                            <div class="email-goal">Activate affiliate referral program</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                    <div class="email-connector"></div>
+                    <div class="email-node">
+                        <div class="email-day-badge">Day 7</div>
+                        <div class="email-card glass-card">
+                            <div class="email-subject">✉️ "This is how you scale past $1k/month"</div>
+                            <div class="email-goal">Retention + long-term momentum</div>
+                            <span class="email-status-pill pending">Draft Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── QUICK LINKS ── -->
+        <section id="section-links" class="dash-section">
+            <div class="section-header">
+                <h1>⚡ Quick Links</h1>
+                <p>Your entire tech stack at your fingertips.</p>
+            </div>
+
+            <div class="links-grid">
+                <a href="https://app.brevo.com" target="_blank" class="glass-card link-card">
+                    <div class="link-icon">📧</div>
+                    <div class="link-info">
+                        <h3>Brevo</h3>
+                        <p>Email automations, campaigns & subscriber list</p>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </a>
+                <a href="https://dashboard.stripe.com" target="_blank" class="glass-card link-card">
+                    <div class="link-icon">💳</div>
+                    <div class="link-info">
+                        <h3>Stripe</h3>
+                        <p>Payments, products & revenue dashboard</p>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </a>
+                <a href="https://dash.cloudflare.com" target="_blank" class="glass-card link-card">
+                    <div class="link-icon">☁️</div>
+                    <div class="link-info">
+                        <h3>Cloudflare</h3>
+                        <p>Site deployments, email routing & DNS</p>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </a>
+                <a href="https://github.com/silverfox67/boss-mama-biz" target="_blank" class="glass-card link-card">
+                    <div class="link-icon">💻</div>
+                    <div class="link-info">
+                        <h3>GitHub Repo</h3>
+                        <p>Site source code — every push auto-deploys live</p>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </a>
+                <a href="https://bossmamabiz.com" target="_blank" class="glass-card link-card">
+                    <div class="link-icon">🌐</div>
+                    <div class="link-info">
+                        <h3>Live Website</h3>
+                        <p>bossmamabiz.com — your live landing page</p>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </a>
+                <a href="https://stan.store" target="_blank" class="glass-card link-card">
+                    <div class="link-icon">🛒</div>
+                    <div class="link-info">
+                        <h3>Stan Store</h3>
+                        <p>Pull your existing product files and links from here</p>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </a>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
