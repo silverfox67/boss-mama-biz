@@ -482,32 +482,60 @@ a:hover {
 
 /* Mobile Responsiveness for 3D Carousel */
 @media (max-width: 768px) {
+    /* Nav logo — keep on one line */
+    .logo-wrapper .logo-text {
+        font-size: 1.2rem !important;
+        letter-spacing: 1.5px !important;
+    }
+    .logo-wrapper span:last-child {
+        font-size: 0.55rem !important;
+        letter-spacing: 3px !important;
+    }
+
     .carousel-container {
         height: 690px;
     }
-    
+
     .offer-card {
         width: 280px;
         height: 560px;
         padding: 1.5rem;
     }
-    
+
     .offer-card.prev {
         transform: translate3d(-100px, 0, -50px) rotateY(20deg) scale(0.85);
         opacity: 0.25;
     }
-    
+
     .offer-card.next {
         transform: translate3d(100px, 0, -50px) rotateY(-20deg) scale(0.85);
         opacity: 0.25;
     }
-    
-    .carousel-dots {
+
+    /* Carousel nav — pull arrows in, shrink gaps */
+    .carousel-nav {
         gap: 0.6rem;
+        padding: 0 0.5rem;
+        width: 100%;
+        justify-content: center;
     }
-    
+
+    .carousel-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+
+    .carousel-dots {
+        gap: 0.4rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .carousel-dot-label {
-        font-size: 0.7rem;
+        font-size: 0.62rem;
+        letter-spacing: 0.3px;
     }
 }
 
