@@ -185,3 +185,75 @@ if (funnelSection) observer.observe(funnelSection);
 
 // Default: show overview on load
 showSection('overview');
+
+// ── Client Call Notes (localStorage) ───────
+const addNoteForm   = document.getElementById('add-note-form');
+const notesTimeline = document.getElementById('notes-timeline');
+const NOTES_KEY     = 'bmb_call_notes';
+
+function loadSavedNotes() {
+    const saved = JSON.parse(localStorage.getItem(NOTES_KEY) || '[]');
+    saved.forEach(note => prependNoteCard(note, false));
+}
+
+function prependNoteCard({ date, summary, actions }, save = true) {
+    if (!summary) return;
+
+    const formattedDate = date
+        ? new Date(date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        : 'No date';
+
+    const actionLines = actions
+        ? actions.split('\n').filter(l => l.trim()).map(l => `<li>${l.trim()}</li>`).join('')
+        : '';
+
+    const card = document.createElement('div');
+    card.className = 'glass-card note-card';
+    card.innerHTML = `
+        <div class="note-header">
+            <div class="note-date-badge">${formattedDate}</div>
+            <div class="note-tag">Call Note</div>
+        </div>
+        <p class="note-summary">${summary}</p>
+        ${actionLines ? `
+        <div class="note-actions-block">
+            <span class="note-actions-label">Action Items:</span>
+            <ul>${actionLines}</ul>
+        </div>` : ''}
+    `;
+
+    // Insert at the top (newest first)
+    const firstCard = notesTimeline.querySelector('.note-card');
+    if (firstCard) {
+        notesTimeline.insertBefore(card, firstCard);
+    } else {
+        notesTimeline.appendChild(card);
+    }
+
+    if (save) {
+        const existing = JSON.parse(localStorage.getItem(NOTES_KEY) || '[]');
+        existing.unshift({ date, summary, actions });
+        localStorage.setItem(NOTES_KEY, JSON.stringify(existing));
+    }
+}
+
+if (addNoteForm) {
+    // Set today's date as default
+    const dateInput = document.getElementById('note-date');
+    if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
+
+    addNoteForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const date    = document.getElementById('note-date').value;
+        const summary = document.getElementById('note-summary').value.trim();
+        const actions = document.getElementById('note-actions').value.trim();
+
+        if (!summary) return;
+
+        prependNoteCard({ date, summary, actions });
+        addNoteForm.reset();
+        dateInput.value = new Date().toISOString().split('T')[0];
+    });
+
+    loadSavedNotes();
+}

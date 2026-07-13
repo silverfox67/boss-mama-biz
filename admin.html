@@ -61,6 +61,14 @@
                 <span class="nav-icon">⚡</span>
                 <span>Quick Links</span>
             </a>
+            <a href="#" class="nav-item" data-section="notes">
+                <span class="nav-icon">📞</span>
+                <span>Client Call Notes</span>
+            </a>
+            <a href="#" class="nav-item" data-section="improvements">
+                <span class="nav-icon">🛠️</span>
+                <span>Site Improvements</span>
+            </a>
         </nav>
         <div class="sidebar-footer">
             <a href="/" class="sidebar-back-link">← Back to Website</a>
@@ -645,6 +653,156 @@
                     </div>
                     <div class="link-arrow">→</div>
                 </a>
+            </div>
+        </section>
+
+        <!-- ── CLIENT CALL NOTES ── -->
+        <section id="section-notes" class="dash-section">
+            <div class="section-header">
+                <h1>📞 Client Call Notes</h1>
+                <p>Log every call with Kristan so nothing falls through the cracks.</p>
+            </div>
+
+            <div class="glass-card add-note-card">
+                <h3>➕ Log a New Call</h3>
+                <form id="add-note-form">
+                    <div class="note-form-row">
+                        <div class="field-group">
+                            <label for="note-date">Call Date</label>
+                            <input type="date" id="note-date" name="note-date" class="dash-input">
+                        </div>
+                        <div class="field-group" style="flex:2">
+                            <label for="note-summary">Call Summary</label>
+                            <input type="text" id="note-summary" name="note-summary" class="dash-input" placeholder="What did you discuss?">
+                        </div>
+                    </div>
+                    <div class="field-group" style="margin-top:0.8rem">
+                        <label for="note-actions">Action Items from this Call</label>
+                        <textarea id="note-actions" name="note-actions" class="dash-input dash-textarea" placeholder="e.g. Get PDF link from Kristan, set up Stripe..." style="min-height:70px"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary-dash" style="margin-top:1rem; padding:0.7rem 1.8rem; font-size:0.9rem">Save Note</button>
+                </form>
+            </div>
+
+            <div id="notes-timeline" class="notes-timeline">
+                <!-- Pre-loaded note -->
+                <div class="glass-card note-card">
+                    <div class="note-header">
+                        <div class="note-date-badge">Jul 13, 2026</div>
+                        <div class="note-tag">Strategy Call</div>
+                    </div>
+                    <p class="note-summary">Kristan called wanting help building sales funnels. She has existing products in her Stan Store. Goal is to migrate off Stan Store ($99/mo) onto the custom zero-cost stack.</p>
+                    <div class="note-actions-block">
+                        <span class="note-actions-label">Action Items:</span>
+                        <ul>
+                            <li>Collect product files & links from her Stan Store</li>
+                            <li>Set up Stripe account for payments</li>
+                            <li>Build 4 Brevo email automation sequences</li>
+                            <li>Switch email forwarding to kristanoconnor559@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── SITE IMPROVEMENTS ── -->
+        <section id="section-improvements" class="dash-section">
+            <div class="section-header">
+                <h1>🛠️ Site Improvements Roadmap</h1>
+                <p>Planned, in-progress, and completed improvements to bossmamabiz.com.</p>
+            </div>
+
+            <div class="kanban-board">
+
+                <!-- TO DO -->
+                <div class="kanban-col">
+                    <div class="kanban-col-header todo">📋 Planned</div>
+                    <div class="kanban-cards" id="col-todo">
+                        <div class="kanban-card glass-card">
+                            <span class="kanban-tag design">Design</span>
+                            <p>Add testimonials / social proof section</p>
+                        </div>
+                        <div class="kanban-card glass-card">
+                            <span class="kanban-tag design">Design</span>
+                            <p>Add "About Kristan" personal story section</p>
+                        </div>
+                        <div class="kanban-card glass-card">
+                            <span class="kanban-tag design">Design</span>
+                            <p>Add real product mockup images (eBook covers, course thumbnails)</p>
+                        </div>
+                        <div class="kanban-card glass-card">
+                            <span class="kanban-tag tech">Tech</span>
+                            <p>Full mobile responsiveness audit</p>
+                        </div>
+                        <div class="kanban-card glass-card">
+                            <span class="kanban-tag tech">Tech</span>
+                            <p>Add Google Analytics or Cloudflare Web Analytics</p>
+                        </div>
+                        <div class="kanban-card glass-card">
+                            <span class="kanban-tag funnel">Funnel</span>
+                            <p>Build thank-you / product delivery pages per product</p>
+                        </div>
+                        <div class="kanban-card glass-card">
+                            <span class="kanban-tag funnel">Funnel</span>
+                            <p>Add countdown timer / urgency to offer cards</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IN PROGRESS -->
+                <div class="kanban-col">
+                    <div class="kanban-col-header inprogress">⚡ In Progress</div>
+                    <div class="kanban-cards" id="col-inprogress">
+                        <div class="kanban-card glass-card">
+                            <span class="kanban-tag tech">Tech</span>
+                            <p>Connect real Stripe payment links to checkout buttons</p>
+                        </div>
+                        <div class="kanban-card glass-card">
+                            <span class="kanban-tag funnel">Funnel</span>
+                            <p>Build 4 Brevo email automation sequences (18 emails total)</p>
+                        </div>
+                        <div class="kanban-card glass-card">
+                            <span class="kanban-tag funnel">Funnel</span>
+                            <p>Collect product assets from Kristan (PDFs, course links)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DONE -->
+                <div class="kanban-col">
+                    <div class="kanban-col-header done">✅ Complete</div>
+                    <div class="kanban-cards" id="col-done">
+                        <div class="kanban-card glass-card done-card">
+                            <span class="kanban-tag complete">Live</span>
+                            <p>bossmamabiz.com live on Cloudflare Pages</p>
+                        </div>
+                        <div class="kanban-card glass-card done-card">
+                            <span class="kanban-tag complete">Live</span>
+                            <p>GitHub repo with auto-deploy on push</p>
+                        </div>
+                        <div class="kanban-card glass-card done-card">
+                            <span class="kanban-tag complete">Live</span>
+                            <p>Brevo email capture connected to List #10</p>
+                        </div>
+                        <div class="kanban-card glass-card done-card">
+                            <span class="kanban-tag complete">Live</span>
+                            <p>kristan@bossmamabiz.com email routing active</p>
+                        </div>
+                        <div class="kanban-card glass-card done-card">
+                            <span class="kanban-tag complete">Live</span>
+                            <p>SSL + Cloudflare CDN + custom domain</p>
+                        </div>
+                        <div class="kanban-card glass-card done-card">
+                            <span class="kanban-tag complete">Live</span>
+                            <p>Interactive quiz with carousel navigation</p>
+                        </div>
+                        <div class="kanban-card glass-card done-card">
+                            <span class="kanban-tag complete">Live</span>
+                            <p>Admin dashboard at bossmamabiz.com/admin</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
