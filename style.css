@@ -874,7 +874,7 @@ footer p {
 .about-container { display:grid; grid-template-columns:320px 1fr; gap:4rem; align-items:center; }
 .about-image-wrap { display:flex; justify-content:center; }
 .about-photo-frame { width:280px; height:360px; border-radius:20px; border:2px solid var(--primary); background:rgba(45,18,48,0.6); display:flex; align-items:center; justify-content:center; box-shadow:0 0 40px var(--primary-glow); position:relative; overflow:hidden; }
-.about-photo-frame img { width:100%; height:100%; object-fit:cover; object-position:right top; border-radius:18px; }
+.about-photo-frame img { width:100%; height:100%; object-fit:cover; object-position:center top; border-radius:18px; }
 .about-photo-frame::before { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(45,18,48,0.4) 0%,transparent 40%); pointer-events:none; z-index:1; }
 .about-photo-inner { display:flex; flex-direction:column; align-items:center; gap:1rem; z-index:2; }
 
