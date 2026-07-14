@@ -1,33 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
 
 :root {
-    /* Color Palette - Elegant Warm Champagne & Premium Charcoal */
-    --primary-hue: 38;
-    --primary-sat: 64%;
-    --primary-light: 72%;
-    
-    --primary: hsl(var(--primary-hue), var(--primary-sat), var(--primary-light));
-    --primary-hover: hsl(var(--primary-hue), var(--primary-sat), calc(var(--primary-light) - 8%));
-    --primary-glow: hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.3);
-    
-    --bg-dark: #161616; /* Clean charcoal slate matching the logo background */
-    --bg-header: #231c15; /* Rich warm dark espresso brown */
-    --bg-card: rgba(35, 28, 21, 0.75); /* Rich warm dark espresso for cards */
-    --bg-card-hover: rgba(50, 40, 30, 0.9);
-    --border-color: rgba(230, 195, 135, 0.15);
-    --border-hover: rgba(230, 195, 135, 0.35);
-    
-    --text-main: #fbf9f6;
-    --text-muted: #cbbbae;
-    --text-inverse: #120e0a;
-    
+    /* ── Boss Mama Biz Palette ────────────────────────────────────
+       Primary  : Hot Pink    #E8327A  (main accent, CTAs, borders)
+       Plum     : Deep Plum   #2D1230  (card & sidebar backgrounds)
+       Gold     : Honey Gold  #C9A84C  (prices, badges, secondary)
+       Dark     : Near Black  #0D0D0D  (page background)
+       Light    : Warm Cream  #F5F0E6  (alternating sections)
+    ─────────────────────────────────────────────────────────── */
+
+    --primary:        #E8327A;
+    --primary-hover:  #C4285E;
+    --primary-glow:   rgba(232, 50, 122, 0.25);
+
+    --gold:           #C9A84C;
+    --gold-glow:      rgba(201, 168, 76, 0.25);
+
+    --plum:           #2D1230;
+    --plum-light:     rgba(45, 18, 48, 0.75);
+
+    --bg-dark:        #0D0D0D;
+    --bg-header:      #160D1A;  /* deep plum-black for header/nav */
+    --bg-card:        rgba(45, 18, 48, 0.65);  /* plum-tinted cards */
+    --bg-card-hover:  rgba(55, 22, 58, 0.88);
+
+    --border-color:   rgba(232, 50, 122, 0.15);
+    --border-hover:   rgba(232, 50, 122, 0.38);
+
+    --text-main:    #F5F0E6;
+    --text-muted:   #C9A0B4;
+    --text-inverse: #1A0A14;
+
     --font-heading: 'Playfair Display', Georgia, serif;
-    --font-body: 'Outfit', sans-serif;
-    
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
-    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
-    
+    --font-body:    'Outfit', sans-serif;
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -42,8 +52,8 @@
 body {
     background-color: var(--bg-dark);
     background-image: 
-        radial-gradient(circle at 10% 20%, hsla(38, 64%, 72%, 0.06) 0%, transparent 45%),
-        radial-gradient(circle at 90% 80%, hsla(38, 64%, 72%, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 10% 20%, rgba(232, 50, 122, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 90% 80%, rgba(45, 18, 48, 0.18) 0%, transparent 50%),
         url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='v'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95 0.08' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.02 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23v)'/%3E%3C/svg%3E");
     color: var(--text-main);
     font-family: var(--font-body);
@@ -90,7 +100,15 @@ a:hover {
 }
 
 .gold-text {
-    color: #dfc493;
+    color: var(--gold);
+}
+
+.pink-text {
+    color: var(--primary);
+}
+
+.plum-text {
+    color: #b07ab8;
 }
 
 .pill-tag {
@@ -145,16 +163,16 @@ a:hover {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #e6c387 0%, #d4b074 100%);
-    color: var(--text-inverse);
-    box-shadow: 0 4px 15px rgba(230, 195, 135, 0.25);
+    background: linear-gradient(135deg, #F05595 0%, #E8327A 60%, #C4285E 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(232, 50, 122, 0.3);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(230, 195, 135, 0.45);
-    background: linear-gradient(135deg, #ffdca3 0%, #e6c387 100%);
-    color: var(--text-inverse);
+    box-shadow: 0 8px 25px rgba(232, 50, 122, 0.5);
+    background: linear-gradient(135deg, #ff6daa 0%, #F05595 60%, #E8327A 100%);
+    color: #ffffff;
 }
 
 .btn-secondary {
@@ -165,7 +183,7 @@ a:hover {
 
 .btn-secondary:hover {
     border-color: var(--primary);
-    background: rgba(230, 195, 135, 0.05);
+    background: rgba(232, 50, 122, 0.06);
     color: var(--primary);
 }
 
@@ -174,7 +192,7 @@ a:hover {
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: rgba(22, 22, 22, 0.85);
+    background-color: rgba(13, 5, 16, 0.88);
     background-image: 
         url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='v'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95 0.08' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.02 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23v)'/%3E%3C/svg%3E");
     backdrop-filter: blur(12px);
@@ -195,12 +213,12 @@ a:hover {
     font-size: 1.8rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    background: linear-gradient(135deg, #fff3d1 0%, #e6c387 50%, #b89253 100%);
+    background: linear-gradient(135deg, #ff85b3 0%, #E8327A 50%, #C9A84C 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: var(--primary);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 2px 8px rgba(232, 50, 122, 0.35));
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -248,31 +266,31 @@ a:hover {
     }
 }
 
-/* Quiz Section (Premium Warm Cream Contrast) */
+/* Quiz Section (Warm Cream Contrast) */
 .quiz-section {
-    background-color: #f7f4ef;
+    background-color: #F5F0E6;
     background-image: 
-        repeating-linear-gradient(90deg, rgba(18, 14, 10, 0.012) 0px, rgba(18, 14, 10, 0.012) 1px, transparent 1px, transparent 4px),
-        repeating-linear-gradient(0deg, rgba(18, 14, 10, 0.006) 0px, rgba(18, 14, 10, 0.006) 1px, transparent 1px, transparent 6px);
-    border-top: 1px solid rgba(184, 146, 83, 0.15);
-    border-bottom: 1px solid rgba(184, 146, 83, 0.15);
-    color: #29221b;
+        repeating-linear-gradient(90deg, rgba(26, 10, 20, 0.012) 0px, rgba(26, 10, 20, 0.012) 1px, transparent 1px, transparent 4px),
+        repeating-linear-gradient(0deg, rgba(26, 10, 20, 0.006) 0px, rgba(26, 10, 20, 0.006) 1px, transparent 1px, transparent 6px);
+    border-top: 1px solid rgba(232, 50, 122, 0.15);
+    border-bottom: 1px solid rgba(232, 50, 122, 0.15);
+    color: #1A0A14;
 }
 
 .quiz-section h2, 
 .quiz-section h3, 
 .quiz-section .quiz-question {
-    color: #120e0a;
+    color: #1A0A14;
 }
 
 .quiz-section p {
-    color: #5c4e40;
+    color: #5A2E45;
 }
 
 .quiz-section .pill-tag {
-    background: rgba(184, 146, 83, 0.08);
-    border: 1px solid rgba(184, 146, 83, 0.3);
-    color: #8c6d37;
+    background: rgba(232, 50, 122, 0.08);
+    border: 1px solid rgba(232, 50, 122, 0.3);
+    color: #C4285E;
 }
 
 .quiz-container {
@@ -283,15 +301,15 @@ a:hover {
 /* Overwrite Glass Card for the Light Section */
 .quiz-section .glass-card {
     background: #ffffff;
-    border: 1px solid rgba(184, 146, 83, 0.12);
-    box-shadow: 0 10px 30px rgba(41, 34, 27, 0.04);
-    color: #29221b;
+    border: 1px solid rgba(232, 50, 122, 0.12);
+    box-shadow: 0 10px 30px rgba(26, 10, 20, 0.06);
+    color: #1A0A14;
 }
 
 .quiz-section .glass-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(41, 34, 27, 0.08);
-    border-color: rgba(184, 146, 83, 0.25);
+    box-shadow: 0 16px 40px rgba(232, 50, 122, 0.12);
+    border-color: rgba(232, 50, 122, 0.28);
 }
 
 .quiz-box {
@@ -314,28 +332,28 @@ a:hover {
 }
 
 .quiz-option {
-    background: #faf8f5;
-    border: 1px solid rgba(184, 146, 83, 0.12);
+    background: #fdf7fa;
+    border: 1px solid rgba(232, 50, 122, 0.12);
     padding: 1.2rem;
     border-radius: 12px;
     cursor: pointer;
     font-size: 1.1rem;
     text-align: left;
     transition: var(--transition-smooth);
-    color: #5c4e40;
+    color: #5A2E45;
 }
 
 .quiz-option:hover {
-    background: #fdfaf7;
-    border-color: #b89253;
-    color: #120e0a;
+    background: #fff0f6;
+    border-color: var(--primary);
+    color: #1A0A14;
     transform: translateX(4px);
 }
 
 .quiz-progress {
     width: 100%;
     height: 6px;
-    background: #f0ede6;
+    background: rgba(232, 50, 122, 0.12);
     border-radius: 99px;
     margin-bottom: 2rem;
     overflow: hidden;
@@ -343,7 +361,7 @@ a:hover {
 
 .quiz-progress-bar {
     height: 100%;
-    background: var(--primary);
+    background: linear-gradient(90deg, var(--primary), #C9A84C);
     width: 0%;
     transition: var(--transition-smooth);
 }
@@ -604,31 +622,31 @@ a:hover {
     }
 }
 
-/* FAQ Section (Premium Warm Cream Contrast) */
+/* FAQ Section (Warm Cream Contrast) */
 .faq-section {
-    background-color: #f7f4ef;
+    background-color: #F5F0E6;
     background-image: 
-        repeating-linear-gradient(90deg, rgba(18, 14, 10, 0.012) 0px, rgba(18, 14, 10, 0.012) 1px, transparent 1px, transparent 4px),
-        repeating-linear-gradient(0deg, rgba(18, 14, 10, 0.006) 0px, rgba(18, 14, 10, 0.006) 1px, transparent 1px, transparent 6px);
-    border-top: 1px solid rgba(184, 146, 83, 0.15);
-    border-bottom: 1px solid rgba(184, 146, 83, 0.15);
-    color: #29221b;
+        repeating-linear-gradient(90deg, rgba(26, 10, 20, 0.012) 0px, rgba(26, 10, 20, 0.012) 1px, transparent 1px, transparent 4px),
+        repeating-linear-gradient(0deg, rgba(26, 10, 20, 0.006) 0px, rgba(26, 10, 20, 0.006) 1px, transparent 1px, transparent 6px);
+    border-top: 1px solid rgba(232, 50, 122, 0.15);
+    border-bottom: 1px solid rgba(232, 50, 122, 0.15);
+    color: #1A0A14;
 }
 
 .faq-section h2, 
 .faq-section .faq-question {
-    color: #120e0a;
+    color: #1A0A14;
 }
 
 .faq-section p, 
 .faq-section .faq-answer {
-    color: #5c4e40;
+    color: #5A2E45;
 }
 
 .faq-section .pill-tag {
-    background: rgba(184, 146, 83, 0.08);
-    border: 1px solid rgba(184, 146, 83, 0.3);
-    color: #8c6d37;
+    background: rgba(232, 50, 122, 0.08);
+    border: 1px solid rgba(232, 50, 122, 0.3);
+    color: #C4285E;
 }
 
 /* FAQ Accordion */
@@ -638,7 +656,7 @@ a:hover {
 }
 
 .faq-item {
-    border-bottom: 1px solid rgba(184, 146, 83, 0.15);
+    border-bottom: 1px solid rgba(232, 50, 122, 0.15);
     padding: 1.5rem 0;
 }
 
@@ -650,13 +668,13 @@ a:hover {
     align-items: center;
     cursor: pointer;
     user-select: none;
-    color: #120e0a;
+    color: #1A0A14;
 }
 
 .faq-question::after {
     content: '+';
     font-size: 1.6rem;
-    color: #b89253;
+    color: var(--primary);
     transition: var(--transition-smooth);
 }
 
@@ -668,7 +686,7 @@ a:hover {
     max-height: 0;
     overflow: hidden;
     transition: var(--transition-smooth);
-    color: #5c4e40;
+    color: #5A2E45;
     font-weight: 300;
 }
 
@@ -701,14 +719,14 @@ a:hover {
 }
 
 .modal-content {
-    background: #18130e;
+    background: #1A0820;
     border: 1px solid var(--primary);
     border-radius: 24px;
     width: 90%;
     max-width: 500px;
     padding: 3rem;
     position: relative;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 40px rgba(232, 50, 122, 0.1);
     transform: scale(0.9);
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -777,8 +795,8 @@ a:hover {
 
 /* Cross-sell checkbox (Order bump) */
 .order-bump {
-    background: rgba(230, 195, 135, 0.04);
-    border: 1px dashed var(--primary);
+    background: rgba(201, 168, 76, 0.04);
+    border: 1px dashed var(--gold);
     border-radius: 12px;
     padding: 1.2rem;
     margin-bottom: 2rem;
@@ -792,11 +810,11 @@ a:hover {
     width: 20px;
     height: 20px;
     margin-top: 0.2rem;
-    accent-color: var(--primary);
+    accent-color: var(--gold);
 }
 
 .order-bump-text h5 {
-    color: var(--primary);
+    color: var(--gold);
     font-family: var(--font-body);
     font-size: 1rem;
     margin-bottom: 0.25rem;

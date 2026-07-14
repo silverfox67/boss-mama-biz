@@ -7,23 +7,31 @@
 
 /* ── Variables (matches main site) ── */
 :root {
-    --bg-dark:       #0d0b0a;
-    --bg-sidebar:    #110f0d;
-    --bg-card:       rgba(255, 248, 232, 0.04);
-    --bg-card-hover: rgba(255, 248, 232, 0.07);
-    --primary:       #dfc493;
-    --primary-glow:  rgba(223, 196, 147, 0.2);
-    --primary-dim:   rgba(223, 196, 147, 0.6);
-    --text-main:     #f0e8d5;
-    --text-muted:    rgba(240, 232, 213, 0.5);
-    --border:        rgba(223, 196, 147, 0.12);
-    --border-hover:  rgba(223, 196, 147, 0.3);
+    /* ── Boss Mama Biz Palette (Dashboard) ────────────────────────
+       Primary  : Hot Pink    #E8327A
+       Plum     : Deep Plum   #1A0D20  (sidebar / card bg)
+       Gold     : Honey Gold  #C9A84C  (secondary)
+       Dark     : Near Black  #0A080C
+    ────────────────────────────────────────────────── */
+    --bg-dark:       #0A080C;
+    --bg-sidebar:    #160D1A;
+    --bg-card:       rgba(45, 18, 48, 0.55);
+    --bg-card-hover: rgba(55, 22, 58, 0.82);
+    --primary:       #E8327A;
+    --primary-glow:  rgba(232, 50, 122, 0.2);
+    --primary-dim:   rgba(232, 50, 122, 0.6);
+    --gold:          #C9A84C;
+    --gold-glow:     rgba(201, 168, 76, 0.2);
+    --text-main:     #F5EEF5;
+    --text-muted:    rgba(245, 238, 245, 0.5);
+    --border:        rgba(232, 50, 122, 0.12);
+    --border-hover:  rgba(232, 50, 122, 0.3);
     --font-heading:  'Cinzel', serif;
     --font-body:     'Lato', sans-serif;
     --sidebar-w:     260px;
     --transition:    all 0.25s ease;
 
-    /* Status colors */
+    /* Status colors — unchanged */
     --status-done:    #4ade80;
     --status-pending: #facc15;
     --status-none:    #f87171;
@@ -56,7 +64,7 @@ h1, h2, h3 { font-family: var(--font-heading); }
     align-items: center;
     justify-content: center;
     z-index: 9999;
-    background-image: radial-gradient(ellipse at center, rgba(223,196,147,0.07) 0%, transparent 70%);
+    background-image: radial-gradient(ellipse at center, rgba(232,50,122,0.08) 0%, rgba(45,18,48,0.2) 50%, transparent 75%);
 }
 
 .pin-box {
@@ -510,7 +518,7 @@ h1, h2, h3 { font-family: var(--font-heading); }
    ASSETS SECTION
    ============================================ */
 .priority-banner {
-    background: linear-gradient(135deg, rgba(248,113,113,0.1), rgba(223,196,147,0.08));
+    background: linear-gradient(135deg, rgba(248,113,113,0.1), rgba(232,50,122,0.06));
     border: 1px solid rgba(248,113,113,0.3);
     border-radius: 14px;
     padding: 1.2rem 1.5rem;
@@ -650,8 +658,8 @@ h1, h2, h3 { font-family: var(--font-heading); }
 }
 
 .btn-primary-dash {
-    background: linear-gradient(135deg, var(--primary), #c8a96b);
-    color: var(--bg-dark);
+    background: linear-gradient(135deg, #F05595, #E8327A, #C4285E);
+    color: #ffffff;
     font-family: var(--font-heading);
     font-size: 1rem;
     font-weight: 700;
@@ -661,12 +669,12 @@ h1, h2, h3 { font-family: var(--font-heading); }
     border-radius: 50px;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 4px 20px rgba(223,196,147,0.25);
+    box-shadow: 0 4px 20px rgba(232,50,122,0.3);
 }
 
 .btn-primary-dash:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(223,196,147,0.4);
+    box-shadow: 0 8px 30px rgba(232,50,122,0.5);
 }
 
 .btn-primary-dash:disabled {
@@ -760,7 +768,7 @@ h1, h2, h3 { font-family: var(--font-heading); }
 
 .funnel-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary), #c8a96b);
+    background: linear-gradient(90deg, var(--primary), #C9A84C);
     border-radius: 2px;
     transition: width 1s ease;
 }
@@ -1170,7 +1178,7 @@ h1, h2, h3 { font-family: var(--font-heading); }
     font-size: 0.7rem;
     font-weight: 700;
     color: var(--text-muted);
-    background: rgba(255,248,232,0.05);
+    background: rgba(232,50,122,0.06);
     padding: 0.2rem 0.6rem;
     border-radius: 6px;
     text-transform: uppercase;
@@ -1185,7 +1193,7 @@ h1, h2, h3 { font-family: var(--font-heading); }
 }
 
 .note-actions-block {
-    background: rgba(255,248,232,0.03);
+    background: rgba(232,50,122,0.04);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 0.8rem 1rem;
