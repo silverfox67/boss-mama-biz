@@ -903,3 +903,88 @@ document.getElementById('bridge-modal')?.addEventListener('click', e => {
 updateUsageBars();
 initQuiz();
 initCarousel();
+
+// ============================================================
+//  EVERGREEN BONUS COUNTDOWN — 4-hour rolling window
+// ============================================================
+(function initBonusBar() {
+    const BONUS_DURATION = 4 * 60 * 60; // 4 hours in seconds
+    const STORAGE_KEY    = 'bmb_bonus_start';
+
+    const bar        = document.getElementById('bonus-bar');
+    const hoursEl    = document.getElementById('bar-hours');
+    const minsEl     = document.getElementById('bar-mins');
+    const secsEl     = document.getElementById('bar-secs');
+    const dismissBtn = document.getElementById('bonus-bar-dismiss');
+    if (!bar) return;
+
+    // Init or resume timer
+    let startTime = parseInt(localStorage.getItem(STORAGE_KEY) || '0');
+    const now = Math.floor(Date.now() / 1000);
+    if (!startTime || (now - startTime) >= BONUS_DURATION) {
+        startTime = now;
+        localStorage.setItem(STORAGE_KEY, startTime.toString());
+    }
+
+    function getRemaining() {
+        const elapsed = Math.floor(Date.now() / 1000) - startTime;
+        let remaining = BONUS_DURATION - elapsed;
+        if (remaining <= 0) {
+            startTime = Math.floor(Date.now() / 1000);
+            localStorage.setItem(STORAGE_KEY, startTime.toString());
+            remaining = BONUS_DURATION;
+        }
+        return remaining;
+    }
+
+    function updateDisplay() {
+        const r = getRemaining();
+        const h = Math.floor(r / 3600);
+        const m = Math.floor((r % 3600) / 60);
+        const s = r % 60;
+        if (hoursEl) hoursEl.textContent = h.toString().padStart(2, '0');
+        if (minsEl)  minsEl.textContent  = m.toString().padStart(2, '0');
+        if (secsEl)  secsEl.textContent  = s.toString().padStart(2, '0');
+        // Bridge modal mini-timer
+        const bm = document.getElementById('bridge-timer-mins');
+        const bs = document.getElementById('bridge-timer-secs');
+        if (bm) bm.textContent = m.toString().padStart(2, '0');
+        if (bs) bs.textContent = s.toString().padStart(2, '0');
+    }
+
+    // Show bar when user scrolls past hero
+    const hero = document.querySelector('.hero');
+    const wasDismissed = sessionStorage.getItem('bmb_bar_dismissed');
+
+    if (!wasDismissed && hero) {
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) {
+                    bar.style.display = '';
+                    requestAnimationFrame(() => bar.classList.add('visible'));
+                } else {
+                    bar.classList.remove('visible');
+                }
+            });
+        }, { threshold: 0.05 });
+        io.observe(hero);
+    }
+
+    dismissBtn?.addEventListener('click', () => {
+        bar.classList.remove('visible');
+        sessionStorage.setItem('bmb_bar_dismissed', 'true');
+    });
+
+    // Inject mini timer into bridge modal
+    const bridgeForm = document.getElementById('bridge-form');
+    if (bridgeForm && !document.getElementById('bridge-bonus-timer')) {
+        const timerEl = document.createElement('div');
+        timerEl.id = 'bridge-bonus-timer';
+        timerEl.className = 'bridge-bonus-timer';
+        timerEl.innerHTML = `⏱ Bonus hold expires in <span id="bridge-timer-mins">00</span>:<span id="bridge-timer-secs">00</span>`;
+        bridgeForm.insertAdjacentElement('beforebegin', timerEl);
+    }
+
+    updateDisplay();
+    setInterval(updateDisplay, 1000);
+})();
