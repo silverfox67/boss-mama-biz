@@ -35,6 +35,9 @@
     --status-done:    #4ade80;
     --status-pending: #facc15;
     --status-none:    #f87171;
+
+    /* Shared gray from main site */
+    --bg-main:       #383838;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -97,9 +100,8 @@ h1, h2, h3 { font-family: var(--font-heading); }
     font-size: 1.6rem;
     font-weight: 700;
     letter-spacing: 4px;
-    color: var(--primary);
+    color: #ffffff;
     text-transform: uppercase;
-    text-shadow: 0 0 30px var(--primary-glow);
 }
 
 .pin-logo-sub {
@@ -280,7 +282,7 @@ h1, h2, h3 { font-family: var(--font-heading); }
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 2px;
-    color: var(--primary);
+    color: #ffffff;
     text-transform: uppercase;
 }
 
@@ -375,6 +377,8 @@ h1, h2, h3 { font-family: var(--font-heading); }
     flex: 1;
     padding: 2.5rem 3rem;
     max-width: calc(100vw - var(--sidebar-w));
+    background-color: var(--bg-main);
+    min-height: 100vh;
 }
 
 .dash-section { display: none; animation: fadeUp 0.4s ease; }
@@ -980,7 +984,7 @@ h1, h2, h3 { font-family: var(--font-heading); }
     font-family: var(--font-heading);
     font-size: 0.85rem;
     letter-spacing: 2px;
-    color: var(--primary);
+    color: #ffffff;
     text-transform: uppercase;
 }
 
