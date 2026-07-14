@@ -11,7 +11,7 @@
     <meta property="og:url" content="https://bossmamabiz.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=7.0">
+    <link rel="stylesheet" href="style.css?v=8.0">
 </head>
 <body>
 
@@ -144,7 +144,7 @@
                         </ul>
                         <div style="margin-top:auto;display:flex;flex-direction:column;gap:0.75rem;width:100%;">
                             <a href="https://stan.store/Kristan_Oconnor/p/the-stacked-sneak-peek-qukh6f7x" target="_blank" class="btn btn-primary" style="width:100%;text-align:center;">Get a Sneak Peek →</a>
-                            <a href="https://stan.store/affiliates/8f9bdd55-e647-44d1-89cf-78f3b3750daa" target="_blank" class="btn btn-secondary" style="width:100%;text-align:center;font-size:0.85rem;">Go Straight to Enrollment</a>
+                            <button class="btn btn-secondary bridge-link" data-url="https://stan.store/affiliates/8f9bdd55-e647-44d1-89cf-78f3b3750daa" data-product="Stacked by Emily" data-tagline="7+ income streams, mentorship &amp; real step-by-step skills." style="width:100%;font-size:0.85rem;">Enroll Now →</button>
                         </div>
                     </div>
 
@@ -164,7 +164,7 @@
                         </ul>
                         <div style="margin-top:auto;display:flex;flex-direction:column;gap:0.75rem;width:100%;">
                             <a href="https://stan.store/Kristan_Oconnor/p/bosssuite-sneak-peek" target="_blank" class="btn btn-primary" style="width:100%;text-align:center;">Get a Sneak Peek →</a>
-                            <a href="https://stan.store/affiliates/81495b81-cf82-4813-8634-7f8d9f4369ba" target="_blank" class="btn btn-secondary" style="width:100%;text-align:center;font-size:0.85rem;">Go Straight to Enrollment</a>
+                            <button class="btn btn-secondary bridge-link" data-url="https://stan.store/affiliates/81495b81-cf82-4813-8634-7f8d9f4369ba" data-product="The Boss Suite" data-tagline="Done-for-you funnels, products &amp; resell rights — the full business system." style="width:100%;font-size:0.85rem;">Enroll Now →</button>
                         </div>
                     </div>
 
@@ -185,7 +185,7 @@
                         </ul>
                         <div style="margin-top:auto;display:flex;flex-direction:column;gap:0.75rem;width:100%;">
                             <a href="https://stan.store/Kristan_Oconnor/p/preview-inside-fes" target="_blank" class="btn btn-primary" style="width:100%;text-align:center;">Get a Sneak Peek →</a>
-                            <a href="https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a" target="_blank" class="btn btn-secondary" style="width:100%;text-align:center;font-size:0.85rem;">Go Straight to Enrollment</a>
+                            <button class="btn btn-secondary bridge-link" data-url="https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a" data-product="Facebook Ecosystem Strategy" data-tagline="Turn your Facebook posts into income — no huge following required." style="width:100%;font-size:0.85rem;">Enroll Now →</button>
                         </div>
                     </div>
 
@@ -206,7 +206,7 @@
                         </ul>
                         <div style="margin-top:auto;display:flex;flex-direction:column;gap:0.75rem;width:100%;">
                             <button class="btn btn-primary" id="open-plr-filter-from-card" style="width:100%;">Filter by Your Niche First →</button>
-                            <a href="https://stan.store/affiliates/238a4731-b0b4-47ac-8956-51dbc49db694" target="_blank" class="btn btn-secondary" style="width:100%;text-align:center;font-size:0.85rem;">Browse the Vault Directly</a>
+                            <button class="btn btn-secondary bridge-link" data-url="https://stan.store/affiliates/238a4731-b0b4-47ac-8956-51dbc49db694" data-product="PLR Vault" data-tagline="Hundreds of done-for-you digital products — rebrand &amp; resell as your own." style="width:100%;font-size:0.85rem;">Browse the Vault Directly</button>
                         </div>
                     </div>
 
@@ -405,6 +405,29 @@
         </div>
     </div>
 
+
+    <!-- ===== BRIDGE MODAL (Email Capture Before Affiliate Redirect) ===== -->
+    <div id="bridge-modal" class="bridge-overlay" role="dialog" aria-modal="true" aria-label="Almost There">
+        <div class="bridge-box">
+            <button id="bridge-close" class="bridge-close" aria-label="Close">&times;</button>
+            <div class="bridge-glow"></div>
+            <div class="bridge-badge">🔥 You're Almost There!</div>
+            <h3 id="bridge-title" class="bridge-title">Stacked by Emily</h3>
+            <p id="bridge-tagline" class="bridge-tagline">7+ income streams. Real mentorship. Real results.</p>
+            <div class="bridge-perks">
+                <span>✓ Get Kristan's exclusive tips &amp; resources</span>
+                <span>✓ First to hear about new offers &amp; deals</span>
+                <span>✓ Free income-building guides delivered to you</span>
+            </div>
+            <form id="bridge-form" class="bridge-form" novalidate>
+                <input type="text" id="bridge-name" placeholder="Your first name" autocomplete="given-name" />
+                <input type="email" id="bridge-email" placeholder="your@email.com" required autocomplete="email" />
+                <button type="submit" id="bridge-submit" class="btn btn-primary bridge-submit">Yes! Take Me There →</button>
+            </form>
+            <button id="bridge-skip" class="bridge-skip">No thanks, take me directly →</button>
+            <p class="bridge-fine-print">No spam. Unsubscribe anytime. Your info is 100% safe.</p>
+        </div>
+    </div>
     <!-- ===== TOOL MODALS ===== -->
 
     <!-- Income Calculator -->
@@ -588,6 +611,6 @@
         <span class="boss-ai-bubble-label">Ask Boss AI</span>
     </div>
 
-    <script src="script.js?v=7.0"></script>
+    <script src="script.js?v=8.0"></script>
 </body>
 </html>

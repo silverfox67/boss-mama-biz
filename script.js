@@ -1,7 +1,13 @@
 // ============================================================
-//  BOSS MAMA BIZ — script.js v4.0
-//  Quiz · Carousel · Checkout · 4 Tools · Usage Limits · Boss AI
+//  BOSS MAMA BIZ — script.js v6.0
+//  Quiz · Carousel · Bridge Funnel · 4 Tools · Usage Limits · Boss AI
 // ============================================================
+
+// ---- BREVO CONFIG (add your keys to activate email capture) ----
+// Get your API key from: https://app.brevo.com/settings/keys/api
+// Get your List ID from: https://app.brevo.com/contact/list
+const BREVO_API_KEY = ''; // e.g. 'xkeysib-abc123...'
+const BREVO_LIST_ID = 2;  // Replace with your Brevo list ID number
 
 // ---- AFFILIATE LINKS ----
 const LINKS = {
@@ -789,6 +795,106 @@ document.querySelectorAll('.faq-question').forEach(item => {
             parent.classList.add('active');
         }
     });
+});
+
+// ============================================================
+//  BRIDGE MODAL — Email Capture Before Affiliate Redirect
+// ============================================================
+let _bridgeDestURL = '';
+
+function openBridgeModal(productName, tagline, destUrl) {
+    _bridgeDestURL = destUrl;
+    const title = document.getElementById('bridge-title');
+    const tag   = document.getElementById('bridge-tagline');
+    const modal = document.getElementById('bridge-modal');
+    if (title) title.textContent = productName;
+    if (tag)   tag.textContent   = tagline;
+    if (modal) { modal.classList.add('active'); }
+    setTimeout(() => document.getElementById('bridge-email')?.focus(), 100);
+}
+
+function closeBridgeModal() {
+    const modal = document.getElementById('bridge-modal');
+    if (modal) modal.classList.remove('active');
+    document.getElementById('bridge-form')?.reset();
+    _bridgeDestURL = '';
+}
+
+function goToDest() {
+    if (_bridgeDestURL) window.open(_bridgeDestURL, '_blank', 'noopener');
+    closeBridgeModal();
+}
+
+async function captureBrevoContact(email, firstName, productInterest) {
+    if (!BREVO_API_KEY) return; // No key configured yet
+    try {
+        const payload = {
+            email,
+            updateEnabled: true,
+            attributes: {}
+        };
+        if (firstName)       payload.attributes.FIRSTNAME = firstName;
+        if (productInterest) payload.attributes.LAST_PRODUCT_INTEREST = productInterest;
+        if (BREVO_LIST_ID)   payload.listIds = [Number(BREVO_LIST_ID)];
+        await fetch('https://api.brevo.com/v3/contacts', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'api-key': BREVO_API_KEY
+            },
+            body: JSON.stringify(payload)
+        });
+    } catch (_) { /* silent fail — redirect happens regardless */ }
+}
+
+// Intercept all bridge-link clicks
+document.querySelectorAll('.bridge-link').forEach(btn => {
+    btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const product = btn.getAttribute('data-product') || '';
+        const tagline = btn.getAttribute('data-tagline') || '';
+        const url     = btn.getAttribute('data-url') || '#';
+        // If already captured this session, go straight through
+        if (localStorage.getItem('bmb_bridge_done') === 'true') {
+            window.open(url, '_blank', 'noopener');
+            return;
+        }
+        openBridgeModal(product, tagline, url);
+    });
+});
+
+// Bridge form submit
+document.getElementById('bridge-form')?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const email     = (document.getElementById('bridge-email')?.value || '').trim();
+    const firstName = (document.getElementById('bridge-name')?.value  || '').trim();
+    const product   = document.getElementById('bridge-title')?.textContent || '';
+    const submitBtn = document.getElementById('bridge-submit');
+    if (!email) return;
+
+    if (submitBtn) { submitBtn.textContent = 'On your way! 🚀'; submitBtn.disabled = true; }
+
+    // Persist so bridge doesn't re-fire this session
+    localStorage.setItem('bmb_bridge_done', 'true');
+    localStorage.setItem('bmb_email', email);
+
+    // Fire Brevo (async, don't block the user)
+    captureBrevoContact(email, firstName, product);
+
+    // Small delight delay then redirect
+    setTimeout(() => {
+        goToDest();
+        if (submitBtn) { submitBtn.textContent = 'Yes! Take Me There →'; submitBtn.disabled = false; }
+    }, 700);
+});
+
+// Bridge skip, close, outside-click
+document.getElementById('bridge-skip')?.addEventListener('click',  goToDest);
+document.getElementById('bridge-close')?.addEventListener('click', closeBridgeModal);
+document.getElementById('bridge-modal')?.addEventListener('click', e => {
+    if (e.target === document.getElementById('bridge-modal')) closeBridgeModal();
 });
 
 // ============================================================
