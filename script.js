@@ -420,7 +420,7 @@ const aiFlow = [
         options: [
             { text: '$0 — Starting completely free', next: 'speed_free' },
             { text: '$27 — I can start small', next: 'speed_27' },
-            { text: '$100+ — I'm ready to invest', next: 'speed_invest' }
+            { text: "$100+ — I'm ready to invest", next: 'speed_invest' }
         ]
     },
     {
@@ -435,7 +435,7 @@ const aiFlow = [
         options: [
             { text: '📘 Facebook — I post but get nothing', next: 'social_fb' },
             { text: '📸 Instagram / TikTok', next: 'social_ig' },
-            { text: '🌐 I'm not really on any platform yet', next: 'social_none' }
+            { text: "🌐 I'm not really on any platform yet", next: 'social_none' }
         ]
     },
     { id: 'social_fb', result: 'fes' },
@@ -447,7 +447,7 @@ const aiFlow = [
         options: [
             { text: '1–3 hours (need it mostly automated)', next: 'explore_low' },
             { text: '4–10 hours (willing to put in the work)', next: 'explore_med' },
-            { text: '10+ hours (I'm serious about this)', next: 'explore_high' }
+            { text: "10+ hours (I'm serious about this)", next: 'explore_high' }
         ]
     },
     { id: 'explore_low', result: 'plr' },
