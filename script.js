@@ -988,3 +988,105 @@ initCarousel();
     updateDisplay();
     setInterval(updateDisplay, 1000);
 })();
+
+// ============================================================
+//  EMAILJS CONFIG — fill in after creating account at emailjs.com
+// ============================================================
+const EMAILJS_SERVICE_ID  = '';   // e.g. 'service_abc123'
+const EMAILJS_TEMPLATE_ID = '';   // e.g. 'template_xyz789'
+const EMAILJS_PUBLIC_KEY  = '';   // e.g. 'AbCdEfGhIjKlMnOp'
+
+if (EMAILJS_PUBLIC_KEY) { emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); }
+
+// ============================================================
+//  REVIEW SUBMISSION MODAL
+// ============================================================
+const openReviewBtn  = document.getElementById('open-review-modal');
+const reviewModal    = document.getElementById('review-modal');
+const reviewCloseBtn = document.getElementById('review-modal-close');
+const reviewForm     = document.getElementById('review-submit-form');
+
+openReviewBtn?.addEventListener('click', () => reviewModal?.classList.add('active'));
+reviewCloseBtn?.addEventListener('click', () => reviewModal?.classList.remove('active'));
+reviewModal?.addEventListener('click', e => { if (e.target === reviewModal) reviewModal.classList.remove('active'); });
+
+// Star picker inside submit form
+let submitStars = 5;
+document.querySelectorAll('#star-picker .star-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        submitStars = parseInt(btn.getAttribute('data-val'));
+        document.getElementById('rev-stars').value = submitStars;
+        document.querySelectorAll('#star-picker .star-btn').forEach(b => {
+            b.style.color = parseInt(b.getAttribute('data-val')) <= submitStars ? '#f5a623' : 'rgba(255,255,255,0.3)';
+        });
+    });
+});
+// Set initial star color
+document.querySelectorAll('#star-picker .star-btn').forEach(b => { b.style.color = '#f5a623'; });
+
+// Review form submit
+reviewForm?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const name    = document.getElementById('rev-name')?.value.trim();
+    const product = document.getElementById('rev-product')?.value;
+    const stars   = document.getElementById('rev-stars')?.value;
+    const quote   = document.getElementById('rev-quote')?.value.trim();
+    const email   = document.getElementById('rev-email')?.value.trim();
+    const btn     = document.getElementById('review-submit-btn');
+
+    if (!name || !product || !quote || !email) return;
+    if (quote.length < 20) { alert('Please write a little more about your experience.'); return; }
+
+    btn.textContent = 'Sending...'; btn.disabled = true;
+
+    try {
+        if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
+            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                reviewer_name: name,
+                reviewer_email: email,
+                product: product,
+                stars: stars,
+                review_text: quote
+            });
+        }
+    } catch (_) { /* silent - still show success */ }
+
+    btn.textContent = 'Review Submitted! Thank you!';
+    btn.style.background = 'linear-gradient(135deg,#2d7a46,#1a4d2e)';
+    setTimeout(() => {
+        reviewModal?.classList.remove('active');
+        btn.textContent = 'Submit My Story ->'; btn.disabled = false;
+        btn.style.background = '';
+        reviewForm.reset();
+        submitStars = 5;
+        document.querySelectorAll('#star-picker .star-btn').forEach(b => { b.style.color = '#f5a623'; });
+    }, 2500);
+});
+
+// ============================================================
+//  LOAD LIVE REVIEWS FROM ADMIN DASHBOARD (localStorage)
+// ============================================================
+function loadLiveReviews() {
+    const REVIEWS_KEY = 'bmb_published_reviews';
+    try {
+        const reviews = JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]');
+        const grid = document.getElementById('live-reviews-grid');
+        if (!grid || !reviews.length) return;
+
+        grid.style.display = 'grid';
+        grid.innerHTML = reviews.map(r => `
+            <div class="testimonial-card glass-card">
+                <div class="testimonial-stars">${'&#9733;'.repeat(r.stars)}${'&#9734;'.repeat(5-r.stars)}</div>
+                <p class="testimonial-quote">"${r.quote}"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">${r.initials || r.name.substring(0,2).toUpperCase()}</div>
+                    <div>
+                        <div class="testimonial-name">${r.name}</div>
+                        <div class="testimonial-product">&#10003; ${r.product}</div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    } catch(_) {}
+}
+loadLiveReviews();

@@ -11,7 +11,8 @@
     <meta property="og:url" content="https://bossmamabiz.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=10.0">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <link rel="stylesheet" href="style.css?v=11.0">
 </head>
 <body>
 
@@ -311,9 +312,58 @@
                     </div>
                 </div>
             </div>
+            <div id="live-reviews-grid" class="testimonials-grid" style="margin-top:1.5rem;display:none;"></div>
             <p class="testimonials-disclaimer">* Results shown are not typical. Individual results vary based on effort, experience, and market conditions. This site contains affiliate links.</p>
         </div>
     </section>
+
+    <!-- ===== SHARE YOUR STORY (Review Submission) ===== -->
+    <div class="share-story-bar">
+        <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
+            <div>
+                <h3 style="margin:0;font-size:1.25rem;">Got results from one of these programs?</h3>
+                <p style="margin:0.3rem 0 0;color:var(--text-muted);font-size:0.9rem;">Share your story — Kristan reviews every submission and features real wins.</p>
+            </div>
+            <button class="btn btn-primary" id="open-review-modal" style="white-space:nowrap;">Share Your Story →</button>
+        </div>
+    </div>
+
+    <!-- Review Submission Modal -->
+    <div id="review-modal" class="bridge-overlay" role="dialog" aria-label="Share Your Story">
+        <div class="bridge-box" style="max-width:520px;">
+            <button id="review-modal-close" class="bridge-close" aria-label="Close">&times;</button>
+            <div class="bridge-badge">⭐ Share Your Win</div>
+            <h3 class="bridge-title">Tell Us Your Story</h3>
+            <p class="bridge-tagline">Kristan personally reviews every submission. Approved stories get featured right here.</p>
+            <form id="review-submit-form" class="bridge-form" novalidate style="gap:0.7rem;">
+                <input type="text" id="rev-name" placeholder="Your first name + last initial (e.g. Jessica M.)" required />
+                <select id="rev-product" required style="width:100%;padding:0.82rem 1.1rem;border:1px solid var(--border-color);border-radius:10px;background:rgba(255,255,255,0.04);color:#fff;font-size:0.95rem;font-family:var(--font-body);box-sizing:border-box;">
+                    <option value="" disabled selected>Which program did you use?</option>
+                    <option value="Stacked by Emily">Stacked by Emily</option>
+                    <option value="The Boss Suite">The Boss Suite</option>
+                    <option value="Facebook Ecosystem Strategy">Facebook Ecosystem Strategy</option>
+                    <option value="PLR Vault">PLR Vault</option>
+                    <option value="90-Day Alignment Reset">90-Day Alignment Reset</option>
+                    <option value="Kristan&apos;s $27 Guide">Kristan&apos;s $27 Guide</option>
+                </select>
+                <div class="star-rating-row">
+                    <span style="font-size:0.88rem;color:var(--text-muted);">Your rating:</span>
+                    <div class="star-picker" id="star-picker">
+                        <span class="star-btn" data-val="1">★</span>
+                        <span class="star-btn" data-val="2">★</span>
+                        <span class="star-btn" data-val="3">★</span>
+                        <span class="star-btn" data-val="4">★</span>
+                        <span class="star-btn" data-val="5">★</span>
+                    </div>
+                    <input type="hidden" id="rev-stars" value="5" />
+                </div>
+                <textarea id="rev-quote" placeholder="Share your experience — what changed for you? (min 20 characters)" rows="4" required style="width:100%;padding:0.82rem 1.1rem;border:1px solid var(--border-color);border-radius:10px;background:rgba(255,255,255,0.04);color:#fff;font-size:0.95rem;font-family:var(--font-body);resize:vertical;box-sizing:border-box;"></textarea>
+                <input type="email" id="rev-email" placeholder="Your email (private — not shown publicly)" required />
+                <button type="submit" id="review-submit-btn" class="btn btn-primary bridge-submit">Submit My Story →</button>
+            </form>
+            <p class="bridge-fine-print">Submitted reviews are moderated before publishing. No spam. Your email stays private.</p>
+        </div>
+    </div>
     <!-- ===== BUILT BY ME ===== -->
     <section class="built-by-me-section">
         <div class="container">
@@ -678,6 +728,6 @@
         <span class="boss-ai-bubble-label">Ask Boss AI</span>
     </div>
 
-    <script src="script.js?v=10.0"></script>
+    <script src="script.js?v=11.0"></script>
 </body>
 </html>
