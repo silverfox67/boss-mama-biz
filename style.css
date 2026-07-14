@@ -263,6 +263,8 @@ a:hover {
     font-size: 4rem;
     margin-bottom: 1.5rem;
     letter-spacing: -1px;
+    font-variant-numeric: lining-nums;
+    font-feature-settings: 'lnum' 1;
 }
 
 .hero p {
@@ -385,7 +387,7 @@ a:hover {
     width: 100%;
     max-width: 1000px;
     margin: 4rem auto 0;
-    height: 720px;
+    height: 820px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -395,7 +397,7 @@ a:hover {
 .carousel-track {
     position: relative;
     width: 100%;
-    height: 620px;
+    height: 720px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -403,8 +405,8 @@ a:hover {
 
 .offer-card {
     position: absolute;
-    width: 320px;
-    height: 580px;
+    width: 340px;
+    height: 660px;
     display: flex;
     flex-direction: column;
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease, border-color 0.4s ease;
@@ -414,8 +416,9 @@ a:hover {
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    padding: 2.2rem;
+    padding: 1.8rem;
     box-shadow: var(--shadow-md);
+    overflow: hidden;
 }
 
 .offer-card .btn {
@@ -528,8 +531,8 @@ a:hover {
     }
 
     .offer-card {
-        width: 280px;
-        height: 560px;
+        width: 300px;
+        height: 640px;
         padding: 1.5rem;
     }
 
@@ -855,7 +858,7 @@ footer p {
    ============================================================ */
 .hero-stats { display:flex; align-items:center; justify-content:center; gap:2rem; margin-top:3rem; flex-wrap:wrap; }
 .hero-stat { text-align:center; }
-.stat-number { display:block; font-family:var(--font-heading); font-size:2rem; font-weight:700; color:var(--primary); }
+.stat-number { display:block; font-family:var(--font-heading); font-size:2rem; font-weight:700; color:var(--primary); font-variant-numeric:lining-nums; font-feature-settings:'lnum' 1; }
 .stat-label  { display:block; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-top:0.2rem; }
 .hero-stat-divider { width:1px; height:40px; background:var(--border-color); }
 
@@ -870,11 +873,12 @@ footer p {
 .about-section { padding:5rem 0; background:linear-gradient(135deg,rgba(45,18,48,0.4) 0%,var(--bg-dark) 100%); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color); }
 .about-container { display:grid; grid-template-columns:320px 1fr; gap:4rem; align-items:center; }
 .about-image-wrap { display:flex; justify-content:center; }
-.about-photo-frame { width:260px; height:320px; border-radius:20px; border:2px solid var(--primary); background:rgba(45,18,48,0.6); display:flex; align-items:center; justify-content:center; box-shadow:0 0 40px var(--primary-glow); position:relative; overflow:hidden; }
-.about-photo-frame::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at center,rgba(232,50,122,0.1) 0%,transparent 70%); }
-.about-photo-inner { display:flex; flex-direction:column; align-items:center; gap:1rem; z-index:1; }
+.about-photo-frame { width:280px; height:360px; border-radius:20px; border:2px solid var(--primary); background:rgba(45,18,48,0.6); display:flex; align-items:center; justify-content:center; box-shadow:0 0 40px var(--primary-glow); position:relative; overflow:hidden; }
+.about-photo-frame img { width:100%; height:100%; object-fit:cover; object-position:right top; border-radius:18px; }
+.about-photo-frame::before { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(45,18,48,0.4) 0%,transparent 40%); pointer-events:none; z-index:1; }
+.about-photo-inner { display:flex; flex-direction:column; align-items:center; gap:1rem; z-index:2; }
 
-.offer-card { display:flex; flex-direction:column; }
+/* NOTE: .offer-card base rule is defined above with position:absolute — do not re-declare here */
 .offer-card-img { width:100%; height:110px; border-radius:10px; margin-bottom:1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
 .offer-img-title { font-family:var(--font-heading); font-size:1.3rem; letter-spacing:2px; color:#ffffff; text-align:center; }
 .offer-img-sub   { font-size:0.65rem; letter-spacing:3px; color:rgba(255,255,255,0.6); text-align:center; }
