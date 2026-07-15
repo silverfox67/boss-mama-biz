@@ -894,7 +894,7 @@ footer p {
 .offer-badge-dfy     { background:rgba(74,222,128,0.15); color:#4ade80; border:1px solid rgba(74,222,128,0.3); }
 .offer-badge-mindset { background:rgba(167,139,250,0.2); color:#a78bfa; border:1px solid rgba(167,139,250,0.35); }
 
-.built-by-me-section { padding:5rem 0; background-color:#F5F0E6; background-image:repeating-linear-gradient(90deg, rgba(26, 10, 20, 0.012) 0px, rgba(26, 10, 20, 0.012) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(0deg, rgba(26, 10, 20, 0.006) 0px, rgba(26, 10, 20, 0.006) 1px, transparent 1px, transparent 6px); border-top:1px solid rgba(232,50,122,0.15); border-bottom:1px solid rgba(232,50,122,0.15); color:#1A0A14; }
+.built-by-me-section { padding:5rem 0; background-color:#F5F0E6; background-image:repeating-linear-gradient(90deg, rgba(26, 10, 20, 0.012) 0px, rgba(26, 10, 20, 0.012) 1px, transparent 1px, transparent 4px), repeating-linear-gradient(0deg, rgba(26, 10, 20, 0.006) 0px, rgba(26, 10, 20, 0.006) 1px, transparent 1px, transparent 6px); border-top:1px solid rgba(232,50,122,0.15); border-bottom:1px solid rgba(232,50,122,0.15); }
 
 .own-product-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2rem; max-width:920px; margin:0 auto; }
 .own-product-card { display:flex; gap:1.5rem; align-items:flex-start; }
