@@ -249,9 +249,9 @@ a:hover {
     background: none;
     border: none;
     color: #ffffff;
-    font-size: 1.8rem;
+    font-size: 2.4rem;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.6rem;
     line-height: 1;
     transition: var(--transition-smooth);
 }
@@ -583,15 +583,6 @@ a:hover {
 
 /* Mobile Responsiveness for 3D Carousel */
 @media (max-width: 768px) {
-    /* Nav logo — keep on one line */
-    .logo-wrapper .logo-text {
-        font-size: 1.2rem !important;
-        letter-spacing: 1.5px !important;
-    }
-    .logo-wrapper span:last-child {
-        font-size: 0.55rem !important;
-        letter-spacing: 3px !important;
-    }
 
     .carousel-container {
         height: 690px;
@@ -1583,28 +1574,53 @@ footer p {
     text-align: center;
 }
 
+/* Offers section — clip carousel overflow */
+#offers {
+    overflow: hidden;
+}
+
 @media (max-width: 768px) {
+    /* === LOGO: fit on ONE line === */
     .logo-text {
-        font-size: 1.35rem !important;
-        letter-spacing: 1px !important;
+        font-size: 1.05rem !important;
+        letter-spacing: 0.5px !important;
     }
     .logo-sub {
-        font-size: 0.6rem !important;
-        letter-spacing: 3.5px !important;
-        margin-top: 0.05rem !important;
+        font-size: 0.5rem !important;
+        letter-spacing: 2px !important;
+        margin-top: 0 !important;
     }
+
+    /* === NAV: hide desktop buttons, show hamburger === */
     .nav-links-desktop {
         display: none !important;
     }
     .hamburger-btn {
-        display: block !important;
-    }
-    .cta-row {
+        display: flex !important;
+        align-items: center;
         justify-content: center;
     }
+
+    /* === CTAs: stack vertically with spacing === */
+    .cta-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .cta-row .btn {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+    }
+
+    /* === PAIN CARDS: center icons & text === */
     .pain-card {
         align-items: center !important;
         text-align: center !important;
+    }
+    .pain-emoji {
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
 
