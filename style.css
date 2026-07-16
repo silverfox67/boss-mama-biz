@@ -895,6 +895,7 @@ footer p {
 .offer-badge-mindset { background:rgba(167,139,250,0.2); color:#a78bfa; border:1px solid rgba(167,139,250,0.35); }
 
 .built-by-me-section { padding:5rem 0; background-color:#383838; background-image:radial-gradient(circle at 10% 60%, rgba(232, 50, 122, 0.07) 0%, transparent 50%), radial-gradient(circle at 90% 30%, rgba(45, 18, 48, 0.18) 0%, transparent 50%); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color); }
+.built-by-me-section .glass-card { border-color:rgba(232, 50, 122, 0.4); }
 
 .own-product-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2rem; max-width:920px; margin:0 auto; }
 .own-product-card { display:flex; gap:1.5rem; align-items:flex-start; }
