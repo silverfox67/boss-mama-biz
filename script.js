@@ -633,30 +633,38 @@ const quizData = [
 
 let currentQuestionIndex = 0;
 let userAnswers = [];
-const questionText = document.getElementById('question-text');
-const optionsContainer = document.getElementById('options-container');
-const progressBar = document.getElementById('quiz-progress-bar');
 const quizContent = document.getElementById('quiz-content');
 
 function initQuiz() {
     currentQuestionIndex = 0;
     userAnswers = [];
+    if (quizContent) {
+        quizContent.innerHTML = `
+            <div class="quiz-question" id="question-text">Loading question...</div>
+            <div class="quiz-options" id="options-container"></div>
+        `;
+    }
     showQuestion();
 }
 
 function showQuestion() {
     const q = quizData[currentQuestionIndex];
-    if (!questionText || !optionsContainer || !progressBar) return;
-    questionText.textContent = q.question;
-    optionsContainer.innerHTML = '';
+    const qText = document.getElementById('question-text');
+    const optsContainer = document.getElementById('options-container');
+    const progressBar = document.getElementById('quiz-progress-bar');
+    if (!qText || !optsContainer || !progressBar) return;
+    
+    qText.textContent = q.question;
+    optsContainer.innerHTML = '';
     const pct = (currentQuestionIndex / quizData.length) * 100;
     progressBar.style.width = `${pct}%`;
+    
     q.options.forEach(opt => {
         const btn = document.createElement('button');
         btn.classList.add('quiz-option');
         btn.textContent = opt.text;
         btn.addEventListener('click', () => handleOptionClick(opt.value));
-        optionsContainer.appendChild(btn);
+        optsContainer.appendChild(btn);
     });
 }
 
@@ -671,6 +679,7 @@ function handleOptionClick(value) {
 }
 
 function showResults() {
+    const progressBar = document.getElementById('quiz-progress-bar');
     if (!progressBar || !quizContent) return;
     progressBar.style.width = '100%';
     const counts = {};
@@ -695,7 +704,8 @@ function showResults() {
             <button class="btn btn-secondary" id="restart-quiz-btn" style="margin-top:1rem;padding:0.5rem 1rem;font-size:0.85rem;display:block;margin-left:auto;margin-right:auto;">Restart Quiz</button>
         </div>
     `;
-    document.getElementById('restart-quiz-btn').addEventListener('click', () => { currentQuestionIndex = 0; userAnswers = []; showQuestion(); });
+    
+    document.getElementById('restart-quiz-btn').addEventListener('click', initQuiz);
     document.getElementById('quiz-cta').addEventListener('click', e => {
         const idx = parseInt(e.currentTarget.getAttribute('data-carousel-index'));
         document.getElementById('offers').scrollIntoView({ behavior: 'smooth' });
