@@ -630,6 +630,39 @@ a:hover {
         font-size: 0.62rem;
         letter-spacing: 0.3px;
     }
+
+    /* Compact card internals so all content fits within 640px */
+    .offer-card-img {
+        height: 85px !important;
+        margin-bottom: 0.6rem !important;
+    }
+    .offer-card h3 {
+        font-size: 1rem;
+    }
+    .offer-card p {
+        font-size: 0.82rem !important;
+        margin-top: 0.3rem !important;
+        line-height: 1.4;
+    }
+    .offer-features {
+        margin-bottom: 1rem;
+    }
+    .offer-features li {
+        margin-bottom: 0.4rem;
+        font-size: 0.82rem;
+        gap: 0.4rem;
+    }
+    .offer-features li i {
+        font-size: 0.9rem !important;
+    }
+    .offer-card .btn {
+        padding: 0.7rem 1rem;
+        font-size: 0.88rem;
+    }
+    .offer-badge {
+        font-size: 0.65rem !important;
+        padding: 0.25rem 0.7rem !important;
+    }
 }
 
 .offer-price {
