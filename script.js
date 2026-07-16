@@ -800,15 +800,33 @@ document.querySelectorAll('.faq-question').forEach(item => {
 // ============================================================
 //  BRIDGE MODAL — Email Capture Before Affiliate Redirect
 // ============================================================
+// ============================================================
+//  BRIDGE MODAL — Email Capture Before Affiliate Redirect
+// ============================================================
 let _bridgeDestURL = '';
 
-function openBridgeModal(productName, tagline, destUrl) {
+function openBridgeModal(productName, tagline, destUrl, badge, icon, buttonText, perks) {
     _bridgeDestURL = destUrl;
     const title = document.getElementById('bridge-title');
     const tag   = document.getElementById('bridge-tagline');
     const modal = document.getElementById('bridge-modal');
+    const badgeEl = document.getElementById('bridge-badge-text');
+    const iconEl  = document.getElementById('bridge-visual-icon');
+    const btnEl   = document.getElementById('bridge-submit');
+    const perksEl = document.getElementById('bridge-perks-list');
+
     if (title) title.textContent = productName;
     if (tag)   tag.textContent   = tagline;
+    if (badgeEl && badge) badgeEl.innerHTML = `<i class="ph-fill ph-lightning"></i> ${badge}`;
+    if (iconEl && icon) iconEl.innerHTML = `<i class="ph-fill ph-${icon}"></i>`;
+    if (btnEl && buttonText) btnEl.textContent = buttonText;
+    
+    if (perksEl && perks) {
+        perksEl.innerHTML = perks.split(';').map(p => {
+            return `<span><i class="ph-fill ph-check-circle"></i> ${p.trim()}</span>`;
+        }).join('');
+    }
+
     if (modal) { modal.classList.add('active'); }
     setTimeout(() => document.getElementById('bridge-email')?.focus(), 100);
 }
@@ -818,6 +836,23 @@ function closeBridgeModal() {
     if (modal) modal.classList.remove('active');
     document.getElementById('bridge-form')?.reset();
     _bridgeDestURL = '';
+    
+    // Reset modal contents to defaults
+    const badgeEl = document.getElementById('bridge-badge-text');
+    const iconEl  = document.getElementById('bridge-visual-icon');
+    const btnEl   = document.getElementById('bridge-submit');
+    const perksEl = document.getElementById('bridge-perks-list');
+    
+    if (badgeEl) badgeEl.innerHTML = `<i class="ph-fill ph-lightning"></i> You're Almost There!`;
+    if (iconEl) iconEl.innerHTML = `<i class="ph-fill ph-sketch-logo"></i>`;
+    if (btnEl) btnEl.textContent = `Yes! Take Me There →`;
+    if (perksEl) {
+        perksEl.innerHTML = `
+            <span><i class="ph-fill ph-check-circle"></i> Get Kristan's exclusive tips &amp; resources</span>
+            <span><i class="ph-fill ph-check-circle"></i> First to hear about new offers &amp; deals</span>
+            <span><i class="ph-fill ph-check-circle"></i> Free income-building guides delivered to you</span>
+        `;
+    }
 }
 
 function goToDest() {
@@ -856,12 +891,16 @@ document.querySelectorAll('.bridge-link').forEach(btn => {
         const product = btn.getAttribute('data-product') || '';
         const tagline = btn.getAttribute('data-tagline') || '';
         const url     = btn.getAttribute('data-url') || '#';
+        const badge   = btn.getAttribute('data-badge') || '';
+        const icon    = btn.getAttribute('data-icon') || '';
+        const button  = btn.getAttribute('data-button') || '';
+        const perks   = btn.getAttribute('data-perks') || '';
         // If already captured this session, go straight through
         if (localStorage.getItem('bmb_bridge_done') === 'true') {
             window.open(url, '_blank', 'noopener');
             return;
         }
-        openBridgeModal(product, tagline, url);
+        openBridgeModal(product, tagline, url, badge, icon, button, perks);
     });
 });
 
