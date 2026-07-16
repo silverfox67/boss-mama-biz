@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,8 +17,14 @@
         .pin-sub{font-size:0.75rem;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:2rem;}
         .pin-box h2{font-size:1.3rem;margin-bottom:0.5rem;}
         .pin-box p{font-size:0.88rem;color:var(--muted);margin-bottom:1.8rem;}
-        .pin-input{width:100%;padding:0.9rem 1.1rem;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.04);color:#fff;font-size:1.1rem;letter-spacing:6px;text-align:center;font-family:var(--fb);margin-bottom:1rem;transition:border-color 0.2s;}
-        .pin-input:focus{outline:none;border-color:var(--primary);}
+        .pin-dots{display:flex;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;}
+        .pin-dot{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);background:transparent;transition:all 0.2s;}
+        .pin-dot.filled{background:var(--primary);border-color:var(--primary);box-shadow:0 0 8px rgba(232,50,122,0.4);}
+        .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;max-width:260px;margin:0 auto 1rem;}
+        .pin-btn{background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:12px;color:#fff;font-size:1.3rem;font-family:var(--fb);font-weight:700;padding:0.85rem;cursor:pointer;transition:all 0.15s;}
+        .pin-btn:hover{background:rgba(232,50,122,0.15);border-color:var(--bh);}
+        .pin-btn:active{transform:scale(0.95);background:rgba(232,50,122,0.25);}
+        .pin-btn-back{font-size:0.9rem;letter-spacing:1px;}
         .pin-error{font-size:0.82rem;color:#e85050;margin-bottom:0.8rem;display:none;}
         .btn{display:inline-flex;align-items:center;justify-content:center;padding:0.85rem 1.8rem;border-radius:50px;font-family:var(--fb);font-weight:700;font-size:0.95rem;cursor:pointer;border:none;transition:all 0.2s;text-decoration:none;}
         .btn-primary{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;}
@@ -81,10 +87,25 @@
         <div class="pin-logo">BOSS MAMA BIZ</div>
         <div class="pin-sub">Review Dashboard</div>
         <h2>Admin Access</h2>
-        <p>Enter your dashboard PIN to manage reviews</p>
-        <input type="password" class="pin-input" id="pin-input" placeholder="password" maxlength="20" />
+        <p>Enter your 4-digit PIN</p>
+        <div class="pin-dots" id="pin-dots">
+            <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+        </div>
         <div class="pin-error" id="pin-error">Incorrect PIN. Try again.</div>
-        <button class="btn btn-primary" style="width:100%;" onclick="checkPin()">Enter Dashboard</button>
+        <div class="pin-pad">
+            <button class="pin-btn" onclick="pinPress('1')">1</button>
+            <button class="pin-btn" onclick="pinPress('2')">2</button>
+            <button class="pin-btn" onclick="pinPress('3')">3</button>
+            <button class="pin-btn" onclick="pinPress('4')">4</button>
+            <button class="pin-btn" onclick="pinPress('5')">5</button>
+            <button class="pin-btn" onclick="pinPress('6')">6</button>
+            <button class="pin-btn" onclick="pinPress('7')">7</button>
+            <button class="pin-btn" onclick="pinPress('8')">8</button>
+            <button class="pin-btn" onclick="pinPress('9')">9</button>
+            <button class="pin-btn" style="visibility:hidden;"></button>
+            <button class="pin-btn" onclick="pinPress('0')">0</button>
+            <button class="pin-btn pin-btn-back" onclick="pinBack()">&larr;</button>
+        </div>
     </div>
 </div>
 <div id="dashboard">
@@ -149,22 +170,44 @@
     </div>
 </div>
 <script>
-const ADMIN_PIN = 'Boss2024!';
+const ADMIN_PIN = '2026';
 const REVIEWS_KEY = 'bmb_published_reviews';
-function checkPin() {
-    if (document.getElementById('pin-input').value === ADMIN_PIN) {
-        document.getElementById('pin-screen').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'block';
-        sessionStorage.setItem('bmb_admin_auth','true');
-        loadReviews();
-    } else {
-        document.getElementById('pin-error').style.display = 'block';
-        document.getElementById('pin-input').value = '';
-        document.getElementById('pin-input').focus();
+var pinEntry = '';
+function updateDots() {
+    var dots = document.querySelectorAll('#pin-dots .pin-dot');
+    dots.forEach(function(d, i) { d.classList.toggle('filled', i < pinEntry.length); });
+}
+function pinPress(num) {
+    if (pinEntry.length >= 4) return;
+    pinEntry += num;
+    document.getElementById('pin-error').style.display = 'none';
+    updateDots();
+    if (pinEntry.length === 4) {
+        setTimeout(function() {
+            if (pinEntry === ADMIN_PIN) {
+                document.getElementById('pin-screen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                sessionStorage.setItem('bmb_admin_auth','true');
+                loadReviews();
+            } else {
+                document.getElementById('pin-error').style.display = 'block';
+                pinEntry = '';
+                updateDots();
+            }
+        }, 200);
     }
 }
+function pinBack() {
+    pinEntry = pinEntry.slice(0, -1);
+    document.getElementById('pin-error').style.display = 'none';
+    updateDots();
+}
 function logout() { sessionStorage.removeItem('bmb_admin_auth'); location.reload(); }
-document.getElementById('pin-input').addEventListener('keydown', function(e){ if(e.key==='Enter') checkPin(); });
+document.addEventListener('keydown', function(e) {
+    if (document.getElementById('pin-screen').style.display === 'none') return;
+    if (e.key >= '0' && e.key <= '9') pinPress(e.key);
+    if (e.key === 'Backspace') pinBack();
+});
 if (sessionStorage.getItem('bmb_admin_auth')==='true') {
     document.getElementById('pin-screen').style.display='none';
     document.getElementById('dashboard').style.display='block';
