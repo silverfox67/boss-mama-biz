@@ -1130,14 +1130,15 @@ loadLiveReviews();
 // ============================================================
 //  MOBILE HAMBURGER MENU TOGGLE
 // ============================================================
-document.addEventListener('DOMContentLoaded', () => {
+(function() {
     const hamburgerBtn = document.querySelector('.hamburger-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     if (hamburgerBtn && mobileMenu) {
-        hamburgerBtn.addEventListener('click', e => {
+        hamburgerBtn.addEventListener('click', function(e) {
             e.stopPropagation();
+            e.preventDefault();
             mobileMenu.classList.toggle('active');
-            const icon = hamburgerBtn.querySelector('i');
+            var icon = hamburgerBtn.querySelector('i');
             if (icon) {
                 if (mobileMenu.classList.contains('active')) {
                     icon.className = 'ph ph-x';
@@ -1148,21 +1149,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Close mobile menu when clicking links
-        document.querySelectorAll('.mobile-menu-link').forEach(link => {
-            link.addEventListener('click', () => {
+        var links = document.querySelectorAll('.mobile-menu-link');
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', function() {
                 mobileMenu.classList.remove('active');
-                const icon = hamburgerBtn.querySelector('i');
+                var icon = hamburgerBtn.querySelector('i');
                 if (icon) icon.className = 'ph ph-list';
             });
-        });
+        }
 
         // Close menu when clicking outside
-        document.addEventListener('click', e => {
+        document.addEventListener('click', function(e) {
             if (!mobileMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
                 mobileMenu.classList.remove('active');
-                const icon = hamburgerBtn.querySelector('i');
+                var icon = hamburgerBtn.querySelector('i');
                 if (icon) icon.className = 'ph ph-list';
             }
         });
     }
-});
+})();

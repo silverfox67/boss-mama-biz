@@ -585,7 +585,7 @@ a:hover {
 @media (max-width: 768px) {
 
     .carousel-container {
-        height: 690px;
+        height: 760px;
     }
 
     .offer-card {
@@ -610,6 +610,7 @@ a:hover {
         padding: 0 0.5rem;
         width: 100%;
         justify-content: center;
+        margin-top: 2.5rem;
     }
 
     .carousel-arrow {
