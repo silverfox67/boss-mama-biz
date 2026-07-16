@@ -861,24 +861,11 @@ function goToDest() {
 }
 
 async function captureBrevoContact(email, firstName, productInterest) {
-    if (!BREVO_API_KEY) return; // No key configured yet
     try {
-        const payload = {
-            email,
-            updateEnabled: true,
-            attributes: {}
-        };
-        if (firstName)       payload.attributes.FIRSTNAME = firstName;
-        if (productInterest) payload.attributes.LAST_PRODUCT_INTEREST = productInterest;
-        if (BREVO_LIST_ID)   payload.listIds = [Number(BREVO_LIST_ID)];
-        await fetch('https://api.brevo.com/v3/contacts', {
+        await fetch('/api/subscribe', {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'api-key': BREVO_API_KEY
-            },
-            body: JSON.stringify(payload)
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, name: firstName, product: productInterest })
         });
     } catch (_) { /* silent fail — redirect happens regardless */ }
 }

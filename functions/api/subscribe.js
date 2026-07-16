@@ -1,7 +1,7 @@
 export async function onRequestPost(context) {
   try {
     const { request, env } = context;
-    const { email } = await request.json();
+    const { email, name, product } = await request.json();
 
     if (!email || !email.includes('@')) {
       return new Response(JSON.stringify({ error: 'Invalid email address' }), {
@@ -34,7 +34,11 @@ export async function onRequestPost(context) {
       body: JSON.stringify({
         email: email,
         listIds: [brevoListId],
-        updateEnabled: true
+        updateEnabled: true,
+        attributes: {
+          FIRSTNAME: name || '',
+          LAST_PRODUCT_INTEREST: product || ''
+        }
       }),
     });
 
