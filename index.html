@@ -21,14 +21,21 @@
     <!-- ===== NAVIGATION ===== -->
     <nav class="nav-bar">
         <div class="container nav-container">
-            <div class="logo-wrapper" style="display:flex;flex-direction:column;align-items:center;gap:0.25rem;line-height:1;">
-                <span class="logo-text" style="font-family:var(--font-heading);font-size:1.7rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#ffffff;">BOSS MAMA BIZ</span>
-                <span style="font-family:var(--font-body);font-size:0.7rem;font-weight:500;text-transform:uppercase;letter-spacing:5px;color:rgba(255,255,255,0.55);margin-left:2px;">EST. 2023</span>
+            <div class="logo-wrapper">
+                <span class="logo-text">BOSS MAMA BIZ</span>
+                <span class="logo-sub">EST. 2023</span>
             </div>
-            <div style="display:flex;gap:0.75rem;align-items:center;">
+            <div class="nav-links-desktop">
                 <a href="#tools" class="btn btn-secondary" style="padding:0.6rem 1.2rem;font-size:0.85rem;">Free Tools</a>
                 <a href="#offers" class="btn btn-secondary" style="padding:0.6rem 1.2rem;font-size:0.9rem;">View Offers</a>
             </div>
+            <button class="hamburger-btn" aria-label="Toggle Navigation">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#tools" class="mobile-menu-link">Free Tools</a>
+            <a href="#offers" class="mobile-menu-link">View Offers</a>
         </div>
     </nav>
 
@@ -60,7 +67,7 @@
                 <span class="pill-tag">The Bridge Funnel Strategy</span>
                 <h1>Still Posting Every Day<br><span style="color:#E8327A;">And Making $0?</span></h1>
                 <p>Digital products are the cheat code. <i class="ph-fill ph-lightning" style="color:#E8327A;"></i> You don't need thousands of followers, a $1,500 course, or hours spent in your DMs. Find the income stream that matches your life — and let it run on autopilot.</p>
-                <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+                <div class="cta-row">
                     <a href="#quiz" class="btn btn-primary" id="hero-quiz-btn">Find My Income Stream →</a>
                     <a href="#offers" class="btn btn-secondary" id="hero-browse-btn">Browse Offers</a>
                 </div>
@@ -116,7 +123,7 @@
                 <p>I'm a busy mom who got tired of grinding for algorithms, chasing downlines, and building someone else's dream. I found a better way — digital products and affiliate systems that make sales on their own.</p>
                 <p style="margin-top:1rem;">I didn't have a massive following. I didn't have a tech background. What I had were the right systems. Now I've put everything I use in one place so you don't have to figure it out alone.</p>
                 <p style="margin-top:1rem;color:var(--primary);font-style:italic;font-size:1.05rem;">"Digital products are the cheat code. Create once, sell forever." <i class="ph-fill ph-lightning" style="font-size:1rem;"></i></p>
-                <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+                <div class="cta-row" style="margin-top:2rem;">
                     <a href="#quiz" class="btn btn-primary">Find My Income Path →</a>
                     <a href="#tools" class="btn btn-secondary">Try the Free Tools</a>
                 </div>

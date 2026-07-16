@@ -49,6 +49,11 @@
     padding: 0;
 }
 
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     background-color: var(--bg-dark);
     background-image: 
@@ -58,7 +63,6 @@ body {
     color: var(--text-main);
     font-family: var(--font-body);
     line-height: 1.6;
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -207,28 +211,90 @@ a:hover {
     align-items: center;
 }
 
-.logo {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.8rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background: linear-gradient(135deg, #ff85b3 0%, #E8327A 50%, #C9A84C 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: var(--primary);
-    filter: drop-shadow(0 2px 8px rgba(232, 50, 122, 0.35));
+/* Logo Styles */
+.logo-wrapper {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.1;
+}
+.logo-text {
+    font-family: var(--font-heading);
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #ffffff;
+}
+.logo-sub {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-left: 2px;
+    margin-top: 0.1rem;
 }
 
-.logo span {
-    background: inherit;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* Nav Links Containers */
+.nav-links-desktop {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+    transition: var(--transition-smooth);
+}
+.hamburger-btn:hover {
+    color: var(--primary);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: rgba(13, 5, 16, 0.98);
+    border-bottom: 1px solid var(--border-color);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 99;
+    padding: 0.5rem 0;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+.mobile-menu.active {
+    display: flex;
+    max-height: 200px;
+    opacity: 1;
+}
+.mobile-menu-link {
+    padding: 0.8rem 2rem;
+    color: #ffffff;
+    font-size: 1.1rem;
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 600;
+    border-left: 3px solid transparent;
+    transition: var(--transition-smooth);
+}
+.mobile-menu-link:hover {
+    background: rgba(232, 50, 122, 0.05);
+    border-left-color: var(--primary);
+    color: var(--primary);
 }
 
 /* Hero Section */
@@ -392,6 +458,7 @@ a:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: hidden; /* Prevent translated cards from overflowing layout */
 }
 
 .carousel-track {
@@ -1500,6 +1567,44 @@ footer p {
     }
     .hero-image-glow {
         box-shadow: inset 0 0 35px 20px #383838;
+    }
+}
+
+/* ============================================================
+   REUSABLE CTA ROW & MOBILE LAYOUT ADJUSTMENTS
+   ============================================================ */
+.cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.tool-card {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .logo-text {
+        font-size: 1.35rem !important;
+        letter-spacing: 1px !important;
+    }
+    .logo-sub {
+        font-size: 0.6rem !important;
+        letter-spacing: 3.5px !important;
+        margin-top: 0.05rem !important;
+    }
+    .nav-links-desktop {
+        display: none !important;
+    }
+    .hamburger-btn {
+        display: block !important;
+    }
+    .cta-row {
+        justify-content: center;
+    }
+    .pain-card {
+        align-items: center !important;
+        text-align: center !important;
     }
 }
 

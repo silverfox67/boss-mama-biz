@@ -1126,3 +1126,43 @@ function loadLiveReviews() {
     } catch(_) {}
 }
 loadLiveReviews();
+
+// ============================================================
+//  MOBILE HAMBURGER MENU TOGGLE
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerBtn = document.querySelector('.hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (hamburgerBtn && mobileMenu) {
+        hamburgerBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            mobileMenu.classList.toggle('active');
+            const icon = hamburgerBtn.querySelector('i');
+            if (icon) {
+                if (mobileMenu.classList.contains('active')) {
+                    icon.className = 'ph ph-x';
+                } else {
+                    icon.className = 'ph ph-list';
+                }
+            }
+        });
+
+        // Close mobile menu when clicking links
+        document.querySelectorAll('.mobile-menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                const icon = hamburgerBtn.querySelector('i');
+                if (icon) icon.className = 'ph ph-list';
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', e => {
+            if (!mobileMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                const icon = hamburgerBtn.querySelector('i');
+                if (icon) icon.className = 'ph ph-list';
+            }
+        });
+    }
+});
