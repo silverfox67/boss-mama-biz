@@ -898,11 +898,6 @@ document.querySelectorAll('.bridge-link').forEach(btn => {
         const icon    = btn.getAttribute('data-icon') || '';
         const button  = btn.getAttribute('data-button') || '';
         const perks   = btn.getAttribute('data-perks') || '';
-        // If already captured this session, go straight through
-        if (localStorage.getItem('bmb_bridge_done') === 'true') {
-            window.open(url, '_blank', 'noopener');
-            return;
-        }
         openBridgeModal(product, tagline, url, badge, icon, button, perks);
     });
 });
