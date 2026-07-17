@@ -20,8 +20,8 @@ export async function onRequestPost(context) {
 
         // Build HTML email body from submitted data
         const fields = [
-            { label: '🆓 Free Roadmap PDF Link',        key: 'roadmap-link' },
-            { label: '📝 Free Roadmap Notes',            key: 'roadmap-notes' },
+            { label: '🆓 Creative Content Vault PDF Link', key: 'roadmap-link' },
+            { label: '📝 Creative Content Vault Notes',    key: 'roadmap-notes' },
             { label: '💵 $27 Guide Link',                key: 'guide-link' },
             { label: '💵 $27 Stripe Payment Link',       key: 'guide-stripe' },
             { label: '📝 $27 Guide Notes',               key: 'guide-notes' },
