@@ -863,6 +863,12 @@ function closeBridgeModal() {
             <span><i class="ph-fill ph-check-circle"></i> Free income-building guides delivered to you</span>
         `;
     }
+
+    // Reset visibility of form and success state
+    const formWrapper = document.getElementById('bridge-form-wrapper');
+    const successWrapper = document.getElementById('bridge-success-wrapper');
+    if (formWrapper) formWrapper.style.display = 'flex';
+    if (successWrapper) successWrapper.style.display = 'none';
 }
 
 function goToDest() {
@@ -919,16 +925,25 @@ document.getElementById('bridge-form')?.addEventListener('submit', async e => {
     // Fire Brevo (async, don't block the user)
     captureBrevoContact(email, firstName, product);
 
-    // Small delight delay then redirect
+    // Small delight delay then redirect or show success
     setTimeout(() => {
-        goToDest();
         if (submitBtn) { submitBtn.textContent = 'Yes! Take Me There →'; submitBtn.disabled = false; }
+        
+        if (product === 'The Creative Content Vault') {
+            const formWrapper = document.getElementById('bridge-form-wrapper');
+            const successWrapper = document.getElementById('bridge-success-wrapper');
+            if (formWrapper) formWrapper.style.display = 'none';
+            if (successWrapper) successWrapper.style.display = 'flex';
+        } else {
+            goToDest();
+        }
     }, 700);
 });
 
 // Bridge skip, close, outside-click
 document.getElementById('bridge-skip')?.addEventListener('click',  goToDest);
 document.getElementById('bridge-close')?.addEventListener('click', closeBridgeModal);
+document.getElementById('bridge-close-success')?.addEventListener('click', closeBridgeModal);
 document.getElementById('bridge-modal')?.addEventListener('click', e => {
     if (e.target === document.getElementById('bridge-modal')) closeBridgeModal();
 });
