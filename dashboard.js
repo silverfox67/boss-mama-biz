@@ -386,3 +386,183 @@ document.getElementById('refresh-leads-btn')?.addEventListener('click', (e) => {
         btn.disabled = false;
     });
 });
+
+// ── Email Templates Data for Modal Previews ──
+const EMAIL_TEMPLATES = {
+    "f1-d0": {
+        subject: 'Your Creative Content Vault is here! ✨',
+        goal: 'Deliver Content Vault PDF download link + warm welcome',
+        body: `Hey {{ contact.FIRSTNAME | default: "Mama" }}!
+
+It's Kristan here. I'm so excited to get this into your hands!
+
+As a busy mom, I know how exhausting it is trying to think of what to post every single day while juggling nap times, dinner, and everything in between. That's why I created The Creative Content Vault—to take the guesswork out of consistency.
+
+Inside, you'll find 90+ days of scroll-stopping hooks, storytelling prompts, and high-converting calls-to-action that actually build an audience that buys.
+
+Click the link below to open and save your vault:
+
+👉 Download The Creative Content Vault PDF
+(Link: https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view)
+
+Tip: Make sure to bookmark the Google Drive link or download the file directly to your phone/computer so you can access it anytime during your daily 20-minute sprints!`
+    },
+    "f1-d1": {
+        subject: 'The #1 mistake moms make when starting online... 🤦‍♀️',
+        goal: 'Educate + build trust + increase open rate',
+        body: `Hey {{ contact.FIRSTNAME | default: "Mama" }},
+
+How did you like The Creative Content Vault? 
+
+If you haven't opened it yet, make sure to check your downloads—those copy-paste hooks are going to save you so much time this week!
+
+Today, I want to talk about something crucial. When moms decide they want to make an income from home, 90% of them make the exact same mistake.
+
+They think they need to:
+1. Spend money on expensive paid ads (which eats up all your profit).
+2. Bug their friends and family in the DMs about an MLM.
+3. Post 5 times a day on Instagram reels and show their face dancing.
+
+None of that is sustainable when you are juggling laundry, cooking, and nap times!
+
+The secret is organic traffic on platforms you already use—like Facebook. 
+
+Instead of chasing people, you want to set up your profile like a billboard that automatically attracts people who actually want what you have, and then let simple automation (like chatbot triggers) do the talking for you.
+
+Tomorrow, I'm going to share the exact story of how I made my first sales using this exact setup. 
+
+Talk soon,
+Kristan`
+    },
+    "f1-d3": {
+        subject: 'How I made my first sales (step-by-step) 💸',
+        goal: 'Story sell → pitch FES System',
+        body: `Hey {{ contact.FIRSTNAME | default: "Mama" }},
+
+As promised, I wanted to tell you how it actually happened.
+
+When I started, I was overwhelmed. I had no huge following and no tech background. But I set up a simple organic system on my Facebook profile, posted a single strategic hook, and woke up to notifications of people asking for my link.
+
+I didn't have to hop on phone calls. I didn't have to pitch my family. 
+
+I just used a simple 5-step Facebook ecosystem funnel that built trust while I was away from my phone.
+
+If you want to skip the trial-and-error and copy the exact strategy I used to align my profile, automate my Messenger, and scale my audience organically, you need to check out the Facebook Ecosystem Strategy.
+
+It's the blueprint created by Jasmine Cruz, and it is the exact reason I was able to automate my conversations and turn followers into paying customers.
+
+👉 You can watch a free preview of the strategy here:
+https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a
+
+Have a great day!
+Kristan`
+    },
+    "f1-d5": {
+        subject: 'Real talk: what automated income actually looks like... 🤫',
+        goal: 'Overcome objections + keep engagement',
+        body: `Hey {{ contact.FIRSTNAME | default: "Mama" }},
+
+One of the biggest questions I get from other busy moms is: "Kristan, how do you actually find the time to talk to customers when you're busy with your kids?"
+
+The honest answer? I don't.
+
+Well, not manually at least! 
+
+When someone comments on one of my posts, a chatbot immediately sends them the information they requested. The chatbot answers their questions, gives them the link, and registers the lead. 
+
+I only step in when someone wants a personal connection or has a unique question. 
+
+This means my business runs in the background while I'm at the park or making dinner.
+
+Setting this up isn't hard, and you don't need to be a tech genius. The Facebook Ecosystem Strategy includes pre-made Manychat templates that you can just copy, paste, and activate in under 30 minutes.
+
+If you are ready to stop trading your hours for dollars and start automating your lead capture:
+
+👉 Grab your copy of the FES blueprint here:
+https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a
+
+To your freedom,
+Kristan`
+    },
+    "f1-d7": {
+        subject: 'The shortcut I wish I had from day one 🚀',
+        goal: 'Facebook Organic Strategy (FES) Pitch',
+        body: `Hey {{ contact.FIRSTNAME | default: "Mama" }},
+
+If you are tired of posting on social media with nothing to show for it, it's time to change your strategy.
+
+Instead of guessing what works, you can use a proven, step-by-step roadmap.
+
+The Facebook Ecosystem Strategy shows you:
+* How to optimize your personal Facebook profile to act as a 24/7 sales page.
+* How to use Manychat & Messenger automation to capture leads while you sleep.
+* The "Rule of 7s" trust-building formula that turns strangers into buyers.
+* Access to a community of creators doing the exact same thing.
+
+You don't need thousands of followers. You just need the right ecosystem.
+
+👉 Get instant access to the FES blueprint today:
+https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a
+
+Let's build your automated business together!
+
+Best,
+Kristan`
+    },
+    "f1-d10": {
+        subject: 'Before you go — one last thing... ⏰',
+        goal: 'FES chatbot automation pitch + urgency close',
+        body: `Hey {{ contact.FIRSTNAME | default: "Mama" }},
+
+This is the last email in my welcome series, and I want to leave you with one final thought.
+
+A year from now, you will wish you had started today. 
+
+Building an automated income stream isn't about getting rich overnight. It's about buying back your time so you can be present with your kids without stressing about bills.
+
+The tools are ready, the blueprints are proven, and the community is waiting. 
+
+If you are ready to take action and start building your organic Facebook machine, this is your sign.
+
+👉 Click here to access the Facebook Ecosystem Strategy and start today:
+https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a
+
+Thank you so much for letting me be a part of your inbox. I'm always cheering you on!
+
+To your success,
+Kristan`
+    }
+};
+
+// ── Bind Click Event to Clickable Emails ──
+document.querySelectorAll('.clickable-email').forEach(card => {
+    card.addEventListener('click', () => {
+        const emailId = card.getAttribute('data-email-id');
+        const template = EMAIL_TEMPLATES[emailId];
+        
+        if (template) {
+            const subjEl = document.getElementById('preview-subject');
+            const goalEl = document.getElementById('preview-goal');
+            const bodyEl = document.getElementById('preview-body');
+            
+            if (subjEl) subjEl.textContent = `✉️ "${template.subject}"`;
+            if (goalEl) goalEl.textContent = `🎯 Goal: ${template.goal}`;
+            if (bodyEl) bodyEl.innerHTML = template.body.replace(/\n/g, '<br>');
+            
+            document.getElementById('email-preview-modal')?.classList.add('active');
+        }
+    });
+});
+
+// Close email preview modal
+document.getElementById('close-email-preview')?.addEventListener('click', () => {
+    document.getElementById('email-preview-modal')?.classList.remove('active');
+});
+
+// Close modal when clicking background overlay
+document.getElementById('email-preview-modal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'email-preview-modal') {
+        document.getElementById('email-preview-modal')?.classList.remove('active');
+    }
+});
+
