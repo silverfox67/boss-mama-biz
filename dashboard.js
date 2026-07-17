@@ -135,17 +135,22 @@ document.querySelectorAll('.btn-action-sm[data-section]').forEach(btn => {
     });
 });
 
-// ── Email Funnel Tabs ───────────────────────
-document.querySelectorAll('.email-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        const funnel = tab.dataset.funnel;
-
-        document.querySelectorAll('.email-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.email-funnel-content').forEach(c => c.classList.remove('active'));
-
-        tab.classList.add('active');
-        const content = document.getElementById(`email-funnel-${funnel}`);
-        if (content) content.classList.add('active');
+// ── Funnel Email Sequence Accordion Toggles ──
+document.querySelectorAll('.btn-toggle-sequence').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const container = btn.nextElementSibling;
+        const btnText = btn.querySelector('.btn-text');
+        
+        if (container && container.classList.contains('funnel-sequence-details')) {
+            container.classList.toggle('active');
+            btn.classList.toggle('active');
+            
+            if (container.classList.contains('active')) {
+                btnText.textContent = btnText.textContent.includes('Suggested') ? 'Hide Suggested Sequence' : 'Hide Email Sequence Map';
+            } else {
+                btnText.textContent = btnText.textContent.includes('Suggested') ? 'Show Suggested Sequence' : 'Show Email Sequence Map';
+            }
+        }
     });
 });
 
