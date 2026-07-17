@@ -88,6 +88,10 @@
                 <span class="nav-icon">⚡</span>
                 <span>Quick Links</span>
             </a>
+            <a href="#" class="nav-item" data-section="leads">
+                <span class="nav-icon">👥</span>
+                <span>Active Leads</span>
+            </a>
             <a href="#" class="nav-item" data-section="notes">
                 <span class="nav-icon">📞</span>
                 <span>Client Call Notes</span>
@@ -695,6 +699,41 @@
                         <p>A full copy of your website files will be placed in your personal vault when the site is finalized</p>
                     </div>
                     <span class="managed-pill">Coming Soon</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── ACTIVE LEADS ── -->
+        <section id="section-leads" class="dash-section">
+            <div class="section-header">
+                <h1>👥 Active Leads CRM</h1>
+                <p>Live list of contacts who signed up on your website. Connected to Brevo List #10.</p>
+            </div>
+
+            <div class="glass-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+                    <h3 style="margin:0;">Leads List (<span id="leads-count">0</span> contacts)</h3>
+                    <button id="refresh-leads-btn" class="btn-primary-dash" style="padding:0.5rem 1.2rem; font-size:0.8rem; display:flex; align-items:center; gap:0.4rem;">🔄 Refresh List</button>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; text-align:left;">
+                        <thead>
+                            <tr style="border-bottom:2px solid var(--border-color); color:var(--text-muted); font-size:0.85rem; text-transform:uppercase; letter-spacing:1px;">
+                                <th style="padding:1rem;">Name</th>
+                                <th style="padding:1rem;">Email Address</th>
+                                <th style="padding:1rem;">Offer Claimed</th>
+                                <th style="padding:1rem;">Signup Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leads-table-body">
+                            <tr>
+                                <td colspan="4" style="padding:2.5rem; text-align:center; color:var(--text-muted);">
+                                    <div class="loading-spinner" style="margin: 0 auto 1rem;"></div>
+                                    Loading active leads from Brevo...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>

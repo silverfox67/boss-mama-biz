@@ -305,3 +305,79 @@ if (addNoteForm) {
 
     loadSavedNotes();
 }
+
+// ── Active Leads CRM (Fetch from Brevo) ─────
+async function fetchLeads() {
+    const tableBody = document.getElementById('leads-table-body');
+    const countEl = document.getElementById('leads-count');
+    const totalSubscribersEl = document.querySelector('.stat-card .stat-value'); // First stat card is Total Subscribers
+
+    if (!tableBody) return;
+
+    try {
+        const res = await fetch('/api/get-leads');
+        if (!res.ok) throw new Error('API returned non-ok status');
+        
+        const data = await res.json();
+        const leads = data.leads || [];
+        const count = data.count || 0;
+
+        // Update counts
+        if (countEl) countEl.textContent = count;
+        if (totalSubscribersEl) totalSubscribersEl.textContent = count;
+
+        // Render table
+        if (leads.length === 0) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="4" style="padding:2.5rem; text-align:center; color:var(--text-muted);">
+                        No active leads found in this list yet.
+                    </td>
+                </tr>
+            `;
+        } else {
+            tableBody.innerHTML = leads.map(lead => `
+                <tr style="border-bottom:1px solid var(--border-color); font-size:0.9rem;">
+                    <td style="padding:1rem; color:#ffffff; font-weight:500;">${lead.name || '—'}</td>
+                    <td style="padding:1rem; color:var(--text-muted); font-family:var(--font-mono);">${lead.email}</td>
+                    <td style="padding:1rem;">
+                        <span style="background:rgba(232,50,122,0.15); color:var(--primary); font-size:0.75rem; font-weight:700; padding:0.25rem 0.6rem; border-radius:12px; border:1px solid rgba(232,50,122,0.3);">
+                            ${lead.product}
+                        </span>
+                    </td>
+                    <td style="padding:1rem; color:var(--text-muted);">${lead.date}</td>
+                </tr>
+            `).join('');
+        }
+    } catch (err) {
+        console.error('Failed to load leads:', err);
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="4" style="padding:2.5rem; text-align:center; color:#ff4a4a;">
+                    ⚠️ Failed to load active leads. Verify BREVO_API_KEY is configured in Cloudflare.
+                </td>
+            </tr>
+        `;
+    }
+}
+
+// Bind load and refresh events
+document.addEventListener('DOMContentLoaded', () => {
+    fetchLeads();
+});
+// Fallback if DOMContentLoaded already fired
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    fetchLeads();
+}
+
+document.getElementById('refresh-leads-btn')?.addEventListener('click', (e) => {
+    const btn = e.currentTarget;
+    const oldText = btn.innerHTML;
+    btn.innerHTML = '🔄 Loading...';
+    btn.disabled = true;
+    
+    fetchLeads().finally(() => {
+        btn.innerHTML = oldText;
+        btn.disabled = false;
+    });
+});
