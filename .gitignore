@@ -1,0 +1,10 @@
+# Environment variables
+.env
+.dev.vars
+
+# Node modules
+node_modules/
+
+# OS metadata
+.DS_Store
+Thumbs.db
