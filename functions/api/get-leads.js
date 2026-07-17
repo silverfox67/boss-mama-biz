@@ -45,11 +45,12 @@ export async function onRequestGet(context) {
 
         // Map contacts to a simple clean payload
         const leads = (data.contacts || []).map(contact => {
+            const signupDate = contact.modifiedAt || contact.createdAt;
             return {
                 email: contact.email || '',
                 name: contact.attributes?.FIRSTNAME || '',
                 product: contact.attributes?.LAST_PRODUCT_INTEREST || 'The Creative Content Vault',
-                date: contact.createdAt ? new Date(contact.createdAt).toLocaleDateString('en-US', {
+                date: signupDate ? new Date(signupDate).toLocaleDateString('en-US', {
                     month: 'short',
                     day: 'numeric',
                     year: 'numeric'
