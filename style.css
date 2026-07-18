@@ -1532,9 +1532,9 @@ footer p {
     height: 590px;
     overflow: hidden;
     background: transparent;
-    /* Tight ellipse mask — fades edges well before they reach the photo border */
-    -webkit-mask-image: radial-gradient(ellipse 75% 80% at 50% 45%, #000 30%, transparent 70%);
-    mask-image: radial-gradient(ellipse 75% 80% at 50% 45%, #000 30%, transparent 70%);
+    /* Smoky dissolve — reaches full transparency well before any container edge */
+    -webkit-mask-image: radial-gradient(ellipse 68% 72% at 50% 43%, #000 25%, transparent 55%);
+    mask-image: radial-gradient(ellipse 68% 72% at 50% 43%, #000 25%, transparent 55%);
 }
 .hero-profile-img {
     width: 100%;
