@@ -1690,5 +1690,27 @@ h1, h2, h3 { font-family: var(--font-heading); }
     font-weight: bold;
 }
 
+/* Sidebar Dot Indicator */
+.dot-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: var(--transition);
+}
+
+.dot-green {
+    background: #4aff83;
+    box-shadow: 0 0 8px rgba(74, 255, 131, 0.4);
+}
+
+.dot-red {
+    background: #ff4a4a;
+    box-shadow: 0 0 8px rgba(255, 74, 74, 0.4);
+}
+
 
 

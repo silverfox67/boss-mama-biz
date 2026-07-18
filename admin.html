@@ -96,6 +96,11 @@
                 <span class="nav-icon">🛠️</span>
                 <span>Site Improvements</span>
             </a>
+            <a href="#" class="nav-item" data-section="requests">
+                <span class="nav-icon">📋</span>
+                <span>Active Requests</span>
+                <span id="requests-dot" class="dot-indicator dot-green"></span>
+            </a>
         </nav>
         <div class="sidebar-footer">
             <a href="/" class="sidebar-back-link">← Back to Website</a>
@@ -1058,15 +1063,14 @@
                 <p>Track funnels Kristan has requested to unlock. Check them off once you build them.</p>
             </div>
 
-            <div class="glass-card requests-card">
-                <div class="requests-card-header" id="requests-header-toggle" style="display:flex; justify-content:space-between; align-items:center; padding:1.2rem; cursor:pointer;">
+            <div class="glass-card requests-card" style="padding: 1.5rem;">
+                <div class="requests-card-header" style="display:flex; justify-content:space-between; align-items:center; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 1.2rem;">
                     <div style="display:flex; align-items:center; gap:1rem;">
                         <span class="requests-badge-status status-red" id="requests-badge">🔴 0 Pending Builds</span>
                         <h3 style="margin:0; font-size:1.1rem; font-family:var(--font-heading);">Funnel Unlock Requests</h3>
                     </div>
-                    <span id="requests-caret" style="color:var(--text-muted); font-size:1rem; transition: transform 0.2s;">▼</span>
                 </div>
-                <div class="requests-list-container active" id="requests-list-container" style="padding:1.2rem; border-top:1px solid rgba(255,255,255,0.05);">
+                <div class="requests-list-container active" id="requests-list-container">
                     <div id="requests-empty-state" class="requests-empty-state" style="text-align:center; padding:2rem 1rem;">
                         <span style="font-size:2.5rem; color:var(--text-muted); margin-bottom:0.8rem; display:block;">📋</span>
                         <p style="color:var(--text-muted); font-size:0.9rem; margin:0;">No active requests. When Kristan requests a funnel build, it will show up here!</p>
@@ -1092,6 +1096,22 @@
         </div>
         <div class="email-preview-body" id="preview-body">
             <!-- Email Body will load here dynamically -->
+        </div>
+    </div>
+</div>
+
+<!-- ===== REQUEST NOTES MODAL ===== -->
+<div id="request-notes-modal" class="email-preview-overlay">
+    <div class="email-preview-box glass-card" style="max-width: 500px;">
+        <button class="email-preview-close" id="close-request-modal">&times;</button>
+        <div class="email-preview-header">
+            <span class="preview-badge" style="color:var(--primary); background:var(--primary-glow); border-color:rgba(232, 50, 122, 0.2);">📝 Request Build Details</span>
+            <h2 id="request-funnel-title" style="margin-top: 0.5rem;">Unlock Funnel</h2>
+            <p>Tell Todd what you need for this funnel (links, notes, specific setup instructions).</p>
+        </div>
+        <div class="email-preview-body" style="background:transparent; border:none; padding:0;">
+            <textarea id="request-note-text" placeholder="Type your notes, custom links, or setup instructions here..." style="width:100%; height:130px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:8px; color:var(--text-main); padding:0.8rem; font-family:var(--font-body); font-size:0.95rem; resize:none; margin-bottom:1.2rem; outline:none; transition:var(--transition);"></textarea>
+            <button id="submit-request-btn" class="btn btn-primary" style="width:100%; font-weight:700;">Submit Request &amp; Notify Todd →</button>
         </div>
     </div>
 </div>
