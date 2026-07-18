@@ -1580,5 +1580,115 @@ h1, h2, h3 { font-family: var(--font-heading); }
     to   { transform: scale(1); opacity: 1; }
 }
 
+/* ── Build Requests styles ── */
+.requests-card {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(26, 13, 32, 0.4);
+    border-radius: 12px;
+    margin-top: 1.5rem;
+    overflow: hidden;
+}
+
+.requests-badge-status {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.requests-badge-status.status-red {
+    background: rgba(255, 74, 74, 0.08);
+    border: 1px solid #ff4a4a;
+    color: #ff4a4a;
+    box-shadow: 0 0 10px rgba(255, 74, 74, 0.15);
+}
+
+.requests-badge-status.status-green {
+    background: rgba(74, 255, 131, 0.08);
+    border: 1px solid #4aff83;
+    color: #4aff83;
+    box-shadow: 0 0 10px rgba(74, 255, 131, 0.15);
+}
+
+.requests-list-container {
+    display: none;
+    animation: fadeDown 0.3s ease;
+}
+
+.requests-list-container.active {
+    display: block;
+}
+
+.requests-checklist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    transition: var(--transition);
+}
+
+.requests-checklist-item:hover {
+    border-color: rgba(232, 50, 122, 0.2);
+    background: rgba(232, 50, 122, 0.02);
+}
+
+.requests-checklist-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.requests-checklist-num {
+    font-weight: 700;
+    color: var(--primary);
+    background: rgba(232, 50, 122, 0.08);
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    border: 1px solid rgba(232, 50, 122, 0.15);
+}
+
+/* Custom checkbox */
+.requests-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition);
+}
+
+.requests-checkbox:checked {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.requests-checkbox:checked::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
 
 

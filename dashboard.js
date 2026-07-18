@@ -566,3 +566,103 @@ document.getElementById('email-preview-modal')?.addEventListener('click', (e) =>
     }
 });
 
+// ── BUILD REQUESTS MANAGEMENT ──
+function getBuildRequests() {
+    return JSON.parse(localStorage.getItem('bmb_build_requests') || '[]');
+}
+
+function saveBuildRequests(requests) {
+    localStorage.setItem('bmb_build_requests', JSON.stringify(requests));
+}
+
+function renderBuildRequests() {
+    const requests = getBuildRequests();
+    const badgeEl = document.getElementById('requests-badge');
+    const emptyStateEl = document.getElementById('requests-empty-state');
+    const listEl = document.getElementById('requests-checklist');
+    
+    if (!badgeEl || !listEl || !emptyStateEl) return;
+    
+    // Update Badge
+    if (requests.length === 0) {
+        badgeEl.textContent = '🔴 0 Pending Builds';
+        badgeEl.className = 'requests-badge-status status-red';
+        emptyStateEl.style.display = 'block';
+        listEl.innerHTML = '';
+    } else {
+        badgeEl.textContent = `🟢 ${requests.length} Pending ${requests.length === 1 ? 'Build' : 'Builds'}`;
+        badgeEl.className = 'requests-badge-status status-green';
+        emptyStateEl.style.display = 'none';
+        
+        listEl.innerHTML = requests.map((req, idx) => `
+            <li class="requests-checklist-item">
+                <div class="requests-checklist-content">
+                    <span class="requests-checklist-num">${idx + 1}</span>
+                    <span><strong>Request:</strong> Unlock & Build the <em>${req}</em></span>
+                </div>
+                <input type="checkbox" class="requests-checkbox" data-index="${idx}">
+            </li>
+        `).join('');
+        
+        // Add checkboxes listeners to complete requests
+        listEl.querySelectorAll('.requests-checkbox').forEach(cb => {
+            cb.addEventListener('change', (e) => {
+                const idx = parseInt(e.currentTarget.getAttribute('data-index'));
+                completeBuildRequest(idx);
+            });
+        });
+    }
+}
+
+function addBuildRequest(funnelName) {
+    const requests = getBuildRequests();
+    if (requests.includes(funnelName)) {
+        alert('This funnel is already in the build request queue!');
+        return;
+    }
+    
+    requests.push(funnelName);
+    saveBuildRequests(requests);
+    renderBuildRequests();
+    
+    // Open email draft to Todd
+    const subject = `Unlock Request: ${funnelName}`;
+    const body = `Hey Todd,\n\nI want to unlock and build the ${funnelName} in my dashboard!\n\nLet me know when you can start working on this.\n\nBest,\nKristan`;
+    window.open(`mailto:todddavis923@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+}
+
+function completeBuildRequest(index) {
+    const requests = getBuildRequests();
+    requests.splice(index, 1);
+    saveBuildRequests(requests);
+    renderBuildRequests();
+}
+
+// Bind event listeners to request buttons
+document.querySelectorAll('.funnel-request-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const funnelCard = e.currentTarget.closest('.funnel-card');
+        const funnelName = funnelCard ? funnelCard.querySelector('h3').textContent : 'Suggested Funnel';
+        addBuildRequest(funnelName);
+    });
+});
+
+// Toggle Requests Box accordion
+document.getElementById('requests-header-toggle')?.addEventListener('click', () => {
+    const container = document.getElementById('requests-list-container');
+    const caret = document.getElementById('requests-caret');
+    
+    if (container && caret) {
+        container.classList.toggle('active');
+        caret.style.transform = container.classList.contains('active') ? 'rotate(0deg)' : 'rotate(-90deg)';
+    }
+});
+
+// Run render on load
+document.addEventListener('DOMContentLoaded', () => {
+    renderBuildRequests();
+});
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    renderBuildRequests();
+}
+

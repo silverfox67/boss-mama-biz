@@ -1051,6 +1051,33 @@
             </div>
         </section>
 
+        <!-- ── BUILD REQUESTS ── -->
+        <section id="section-requests" class="dash-section">
+            <div class="section-header">
+                <h1>📋 Active Funnel Build Requests</h1>
+                <p>Track funnels Kristan has requested to unlock. Check them off once you build them.</p>
+            </div>
+
+            <div class="glass-card requests-card">
+                <div class="requests-card-header" id="requests-header-toggle" style="display:flex; justify-content:space-between; align-items:center; padding:1.2rem; cursor:pointer;">
+                    <div style="display:flex; align-items:center; gap:1rem;">
+                        <span class="requests-badge-status status-red" id="requests-badge">🔴 0 Pending Builds</span>
+                        <h3 style="margin:0; font-size:1.1rem; font-family:var(--font-heading);">Funnel Unlock Requests</h3>
+                    </div>
+                    <span id="requests-caret" style="color:var(--text-muted); font-size:1rem; transition: transform 0.2s;">▼</span>
+                </div>
+                <div class="requests-list-container active" id="requests-list-container" style="padding:1.2rem; border-top:1px solid rgba(255,255,255,0.05);">
+                    <div id="requests-empty-state" class="requests-empty-state" style="text-align:center; padding:2rem 1rem;">
+                        <span style="font-size:2.5rem; color:var(--text-muted); margin-bottom:0.8rem; display:block;">📋</span>
+                        <p style="color:var(--text-muted); font-size:0.9rem; margin:0;">No active requests. When Kristan requests a funnel build, it will show up here!</p>
+                    </div>
+                    <ul class="requests-checklist" id="requests-checklist" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.8rem;">
+                        <!-- Numbered checklist elements will render here dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
     </main>
 </div>
 
