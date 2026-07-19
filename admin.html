@@ -1297,9 +1297,10 @@
                 <textarea id="ai-art-content" required class="dash-input" style="height:250px; resize:vertical; margin:0; width: 100%; box-sizing: border-box; font-family:monospace; font-size:0.85rem; line-height:1.45;"></textarea>
             </div>
 
-            <div style="display:flex; gap:1rem; margin-top:0.5rem;">
-                <button type="submit" class="btn btn-primary" style="flex:1; border:none; padding:0.8rem 1.5rem; font-weight:700;">📥 Add &amp; Schedule to Site →</button>
-                <button type="button" id="btn-close-ai-editor" class="btn btn-secondary" style="padding:0.8rem 1.5rem; font-weight:700;">Cancel</button>
+            <div style="display:flex; gap:1rem; margin-top:0.5rem; flex-wrap: wrap;">
+                <button type="submit" class="btn btn-primary" style="flex:1.2; border:none; padding:0.8rem 1.5rem; font-weight:700; min-width: 200px;">📥 Add &amp; Schedule to Site →</button>
+                <button type="button" id="btn-regenerate-ai-blog" class="btn btn-secondary" style="flex:1; padding:0.8rem 1.5rem; font-weight:700; border:1px solid var(--primary); color:var(--primary); background:rgba(232,50,122,0.05); display:flex; align-items:center; justify-content:center; gap:0.5rem; min-width: 200px;">🔄 Regenerate Alternative</button>
+                <button type="button" id="btn-close-ai-editor" class="btn btn-secondary" style="flex:0.6; padding:0.8rem 1.5rem; font-weight:700; min-width: 100px;">Cancel</button>
             </div>
         </form>
     </div>

@@ -924,8 +924,6 @@ document.getElementById('blog-post-form')?.addEventListener('submit', (e) => {
             date: dateVal,
             readtime: readtimeVal,
             image: imageVal,
-            ctaText: ctaTextVal,
-            ctaUrl: ctaUrlVal,
             content: contentVal
         };
         articles.push(newArt);
@@ -970,21 +968,76 @@ const aiBlogTemplates = {
     }
 };
 
-function generateCustomArticle(promptText) {
+// Alternative SEO-optimized Blog Templates (Regeneration Bank)
+const aiBlogTemplatesAlt = {
+    pyramid: {
+        title: "Pyramid Scheme vs. Affiliate Marketing: Why Recruiting is Dead",
+        summary: "Tired of MLMs filling your inbox asking you to pitch friends? Discover the clean, honest way moms make passive commissions without recruiting.",
+        readtime: 3,
+        image: "images/blog-streams.png",
+        ctaText: "Check Your Income Matches →",
+        ctaUrl: "/index.html#quiz",
+        content: `Let's talk about that message you got in your inbox last night from a high school friend you haven't spoken to in a decade. "Hey mama, I've got this amazing opportunity..."<br><br>If your alarm bells went off, good. You are a smart business owner in the making. In 2026, the market is saturated with MLM schemes disguised as 'social retail' or 'direct sales'.<br><br>The key difference is recruiting vs selling. If you must build a team to make a profit, you're in an MLM. If you just promote high-quality products or systems for direct commission, you're doing affiliate marketing. It is that clean, and that simple.<br><br><h3>Why Busy Moms Choose True Affiliate Marketing</h3>True affiliate marketing fits into your life without the pressure:<ul><li><strong>No Messaging Friends:</strong> You build an audience of people who actually want to buy, instead of pitch-spamming family.</li><li><strong>No Stockpiles:</strong> No physical shipping, no boxes in your garage.</li><li><strong>Keep 100% Focus on Sales:</strong> You are not responsible for training or mentoring a massive downline.</li></ul><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>🎯 Ready to see if you have the ideal matching background? Take our 60-second quiz on the homepage:</strong><br><br><a href="/#quiz" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Take the Income Quiz →</a></div>`
+    },
+    faceless: {
+        title: "The Camera-Shy Mom's Path to Passive Income: A Faceless Store Guide",
+        summary: "You don't need to post personal photos or selfies online to build a successful store. Learn how to design a high-converting faceless brand today.",
+        readtime: 3,
+        image: "images/blog-faceless.png",
+        ctaText: "Browse PLR Products →",
+        ctaUrl: "/index.html#tools",
+        content: `Many busy moms love the idea of running a passive storefront, but hates the idea of record selfie videos, dancing, and posting pictures of their kids online. Your privacy is non-negotiable.<br><br>Fortunately, faceless marketing is a booming business structure. You can earn an extra income by focusing on digital product delivery, clean aesthetics, and valuable guides without ever showing your face.<br><br><h3>The Faceless Growth Pillars</h3>To scale a faceless brand, keep these three areas aligned:<ul><li><strong>1. Aesthetic Visuals:</strong> Choose high-end stock videos that convey peaceful routines, working spaces, or home designs.</li><li><strong>2. Copywriting is King:</strong> Since you aren't talking to the camera, your text hooks must capture direct attention. Call out maternal pain points immediately.</li><li><strong>3. PLR & Templates:</strong> Use Private Label Rights (PLR) files to fill your store instantly. Customize the cover, set your price, and start selling.</li></ul><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>💡 Want to view pre-made digital guides you can resell as your own? Browse the PLR catalog:</strong><br><br><a href="/#tools" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Browse PLR Products →</a></div>`
+    },
+    "creator-block": {
+        title: "Bypass the Flashing Cursor: 3 Simple Formulas for Daily Sales Posts",
+        summary: "Stop spending hours brainstorming social media posts. Use these plug-and-play copy frameworks to write high-converting copy in minutes.",
+        readtime: 3,
+        image: "images/own-vault.png",
+        ctaText: "Creative Content Vault Sneak Peek →",
+        ctaUrl: "https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view",
+        content: `We've all been there: sitting down to write during naptime, staring at a blank screen, and feeling the precious free minutes slip away without posting anything.<br><br>The secret to copywriting isn't inspiration—it's formulas. When you use proven copywriting frameworks, writing posts takes less than five minutes.<br><br><h3>The 3 Go-To Mom Copy Templates</h3>Here are three simple styles you can alternate:<ul><li><strong>The Story-Lesson:</strong> Share a quick personal obstacle you overcame (e.g. <em>"How I automated my funnel so it makes sales while I'm at the playground"</em>).</li><li><strong>The Myth Buster:</strong> Call out a common misconception in your niche (e.g. <em>"You don't need a 10k following to sell digital guides"</em>).</li><li><strong>The Checklist:</strong> Give 3-4 bullet-point tips that solve a direct struggle.</li></ul><br>Always close with a direct call to action directing readers to grab your lead magnet or visit your link in bio!<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>📬 Get over 90+ scroll-stopping hooks and copy-paste captions ready to use. Download the Free Vault:</strong><br><br><a href="/#offers" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Download Free Content Vault →</a></div>`
+    }
+};
+
+// Tracks state for regenerating
+let currentAIEditorSource = {
+    type: 'template',
+    value: 'pyramid',
+    isAlternative: false
+};
+
+function generateCustomArticle(promptText, alternative = false) {
     const formattedPrompt = promptText.trim();
     if (!formattedPrompt) return null;
     
-    const title = "The Busy Mom's Guide to " + formattedPrompt.replace(/\b\w/g, c => c.toUpperCase());
-    const summary = `Struggling with ${formattedPrompt}? Learn the exact step-by-step systems and productivity frameworks to master this side-hustle obstacle without losing family time.`;
+    let title = "";
+    let summary = "";
+    let content = "";
     
-    const content = `Managing a side business around a busy family schedule is a massive balancing act. When you are trying to tackle challenges like <strong>${formattedPrompt}</strong>, it is incredibly easy to hit a roadblock and feel completely overwhelmed.<br><br>But the secret isn't working longer hours—it is about working smarter by building structured, automated systems. Let's break down exactly how you can handle ${formattedPrompt} in just 1-2 hours a day.<br><br><h3>Step 1: Simplify and Focus</h3>First, strip away the noise. You don't need to do everything at once. Focus on one specific solution that moves your business forward. Automate your scheduling, use templates, and protect your working hours during naptime or early mornings.<br><br><h3>Step 2: Use Pre-Built Assets</h3>Don't build your product or content from scratch. Bypassing the creation phase by using high-quality done-for-you templates or prompts can save you up to 80% of your time, letting you focus on what actually generates revenue.<br><br><h3>Step 3: Connect with the Right Community</h3>Having step-by-step mentorship is the fastest way to avoid mistakes and get sales. Connect with other side-hustling moms who have already walked this path and built consistent passive income.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>↓ Ready to find your path? Click here to take our 60-second income qualifier quiz on the homepage to unlock your custom roadmap:</strong><br><br><a href="/#quiz" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Find My Roadmap Now →</a></div>`;
+    if (alternative) {
+        title = "Mastering " + formattedPrompt.replace(/\b\w/g, c => c.toUpperCase()) + ": A Busy Mom's Blueprint";
+        summary = `Struggling with ${formattedPrompt}? Skip the trial-and-error. Here is the exact daily productivity checklist to master this side-hustle step.`;
+        content = `Let's cut straight to the point: as a busy mom, you do not have 8 hours a day to spend figuring out <strong>${formattedPrompt}</strong>. You need direct, actionable steps that you can implement in a 30-minute naptime window.<br><br>Here is your blueprint to automate, simplify, and scale your approach to ${formattedPrompt} without sacrificing your family schedule.<br><br><h3>1. Time-Blocking over Multi-Tasking</h3>Multi-tasking is a myth. Set a timer for 25 minutes, close all tabs, and focus exclusively on executing one small piece of this goal. Complete it, check it off, and close your laptop. Consistent micro-steps win the race.<h3>2. Automate the Infrastructure</h3>Your website, product sales, and email delivery should run completely in the background. Use automated landing pages and direct templates so you are only focused on creating short content or checking commissions.<h3>3. Find the Step-by-Step Checklist</h3>Don't guess what to do. Use proven prompts, templates, and pre-built workflows to complete the work in a fraction of the time.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>↓ Need a custom roadmap tailored to your specific schedule and target income? Take our 60-second quiz:</strong><br><br><a href="/#quiz" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Take 60-Second Quiz →</a></div>`;
+    } else {
+        title = "The Busy Mom's Guide to " + formattedPrompt.replace(/\b\w/g, c => c.toUpperCase());
+        summary = `Struggling with ${formattedPrompt}? Learn the exact step-by-step systems and productivity frameworks to master this side-hustle obstacle without losing family time.`;
+        content = `Managing a side business around a busy family schedule is a massive balancing act. When you are trying to tackle challenges like <strong>${formattedPrompt}</strong>, it is incredibly easy to hit a roadblock and feel completely overwhelmed.<br><br>But the secret isn't working longer hours—it is about working smarter by building structured, automated systems. Let's break down exactly how you can handle ${formattedPrompt} in just 1-2 hours a day.<br><br><h3>Step 1: Simplify and Focus</h3>First, strip away the noise. You don't need to do everything at once. Focus on one specific solution that moves your business forward. Automate your scheduling, use templates, and protect your working hours during naptime or early mornings.<br><br><h3>Step 2: Use Pre-Built Assets</h3>Don't build your product or content from scratch. Bypassing the creation phase by using high-quality done-for-you templates or prompts can save you up to 80% of your time, letting you focus on what actually generates revenue.<br><br><h3>Step 3: Connect with the Right Community</h3>Having step-by-step mentorship is the fastest way to avoid mistakes and get sales. Connect with other side-hustling moms who have already walked this path and built consistent passive income.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>↓ Ready to find your path? Click here to take our 60-second income qualifier quiz on the homepage to unlock your custom roadmap:</strong><br><br><a href="/#quiz" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Find My Roadmap Now →</a></div>`;
+    }
     
     return { title, summary, readtime: 3, image: "images/blog-autopilot.png", ctaText: "Take the Qualifier Quiz →", ctaUrl: "/index.html#quiz", content };
 }
 
-function openAIEmailEditor(draft) {
+function openAIEmailEditor(draft, source = null) {
     const modal = document.getElementById('ai-article-editor-modal');
     if (!modal) return;
+    
+    if (source) {
+        currentAIEditorSource = {
+            type: source.type,
+            value: source.value,
+            isAlternative: source.isAlternative || false
+        };
+    }
     
     document.getElementById('ai-art-title').value = draft.title;
     document.getElementById('ai-art-summary').value = draft.summary;
@@ -994,14 +1047,17 @@ function openAIEmailEditor(draft) {
     document.getElementById('ai-art-ctaurl').value = draft.ctaUrl || "/index.html#quiz";
     document.getElementById('ai-art-content').value = draft.content;
     
-    // Set default schedule date as next Sunday
-    const today = new Date();
-    const nextSunday = new Date();
-    nextSunday.setDate(today.getDate() + (7 - today.getDay()) % 7);
-    if (today.getDay() === 0) {
-        nextSunday.setDate(today.getDate() + 7);
+    // Set default schedule date as next Sunday if it's empty
+    const dateInput = document.getElementById('ai-art-date');
+    if (dateInput && !dateInput.value) {
+        const today = new Date();
+        const nextSunday = new Date();
+        nextSunday.setDate(today.getDate() + (7 - today.getDay()) % 7);
+        if (today.getDay() === 0) {
+            nextSunday.setDate(today.getDate() + 7);
+        }
+        dateInput.value = nextSunday.toISOString().split('T')[0];
     }
-    document.getElementById('ai-art-date').value = nextSunday.toISOString().split('T')[0];
     
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -1013,7 +1069,7 @@ document.querySelectorAll('.ai-template-btn').forEach(btn => {
         const topic = btn.getAttribute('data-topic');
         const draft = aiBlogTemplates[topic];
         if (draft) {
-            openAIEmailEditor(draft);
+            openAIEmailEditor(draft, { type: 'template', value: topic, isAlternative: false });
         }
     });
 });
@@ -1023,10 +1079,40 @@ document.getElementById('btn-generate-ai-blog')?.addEventListener('click', () =>
     const val = promptInput.value.trim();
     if (!val) { alert('Please enter a custom topic idea first!'); return; }
     
-    const draft = generateCustomArticle(val);
+    const draft = generateCustomArticle(val, false);
     if (draft) {
         promptInput.value = '';
-        openAIEmailEditor(draft);
+        openAIEmailEditor(draft, { type: 'custom', value: val, isAlternative: false });
+    }
+});
+
+// Regenerate click event listener
+document.getElementById('btn-regenerate-ai-blog')?.addEventListener('click', () => {
+    currentAIEditorSource.isAlternative = !currentAIEditorSource.isAlternative;
+    
+    let draft = null;
+    if (currentAIEditorSource.type === 'template') {
+        const templates = currentAIEditorSource.isAlternative ? aiBlogTemplatesAlt : aiBlogTemplates;
+        draft = templates[currentAIEditorSource.value];
+    } else if (currentAIEditorSource.type === 'custom') {
+        draft = generateCustomArticle(currentAIEditorSource.value, currentAIEditorSource.isAlternative);
+    }
+    
+    if (draft) {
+        document.getElementById('ai-art-title').value = draft.title;
+        document.getElementById('ai-art-summary').value = draft.summary;
+        document.getElementById('ai-art-readtime').value = draft.readtime;
+        document.getElementById('ai-art-image').value = draft.image;
+        document.getElementById('ai-art-ctatext').value = draft.ctaText || "Take the Qualifier Quiz →";
+        document.getElementById('ai-art-ctaurl').value = draft.ctaUrl || "/index.html#quiz";
+        document.getElementById('ai-art-content').value = draft.content;
+        
+        // Add a visual flash effect to show it updated
+        const formEl = document.getElementById('ai-article-form');
+        if (formEl) {
+            formEl.style.opacity = '0.3';
+            setTimeout(() => { formEl.style.opacity = '1'; }, 200);
+        }
     }
 });
 
