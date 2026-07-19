@@ -119,6 +119,14 @@
                 date: "2026-07-21",
                 readtime: 3,
                 image: "images/own-vault.png"
+            },
+            {
+                id: "1784347819800",
+                title: "From Idea to Income: The Streamlined 6-Step Map to Launching Your First Profitable Digital Asset",
+                summary: "Bypass the perfectionism trap. Walk through the sequential 6-step framework to conceptualize, format, build, and sell your first digital product.",
+                date: "2026-07-21",
+                readtime: 4,
+                image: "images/own-create.png"
             }
         ];
 
@@ -195,6 +203,17 @@
                     if (a.ctaUrl !== "https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view" || a.ctaText !== "Creative Content Vault Sneak Peek →") {
                         a.ctaText = "Creative Content Vault Sneak Peek →";
                         a.ctaUrl = "https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view";
+                        migrated = true;
+                    }
+                }
+                if (a.title.includes("From Idea to Income") || a.title.includes("Launching Your First Profitable Digital Asset")) {
+                    if (a.image !== 'images/own-create.png') {
+                        a.image = 'images/own-create.png';
+                        migrated = true;
+                    }
+                    if (a.ctaUrl !== "https://stan.store/Kristan_Oconnor/p/create-your-1st-digital-product-in-6-simple-steps" || a.ctaText !== "Create Your First Digital Product Sneak Peek →") {
+                        a.ctaText = "Create Your First Digital Product Sneak Peek →";
+                        a.ctaUrl = "https://stan.store/Kristan_Oconnor/p/create-your-1st-digital-product-in-6-simple-steps";
                         migrated = true;
                     }
                 }
