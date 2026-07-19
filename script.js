@@ -162,6 +162,36 @@ document.getElementById('open-boss-ai')?.addEventListener('click', () => tryOpen
 document.getElementById('open-plr-filter-from-card')?.addEventListener('click', () => tryOpenTool('plr', 'plr-filter-modal'));
 document.getElementById('boss-ai-bubble')?.addEventListener('click', () => tryOpenTool('ai', 'boss-ai-modal'));
 
+// ---- VAULT OPT-IN MODAL TRIGGER ----
+document.getElementById('open-vault-optin')?.addEventListener('click', () => {
+    openModal('vault-optin-modal');
+});
+
+const vaultOptinForm = document.getElementById('vault-optin-form');
+if (vaultOptinForm) {
+    vaultOptinForm.addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = document.getElementById('vault-optin-name').value;
+        const email = document.getElementById('vault-optin-email').value;
+        const btn = vaultOptinForm.querySelector('button[type="submit"]');
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+        try {
+            await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, name, list: 'content-vault' })
+            });
+        } catch (_) { /* silent fallback */ }
+        closeModal('vault-optin-modal');
+        btn.textContent = 'Send My Free Vault →';
+        btn.disabled = false;
+        vaultOptinForm.reset();
+        showToast('✅ Verification sent! Opening your Vault...');
+        window.open('https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view', '_blank');
+    });
+}
+
 // ============================================================
 //  TOOL 1: INCOME POTENTIAL CALCULATOR
 // ============================================================
