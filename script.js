@@ -164,6 +164,10 @@ document.getElementById('boss-ai-bubble')?.addEventListener('click', () => tryOp
 
 // ---- VAULT OPT-IN MODAL TRIGGER ----
 document.getElementById('open-vault-optin')?.addEventListener('click', () => {
+    const fw = document.getElementById('vault-form-wrapper');
+    const sw = document.getElementById('vault-success-wrapper');
+    if (fw) fw.style.display = 'block';
+    if (sw) sw.style.display = 'none';
     openModal('vault-optin-modal');
 });
 
@@ -183,12 +187,16 @@ if (vaultOptinForm) {
                 body: JSON.stringify({ email, name, product: 'The Creative Content Vault' })
             });
         } catch (_) { /* silent fallback */ }
-        closeModal('vault-optin-modal');
+        
+        // Show success wrapper instead of closing immediately
+        const fw = document.getElementById('vault-form-wrapper');
+        const sw = document.getElementById('vault-success-wrapper');
+        if (fw) fw.style.display = 'none';
+        if (sw) sw.style.display = 'flex';
+        
         btn.textContent = 'Send My Free Vault →';
         btn.disabled = false;
         vaultOptinForm.reset();
-        showToast('✅ Verification sent! Opening your Vault...');
-        window.open('https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view', '_blank');
     });
 }
 
