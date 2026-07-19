@@ -73,25 +73,28 @@
     <script>
         const FALLBACK_ARTICLES = [
             {
-                title: "How Digital Products Became the Cheat Code for Stay-at-Home Moms",
-                summary: "Why selling digital downloads beats traditional brick-and-mortar storefronts, dropshipping, and service-based work. The ultimate guide to skipping startup costs.",
-                date: "2026-07-18",
-                readtime: 3,
-                image: "images/own-create.png"
+                title: "The Beginner's Guide to Building Multiple Streams of Digital Income Without Burnout",
+                summary: "The traditional path of trading time directly for dollars is a losing battle when you are managing a household. Learn how low-overhead digital assets can generate sustainable, automated income on a busy schedule.",
+                date: "2026-07-19",
+                readtime: 4,
+                image: "images/kristan-banner.jpg",
+                content: `Let’s face it: the traditional path of trading time directly for dollars is a losing battle when you are managing a household. Between family schedules, school runs, and daily responsibilities, there simply aren't enough hours in the day to take on a second conventional job. Yet, relying on a single source of income in today's economy can feel incredibly precarious.<br><br>For many beginners, the solution seems obvious: start an online business. But if you look at the standard advice out there, it usually involves highly complex business models, massive upfront investment, or hours spent building an audience from scratch.<br><br>The secret to sustainable financial freedom isn’t working twenty hours a day on a single, massive project. It is building diversified, low-overhead digital income streams that fit into the pockets of your existing schedule.<br><br><h3>Why the "Single Income" Framework Fails Busy Families</h3>Most traditional business models demand an infinite amount of time before you ever see a return. If you start a business that requires physical inventory, manual shipping, or constant client consultation, you haven't created freedom—you’ve just built another demanding job.<br><br>When your time is already fractured by family commitments, you need a model that operates under three strict rules:<ul><li><strong>Zero Inventory:</strong> You should never have to buy, store, or ship physical items.</li><li><strong>Low Overhead:</strong> The entry barrier must be financially accessible, allowing you to start without risking the family budget.</li><li><strong>High Scalability:</strong> The asset should be built or set up once, then left to run with minimal daily maintenance.</li></ul>By shifting your focus from a single, high-stress job to multiple, small digital assets, you spread your financial risk and protect your energy from burnout.<br><br><h3>The Shift to Low-Overhead Digital Assets</h3>The biggest hurdle for beginners is the belief that they need to be a software developer, a professional writer, or a tech expert to sell anything online. In reality, the modern digital economy allows you to leverage existing platforms and frameworks to generate income without creating products entirely from scratch.<br><br>Instead of spending months trying to invent something completely new, successful digital marketers look for existing market demand and use established pathways to fulfill it.<br><br><h3>4 Accessible Digital Income Streams for Beginners</h3>If you are starting from absolute zero, here are four of the most reliable, beginner-friendly digital paths that require zero prior tech experience:<br><br><strong>1. Amazon Customer Reviews</strong><br>Brands are constantly looking for authentic video feedback on the products they sell. Through specialized reviewer programs, everyday consumers can upload brief, honest video reviews of items they already use. When shoppers watch those videos on a product page and make a purchase, the reviewer earns a percentage of the sale.<br><br><strong>2. User-Generated Content (UGC)</strong><br>Unlike traditional influencers who need hundreds of thousands of followers, UGC creators don’t need a following at all. Brands pay regular people to film simple, relatable videos using their products for advertisements. You get paid for the content creation itself, not for broadcasting it to your own personal network.<br><br><strong>3. Print on Demand (POD)</strong><br>With print on demand, you create simple text or graphic designs and upload them to online marketplaces. When a customer orders a shirt, mug, or notebook with your design, a third-party manufacturer prints and ships it automatically. You collect the profit margin without ever touching the merchandise.<br><br><strong>4. Digital Storefronts & E-Templates</strong><br>People actively search platforms like Etsy every day for digital planners, budgeting trackers, checklists, and organizational templates. Because these files are completely digital, once you upload the design to your shop, the platform handles the delivery automatically every single time someone purchases.<br><br><h3>Moving From Overwhelm to Execution</h3>The reason most people fail to establish a second income stream isn't a lack of ambition—it is a lack of a clear, sequential map. Trying to piece together random tutorials from YouTube often leads to conflicting advice, technical frustration, and ultimate abandonment.<br><br>To make multiple income streams work around a busy schedule, you don't need a business degree; you just need a structured framework that walks you through the setup process of each asset, step by step.<br><br><strong>Ready to find your path?</strong><br>Scroll down to take our 60-second interactive energy qualifier, or click below to access the ultimate budget-friendly roadmap to 14 distinct digital income streams inside Stacked by Emily.`
             },
             {
                 title: "Affiliate Marketing vs. MLM: Why True Automation Wins Every Time",
                 summary: "Ditch the DMs, the monthly volume quotas, and the recruitment pressure. Learn how direct-to-consumer affiliate pathways give you actual ownership of your day.",
                 date: "2026-07-15",
                 readtime: 4,
-                image: "images/own-vault.png"
+                image: "images/own-vault.png",
+                content: "Content coming soon! Kristan is currently writing this guide to help you build automated affiliate streams."
             },
             {
                 title: "Do You Really Need 10k Followers? The Truth About Targeted Traffic",
                 summary: "How micro-audiences and high-intent searches attract perfect customers who are already wallet-in-hand, without you needing to do silly viral dances.",
                 date: "2026-07-12",
                 readtime: 3,
-                image: "images/own-prompts.png"
+                image: "images/own-prompts.png",
+                content: "Content coming soon! Kristan is currently drafting this guide to help you attract high-intent traffic without a massive following."
             }
         ];
 
@@ -114,30 +117,104 @@
                 displayList = FALLBACK_ARTICLES;
             }
 
-            feedEl.innerHTML = displayList.map(art => `
-                <div class="glass-card" style="background: #ffffff; border: 1px solid rgba(232, 50, 122, 0.12); box-shadow: 0 10px 30px rgba(26, 10, 20, 0.06); display: flex; flex-direction: column; gap: 1rem; height: 100%; transition: var(--transition-smooth); padding:2rem; border-radius:20px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between;">
-                        <span style="background: rgba(232, 50, 122, 0.07); color: #C4285E; border: 1px solid rgba(232, 50, 122, 0.2); font-size: 0.72rem; font-weight: 700; padding: 0.35rem 0.8rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;">★ Active Article</span>
-                        <span style="font-size: 0.78rem; color: #5A2E45; display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-clock"></i> ${art.readtime} min read</span>
-                    </div>
+            let activeArticlesList = [];
+
+            feedEl.innerHTML = displayList.map((art, index) => `
+                <div class="glass-card" style="background: #ffffff; border: 1px solid rgba(232, 50, 122, 0.12); box-shadow: 0 10px 30px rgba(26, 10, 20, 0.06); display: flex; flex-direction: column; gap: 0; height: 100%; transition: var(--transition-smooth); padding: 0; border-radius: 20px; overflow: hidden; cursor: pointer;" onclick="openArticleModal(${index})">
                     
-                    <!-- 3D Graphic Preview Container -->
-                    <div style="height: 150px; display: flex; align-items: center; justify-content: center; background: rgba(232, 50, 122, 0.02); border-radius: 12px; margin: 0.5rem 0; padding: 0.8rem; border: 1px solid rgba(232, 50, 122, 0.05);">
-                        <img src="${art.image || 'images/own-create.png'}" style="max-height: 100%; max-width: 100%; object-fit: contain; filter: drop-shadow(0 8px 16px rgba(26,10,20,0.06));">
+                    <!-- Full-Bleed Cover Image -->
+                    <div style="height: 180px; width: 100%; overflow: hidden; position: relative; background: #130716;">
+                        <img src="${art.image || 'images/kristan-banner.jpg'}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1.0)'">
                     </div>
 
-                    <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: #1A0A14 !important; line-height: 1.35; margin-top: 0.5rem; text-align:left; font-weight:700;">${art.title}</h3>
-                    <p style="font-size: 0.92rem; color: #5A2E45 !important; line-height: 1.6; flex: 1; text-align:left; font-weight:300;">${art.summary}</p>
-                    
-                    <div style="border-top: 1px solid rgba(232, 50, 122, 0.1); padding-top: 1rem; margin-top: auto; display: flex; align-items: center; justify-content: space-between;">
-                        <span style="font-size: 0.8rem; color: #C4285E !important; font-weight: 600; display: flex; align-items: center; gap: 0.3rem;">Written by Kristan <i class="ph-fill ph-seal-check"></i></span>
-                        <span style="font-size:0.75rem; color:#5A2E45;">${art.date}</span>
+                    <!-- Card Body Content -->
+                    <div style="padding: 1.8rem 2rem 2rem; display: flex; flex-direction: column; gap: 0.8rem; flex: 1;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span style="background: rgba(232, 50, 122, 0.07); color: #C4285E; border: 1px solid rgba(232, 50, 122, 0.2); font-size: 0.72rem; font-weight: 700; padding: 0.35rem 0.8rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;">★ Active Article</span>
+                            <span style="font-size: 0.78rem; color: #5A2E45; display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-clock"></i> ${art.readtime} min read</span>
+                        </div>
+
+                        <h3 style="font-family: var(--font-heading); font-size: 1.2rem; color: #1A0A14 !important; line-height: 1.35; margin-top: 0.5rem; text-align: left; font-weight: 700;">${art.title}</h3>
+                        <p style="font-size: 0.92rem; color: #5A2E45 !important; line-height: 1.6; flex: 1; text-align: left; font-weight: 300; margin: 0;">${art.summary}</p>
+                        
+                        <div style="border-top: 1px solid rgba(232, 50, 122, 0.1); padding-top: 1rem; margin-top: auto; display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-size: 0.8rem; color: #C4285E !important; font-weight: 600; display: flex; align-items: center; gap: 0.3rem;">Written by Kristan <i class="ph-fill ph-seal-check"></i></span>
+                            <span style="font-size: 0.75rem; color: #5A2E45;">${art.date}</span>
+                        </div>
                     </div>
                 </div>
             `).join('');
+
+            // Save globally for modal popup access
+            activeArticlesList = displayList;
+        }
+
+        function openArticleModal(index) {
+            const art = activeArticlesList[index];
+            if (!art) return;
+            
+            document.getElementById('modal-article-image').src = art.image || 'images/kristan-banner.jpg';
+            document.getElementById('modal-article-readtime').innerHTML = `<i class="ph ph-clock"></i> ${art.readtime} min read`;
+            document.getElementById('modal-article-title').textContent = art.title;
+            document.getElementById('modal-article-date').textContent = art.date;
+            document.getElementById('modal-article-content').innerHTML = art.content;
+            
+            const modal = document.getElementById('article-reader-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Stop background scrolling
+            }
+        }
+
+        function closeArticleModal() {
+            const modal = document.getElementById('article-reader-modal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Re-enable background scrolling
+            }
         }
 
         document.addEventListener('DOMContentLoaded', loadPublishedArticles);
     </script>
+
+    <!-- ===== ARTICLE READER MODAL (Cream Style Pop-up) ===== -->
+    <div id="article-reader-modal" style="position: fixed; inset: 0; background: rgba(13, 5, 16, 0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 2rem;" onclick="if(event.target.id==='article-reader-modal') closeArticleModal();">
+        <div class="glass-card" style="background: #ffffff; border: 1px solid rgba(232, 50, 122, 0.15); border-radius: 24px; max-width: 750px; width: 100%; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); color: #1A0A14; position: relative;">
+            
+            <!-- Close Button -->
+            <button onclick="closeArticleModal()" style="position: absolute; top: 1.2rem; right: 1.5rem; background: rgba(0, 0, 0, 0.6); border: none; color: #ffffff; width: 36px; height: 36px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: 0.3s; line-height: 1;" onmouseover="this.style.background='var(--primary)'" onmouseout="this.style.background='rgba(0,0,0,0.6)'">&times;</button>
+            
+            <!-- Hero Image Banner -->
+            <div style="height: 240px; width: 100%; overflow: hidden; position: relative; background: #130716;">
+                <img id="modal-article-image" src="" style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(19, 7, 22, 0.95) 0%, rgba(19, 7, 22, 0.2) 100%);"></div>
+                <div style="position: absolute; bottom: 1.5rem; left: 2rem; right: 2rem; color: #ffffff; text-align: left;">
+                    <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem;">
+                        <span id="modal-article-badge" style="background: var(--primary); color: #ffffff; font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">Blog Article</span>
+                        <span id="modal-article-readtime" style="font-size: 0.8rem; opacity: 0.8;"><i class="ph ph-clock"></i> 3 min read</span>
+                    </div>
+                    <h2 id="modal-article-title" style="font-family: var(--font-heading); font-size: 1.6rem; margin: 0; line-height: 1.3; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Article Title</h2>
+                </div>
+            </div>
+            
+            <!-- Article Scrollable Content Body -->
+            <div style="flex: 1; overflow-y: auto; padding: 2.2rem 2.5rem; text-align: left; line-height: 1.75; font-size: 1.02rem; background: #F5F0E6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; color: #5A2E45; border-bottom: 1px solid rgba(232, 50, 122, 0.1); padding-bottom: 0.8rem; margin-bottom: 1.5rem;">
+                    <span>By Kristan O'Connor <i class="ph-fill ph-seal-check" style="color:var(--primary);"></i></span>
+                    <span id="modal-article-date">Date</span>
+                </div>
+                <div id="modal-article-content" style="color: #3d2030; font-family: var(--font-body);">
+                    <!-- Full article content goes here -->
+                </div>
+                
+                <!-- Modal Footer CTA -->
+                <div style="margin-top: 3rem; border-top: 1px solid rgba(232, 50, 122, 0.1); padding-top: 2rem; text-align: center;">
+                    <p style="font-family: var(--font-heading); color: #C4285E; font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem;">Ready to build your digital income path?</p>
+                    <a href="/#quiz" onclick="closeArticleModal()" class="btn btn-primary" style="box-shadow: 0 4px 15px rgba(232, 50, 122, 0.25);">Find My Stream Now →</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
 </body>
 </html>
