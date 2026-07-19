@@ -167,7 +167,7 @@
             saved = saved.map(a => {
                 // Auto-migrate placeholder image paths
                 if (a.title.includes("Beginner's Guide")) {
-                    if (a.image === 'images/own-create.png' || a.image === 'images/kristan-banner.jpg' || !a.image) {
+                    if (a.image !== 'images/blog-streams.png') {
                         a.image = 'images/blog-streams.png';
                         migrated = true;
                     }
@@ -178,7 +178,7 @@
                     }
                 }
                 if (a.title.includes("No Face, No DMs")) {
-                    if (!a.image || a.image === 'images/own-vault.png' || a.image === 'images/own-create.png' || a.image === 'images/kristan-banner.jpg') {
+                    if (a.image !== 'images/blog-faceless.png') {
                         a.image = 'images/blog-faceless.png';
                         migrated = true;
                     }
@@ -189,7 +189,7 @@
                     }
                 }
                 if (a.title.includes("Autopilot Framework")) {
-                    if (!a.image || a.image === 'images/own-prompts.png' || a.image === 'images/own-create.png' || a.image === 'images/kristan-banner.jpg') {
+                    if (a.image !== 'images/blog-autopilot.png') {
                         a.image = 'images/blog-autopilot.png';
                         migrated = true;
                     }

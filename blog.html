@@ -73,6 +73,7 @@
     <script>
         const FALLBACK_ARTICLES = [
             {
+                id: "1784347819200",
                 title: "The Beginner's Guide to Building Multiple Streams of Digital Income Without Burnout",
                 summary: "The traditional path of trading time directly for dollars is a losing battle when you are managing a household. Learn how low-overhead digital assets can generate sustainable, automated income on a busy schedule.",
                 date: "2026-07-19",
@@ -80,6 +81,7 @@
                 image: "images/blog-streams.png"
             },
             {
+                id: "1784347819300",
                 title: "No Face, No DMs: How to Launch a Faceless Digital Marketing Business From Home",
                 summary: "Learn how to generate sustainable online income behind the scenes without recording daily videos, sharing your children's private moments, or cold-DMing strangers.",
                 date: "2026-07-15",
@@ -87,6 +89,7 @@
                 image: "images/blog-faceless.png"
             },
             {
+                id: "1784347819400",
                 title: "The Autopilot Framework: How to Turn Social Media Followers into Customers Using Smart Systems",
                 summary: "Transform social media from a time-consuming hobby into an income-generating asset. Build an automated organic scaling presence backed by chatbot workflows.",
                 date: "2026-07-19",
@@ -106,28 +109,37 @@
             let migrated = false;
             saved = saved.map(a => {
                 if (a.title.includes("Beginner's Guide")) {
-                    if (a.image === 'images/own-create.png' || a.image === 'images/kristan-banner.jpg' || !a.image) {
+                    if (a.image !== 'images/blog-streams.png') {
                         a.image = 'images/blog-streams.png';
                         migrated = true;
                     }
-                    a.ctaText = "Enroll in Stacked by Emily →";
-                    a.ctaUrl = "https://stan.store/affiliates/8f9bdd55-e647-44d1-89cf-78f3b3750daa";
+                    if (a.ctaUrl !== "https://stan.store/Kristan_Oconnor/p/the-stacked-sneak-peek-qukh6f7x" || a.ctaText !== "Stacked Sneak Peek →") {
+                        a.ctaText = "Stacked Sneak Peek →";
+                        a.ctaUrl = "https://stan.store/Kristan_Oconnor/p/the-stacked-sneak-peek-qukh6f7x";
+                        migrated = true;
+                    }
                 }
                 if (a.title.includes("No Face, No DMs")) {
-                    if (!a.image || a.image === 'images/own-vault.png' || a.image === 'images/own-create.png' || a.image === 'images/kristan-banner.jpg') {
+                    if (a.image !== 'images/blog-faceless.png') {
                         a.image = 'images/blog-faceless.png';
                         migrated = true;
                     }
-                    a.ctaText = "Access The Boss Suite →";
-                    a.ctaUrl = "https://stan.store/affiliates/81495b81-cf82-4813-8634-7f8d9f4369ba";
+                    if (a.ctaUrl !== "https://stan.store/Kristan_Oconnor/p/bosssuite-sneak-peek" || a.ctaText !== "Boss Suite Sneak Peek →") {
+                        a.ctaText = "Boss Suite Sneak Peek →";
+                        a.ctaUrl = "https://stan.store/Kristan_Oconnor/p/bosssuite-sneak-peek";
+                        migrated = true;
+                    }
                 }
                 if (a.title.includes("Autopilot Framework")) {
-                    if (!a.image || a.image === 'images/own-prompts.png' || a.image === 'images/own-create.png' || a.image === 'images/kristan-banner.jpg') {
+                    if (a.image !== 'images/blog-autopilot.png') {
                         a.image = 'images/blog-autopilot.png';
                         migrated = true;
                     }
-                    a.ctaText = "Unlock Facebook Ecosystem Strategy →";
-                    a.ctaUrl = "https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a";
+                    if (a.ctaUrl !== "https://stan.store/Kristan_Oconnor/p/preview-inside-fes" || a.ctaText !== "FES Sneak Peek →") {
+                        a.ctaText = "FES Sneak Peek →";
+                        a.ctaUrl = "https://stan.store/Kristan_Oconnor/p/preview-inside-fes";
+                        migrated = true;
+                    }
                 }
                 return a;
             });
