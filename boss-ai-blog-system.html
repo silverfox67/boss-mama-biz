@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standalone Boss AI Blog Post Manager</title>
+    <!-- Phospor Icons Library for robot/arrows icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --bg-dark: #0f050c;
+            --bg-card: rgba(26, 10, 20, 0.45);
+            --primary: #e8327a;
+            --primary-glow: rgba(232, 50, 122, 0.15);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --transition: all 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            padding: 1.8rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 15px var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dash-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #ffffff;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .dash-input:focus {
+            border-color: var(--primary);
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Modal Styles */
+        .tool-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+        }
+
+        .tool-modal-content {
+            max-width: 720px;
+            width: 92%;
+            padding: 2.2rem;
+            background: linear-gradient(145deg, #140810 0%, #2d1230 50%, #1a0a14 100%);
+            border: 1px solid rgba(232,50,122,0.4);
+            border-radius: 20px;
+            box-shadow: 0 0 80px rgba(0,0,0,0.8);
+            overflow-y: auto;
+            max-height: 90vh;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="glass-card">
+        <h2>✍️ Blog Post Manager</h2>
+        <p>Write, edit, delete, and schedule articles for your static website.</p>
+    </div>
+
+    <!-- 🤖 Boss AI Article Generator & Coach -->
+    <div class="glass-card">
+        <div style="display:flex; align-items:center; gap:1rem; margin-bottom: 1.2rem; border-bottom:1px solid var(--border); padding-bottom:0.8rem;">
+            <div style="font-size:1.8rem; width:44px; height:44px; display:flex; align-items:center; justify-content:center; background:rgba(232,50,122,0.15); border-radius:50%; border:1px solid rgba(232,50,122,0.3); color:var(--primary);"><i class="ph ph-robot"></i></div>
+            <div>
+                <h3 style="margin:0; color:#ffffff;">Boss AI Article &amp; Idea Coach</h3>
+                <span style="font-size:0.78rem; color:var(--primary); font-weight:600;">SEO-Optimized Blog Post Generator</span>
+            </div>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6;">Select one of our pre-vetted SEO templates or type a custom topic to generate a complete draft in seconds.</p>
+        
+        <div style="display:flex; flex-direction:column; gap:1.2rem;">
+            <div>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1rem;">
+                    <button type="button" class="btn btn-secondary ai-template-btn" data-topic="pyramid" style="text-align:left; padding:1rem; display:flex; flex-direction:column; gap:0.3rem;">
+                        <span style="font-size:0.75rem; color:var(--primary); font-weight:700;">🔍 SEARCH: "is affiliate marketing an MLM?"</span>
+                        <strong style="font-size:0.92rem; color:#fff;">Pyramid Scheme vs. Affiliate Marketing</strong>
+                    </button>
+                    <button type="button" class="btn btn-secondary ai-template-btn" data-topic="faceless" style="text-align:left; padding:1rem; display:flex; flex-direction:column; gap:0.3rem;">
+                        <span style="font-size:0.75rem; color:var(--primary); font-weight:700;">🔍 SEARCH: "faceless digital marketing for moms"</span>
+                        <strong style="font-size:0.92rem; color:#fff;">How to Sell Products Faceless</strong>
+                    </button>
+                    <button type="button" class="btn btn-secondary ai-template-btn" data-topic="creator-block" style="text-align:left; padding:1rem; display:flex; flex-direction:column; gap:0.3rem;">
+                        <span style="font-size:0.75rem; color:var(--primary); font-weight:700;">🔍 SEARCH: "what to post zero content ideas"</span>
+                        <strong style="font-size:0.92rem; color:#fff;">Overcoming Creator Block &amp; Burnout</strong>
+                    </button>
+                </div>
+            </div>
+            
+            <div style="border-top:1px solid var(--border); padding-top:1.2rem; display:flex; gap:0.8rem; align-items:center;">
+                <input type="text" id="ai-blog-prompt" placeholder="Or type a custom topic..." class="dash-input" style="flex:1; margin:0;">
+                <button type="button" id="btn-generate-ai-blog" class="btn btn-primary">Ask AI to Write →</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-layout">
+        <!-- Create/Edit Form -->
+        <div class="glass-card">
+            <h3 id="blog-form-title">Create Blog Post</h3>
+            <form id="blog-post-form" style="display:flex; flex-direction:column; gap:1.2rem;">
+                <input type="hidden" id="blog-post-id" value="">
+                
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label>Article Title</label>
+                    <input type="text" id="blog-title" placeholder="e.g. How to Automate Your Side Hustle" required class="dash-input">
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label>Teaser / Summary</label>
+                    <textarea id="blog-summary" placeholder="A short, catchy preview..." required class="dash-input" style="height:70px; resize:none;"></textarea>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label>Publish / Schedule Date</label>
+                    <input type="date" id="blog-date" required class="dash-input">
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label>Read Time (Minutes)</label>
+                    <input type="number" id="blog-readtime" value="3" min="1" required class="dash-input">
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label>Article Body / Content</label>
+                    <textarea id="blog-content" placeholder="Write content here..." required class="dash-input" style="height:200px; resize:vertical;"></textarea>
+                </div>
+
+                <div style="display:flex; gap:0.8rem;">
+                    <button type="submit" id="blog-submit-btn" class="btn btn-primary" style="flex:1;">Save &amp; Schedule →</button>
+                    <button type="button" id="blog-cancel-btn" class="btn btn-secondary" style="display:none;">Cancel Edit</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Articles List -->
+        <div class="glass-card" style="display:flex; flex-direction:column; gap:1.2rem;">
+            <h3>Scheduled &amp; Published Posts</h3>
+            <div id="blog-articles-empty" style="text-align:center; padding:3rem 1rem; border:1px dashed var(--border); border-radius:12px;">
+                <span style="font-size:2.2rem; display:block; margin-bottom:0.6rem;">✍️</span>
+                <p style="color:var(--text-muted); margin:0;">No articles written yet.</p>
+            </div>
+            <div id="blog-articles-list" style="display:flex; flex-direction:column; gap:1rem; max-height: 520px; overflow-y: auto;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- AI Article Editor Modal -->
+<div id="ai-article-editor-modal" class="tool-modal">
+    <div class="tool-modal-content">
+        <button class="modal-close" style="background:none; border:none; color:#fff; font-size:1.8rem; position:absolute; top:1rem; right:1.2rem; cursor:pointer;" onclick="closeAIModal()">&times;</button>
+        <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:1rem; border-bottom:1px solid var(--border); padding-bottom:0.6rem;">
+            <span style="font-size:1.5rem;">🤖</span>
+            <h3 style="margin:0; color:#ffffff;">Boss AI Article Editor &amp; Publisher</h3>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1.5rem;">Boss AI has generated this SEO-optimized article draft. You can read, edit, schedule, and publish it below.</p>
+        
+        <form id="ai-article-form" style="display:flex; flex-direction:column; gap:1.2rem;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label>Article Title</label>
+                    <input type="text" id="ai-art-title" required class="dash-input">
+                </div>
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label>Schedule Publish Date</label>
+                    <input type="date" id="ai-art-date" required class="dash-input">
+                </div>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label>Read Time (Minutes)</label>
+                    <input type="number" id="ai-art-readtime" value="3" min="1" required class="dash-input">
+                </div>
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label>Bottom CTA Button Text</label>
+                    <input type="text" id="ai-art-ctatext" required class="dash-input">
+                </div>
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                <label>Bottom CTA Link URL</label>
+                <input type="text" id="ai-art-ctaurl" required class="dash-input">
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                <label>Teaser / Summary (For Blog Feed)</label>
+                <textarea id="ai-art-summary" required class="dash-input" style="height:60px; resize:none;"></textarea>
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                <label>Article Body Content (HTML/Paragraphs)</label>
+                <textarea id="ai-art-content" required class="dash-input" style="height:250px; resize:vertical; font-family:monospace;"></textarea>
+            </div>
+
+            <div style="display:flex; gap:1rem; margin-top:0.5rem; flex-wrap: wrap;">
+                <button type="submit" class="btn btn-primary" style="flex:1.2; min-width: 200px;">📥 Add &amp; Schedule to Site →</button>
+                <button type="button" id="btn-regenerate-ai-blog" class="btn btn-secondary" style="flex:1; border:1px solid var(--primary); color:var(--primary); background:rgba(232,50,122,0.05); display:flex; align-items:center; justify-content:center; gap:0.5rem; min-width: 200px;">🔄 Regenerate Alternative</button>
+                <button type="button" class="btn btn-secondary" style="flex:0.6; min-width: 100px;" onclick="closeAIModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// ==========================================
+// STATIC DATABASE STORAGE
+// ==========================================
+function getBlogArticles() {
+    return JSON.parse(localStorage.getItem('bmb_blog_articles') || '[]');
+}
+
+function saveBlogArticles(articles) {
+    localStorage.setItem('bmb_blog_articles', JSON.stringify(articles));
+}
+
+// ==========================================
+// BOSS AI BLOG COACH TEMPLATES
+// ==========================================
+const aiBlogTemplates = {
+    pyramid: {
+        title: "Is Affiliate Marketing a Pyramid Scheme? An Honest Breakdown",
+        summary: "You've probably seen posts promising big payouts. Read this honest comparison to understand the crucial difference between legitimate affiliate marketing and MLMs.",
+        readtime: 4,
+        image: "images/blog-streams.png",
+        ctaText: "Qualifier Quiz Sneak Peek →",
+        ctaUrl: "/index.html#quiz",
+        content: `You've probably seen posts on Instagram or Facebook promising that you can make thousands of dollars working from your phone. And if you're like most sensible moms, your first thought was: "Is this another pyramid scheme?"<br><br>The skepticism is entirely valid. The internet is full of "get-rich-quick" programs and multi-level marketing (MLM) companies that require you to recruit your friends, buy piles of inventory, and sit in peoples' direct messages all day. It's exhausting, and for most moms, it leads to burnout rather than business.<br><br>But there is a legitimate, clean alternative that does not involve recruiting, inventory, or messaging your high school friends: <strong>Affiliate Marketing</strong>. Here is the honest breakdown of how they differ.<br><br><h3>The MLM / Pyramid Scheme Model (Recruiting Focus)</h3>In a pyramid scheme or MLM, the primary way to make real money is by recruiting a "downline" of other distributors. You are forced to buy a minimum amount of product inventory each month just to stay qualified. The emphasis is on building a team, not selling a valuable product. If the system relies on recruiting others to make money, it's a pyramid structure.<br><br><h3>The Affiliate Marketing Model (Sales Focus)</h3>Affiliate marketing is completely different. You simply recommend a product or service that you like. When someone purchases it through your custom tracking link, the company pays you a direct sales commission. <ul><li><strong>No Recruiting:</strong> You do not build a team. You earn only on direct sales you generate.</li><li><strong>No Inventory:</strong> You never purchase or ship physical products.</li><li><strong>Zero Monthly Minimums:</strong> There are no quotas or pressure.</li></ul><h3>The Golden Rule of Legitimate Digital Business</h3>A real affiliate business focuses on connecting buyers to high-quality training and systems. You don't need a massive social media following or MLM tactics if you follow a clean, automated system.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>↓ Not sure which path fits your schedule? Click here to take our 60-second income qualifier quiz on the homepage:</strong><br><br><a href="/#quiz" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Take 60-Second Quiz →</a></div>`
+    },
+    faceless: {
+        title: "How to Sell Digital Products Without Showing Your Face (A Guide to Faceless Marketing)",
+        summary: "Camera shy? You do not need to post family pictures or talk to the camera to run a successful store. Learn how to launch a faceless marketing business today.",
+        readtime: 3,
+        image: "images/blog-faceless.png",
+        ctaText: "Browse PLR Products →",
+        ctaUrl: "/index.html#tools",
+        content: `The dream of running an online business sounds amazing, until you realize that most marketing gurus tell you to record daily videos, dance on camera, and share your personal family life online.<br><br>For many busy moms, that is a dealbreaker. You want to build an income stream, but you also want to protect your family's privacy and avoid being glued to your phone recording selfies.<br><br>The good news? You do not need to show your face to build a thriving online store. Here is the complete framework for faceless digital marketing.<br><br><h3>1. Use Aesthetic Stock Video Clips</h3>You don't need to record yourself typing or making coffee. You can use beautiful, high-quality, pre-recorded stock video libraries (like Canva, Pexels, or specialized faceless aesthetic libraries). These videos feature cozy work setups, kitchen counters, or nature scenes that match a high-end brand aesthetic.<br><br><h3>2. Focus on Strong Hooks and Text-on-Screen</h3>Because you aren't talking directly to the camera, your text-on-screen hook must do the heavy lifting. Address your ideal customer's exact frustration immediately (e.g. <em>"How I set up a passive income stream during naptime without ever showing my face"</em>). Use clean, minimalist fonts that are easy to read.<br><br><h3>3. Leverage Done-For-You (PLR) Digital Products</h3>Building a digital product from scratch is time-consuming. By purchasing high-quality Private Label Rights (PLR) guides, spreadsheets, or templates, you buy the legal license to rebrand and resell them under your own name. You get to keep 100% of the profits without spending weeks designing products.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>💡 Ready to start? Click here to browse and filter high-converting done-for-you products inside the PLR Library:</strong><br><br><a href="/#tools" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Browse PLR Products →</a></div>`
+    },
+    "creator-block": {
+        title: "What to Post When You Have Zero Content Ideas (How to Fix Creator Block)",
+        summary: "Staring at a flashing cursor is exhausting. Use this simple 'Hook, Story, Offer' framework to write sales posts in less than 5 minutes.",
+        readtime: 3,
+        image: "images/own-vault.png",
+        ctaText: "Creative Content Vault Sneak Peek →",
+        ctaUrl: "https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view",
+        content: `You sit down at your desk during a rare quiet moment while the kids are napping, open your phone, and... nothing. You stare at a flashing cursor, completely unsure of what to write.<br><br>You know you need to post to keep your business visible, but the mental energy required to brainstorm new ideas every single day is draining. You either post something generic just to get it out of the way, or you skip posting entirely because the creative block is too overwhelming.<br><br>Here is the secret to consistent social media marketing: stop waiting for inspiration, and use a structured framework.<br><br><h3>The Hook, Story, Offer Framework</h3>Every high-converting post follows three simple stages:<ul><li><strong>1. The Hook:</strong> A scroll-stopping sentence that targets a specific pain point or desire (e.g. <em>"I used to spend 3 hours writing copy, now I do it in 5 minutes."</em>).</li><li><strong>2. The Story:</strong> A short paragraph sharing a personal lesson, customer win, or quick tip that builds trust and adds value.</li><li><strong>3. The Offer (CTA):</strong> A clear instruction on what action to take next. Never write a post without a call-to-action!</li></ul><h3>Putting Your Content on Autopilot</h3>You don't need to invent hooks and story starters daily. By utilizing a pre-vetted bank of scroll-stopping hooks and copy-paste templates, you can write weeks of social media content in a single afternoon.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>📬 Get 90+ days of scroll-stopping hooks, storytelling prompts, and high-converting calls-to-action completely FREE in our Creative Content Vault:</strong><br><br><a href="/#offers" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Download Free Content Vault →</a></div>`
+    }
+};
+
+const aiBlogTemplatesAlt = {
+    pyramid: {
+        title: "Pyramid Scheme vs. Affiliate Marketing: Why Recruiting is Dead",
+        summary: "Tired of MLMs filling your inbox asking you to pitch friends? Discover the clean, honest way moms make passive commissions without recruiting.",
+        readtime: 3,
+        image: "images/blog-streams.png",
+        ctaText: "Check Your Income Matches →",
+        ctaUrl: "/index.html#quiz",
+        content: `Let's talk about that message you got in your inbox last night from a high school friend you haven't spoken to in a decade. "Hey mama, I've got this amazing opportunity..."<br><br>If your alarm bells went off, good. You are a smart business owner in the making. In 2026, the market is saturated with MLM schemes disguised as 'social retail' or 'direct sales'.<br><br>The key difference is recruiting vs selling. If you must build a team to make a profit, you're in an MLM. If you just promote high-quality products or systems for direct commission, you're doing affiliate marketing. It is that clean, and that simple.<br><br><h3>Why Busy Moms Choose True Affiliate Marketing</h3>True affiliate marketing fits into your life without the pressure:<ul><li><strong>No Messaging Friends:</strong> You build an audience of people who actually want to buy, instead of pitch-spamming family.</li><li><strong>No Stockpiles:</strong> No physical shipping, no boxes in your garage.</li><li><strong>Keep 100% Focus on Sales:</strong> You are not responsible for training or mentoring a massive downline.</li></ul><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>🎯 Ready to see if you have the ideal matching background? Take our 60-second quiz on the homepage:</strong><br><br><a href="/#quiz" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Take the Income Quiz →</a></div>`
+    },
+    faceless: {
+        title: "The Camera-Shy Mom's Path to Passive Income: A Faceless Store Guide",
+        summary: "You don't need to post personal photos or selfies online to build a successful store. Learn how to design a high-converting faceless brand today.",
+        readtime: 3,
+        image: "images/blog-faceless.png",
+        ctaText: "Browse PLR Products →",
+        ctaUrl: "/index.html#tools",
+        content: `Many busy moms love the idea of running a passive storefront, but hates the idea of record selfie videos, dancing, and posting pictures of their kids online. Your privacy is non-negotiable.<br><br>Fortunately, faceless marketing is a booming business structure. You can earn an extra income by focusing on digital product delivery, clean aesthetics, and valuable guides without ever showing your face.<br><br><h3>The Faceless Growth Pillars</h3>To scale a faceless brand, keep these three areas aligned:<ul><li><strong>1. Aesthetic Visuals:</strong> Choose high-end stock videos that convey peaceful routines, working spaces, or home designs.</li><li><strong>2. Copywriting is King:</strong> Since you aren't talking to the camera, your text hooks must capture direct attention. Call out maternal pain points immediately.</li><li><strong>3. PLR & Templates:</strong> Use Private Label Rights (PLR) files to fill your store instantly. Customize the cover, set your price, and start selling.</li></ul><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>💡 Want to view pre-made digital guides you can resell as your own? Browse the PLR catalog:</strong><br><br><a href="/#tools" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Browse PLR Products →</a></div>`
+    },
+    "creator-block": {
+        title: "Bypass the Flashing Cursor: 3 Simple Formulas for Daily Sales Posts",
+        summary: "Stop spending hours brainstorming social media posts. Use these plug-and-play copy frameworks to write high-converting copy in minutes.",
+        readtime: 3,
+        image: "images/own-vault.png",
+        ctaText: "Creative Content Vault Sneak Peek →",
+        ctaUrl: "https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view",
+        content: `We've all been there: sitting down to write during naptime, staring at a blank screen, and feeling the precious free minutes slip away without posting anything.<br><br>The secret to copywriting isn't inspiration—it's formulas. When you use proven copywriting frameworks, writing posts takes less than five minutes.<br><br><h3>The 3 Go-To Mom Copy Templates</h3>Here are three simple styles you can alternate:<ul><li><strong>The Story-Lesson:</strong> Share a quick personal obstacle you overcame (e.g. <em>"How I automated my funnel so it makes sales while I'm at the playground"</em>).</li><li><strong>The Myth Buster:</strong> Call out a common misconception in your niche (e.g. <em>"You don't need a 10k following to sell digital guides"</em>).</li><li><strong>The Checklist:</strong> Give 3-4 bullet-point tips that solve a direct struggle.</li></ul><br>Always close with a direct call to action directing readers to grab your lead magnet or visit your link in bio!<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>📬 Get over 90+ scroll-stopping hooks and copy-paste captions ready to use. Download the Free Vault:</strong><br><br><a href="/#offers" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Download Free Content Vault →</a></div>`
+    }
+};
+
+let currentAIEditorSource = { type: 'template', value: 'pyramid', isAlternative: false };
+
+function generateCustomArticle(promptText, alternative = false) {
+    const formattedPrompt = promptText.trim();
+    if (!formattedPrompt) return null;
+    let title = "", summary = "", content = "";
+    
+    if (alternative) {
+        title = "Mastering " + formattedPrompt.replace(/\b\w/g, c => c.toUpperCase()) + ": A Blueprint";
+        summary = `Struggling with ${formattedPrompt}? Skip the trial-and-error. Here is the exact daily productivity checklist to master this step.`;
+        content = `Let's cut straight to the point: you do not have 8 hours a day to spend figuring out <strong>${formattedPrompt}</strong>. You need direct, actionable steps that you can implement in a 30-minute window.<br><br>Here is your blueprint to automate, simplify, and scale your approach to ${formattedPrompt}.<br><br><h3>1. Time-Blocking over Multi-Tasking</h3>Set a timer for 25 minutes, close all tabs, and focus exclusively on executing one small piece of this goal. Complete it, check it off, and close your laptop.<h3>2. Automate the Infrastructure</h3>Your website, product sales, and email delivery should run completely in the background. Use automated landing pages and templates.<h3>3. Find the Step-by-Step Checklist</h3>Don't guess what to do. Use proven prompts, templates, and pre-built workflows to complete the work in a fraction of the time.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>↓ Need a custom roadmap tailored to your specific schedule? Take our 60-second quiz:</strong><br><br><a href="/#quiz" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Take 60-Second Quiz →</a></div>`;
+    } else {
+        title = "The Busy Mom's Guide to " + formattedPrompt.replace(/\b\w/g, c => c.toUpperCase());
+        summary = `Struggling with ${formattedPrompt}? Learn the exact step-by-step systems and productivity frameworks to master this side-hustle obstacle.`;
+        content = `Managing a business around a busy family schedule is a massive balancing act. When you are trying to tackle challenges like <strong>${formattedPrompt}</strong>, it is incredibly easy to hit a roadblock.<br><br>But the secret isn't working longer hours—it is about working smarter by building structured, automated systems. Let's break down exactly how you can handle ${formattedPrompt} in just 1-2 hours a day.<br><br><h3>Step 1: Simplify and Focus</h3>First, strip away the noise. Focus on one specific solution that moves your business forward. Automate your scheduling, use templates, and protect your working hours.<h3>Step 2: Use Pre-Built Assets</h3>Don't build your product or content from scratch. Bypassing the creation phase by using templates saves up to 80% of your time.<h3>Step 3: Connect with the Right Community</h3>Having step-by-step mentorship is the fastest way to avoid mistakes and get sales.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>↓ Ready to find your path? Take our quiz:</strong><br><br><a href="/#quiz" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Find My Roadmap Now →</a></div>`;
+    }
+    return { title, summary, readtime: 3, image: "images/blog-autopilot.png", ctaText: "Take the Qualifier Quiz →", ctaUrl: "/index.html#quiz", content };
+}
+
+function openAIEmailEditor(draft, source = null) {
+    const modal = document.getElementById('ai-article-editor-modal');
+    if (!modal) return;
+    if (source) {
+        currentAIEditorSource = { type: source.type, value: source.value, isAlternative: source.isAlternative || false };
+    }
+    document.getElementById('ai-art-title').value = draft.title;
+    document.getElementById('ai-art-summary').value = draft.summary;
+    document.getElementById('ai-art-readtime').value = draft.readtime;
+    document.getElementById('ai-art-ctatext').value = draft.ctaText || "Take the Qualifier Quiz →";
+    document.getElementById('ai-art-ctaurl').value = draft.ctaUrl || "/index.html#quiz";
+    document.getElementById('ai-art-content').value = draft.content;
+    
+    const dateInput = document.getElementById('ai-art-date');
+    if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+    }
+    modal.style.display = 'flex';
+}
+
+function closeAIModal() {
+    document.getElementById('ai-article-editor-modal').style.display = 'none';
+}
+
+// Bind UI
+document.querySelectorAll('.ai-template-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const topic = btn.getAttribute('data-topic');
+        const draft = aiBlogTemplates[topic];
+        if (draft) openAIEmailEditor(draft, { type: 'template', value: topic, isAlternative: false });
+    });
+});
+
+document.getElementById('btn-generate-ai-blog')?.addEventListener('click', () => {
+    const val = document.getElementById('ai-blog-prompt').value.trim();
+    if (!val) { alert('Please enter a topic!'); return; }
+    const draft = generateCustomArticle(val, false);
+    if (draft) {
+        document.getElementById('ai-blog-prompt').value = '';
+        openAIEmailEditor(draft, { type: 'custom', value: val, isAlternative: false });
+    }
+});
+
+document.getElementById('btn-regenerate-ai-blog')?.addEventListener('click', () => {
+    currentAIEditorSource.isAlternative = !currentAIEditorSource.isAlternative;
+    let draft = null;
+    if (currentAIEditorSource.type === 'template') {
+        const templates = currentAIEditorSource.isAlternative ? aiBlogTemplatesAlt : aiBlogTemplates;
+        draft = templates[currentAIEditorSource.value];
+    } else if (currentAIEditorSource.type === 'custom') {
+        draft = generateCustomArticle(currentAIEditorSource.value, currentAIEditorSource.isAlternative);
+    }
+    if (draft) {
+        document.getElementById('ai-art-title').value = draft.title;
+        document.getElementById('ai-art-summary').value = draft.summary;
+        document.getElementById('ai-art-readtime').value = draft.readtime;
+        document.getElementById('ai-art-ctatext').value = draft.ctaText || "Take the Qualifier Quiz →";
+        document.getElementById('ai-art-ctaurl').value = draft.ctaUrl || "/index.html#quiz";
+        document.getElementById('ai-art-content').value = draft.content;
+    }
+});
+
+// Save handler
+document.getElementById('ai-article-form')?.addEventListener('submit', e => {
+    e.preventDefault();
+    const articles = getBlogArticles();
+    articles.push({
+        id: Date.now().toString(),
+        title: document.getElementById('ai-art-title').value,
+        summary: document.getElementById('ai-art-summary').value,
+        date: document.getElementById('ai-art-date').value,
+        readtime: parseInt(document.getElementById('ai-art-readtime').value),
+        ctaText: document.getElementById('ai-art-ctatext').value,
+        ctaUrl: document.getElementById('ai-art-ctaurl').value,
+        content: document.getElementById('ai-art-content').value
+    });
+    saveBlogArticles(articles);
+    renderArticles();
+    closeAIModal();
+    alert('✅ Article saved successfully!');
+});
+
+function renderArticles() {
+    const list = document.getElementById('blog-articles-list');
+    const empty = document.getElementById('blog-articles-empty');
+    const articles = getBlogArticles();
+    list.innerHTML = '';
+    
+    if (articles.length === 0) {
+        empty.style.display = 'block';
+        return;
+    }
+    empty.style.display = 'none';
+    
+    articles.forEach(art => {
+        const el = document.createElement('div');
+        el.style.borderBottom = '1px solid var(--border)';
+        el.style.padding = '1rem 0';
+        el.innerHTML = `<strong>${art.title}</strong> (${art.date})<br><span style="color:var(--text-muted); font-size:0.85rem;">${art.summary}</span>`;
+        list.appendChild(el);
+    });
+}
+
+document.getElementById('blog-post-form')?.addEventListener('submit', e => {
+    e.preventDefault();
+    const articles = getBlogArticles();
+    articles.push({
+        id: Date.now().toString(),
+        title: document.getElementById('blog-title').value,
+        summary: document.getElementById('blog-summary').value,
+        date: document.getElementById('blog-date').value,
+        readtime: parseInt(document.getElementById('blog-readtime').value),
+        content: document.getElementById('blog-content').value
+    });
+    saveBlogArticles(articles);
+    renderArticles();
+    document.getElementById('blog-post-form').reset();
+});
+
+window.onload = renderArticles;
+</script>
+</body>
+</html>
