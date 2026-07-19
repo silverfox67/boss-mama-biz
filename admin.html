@@ -91,6 +91,10 @@
             <hr style="border:0; border-top: 1px solid rgba(255,255,255,0.08); margin: 0.6rem 0.9rem;">
             
 
+            <a href="#" class="nav-item" data-section="site-assets">
+                <span class="nav-icon">📁</span>
+                <span>Site Assets</span>
+            </a>
             <a href="#" class="nav-item" data-section="improvements">
                 <span class="nav-icon">🛠️</span>
                 <span>Site Improvements</span>
@@ -863,6 +867,75 @@
                                     Loading active leads from Brevo...
                                 </td>
                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <!-- ── SITE ASSETS ── -->
+        <section id="section-site-assets" class="dash-section">
+            <div class="section-header">
+                <h1>📁 Site Assets &amp; Delivery Files</h1>
+                <p>Upload files or paste links to digital assets, ebooks, graphics, or resources needed for your website and funnels.</p>
+            </div>
+
+            <!-- Upload/Add Asset Form -->
+            <div class="glass-card add-note-card" style="margin-bottom: 2rem;">
+                <h3 style="margin-top: 0;">➕ Add a New Asset</h3>
+                <form id="add-asset-form">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem;">
+                        <div class="field-group">
+                            <label for="asset-name" style="display:block; margin-bottom:0.4rem; color:var(--text-main); font-weight:600;">Asset Name <span style="color:var(--primary);">*</span></label>
+                            <input type="text" id="asset-name" name="asset-name" class="dash-input" placeholder="e.g. Free Ebook PDF, Main Headshot, Logo Image" required>
+                        </div>
+                        <div class="field-group">
+                            <label for="asset-source-type" style="display:block; margin-bottom:0.4rem; color:var(--text-main); font-weight:600;">Asset Type / Source</label>
+                            <select id="asset-source-type" class="dash-input" style="background: rgba(0,0,0,0.3); color: var(--text-main); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem;">
+                                <option value="link">Paste a Link / URL</option>
+                                <option value="file">Upload a Local File</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Input groups wrapper -->
+                    <div id="asset-input-link" class="field-group" style="margin-bottom: 1.2rem;">
+                        <label for="asset-url" style="display:block; margin-bottom:0.4rem; color:var(--text-main); font-weight:600;">File Link / URL</label>
+                        <input type="url" id="asset-url" name="asset-url" class="dash-input" placeholder="https://drive.google.com/file/d/...">
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.3rem; margin-bottom:0;">Google Drive, Dropbox, Canva, Stan Store link, etc.</p>
+                    </div>
+
+                    <div id="asset-input-file" class="field-group" style="margin-bottom: 1.2rem; display: none;">
+                        <label for="asset-file" style="display:block; margin-bottom:0.4rem; color:var(--text-main); font-weight:600;">Upload File</label>
+                        <input type="file" id="asset-file" name="asset-file" class="dash-input" style="padding: 0.5rem; background: rgba(255,255,255,0.03);">
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.3rem; margin-bottom:0;">Max size: 1.5MB (larger files should be shared via Google Drive link option above).</p>
+                    </div>
+
+                    <div class="field-group" style="margin-bottom: 1.2rem;">
+                        <label for="asset-remarks" style="display:block; margin-bottom:0.4rem; color:var(--text-main); font-weight:600;">Remarks / Description</label>
+                        <textarea id="asset-remarks" name="asset-remarks" class="dash-input dash-textarea" placeholder="e.g. This is the free eBook Kristan wants sent in the welcome sequence. Deliver this link in Day 0 email." style="min-height:80px;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary-dash" style="padding:0.7rem 1.8rem; font-size:0.9rem;">💾 Add Asset &amp; Sync</button>
+                </form>
+            </div>
+
+            <!-- Site Assets Table -->
+            <div class="glass-card">
+                <h3 style="margin-top: 0; margin-bottom: 1.2rem;">📁 Saved Site Assets</h3>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; text-align:left;">
+                        <thead>
+                            <tr style="border-bottom:2px solid var(--border-color); color:var(--text-muted); font-size:0.85rem; text-transform:uppercase; letter-spacing:1px;">
+                                <th style="padding:1rem; width: 50px;">#</th>
+                                <th style="padding:1rem;">Asset Name</th>
+                                <th style="padding:1rem;">Date Added</th>
+                                <th style="padding:1rem;">Source / File</th>
+                                <th style="padding:1rem;">Remarks &amp; Setup Instructions</th>
+                                <th style="padding:1rem; text-align:center; width: 80px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assets-table-body">
+                            <!-- Rows will be injected here dynamically -->
                         </tbody>
                     </table>
                 </div>

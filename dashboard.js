@@ -116,6 +116,10 @@ function showSection(name) {
 
     const navLink = document.querySelector(`.nav-item[data-section="${name}"]`);
     if (navLink) navLink.classList.add('active');
+    
+    if (name === 'site-assets') {
+        renderSiteAssets();
+    }
 }
 
 document.querySelectorAll('.nav-item').forEach(item => {
@@ -621,6 +625,168 @@ function getBlogArticles() {
 
 function saveBlogArticles(articles) {
     localStorage.setItem('bmb_blog_articles', JSON.stringify(articles));
+}
+
+// ── SITE ASSETS MANAGEMENT ──
+const addAssetForm = document.getElementById('add-asset-form');
+const assetSourceType = document.getElementById('asset-source-type');
+const assetInputLink = document.getElementById('asset-input-link');
+const assetInputFile = document.getElementById('asset-input-file');
+
+// Toggle between URL and File upload input displays
+if (assetSourceType && assetInputLink && assetInputFile) {
+    assetSourceType.addEventListener('change', (e) => {
+        if (e.target.value === 'file') {
+            assetInputLink.style.display = 'none';
+            assetInputFile.style.display = 'block';
+        } else {
+            assetInputLink.style.display = 'block';
+            assetInputFile.style.display = 'none';
+        }
+    });
+}
+
+function getSiteAssets() {
+    return JSON.parse(localStorage.getItem('bmb_site_assets') || '[]');
+}
+
+function saveSiteAssets(assets) {
+    localStorage.setItem('bmb_site_assets', JSON.stringify(assets));
+}
+
+function renderSiteAssets() {
+    const tableBody = document.getElementById('assets-table-body');
+    if (!tableBody) return;
+
+    const assets = getSiteAssets();
+
+    if (assets.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="6" style="padding:2.5rem; text-align:center; color:var(--text-muted);">
+                    No site assets added yet. Use the form above to add your first asset!
+                </td>
+            </tr>
+        `;
+    } else {
+        tableBody.innerHTML = assets.map((asset, idx) => {
+            let sourceHtml = '';
+            if (asset.type === 'file' && asset.fileData) {
+                // Uploaded local file - offer download link
+                sourceHtml = `<a href="${asset.fileData}" download="${asset.fileName || 'asset'}" class="btn-action-sm" style="display:inline-flex; align-items:center; gap:0.3rem;">
+                    📥 Download File
+                </a> <span style="font-size:0.75rem; color:var(--text-muted); display:block; margin-top:0.2rem;">(${asset.fileName})</span>`;
+            } else {
+                // Link - normal external hyperlink
+                const displayUrl = asset.url && asset.url.length > 30 ? asset.url.substring(0, 27) + '...' : asset.url;
+                sourceHtml = `<a href="${asset.url || '#'}" target="_blank" style="color:var(--primary); text-decoration:underline; font-weight:600;">
+                    🔗 ${displayUrl || 'No Link'}
+                </a>`;
+            }
+
+            return `
+                <tr style="border-bottom:1px solid var(--border-color); font-size:0.9rem;">
+                    <td style="padding:1rem; color:var(--text-muted); font-weight:700;">${idx + 1}</td>
+                    <td style="padding:1rem; color:#ffffff; font-weight:600;">${asset.name}</td>
+                    <td style="padding:1rem; color:var(--text-muted);">${asset.date}</td>
+                    <td style="padding:1rem;">${sourceHtml}</td>
+                    <td style="padding:1rem; color:var(--text-main); font-style:italic;">"${asset.remarks || 'No remarks.'}"</td>
+                    <td style="padding:1rem; text-align:center;">
+                        <button class="delete-asset-btn" data-index="${idx}" style="background:transparent; border:none; color:#ff4a4a; font-size:1.1rem; cursor:pointer; padding:0.3rem;" title="Delete Asset">🗑️</button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+
+        // Bind delete button listeners
+        tableBody.querySelectorAll('.delete-asset-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const index = parseInt(e.currentTarget.getAttribute('data-index'));
+                deleteSiteAsset(index);
+            });
+        });
+    }
+}
+
+function deleteSiteAsset(index) {
+    const assets = getSiteAssets();
+    assets.splice(index, 1);
+    saveSiteAssets(assets);
+    renderSiteAssets();
+}
+
+if (addAssetForm) {
+    addAssetForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('asset-name').value.trim();
+        const type = assetSourceType ? assetSourceType.value : 'link';
+        const urlInput = document.getElementById('asset-url');
+        const url = urlInput ? urlInput.value.trim() : '';
+        const remarks = document.getElementById('asset-remarks').value.trim();
+        const fileInput = document.getElementById('asset-file');
+        
+        if (!name) return;
+
+        const dateStr = new Date().toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric'
+        });
+
+        const newAsset = {
+            name,
+            type,
+            remarks,
+            date: dateStr
+        };
+
+        if (type === 'file' && fileInput && fileInput.files && fileInput.files[0]) {
+            const file = fileInput.files[0];
+            
+            // File size validation: check if larger than 1.5MB (1,500,000 bytes)
+            if (file.size > 1500000) {
+                alert('⚠️ This file is too large! Please upload files under 1.5MB, or upload larger files to Google Drive/Dropbox and paste the link instead.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                newAsset.fileData = evt.target.result; // base64 data URL
+                newAsset.fileName = file.name;
+                
+                const assets = getSiteAssets();
+                assets.unshift(newAsset);
+                saveSiteAssets(assets);
+                renderSiteAssets();
+                
+                addAssetForm.reset();
+                if (assetInputLink && assetInputFile) {
+                    assetInputLink.style.display = 'block';
+                    assetInputFile.style.display = 'none';
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+            // URL Link asset
+            newAsset.url = url;
+            
+            const assets = getSiteAssets();
+            assets.unshift(newAsset);
+            saveSiteAssets(assets);
+            renderSiteAssets();
+            
+            addAssetForm.reset();
+        }
+    });
+}
+
+// Render site assets on initial load or tab show
+document.addEventListener('DOMContentLoaded', () => {
+    renderSiteAssets();
+});
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    renderSiteAssets();
 }
 
 
