@@ -891,8 +891,8 @@
                         <div class="field-group">
                             <label for="asset-source-type" style="display:block; margin-bottom:0.4rem; color:var(--text-main); font-weight:600;">Asset Type / Source</label>
                             <select id="asset-source-type" class="dash-input" style="background: rgba(0,0,0,0.3); color: var(--text-main); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem;">
-                                <option value="link">Paste a Link / URL</option>
-                                <option value="file">Upload a Local File</option>
+                                <option value="link" style="background: #1e1b29; color: #ffffff;">Paste a Link / URL</option>
+                                <option value="file" style="background: #1e1b29; color: #ffffff;">Upload a Local File</option>
                             </select>
                         </div>
                     </div>
@@ -905,9 +905,13 @@
                     </div>
 
                     <div id="asset-input-file" class="field-group" style="margin-bottom: 1.2rem; display: none;">
-                        <label for="asset-file" style="display:block; margin-bottom:0.4rem; color:var(--text-main); font-weight:600;">Upload File</label>
-                        <input type="file" id="asset-file" name="asset-file" class="dash-input" style="padding: 0.5rem; background: rgba(255,255,255,0.03);">
-                        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.3rem; margin-bottom:0;">Max size: 1.5MB (larger files should be shared via Google Drive link option above).</p>
+                        <label style="display:block; margin-bottom:0.4rem; color:var(--text-main); font-weight:600;">Upload File</label>
+                        <div id="drop-zone" style="border: 2px dashed rgba(232, 50, 122, 0.4); border-radius: 8px; padding: 2rem 1.2rem; text-align: center; background: rgba(255,255,255,0.02); cursor: pointer; transition: all 0.25s ease;">
+                            <span style="font-size: 2.2rem; display: block; margin-bottom: 0.5rem;">📥</span>
+                            <span id="drop-zone-text" style="color: var(--text-muted); font-size: 0.9rem;">Drag &amp; drop your file here, or <strong style="color: var(--primary);">click to browse</strong></span>
+                            <input type="file" id="asset-file" name="asset-file" style="display: none;">
+                        </div>
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.5rem; margin-bottom:0;">Max size: 1.5MB (larger files should be shared via Google Drive link option above).</p>
                     </div>
 
                     <div class="field-group" style="margin-bottom: 1.2rem;">

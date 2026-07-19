@@ -646,6 +646,70 @@ if (assetSourceType && assetInputLink && assetInputFile) {
     });
 }
 
+// Drag and Drop File Upload Zone logic
+const dropZone = document.getElementById('drop-zone');
+const dropZoneText = document.getElementById('drop-zone-text');
+
+if (dropZone && dropZoneText) {
+    const fileInput = document.getElementById('asset-file');
+
+    // Click to browse
+    dropZone.addEventListener('click', () => fileInput?.click());
+
+    // Drag highlights
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary)';
+            dropZone.style.background = 'rgba(232, 50, 122, 0.08)';
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'rgba(232, 50, 122, 0.4)';
+            dropZone.style.background = 'rgba(255, 255, 255, 0.02)';
+        }, false);
+    });
+
+    // File dropped
+    dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files.length && fileInput) {
+            fileInput.files = files; // Assign files to hidden input
+            updateDropZoneLabel(files[0]);
+        }
+    });
+
+    // File browsed
+    fileInput?.addEventListener('change', (e) => {
+        if (fileInput.files.length) {
+            updateDropZoneLabel(fileInput.files[0]);
+        }
+    });
+}
+
+function updateDropZoneLabel(file) {
+    const dropZoneText = document.getElementById('drop-zone-text');
+    if (!dropZoneText) return;
+    const sizeKB = (file.size / 1024).toFixed(1);
+    dropZoneText.innerHTML = `📎 Selected: <strong style="color: var(--primary);">${file.name}</strong> (${sizeKB} KB) — ready!`;
+}
+
+function resetAssetForm() {
+    if (addAssetForm) addAssetForm.reset();
+    const dropZoneText = document.getElementById('drop-zone-text');
+    if (dropZoneText) {
+        dropZoneText.innerHTML = `Drag & drop your file here, or <strong style="color: var(--primary);">click to browse</strong>`;
+    }
+    if (assetInputLink && assetInputFile) {
+        assetInputLink.style.display = 'block';
+        assetInputFile.style.display = 'none';
+    }
+}
+
 function getSiteAssets() {
     return JSON.parse(localStorage.getItem('bmb_site_assets') || '[]');
 }
@@ -760,11 +824,7 @@ if (addAssetForm) {
                 saveSiteAssets(assets);
                 renderSiteAssets();
                 
-                addAssetForm.reset();
-                if (assetInputLink && assetInputFile) {
-                    assetInputLink.style.display = 'block';
-                    assetInputFile.style.display = 'none';
-                }
+                resetAssetForm();
             };
             reader.readAsDataURL(file);
         } else {
@@ -776,7 +836,7 @@ if (addAssetForm) {
             saveSiteAssets(assets);
             renderSiteAssets();
             
-            addAssetForm.reset();
+            resetAssetForm();
         }
     });
 }
