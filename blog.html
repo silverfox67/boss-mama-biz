@@ -103,6 +103,14 @@
                 date: "2026-07-20",
                 readtime: 4,
                 image: "images/blog-assets.png"
+            },
+            {
+                id: "1784347819600",
+                title: "Breaking the Burnout Cycle: How to Manage an Online Business Around a Busy Family",
+                summary: "Break through the hustle-culture burnout. Learn energy-based scheduling, boundary management, and somatic nervous system resets to run your shop peacefully.",
+                date: "2026-07-20",
+                readtime: 3,
+                image: "images/blog-alignment.png"
             }
         ];
 
@@ -157,6 +165,17 @@
                     if (a.ctaUrl !== "https://stan.store/affiliates/238a4731-b0b4-47ac-8956-51dbc49db694" || a.ctaText !== "PLR Vault Sneak Peek →") {
                         a.ctaText = "PLR Vault Sneak Peek →";
                         a.ctaUrl = "https://stan.store/affiliates/238a4731-b0b4-47ac-8956-51dbc49db694";
+                        migrated = true;
+                    }
+                }
+                if (a.title.includes("Breaking the Burnout Cycle") || a.title.includes("Manage an Online Business Around a Busy Family")) {
+                    if (a.image !== 'images/blog-alignment.png') {
+                        a.image = 'images/blog-alignment.png';
+                        migrated = true;
+                    }
+                    if (a.ctaUrl !== "https://stan.store/affiliates/98e8fb0b-89ae-4176-a439-f07888142d94" || a.ctaText !== "Alignment Reset Sneak Peek →") {
+                        a.ctaText = "Alignment Reset Sneak Peek →";
+                        a.ctaUrl = "https://stan.store/affiliates/98e8fb0b-89ae-4176-a439-f07888142d94";
                         migrated = true;
                     }
                 }
