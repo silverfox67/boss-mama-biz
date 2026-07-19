@@ -111,6 +111,14 @@
                 date: "2026-07-20",
                 readtime: 3,
                 image: "images/blog-alignment.png"
+            },
+            {
+                id: "1784347819700",
+                title: "Staring at a Blank Screen: How to Fix Content Block and Write Posts That Actually Sell",
+                summary: "Stop guessing what to post and eliminate creative burnout. Learn the psychological 3-pillar content framework to convert scrollers into customers.",
+                date: "2026-07-21",
+                readtime: 3,
+                image: "images/own-vault.png"
             }
         ];
 
@@ -176,6 +184,17 @@
                     if (a.ctaUrl !== "https://stan.store/affiliates/98e8fb0b-89ae-4176-a439-f07888142d94" || a.ctaText !== "Alignment Reset Sneak Peek →") {
                         a.ctaText = "Alignment Reset Sneak Peek →";
                         a.ctaUrl = "https://stan.store/affiliates/98e8fb0b-89ae-4176-a439-f07888142d94";
+                        migrated = true;
+                    }
+                }
+                if (a.title.includes("Staring at a Blank Screen") || a.title.includes("Fix Content Block")) {
+                    if (a.image !== 'images/own-vault.png') {
+                        a.image = 'images/own-vault.png';
+                        migrated = true;
+                    }
+                    if (a.ctaUrl !== "https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view" || a.ctaText !== "Creative Content Vault Sneak Peek →") {
+                        a.ctaText = "Creative Content Vault Sneak Peek →";
+                        a.ctaUrl = "https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view";
                         migrated = true;
                     }
                 }
