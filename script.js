@@ -808,136 +808,6 @@ document.querySelectorAll('.faq-question').forEach(item => {
 });
 
 // ============================================================
-//  BRIDGE MODAL — Email Capture Before Affiliate Redirect
-// ============================================================
-// ============================================================
-//  BRIDGE MODAL — Email Capture Before Affiliate Redirect
-// ============================================================
-let _bridgeDestURL = '';
-
-function openBridgeModal(productName, tagline, destUrl, badge, icon, buttonText, perks) {
-    _bridgeDestURL = destUrl;
-    const title = document.getElementById('bridge-title');
-    const tag   = document.getElementById('bridge-tagline');
-    const modal = document.getElementById('bridge-modal');
-    const badgeEl = document.getElementById('bridge-badge-text');
-    const iconEl  = document.getElementById('bridge-visual-icon');
-    const btnEl   = document.getElementById('bridge-submit');
-    const perksEl = document.getElementById('bridge-perks-list');
-
-    if (title) title.textContent = productName;
-    if (tag)   tag.textContent   = tagline;
-    if (badgeEl && badge) badgeEl.innerHTML = `<i class="ph-fill ph-lightning"></i> ${badge}`;
-    if (iconEl && icon) iconEl.innerHTML = `<i class="ph-fill ph-${icon}"></i>`;
-    if (btnEl && buttonText) btnEl.textContent = buttonText;
-    
-    if (perksEl && perks) {
-        perksEl.innerHTML = perks.split(';').map(p => {
-            return `<span><i class="ph-fill ph-check-circle"></i> ${p.trim()}</span>`;
-        }).join('');
-    }
-
-    if (modal) { modal.classList.add('active'); }
-    setTimeout(() => document.getElementById('bridge-email')?.focus(), 100);
-}
-
-function closeBridgeModal() {
-    const modal = document.getElementById('bridge-modal');
-    if (modal) modal.classList.remove('active');
-    document.getElementById('bridge-form')?.reset();
-    _bridgeDestURL = '';
-    
-    // Reset modal contents to defaults
-    const badgeEl = document.getElementById('bridge-badge-text');
-    const iconEl  = document.getElementById('bridge-visual-icon');
-    const btnEl   = document.getElementById('bridge-submit');
-    const perksEl = document.getElementById('bridge-perks-list');
-    
-    if (badgeEl) badgeEl.innerHTML = `<i class="ph-fill ph-lightning"></i> You're Almost There!`;
-    if (iconEl) iconEl.innerHTML = `<i class="ph-fill ph-sketch-logo"></i>`;
-    if (btnEl) btnEl.textContent = `Yes! Take Me There →`;
-    if (perksEl) {
-        perksEl.innerHTML = `
-            <span><i class="ph-fill ph-check-circle"></i> Get Kristan's exclusive tips &amp; resources</span>
-            <span><i class="ph-fill ph-check-circle"></i> First to hear about new offers &amp; deals</span>
-            <span><i class="ph-fill ph-check-circle"></i> Free income-building guides delivered to you</span>
-        `;
-    }
-
-    // Reset visibility of form and success state
-    const formWrapper = document.getElementById('bridge-form-wrapper');
-    const successWrapper = document.getElementById('bridge-success-wrapper');
-    if (formWrapper) formWrapper.style.display = 'flex';
-    if (successWrapper) successWrapper.style.display = 'none';
-}
-
-function goToDest() {
-    if (_bridgeDestURL) window.open(_bridgeDestURL, '_blank', 'noopener');
-    closeBridgeModal();
-}
-
-async function captureBrevoContact(email, firstName, productInterest) {
-    try {
-        await fetch('/api/subscribe', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, name: firstName, product: productInterest })
-        });
-    } catch (_) { /* silent fail — redirect happens regardless */ }
-}
-
-// Intercept all bridge-link clicks (bypassing the bridge modal and going direct)
-document.querySelectorAll('.bridge-link').forEach(btn => {
-    btn.addEventListener('click', e => {
-        e.preventDefault();
-        e.stopPropagation();
-        const url = btn.getAttribute('data-url') || '#';
-        window.open(url, '_blank', 'noopener');
-    });
-});
-
-// Bridge form submit
-document.getElementById('bridge-form')?.addEventListener('submit', async e => {
-    e.preventDefault();
-    const email     = (document.getElementById('bridge-email')?.value || '').trim();
-    const firstName = (document.getElementById('bridge-name')?.value  || '').trim();
-    const product   = document.getElementById('bridge-title')?.textContent || '';
-    const submitBtn = document.getElementById('bridge-submit');
-    if (!email) return;
-
-    if (submitBtn) { submitBtn.textContent = 'On your way! 🚀'; submitBtn.disabled = true; }
-
-    // Persist so bridge doesn't re-fire this session
-    localStorage.setItem('bmb_bridge_done', 'true');
-    localStorage.setItem('bmb_email', email);
-
-    // Fire Brevo (async, don't block the user)
-    captureBrevoContact(email, firstName, product);
-
-    // Small delight delay then redirect or show success
-    setTimeout(() => {
-        if (submitBtn) { submitBtn.textContent = 'Yes! Take Me There →'; submitBtn.disabled = false; }
-        
-        if (product === 'The Creative Content Vault') {
-            const formWrapper = document.getElementById('bridge-form-wrapper');
-            const successWrapper = document.getElementById('bridge-success-wrapper');
-            if (formWrapper) formWrapper.style.display = 'none';
-            if (successWrapper) successWrapper.style.display = 'flex';
-        } else {
-            goToDest();
-        }
-    }, 700);
-});
-
-// Bridge skip, close, outside-click
-document.getElementById('bridge-skip')?.addEventListener('click',  goToDest);
-document.getElementById('bridge-close')?.addEventListener('click', closeBridgeModal);
-document.getElementById('bridge-close-success')?.addEventListener('click', closeBridgeModal);
-document.getElementById('bridge-modal')?.addEventListener('click', e => {
-    if (e.target === document.getElementById('bridge-modal')) closeBridgeModal();
-});
-
-// ============================================================
 //  INIT
 // ============================================================
 updateUsageBars();
@@ -985,11 +855,6 @@ initCarousel();
         if (hoursEl) hoursEl.textContent = h.toString().padStart(2, '0');
         if (minsEl)  minsEl.textContent  = m.toString().padStart(2, '0');
         if (secsEl)  secsEl.textContent  = s.toString().padStart(2, '0');
-        // Bridge modal mini-timer
-        const bm = document.getElementById('bridge-timer-mins');
-        const bs = document.getElementById('bridge-timer-secs');
-        if (bm) bm.textContent = m.toString().padStart(2, '0');
-        if (bs) bs.textContent = s.toString().padStart(2, '0');
     }
 
     // Show bar when user scrolls past hero
@@ -1014,16 +879,6 @@ initCarousel();
         bar.classList.remove('visible');
         sessionStorage.setItem('bmb_bar_dismissed', 'true');
     });
-
-    // Inject mini timer into bridge modal
-    const bridgeForm = document.getElementById('bridge-form');
-    if (bridgeForm && !document.getElementById('bridge-bonus-timer')) {
-        const timerEl = document.createElement('div');
-        timerEl.id = 'bridge-bonus-timer';
-        timerEl.className = 'bridge-bonus-timer';
-        timerEl.innerHTML = `⏱ Bonus hold expires in <span id="bridge-timer-mins">00</span>:<span id="bridge-timer-secs">00</span>`;
-        bridgeForm.insertAdjacentElement('beforebegin', timerEl);
-    }
 
     updateDisplay();
     setInterval(updateDisplay, 1000);
