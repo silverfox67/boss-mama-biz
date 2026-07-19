@@ -1531,20 +1531,24 @@ footer p {
     max-width: 400px;
     height: 590px;
     overflow: hidden;
-    background: transparent;
-    /* Smoky dissolve — reaches full transparency well before any container edge */
+    background: rgba(45, 18, 48, 0.6);
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    box-shadow: 0 0 40px var(--primary-glow);
+    /* Saved Smoky Mask Code:
     -webkit-mask-image: radial-gradient(ellipse 68% 72% at 50% 43%, #000 25%, transparent 55%);
     mask-image: radial-gradient(ellipse 68% 72% at 50% 43%, #000 25%, transparent 55%);
+    */
 }
 .hero-profile-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center 20%;
+    border-radius: 18px;
     z-index: 1;
 }
 .hero-image-glow {
-    /* Mask handles the fade now — glow overlay is kept but invisible */
     display: none;
 }
 
