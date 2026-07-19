@@ -117,6 +117,27 @@ document.querySelectorAll('.tool-modal').forEach(modal => {
 // ============================================================
 //  EMAIL GATE
 // ============================================================
+function saveLocalLead(name, email, product) {
+    try {
+        const localLeads = JSON.parse(localStorage.getItem('bmb_local_leads') || '[]');
+        if (!localLeads.some(l => l.email.toLowerCase() === email.toLowerCase())) {
+            localLeads.unshift({
+                name: name || '—',
+                email: email,
+                product: product || 'Tools Unlock',
+                date: new Date().toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                })
+            });
+            localStorage.setItem('bmb_local_leads', JSON.stringify(localLeads));
+        }
+    } catch (e) {
+        console.error('Error saving local lead:', e);
+    }
+}
+
 const emailGateForm = document.getElementById('email-gate-form');
 if (emailGateForm) {
     emailGateForm.addEventListener('submit', async e => {
@@ -126,6 +147,10 @@ if (emailGateForm) {
         const btn = emailGateForm.querySelector('button[type="submit"]');
         btn.textContent = 'Unlocking...';
         btn.disabled = true;
+        
+        // Save locally for offline/testing support
+        saveLocalLead(name, email, 'Tools Unlock');
+
         try {
             await fetch('/api/subscribe', {
                 method: 'POST',
@@ -180,6 +205,9 @@ if (vaultOptinForm) {
         const btn = vaultOptinForm.querySelector('button[type="submit"]');
         btn.textContent = 'Sending...';
         btn.disabled = true;
+        // Save locally for offline/testing support
+        saveLocalLead(name, email, 'The Creative Content Vault');
+
         try {
             await fetch('/api/subscribe', {
                 method: 'POST',
