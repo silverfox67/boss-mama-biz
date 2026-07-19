@@ -886,19 +886,13 @@ async function captureBrevoContact(email, firstName, productInterest) {
     } catch (_) { /* silent fail — redirect happens regardless */ }
 }
 
-// Intercept all bridge-link clicks
+// Intercept all bridge-link clicks (bypassing the bridge modal and going direct)
 document.querySelectorAll('.bridge-link').forEach(btn => {
     btn.addEventListener('click', e => {
         e.preventDefault();
         e.stopPropagation();
-        const product = btn.getAttribute('data-product') || '';
-        const tagline = btn.getAttribute('data-tagline') || '';
-        const url     = btn.getAttribute('data-url') || '#';
-        const badge   = btn.getAttribute('data-badge') || '';
-        const icon    = btn.getAttribute('data-icon') || '';
-        const button  = btn.getAttribute('data-button') || '';
-        const perks   = btn.getAttribute('data-perks') || '';
-        openBridgeModal(product, tagline, url, badge, icon, button, perks);
+        const url = btn.getAttribute('data-url') || '#';
+        window.open(url, '_blank', 'noopener');
     });
 });
 
