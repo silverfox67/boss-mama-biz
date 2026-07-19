@@ -98,6 +98,8 @@
             }
         ];
 
+        let activeArticlesList = [];
+
         function loadPublishedArticles() {
             const feedEl = document.getElementById('articles-feed');
             if (!feedEl) return;
@@ -116,8 +118,6 @@
             } else {
                 displayList = FALLBACK_ARTICLES;
             }
-
-            let activeArticlesList = [];
 
             feedEl.innerHTML = displayList.map((art, index) => `
                 <div class="glass-card" style="background: #ffffff; border: 1px solid rgba(232, 50, 122, 0.12); box-shadow: 0 10px 30px rgba(26, 10, 20, 0.06); display: flex; flex-direction: column; gap: 0; height: 100%; transition: var(--transition-smooth); padding: 0; border-radius: 20px; overflow: hidden; cursor: pointer;" onclick="openArticleModal(${index})">
