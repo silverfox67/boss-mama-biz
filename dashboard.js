@@ -699,7 +699,22 @@ document.getElementById('request-notes-modal')?.addEventListener('click', (e) =>
 
 // ── BLOG POSTS MANAGEMENT ──
 function getBlogArticles() {
-    return JSON.parse(localStorage.getItem('bmb_blog_articles') || '[]');
+    const key = 'bmb_blog_articles';
+    if (!localStorage.getItem(key)) {
+        const defaultArticles = [
+            {
+                id: "1784347819200",
+                title: "The Beginner's Guide to Building Multiple Streams of Digital Income Without Burnout",
+                summary: "The traditional path of trading time directly for dollars is a losing battle when you are managing a household. Learn how low-overhead digital assets can generate sustainable, automated income on a busy schedule.",
+                date: new Date().toISOString().split('T')[0], // Published today
+                readtime: 4,
+                image: "images/own-create.png",
+                content: `Let’s face it: the traditional path of trading time directly for dollars is a losing battle when you are managing a household. Between family schedules, school runs, and daily responsibilities, there simply aren't enough hours in the day to take on a second conventional job. Yet, relying on a single source of income in today's economy can feel incredibly precarious.<br><br>For many beginners, the solution seems obvious: start an online business. But if you look at the standard advice out there, it usually involves highly complex business models, massive upfront investment, or hours spent building an audience from scratch.<br><br>The secret to sustainable financial freedom isn’t working twenty hours a day on a single, massive project. It is building diversified, low-overhead digital income streams that fit into the pockets of your existing schedule.<br><br><h3>Why the "Single Income" Framework Fails Busy Families</h3>Most traditional business models demand an infinite amount of time before you ever see a return. If you start a business that requires physical inventory, manual shipping, or constant client consultation, you haven't created freedom—you’ve just built another demanding job.<br><br>When your time is already fractured by family commitments, you need a model that operates under three strict rules:<ul><li><strong>Zero Inventory:</strong> You should never have to buy, store, or ship physical items.</li><li><strong>Low Overhead:</strong> The entry barrier must be financially accessible, allowing you to start without risking the family budget.</li><li><strong>High Scalability:</strong> The asset should be built or set up once, then left to run with minimal daily maintenance.</li></ul>By shifting your focus from a single, high-stress job to multiple, small digital assets, you spread your financial risk and protect your energy from burnout.<br><br><h3>The Shift to Low-Overhead Digital Assets</h3>The biggest hurdle for beginners is the belief that they need to be a software developer, a professional writer, or a tech expert to sell anything online. In reality, the modern digital economy allows you to leverage existing platforms and frameworks to generate income without creating products entirely from scratch.<br><br>Instead of spending months trying to invent something completely new, successful digital marketers look for existing market demand and use established pathways to fulfill it.<br><br><h3>4 Accessible Digital Income Streams for Beginners</h3>If you are starting from absolute zero, here are four of the most reliable, beginner-friendly digital paths that require zero prior tech experience:<br><br><strong>1. Amazon Customer Reviews</strong><br>Brands are constantly looking for authentic video feedback on the products they sell. Through specialized reviewer programs, everyday consumers can upload brief, honest video reviews of items they already use. When shoppers watch those videos on a product page and make a purchase, the reviewer earns a percentage of the sale.<br><br><strong>2. User-Generated Content (UGC)</strong><br>Unlike traditional influencers who need hundreds of thousands of followers, UGC creators don’t need a following at all. Brands pay regular people to film simple, relatable videos using their products for advertisements. You get paid for the content creation itself, not for broadcasting it to your own personal network.<br><br><strong>3. Print on Demand (POD)</strong><br>With print on demand, you create simple text or graphic designs and upload them to online marketplaces. When a customer orders a shirt, mug, or notebook with your design, a third-party manufacturer prints and ships it automatically. You collect the profit margin without ever touching the merchandise.<br><br><strong>4. Digital Storefronts & E-Templates</strong><br>People actively search platforms like Etsy every day for digital planners, budgeting trackers, checklists, and organizational templates. Because these files are completely digital, once you upload the design to your shop, the platform handles the delivery automatically every single time someone purchases.<br><br><h3>Moving From Overwhelm to Execution</h3>The reason most people fail to establish a second income stream isn't a lack of ambition—it is a lack of a clear, sequential map. Trying to piece together random tutorials from YouTube often leads to conflicting advice, technical frustration, and ultimate abandonment.<br><br>To make multiple income streams work around a busy schedule, you don't need a business degree; you just need a structured framework that walks you through the setup process of each asset, step by step.<br><br><strong>Ready to find your path?</strong><br>Scroll down to take our 60-second interactive energy qualifier, or click below to access the ultimate budget-friendly roadmap to 14 distinct digital income streams inside Stacked by Emily.`
+            }
+        ];
+        localStorage.setItem(key, JSON.stringify(defaultArticles));
+    }
+    return JSON.parse(localStorage.getItem(key));
 }
 
 function saveBlogArticles(articles) {
@@ -756,6 +771,7 @@ function renderBlogArticlesAdmin() {
                     document.getElementById('blog-summary').value = art.summary;
                     document.getElementById('blog-date').value = art.date;
                     document.getElementById('blog-readtime').value = art.readtime;
+                    document.getElementById('blog-image').value = art.image || 'images/own-create.png';
                     document.getElementById('blog-content').value = art.content;
                     
                     document.getElementById('blog-form-title').textContent = 'Edit Blog Post';
@@ -790,6 +806,7 @@ function resetBlogForm() {
     document.getElementById('blog-summary').value = '';
     document.getElementById('blog-date').value = '';
     document.getElementById('blog-readtime').value = '3';
+    document.getElementById('blog-image').value = 'images/own-create.png';
     document.getElementById('blog-content').value = '';
     
     document.getElementById('blog-form-title').textContent = 'Create Blog Post';
@@ -806,6 +823,7 @@ document.getElementById('blog-post-form')?.addEventListener('submit', (e) => {
     const summaryVal = document.getElementById('blog-summary').value.trim();
     const dateVal = document.getElementById('blog-date').value;
     const readtimeVal = parseInt(document.getElementById('blog-readtime').value);
+    const imageVal = document.getElementById('blog-image').value;
     const contentVal = document.getElementById('blog-content').value.trim();
     
     let articles = getBlogArticles();
@@ -814,7 +832,7 @@ document.getElementById('blog-post-form')?.addEventListener('submit', (e) => {
         // Edit Mode
         articles = articles.map(art => {
             if (art.id === idVal) {
-                return { ...art, title: titleVal, summary: summaryVal, date: dateVal, readtime: readtimeVal, content: contentVal };
+                return { ...art, title: titleVal, summary: summaryVal, date: dateVal, readtime: readtimeVal, image: imageVal, content: contentVal };
             }
             return art;
         });
@@ -826,6 +844,7 @@ document.getElementById('blog-post-form')?.addEventListener('submit', (e) => {
             summary: summaryVal,
             date: dateVal,
             readtime: readtimeVal,
+            image: imageVal,
             content: contentVal
         };
         articles.push(newArt);

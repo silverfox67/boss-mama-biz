@@ -76,19 +76,22 @@
                 title: "How Digital Products Became the Cheat Code for Stay-at-Home Moms",
                 summary: "Why selling digital downloads beats traditional brick-and-mortar storefronts, dropshipping, and service-based work. The ultimate guide to skipping startup costs.",
                 date: "2026-07-18",
-                readtime: 3
+                readtime: 3,
+                image: "images/own-create.png"
             },
             {
                 title: "Affiliate Marketing vs. MLM: Why True Automation Wins Every Time",
                 summary: "Ditch the DMs, the monthly volume quotas, and the recruitment pressure. Learn how direct-to-consumer affiliate pathways give you actual ownership of your day.",
                 date: "2026-07-15",
-                readtime: 4
+                readtime: 4,
+                image: "images/own-vault.png"
             },
             {
                 title: "Do You Really Need 10k Followers? The Truth About Targeted Traffic",
                 summary: "How micro-audiences and high-intent searches attract perfect customers who are already wallet-in-hand, without you needing to do silly viral dances.",
                 date: "2026-07-12",
-                readtime: 3
+                readtime: 3,
+                image: "images/own-prompts.png"
             }
         ];
 
@@ -117,8 +120,15 @@
                         <span style="background: rgba(232, 50, 122, 0.07); color: #C4285E; border: 1px solid rgba(232, 50, 122, 0.2); font-size: 0.72rem; font-weight: 700; padding: 0.35rem 0.8rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;">★ Active Article</span>
                         <span style="font-size: 0.78rem; color: #5A2E45; display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-clock"></i> ${art.readtime} min read</span>
                     </div>
+                    
+                    <!-- 3D Graphic Preview Container -->
+                    <div style="height: 150px; display: flex; align-items: center; justify-content: center; background: rgba(232, 50, 122, 0.02); border-radius: 12px; margin: 0.5rem 0; padding: 0.8rem; border: 1px solid rgba(232, 50, 122, 0.05);">
+                        <img src="${art.image || 'images/own-create.png'}" style="max-height: 100%; max-width: 100%; object-fit: contain; filter: drop-shadow(0 8px 16px rgba(26,10,20,0.06));">
+                    </div>
+
                     <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: #1A0A14 !important; line-height: 1.35; margin-top: 0.5rem; text-align:left; font-weight:700;">${art.title}</h3>
                     <p style="font-size: 0.92rem; color: #5A2E45 !important; line-height: 1.6; flex: 1; text-align:left; font-weight:300;">${art.summary}</p>
+                    
                     <div style="border-top: 1px solid rgba(232, 50, 122, 0.1); padding-top: 1rem; margin-top: auto; display: flex; align-items: center; justify-content: space-between;">
                         <span style="font-size: 0.8rem; color: #C4285E !important; font-weight: 600; display: flex; align-items: center; gap: 0.3rem;">Written by Kristan <i class="ph-fill ph-seal-check"></i></span>
                         <span style="font-size:0.75rem; color:#5A2E45;">${art.date}</span>
