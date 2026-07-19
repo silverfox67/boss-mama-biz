@@ -100,7 +100,32 @@
             if (!feedEl) return;
 
             // Get local storage posts
-            const saved = JSON.parse(localStorage.getItem('bmb_blog_articles') || '[]');
+            let saved = JSON.parse(localStorage.getItem('bmb_blog_articles') || '[]');
+            
+            // Migration check to swap old placeholder images in localStorage
+            let migrated = false;
+            saved = saved.map(a => {
+                if (a.title.includes("Beginner's Guide")) {
+                    if (a.image === 'images/own-create.png' || a.image === 'images/kristan-banner.jpg' || !a.image) {
+                        a.image = 'images/blog-streams.png';
+                        migrated = true;
+                    }
+                    a.ctaText = "Enroll in Stacked by Emily →";
+                    a.ctaUrl = "https://stan.store/affiliates/8f9bdd55-e647-44d1-89cf-78f3b3750daa";
+                }
+                if (a.title.includes("No Face, No DMs")) {
+                    if (!a.image || a.image === 'images/own-vault.png' || a.image === 'images/own-create.png' || a.image === 'images/kristan-banner.jpg') {
+                        a.image = 'images/blog-faceless.png';
+                        migrated = true;
+                    }
+                    a.ctaText = "Access The Boss Suite →";
+                    a.ctaUrl = "https://stan.store/affiliates/81495b81-cf82-4813-8634-7f8d9f4369ba";
+                }
+                return a;
+            });
+            if (migrated) {
+                localStorage.setItem('bmb_blog_articles', JSON.stringify(saved));
+            }
             
             // Filter to only show articles scheduled for today or the past
             const today = new Date().toISOString().split('T')[0];
