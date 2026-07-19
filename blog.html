@@ -127,6 +127,14 @@
                 date: "2026-07-21",
                 readtime: 4,
                 image: "images/own-create.png"
+            },
+            {
+                id: "1784347819900",
+                title: "The AI Advantage: How Busy Marketers Use Done-For-You Prompts to Automate Their Writing",
+                summary: "Writing copy is a bottleneck. Learn to bypass drafting using engineered prompts, customize them to your voice, and package them as your own digital products.",
+                date: "2026-07-21",
+                readtime: 3,
+                image: "images/own-prompts.png"
             }
         ];
 
@@ -214,6 +222,17 @@
                     if (a.ctaUrl !== "https://stan.store/Kristan_Oconnor/p/create-your-1st-digital-product-in-6-simple-steps" || a.ctaText !== "Create Your First Digital Product Sneak Peek →") {
                         a.ctaText = "Create Your First Digital Product Sneak Peek →";
                         a.ctaUrl = "https://stan.store/Kristan_Oconnor/p/create-your-1st-digital-product-in-6-simple-steps";
+                        migrated = true;
+                    }
+                }
+                if (a.title.includes("AI Advantage") || a.title.includes("Use Done-For-You Prompts to Automate Their Writing")) {
+                    if (a.image !== 'images/own-prompts.png') {
+                        a.image = 'images/own-prompts.png';
+                        migrated = true;
+                    }
+                    if (a.ctaUrl !== "https://stan.store/Kristan_Oconnor/p/500-chatgpt-prompts-for-your-digital-business" || a.ctaText !== "ChatGPT Prompts Sneak Peek →") {
+                        a.ctaText = "ChatGPT Prompts Sneak Peek →";
+                        a.ctaUrl = "https://stan.store/Kristan_Oconnor/p/500-chatgpt-prompts-for-your-digital-business";
                         migrated = true;
                     }
                 }
