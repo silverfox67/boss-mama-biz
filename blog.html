@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Boss Mama Biz</title>
+    <meta name="description" content="Read Kristan's latest strategies, guides, and honest opinions on building automated digital income streams without social media burnout.">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="style.css?v=18.0">
+</head>
+<body style="background: var(--bg-dark); color: var(--text-main); font-family: var(--font-body); min-height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="nav-bar">
+        <div class="container nav-container">
+            <a href="/" style="text-decoration: none;" class="logo-wrapper">
+                <span class="logo-text">BOSS MAMA BIZ</span>
+                <span class="logo-sub">EST. 2023</span>
+            </a>
+            <div class="nav-links-desktop">
+                <a href="blog.html" class="btn btn-secondary active-link" style="padding:0.6rem 1.2rem;font-size:0.9rem;border-color:var(--primary);color:var(--primary);background:rgba(232, 50, 122, 0.05);">Blog</a>
+                <a href="/#tools" class="btn btn-secondary" style="padding:0.6rem 1.2rem;font-size:0.85rem;">Free Tools</a>
+                <a href="/#offers" class="btn btn-secondary" style="padding:0.6rem 1.2rem;font-size:0.9rem;">View Offers</a>
+            </div>
+            <button class="hamburger-btn" aria-label="Toggle Navigation" onclick="document.getElementById('mobile-menu').classList.toggle('active')">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="blog.html" class="mobile-menu-link" style="color:var(--primary);">Blog</a>
+            <a href="/#tools" class="mobile-menu-link">Free Tools</a>
+            <a href="/#offers" class="mobile-menu-link">View Offers</a>
+        </div>
+    </nav>
+
+    <!-- ===== BLOG HERO ===== -->
+    <header style="padding: 6rem 0 3rem; text-align: center; background: linear-gradient(to bottom, rgba(45, 18, 48, 0.3) 0%, transparent 100%);">
+        <div class="container">
+            <span class="pill-tag" style="margin-bottom: 1rem;">Honest Business Blueprint</span>
+            <h1 style="font-family: var(--font-heading); font-size: 2.8rem; line-height: 1.2; color: #ffffff; text-transform: uppercase; letter-spacing: 2px;">The Boss Mom Journal</h1>
+            <p style="color: var(--text-muted); font-size: 1.15rem; max-width: 600px; margin: 1rem auto 0; font-weight: 300;">Real strategies, actual tools, and zero-fluff guides to building automated systems that work when you can't.</p>
+        </div>
+    </header>
+
+    <!-- ===== ARTICLES GRID ===== -->
+    <main style="flex: 1; padding: 3rem 0 8rem;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+                
+                <!-- Placeholder Card 1 -->
+                <div class="glass-card" style="display: flex; flex-direction: column; gap: 1rem; height: 100%; border-color: rgba(255,255,255,0.06); transition: var(--transition-smooth);">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <span style="background: rgba(201, 168, 76, 0.15); color: var(--gold); border: 1px solid rgba(201, 168, 76, 0.3); font-size: 0.72rem; font-weight: 700; padding: 0.3rem 0.75rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;">★ Coming Soon</span>
+                        <span style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-clock"></i> 3 min read</span>
+                    </div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: #ffffff; line-height: 1.35; margin-top: 0.5rem;">How Digital Products Became the Cheat Code for Stay-at-Home Moms</h3>
+                    <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; flex: 1;">Why selling digital downloads beats traditional brick-and-mortar storefronts, dropshipping, and service-based work. The ultimate guide to skipping startup costs.</p>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; margin-top: auto; display: flex; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 0.8rem; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 0.3rem;">Written by Kristan <i class="ph-fill ph-seal-check"></i></span>
+                    </div>
+                </div>
+
+                <!-- Placeholder Card 2 -->
+                <div class="glass-card" style="display: flex; flex-direction: column; gap: 1rem; height: 100%; border-color: rgba(255,255,255,0.06); transition: var(--transition-smooth);">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <span style="background: rgba(201, 168, 76, 0.15); color: var(--gold); border: 1px solid rgba(201, 168, 76, 0.3); font-size: 0.72rem; font-weight: 700; padding: 0.3rem 0.75rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;">★ Coming Soon</span>
+                        <span style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-clock"></i> 4 min read</span>
+                    </div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: #ffffff; line-height: 1.35; margin-top: 0.5rem;">Affiliate Marketing vs. MLM: Why True Automation Wins Every Time</h3>
+                    <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; flex: 1;">Ditch the DMs, the monthly volume quotas, and the recruitment pressure. Learn how direct-to-consumer affiliate pathways give you actual ownership of your day.</p>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; margin-top: auto; display: flex; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 0.8rem; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 0.3rem;">Written by Kristan <i class="ph-fill ph-seal-check"></i></span>
+                    </div>
+                </div>
+
+                <!-- Placeholder Card 3 -->
+                <div class="glass-card" style="display: flex; flex-direction: column; gap: 1rem; height: 100%; border-color: rgba(255,255,255,0.06); transition: var(--transition-smooth);">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <span style="background: rgba(201, 168, 76, 0.15); color: var(--gold); border: 1px solid rgba(201, 168, 76, 0.3); font-size: 0.72rem; font-weight: 700; padding: 0.3rem 0.75rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;">★ Coming Soon</span>
+                        <span style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.3rem;"><i class="ph ph-clock"></i> 3 min read</span>
+                    </div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: #ffffff; line-height: 1.35; margin-top: 0.5rem;">Do You Really Need 10k Followers? The Truth About Targeted Traffic</h3>
+                    <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; flex: 1;">How micro-audiences and high-intent searches attract perfect customers who are already wallet-in-hand, without you needing to do silly viral dances.</p>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; margin-top: auto; display: flex; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 0.8rem; color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 0.3rem;">Written by Kristan <i class="ph-fill ph-seal-check"></i></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer style="border-top: 1px solid var(--border-color); padding: 4rem 0; text-align: center; background: var(--bg-dark); margin-top: auto;">
+        <div class="container" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;">
+            <div class="logo-wrapper" style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;line-height:1;margin:0;">
+                <span class="logo-text" style="font-family:var(--font-heading);font-size:1.9rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#ffffff;">BOSS MAMA BIZ</span>
+                <span style="font-family:var(--font-body);font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:5px;color:rgba(255,255,255,0.55);">EST. 2023</span>
+            </div>
+            <p style="margin:0;font-size:1rem;">Helping Busy Moms Build Income Online Without Being Glued To Social Media</p>
+            <p style="margin:0;font-size:0.95rem;color:var(--text-muted);">Contact: <a href="mailto:kristan@bossmamabiz.com" style="color:var(--text-main);text-decoration:none;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-main)'">kristan@bossmamabiz.com</a></p>
+            <p style="margin:0;font-size:0.95rem;color:var(--text-muted);">Designed by <a href="https://tridentwebsitedesign.com" target="_blank" style="color:var(--primary);text-decoration:none;font-weight:600;" onmouseover="this.style.color='#fff3d1'" onmouseout="this.style.color='var(--primary)'">Trident Website Design</a></p>
+            <p style="margin:0;font-size:0.85rem;color:var(--text-muted);"><a href="privacy.html" style="color:var(--text-muted);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">Privacy Policy</a> | <a href="terms.html" style="color:var(--text-muted);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">Terms of Service</a></p>
+            <p style="color:var(--text-muted);font-size:0.8rem;margin:0;">&copy; 2026 Boss Mama Biz. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

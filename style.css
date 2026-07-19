@@ -1501,11 +1501,11 @@ footer p {
     z-index: 2;
 }
 .hero-content-left {
-    flex: 1.1;
+    flex: 1.25;
     text-align: left;
 }
 .hero-content-left h1 {
-    font-size: 3.6rem !important;
+    font-size: 3.4rem !important;
     margin-bottom: 1.5rem;
     line-height: 1.15;
     letter-spacing: -1px;
@@ -1521,7 +1521,7 @@ footer p {
     margin-top: 2.5rem;
 }
 .hero-content-right {
-    flex: 0.9;
+    flex: 0.75;
     display: flex;
     justify-content: flex-end;
 }
@@ -1665,10 +1665,10 @@ footer p {
    EDITORIAL ARTICLE SECTION
    ============================================================ */
 .editorial-section {
-    background-color: #F5F0E6;
+    background-color: #F5F0E6 !important;
     background-image: 
-        repeating-linear-gradient(90deg, rgba(26, 10, 20, 0.012) 0px, rgba(26, 10, 20, 0.012) 1px, transparent 1px, transparent 4px),
-        repeating-linear-gradient(0deg, rgba(26, 10, 20, 0.006) 0px, rgba(26, 10, 20, 0.006) 1px, transparent 1px, transparent 6px);
+        repeating-linear-gradient(90deg, rgba(26, 10, 20, 0.012) 0px, rgba(26, 10, 20, 0.012) 1px, rgba(245, 240, 230, 0) 1px, rgba(245, 240, 230, 0) 4px),
+        repeating-linear-gradient(0deg, rgba(26, 10, 20, 0.006) 0px, rgba(26, 10, 20, 0.006) 1px, rgba(245, 240, 230, 0) 1px, rgba(245, 240, 230, 0) 6px);
     border-top: 1px solid rgba(232, 50, 122, 0.15);
     border-bottom: 1px solid rgba(232, 50, 122, 0.15);
     padding: 6rem 0;
