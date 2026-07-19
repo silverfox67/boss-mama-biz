@@ -697,11 +697,158 @@ document.getElementById('request-notes-modal')?.addEventListener('click', (e) =>
     }
 });
 
+// ── BLOG POSTS MANAGEMENT ──
+function getBlogArticles() {
+    return JSON.parse(localStorage.getItem('bmb_blog_articles') || '[]');
+}
+
+function saveBlogArticles(articles) {
+    localStorage.setItem('bmb_blog_articles', JSON.stringify(articles));
+}
+
+function renderBlogArticlesAdmin() {
+    const articles = getBlogArticles();
+    const emptyEl = document.getElementById('blog-articles-empty');
+    const listEl = document.getElementById('blog-articles-list');
+    
+    if (!emptyEl || !listEl) return;
+    
+    if (articles.length === 0) {
+        emptyEl.style.display = 'block';
+        listEl.innerHTML = '';
+    } else {
+        emptyEl.style.display = 'none';
+        
+        // Sort articles by publish date (newest/latest first)
+        const sorted = [...articles].sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        const today = new Date().toISOString().split('T')[0];
+        
+        listEl.innerHTML = sorted.map(art => {
+            const isScheduled = art.date > today;
+            const statusLabel = isScheduled ? '⏳ Scheduled' : '🟢 Published';
+            const statusClass = isScheduled ? 'status-red' : 'status-green';
+            
+            return `
+                <div class="glass-card" style="padding:1rem; border-color:rgba(255,255,255,0.05); display:flex; flex-direction:column; gap:0.5rem; background:rgba(255,255,255,0.01);">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="requests-badge-status ${statusClass}" style="font-size:0.75rem; padding:0.2rem 0.5rem; border-radius:4px;">${statusLabel}</span>
+                        <span style="font-size:0.75rem; color:var(--text-muted);">${art.date} • ${art.readtime} min</span>
+                    </div>
+                    <h4 style="margin:0.2rem 0 0; color:#ffffff; font-size:0.95rem; font-family:var(--font-heading);">${art.title}</h4>
+                    <p style="margin:0; font-size:0.8rem; color:var(--text-muted); line-height:1.4;">${art.summary}</p>
+                    <div style="display:flex; gap:0.5rem; margin-top:0.5rem; justify-content:flex-end;">
+                        <button class="btn btn-secondary blog-edit-btn" data-id="${art.id}" style="padding:0.3rem 0.6rem; font-size:0.75rem; font-weight:600;">Edit</button>
+                        <button class="btn btn-primary blog-delete-btn" data-id="${art.id}" style="padding:0.3rem 0.6rem; font-size:0.75rem; font-weight:600; background:linear-gradient(135deg, #ff4a4a, #c22828); box-shadow:none;">Delete</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        // Bind Edit buttons
+        listEl.querySelectorAll('.blog-edit-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.getAttribute('data-id');
+                const art = articles.find(a => a.id === id);
+                if (art) {
+                    document.getElementById('blog-post-id').value = art.id;
+                    document.getElementById('blog-title').value = art.title;
+                    document.getElementById('blog-summary').value = art.summary;
+                    document.getElementById('blog-date').value = art.date;
+                    document.getElementById('blog-readtime').value = art.readtime;
+                    document.getElementById('blog-content').value = art.content;
+                    
+                    document.getElementById('blog-form-title').textContent = 'Edit Blog Post';
+                    document.getElementById('blog-submit-btn').textContent = 'Update & Schedule →';
+                    document.getElementById('blog-cancel-btn').style.display = 'inline-block';
+                }
+            });
+        });
+
+        // Bind Delete buttons
+        listEl.querySelectorAll('.blog-delete-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.getAttribute('data-id');
+                if (confirm('Are you sure you want to delete this blog post?')) {
+                    deleteBlogArticle(id);
+                }
+            });
+        });
+    }
+}
+
+function deleteBlogArticle(id) {
+    let articles = getBlogArticles();
+    articles = articles.filter(art => art.id !== id);
+    saveBlogArticles(articles);
+    renderBlogArticlesAdmin();
+}
+
+function resetBlogForm() {
+    document.getElementById('blog-post-id').value = '';
+    document.getElementById('blog-title').value = '';
+    document.getElementById('blog-summary').value = '';
+    document.getElementById('blog-date').value = '';
+    document.getElementById('blog-readtime').value = '3';
+    document.getElementById('blog-content').value = '';
+    
+    document.getElementById('blog-form-title').textContent = 'Create Blog Post';
+    document.getElementById('blog-submit-btn').textContent = 'Save & Schedule →';
+    document.getElementById('blog-cancel-btn').style.display = 'none';
+}
+
+// Bind blog form submit
+document.getElementById('blog-post-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const idVal = document.getElementById('blog-post-id').value;
+    const titleVal = document.getElementById('blog-title').value.trim();
+    const summaryVal = document.getElementById('blog-summary').value.trim();
+    const dateVal = document.getElementById('blog-date').value;
+    const readtimeVal = parseInt(document.getElementById('blog-readtime').value);
+    const contentVal = document.getElementById('blog-content').value.trim();
+    
+    let articles = getBlogArticles();
+    
+    if (idVal) {
+        // Edit Mode
+        articles = articles.map(art => {
+            if (art.id === idVal) {
+                return { ...art, title: titleVal, summary: summaryVal, date: dateVal, readtime: readtimeVal, content: contentVal };
+            }
+            return art;
+        });
+    } else {
+        // Create Mode
+        const newArt = {
+            id: Date.now().toString(),
+            title: titleVal,
+            summary: summaryVal,
+            date: dateVal,
+            readtime: readtimeVal,
+            content: contentVal
+        };
+        articles.push(newArt);
+    }
+    
+    saveBlogArticles(articles);
+    resetBlogForm();
+    renderBlogArticlesAdmin();
+    alert('Blog post saved successfully!');
+});
+
+// Bind cancel button
+document.getElementById('blog-cancel-btn')?.addEventListener('click', () => {
+    resetBlogForm();
+});
+
 // Run render on load
 document.addEventListener('DOMContentLoaded', () => {
     renderBuildRequests();
+    renderBlogArticlesAdmin();
 });
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
     renderBuildRequests();
+    renderBlogArticlesAdmin();
 }
 
