@@ -95,6 +95,14 @@
                 date: "2026-07-19",
                 readtime: 3,
                 image: "images/blog-autopilot.png"
+            },
+            {
+                id: "1784347819500",
+                title: "Done-For-You Digital Assets: How to Launch a Digital Product Store This Weekend",
+                summary: "You do not need to be a professional designer or author to build a thriving online store. Leverage Private Label Rights (PLR) to list digital assets fast.",
+                date: "2026-07-20",
+                readtime: 4,
+                image: "images/blog-assets.png"
             }
         ];
 
@@ -138,6 +146,17 @@
                     if (a.ctaUrl !== "https://stan.store/Kristan_Oconnor/p/preview-inside-fes" || a.ctaText !== "FES Sneak Peek →") {
                         a.ctaText = "FES Sneak Peek →";
                         a.ctaUrl = "https://stan.store/Kristan_Oconnor/p/preview-inside-fes";
+                        migrated = true;
+                    }
+                }
+                if (a.title.includes("Done-For-You Digital Assets") || a.title.includes("Launch a Digital Product Store")) {
+                    if (a.image !== 'images/blog-assets.png') {
+                        a.image = 'images/blog-assets.png';
+                        migrated = true;
+                    }
+                    if (a.ctaUrl !== "https://stan.store/affiliates/238a4731-b0b4-47ac-8956-51dbc49db694" || a.ctaText !== "PLR Vault Sneak Peek →") {
+                        a.ctaText = "PLR Vault Sneak Peek →";
+                        a.ctaUrl = "https://stan.store/affiliates/238a4731-b0b4-47ac-8956-51dbc49db694";
                         migrated = true;
                     }
                 }
