@@ -1075,6 +1075,52 @@
                 <p>Write, edit, delete, and schedule articles for the Boss Mom Journal.</p>
             </div>
 
+            <!-- 🤖 Boss AI Article Generator & Coach -->
+            <div class="glass-card" style="padding: 1.8rem; margin-bottom: 2rem;">
+                <div style="display:flex; align-items:center; gap:1rem; margin-bottom: 1.2rem; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:0.8rem;">
+                    <div style="font-size:1.8rem; width:44px; height:44px; display:flex; align-items:center; justify-content:center; background:rgba(232,50,122,0.15); border-radius:50%; border:1px solid rgba(232,50,122,0.3); color:var(--primary);"><i class="ph ph-robot"></i></div>
+                    <div>
+                        <h3 style="margin:0; font-family:var(--font-heading); color:#ffffff; font-size:1.15rem;">Boss AI Article &amp; Idea Coach</h3>
+                        <span style="font-size:0.78rem; color:var(--primary); font-weight:600;">SEO-Optimized Blog Post Generator</span>
+                    </div>
+                </div>
+                <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0; margin-bottom:1.5rem; line-height:1.6;">Struggling with what to write? Boss AI helps you research high-intent search terms that burned-out moms search for late at night. Select one of our pre-vetted SEO templates or type a custom topic to generate a complete draft in seconds.</p>
+                
+                <div style="display:flex; flex-direction:column; gap:1.2rem;">
+                    <!-- Pre-vetted templates -->
+                    <div>
+                        <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; display:block; margin-bottom:0.6rem;">Select a Search-Intent Strategy:</label>
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1rem;">
+                            
+                            <button type="button" class="btn btn-secondary ai-template-btn" data-topic="pyramid" style="text-align:left; padding:1rem; display:flex; flex-direction:column; gap:0.3rem; border-color:rgba(255,255,255,0.1); background:rgba(255,255,255,0.02); height:100%; transition: var(--transition);">
+                                <span style="font-size:0.75rem; color:var(--primary); font-weight:700;">🔍 SEARCH: "is affiliate marketing an MLM?"</span>
+                                <strong style="font-size:0.92rem; color:#fff;">Pyramid Scheme vs. Affiliate Marketing</strong>
+                                <span style="font-size:0.8rem; color:var(--text-muted);">Hook: MLM skepticism. CTA: Stacked / Boss Suite.</span>
+                            </button>
+                            
+                            <button type="button" class="btn btn-secondary ai-template-btn" data-topic="faceless" style="text-align:left; padding:1rem; display:flex; flex-direction:column; gap:0.3rem; border-color:rgba(255,255,255,0.1); background:rgba(255,255,255,0.02); height:100%; transition: var(--transition);">
+                                <span style="font-size:0.75rem; color:var(--primary); font-weight:700;">🔍 SEARCH: "faceless digital marketing for moms"</span>
+                                <strong style="font-size:0.92rem; color:#fff;">How to Sell Products Faceless</strong>
+                                <span style="font-size:0.8rem; color:var(--text-muted);">Hook: Camera shyness. CTA: PLR Vault / Boss Suite.</span>
+                            </button>
+                            
+                            <button type="button" class="btn btn-secondary ai-template-btn" data-topic="creator-block" style="text-align:left; padding:1rem; display:flex; flex-direction:column; gap:0.3rem; border-color:rgba(255,255,255,0.1); background:rgba(255,255,255,0.02); height:100%; transition: var(--transition);">
+                                <span style="font-size:0.75rem; color:var(--primary); font-weight:700;">🔍 SEARCH: "what to post zero content ideas"</span>
+                                <strong style="font-size:0.92rem; color:#fff;">Overcoming Creator Block &amp; Burnout</strong>
+                                <span style="font-size:0.8rem; color:var(--text-muted);">Hook: Flashing cursor. CTA: Free Content Vault.</span>
+                            </button>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- Custom Prompt input -->
+                    <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:1.2rem; display:flex; gap:0.8rem; align-items:center;">
+                        <input type="text" id="ai-blog-prompt" placeholder="Or type a custom topic (e.g. Time management for busy side-hustling moms)..." class="dash-input" style="flex:1; margin:0;">
+                        <button type="button" id="btn-generate-ai-blog" class="btn btn-primary" style="padding:0.75rem 1.5rem; font-weight:700; white-space:nowrap; border:none;">Ask AI to Write →</button>
+                    </div>
+                </div>
+            </div>
+
             <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:1.5rem; align-items:start;">
                 
                 <!-- Create/Edit Form -->
@@ -1182,6 +1228,77 @@
             <textarea id="request-note-text" placeholder="Type your notes, custom links, or setup instructions here..." style="width:100%; height:130px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:8px; color:var(--text-main); padding:0.8rem; font-family:var(--font-body); font-size:0.95rem; resize:none; margin-bottom:1.2rem; outline:none; transition:var(--transition);"></textarea>
             <button id="submit-request-btn" class="btn btn-primary" style="width:100%; font-weight:700;">Submit Request &amp; Notify Todd →</button>
         </div>
+    </div>
+</div>
+
+<!-- AI Article Editor Modal -->
+<div id="ai-article-editor-modal" class="tool-modal" role="dialog" aria-label="Boss AI Article Editor" style="z-index: 2100; position: fixed; inset: 0; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; backdrop-filter: blur(10px); display: none;">
+    <div class="tool-modal-content" style="max-width:720px; width:92%; padding:2.2rem; text-align:left; background: linear-gradient(145deg, #140810 0%, #2d1230 50%, #1a0a14 100%); border: 1px solid rgba(232,50,122,0.4); border-radius: 20px; box-shadow: 0 0 80px rgba(0,0,0,0.8); overflow-y: auto; max-height: 90vh; position: relative;">
+        <button class="modal-close tool-modal-close" data-modal="ai-article-editor-modal" style="background:none; border:none; color:#fff; font-size:1.8rem; position:absolute; top:1rem; right:1.2rem; cursor:pointer;">&times;</button>
+        <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:0.6rem;">
+            <span style="font-size:1.5rem;">🤖</span>
+            <h3 style="margin:0; font-family:var(--font-heading); color:#ffffff; font-size:1.2rem;">Boss AI Article Editor &amp; Publisher</h3>
+        </div>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1.5rem;">Boss AI has generated this SEO-optimized article draft. You can read, edit, schedule, and publish it below.</p>
+        
+        <form id="ai-article-form" style="display:flex; flex-direction:column; gap:1.2rem;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Article Title</label>
+                    <input type="text" id="ai-art-title" required class="dash-input" style="margin:0; width: 100%; box-sizing: border-box;">
+                </div>
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Schedule Publish Date</label>
+                    <input type="date" id="ai-art-date" required class="dash-input" style="margin:0; width: 100%; box-sizing: border-box;">
+                </div>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Read Time (Minutes)</label>
+                    <input type="number" id="ai-art-readtime" value="3" min="1" required class="dash-input" style="margin:0; width: 100%; box-sizing: border-box;">
+                </div>
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Card Illustration Style</label>
+                    <select id="ai-art-image" class="dash-input" style="margin:0; width: 100%; box-sizing: border-box; background:rgba(255,255,255,0.03); border:1px solid var(--border);">
+                        <option value="images/blog-streams.png">Blog Streams 3D Illustration</option>
+                        <option value="images/blog-faceless.png">Faceless Business 3D Illustration</option>
+                        <option value="images/blog-autopilot.png">Autopilot Systems 3D Illustration</option>
+                        <option value="images/blog-assets.png">Digital Storefront 3D Illustration</option>
+                        <option value="images/blog-alignment.png">Stress Reset &amp; Alignment 3D Illustration</option>
+                        <option value="images/own-vault.png">Creative Content Vault Graphic</option>
+                        <option value="images/own-create.png">Digital Product Guide Graphic</option>
+                        <option value="images/own-prompts.png">ChatGPT Prompts Graphic</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Teaser / Summary (For Blog Feed)</label>
+                <textarea id="ai-art-summary" required class="dash-input" style="height:60px; resize:none; margin:0; width: 100%; box-sizing: border-box;"></textarea>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Bottom CTA Button Text</label>
+                    <input type="text" id="ai-art-ctatext" required class="dash-input" style="margin:0; width: 100%; box-sizing: border-box;">
+                </div>
+                <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Bottom CTA Button Link (URL)</label>
+                    <input type="text" id="ai-art-ctaurl" required class="dash-input" style="margin:0; width: 100%; box-sizing: border-box;">
+                </div>
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:0.4rem;">
+                <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Article Body Content (HTML/Paragraphs)</label>
+                <textarea id="ai-art-content" required class="dash-input" style="height:250px; resize:vertical; margin:0; width: 100%; box-sizing: border-box; font-family:monospace; font-size:0.85rem; line-height:1.45;"></textarea>
+            </div>
+
+            <div style="display:flex; gap:1rem; margin-top:0.5rem;">
+                <button type="submit" class="btn btn-primary" style="flex:1; border:none; padding:0.8rem 1.5rem; font-weight:700;">📥 Add &amp; Schedule to Site →</button>
+                <button type="button" id="btn-close-ai-editor" class="btn btn-secondary" style="padding:0.8rem 1.5rem; font-weight:700;">Cancel</button>
+            </div>
+        </form>
     </div>
 </div>
 

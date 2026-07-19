@@ -924,6 +924,8 @@ document.getElementById('blog-post-form')?.addEventListener('submit', (e) => {
             date: dateVal,
             readtime: readtimeVal,
             image: imageVal,
+            ctaText: ctaTextVal,
+            ctaUrl: ctaUrlVal,
             content: contentVal
         };
         articles.push(newArt);
@@ -933,6 +935,150 @@ document.getElementById('blog-post-form')?.addEventListener('submit', (e) => {
     resetBlogForm();
     renderBlogArticlesAdmin();
     alert('Blog post saved successfully!');
+});
+
+// ============================================================
+//  BOSS AI BLOG COACH & ARTICLE GENERATOR
+// ============================================================
+const aiBlogTemplates = {
+    pyramid: {
+        title: "Is Affiliate Marketing a Pyramid Scheme? An Honest Breakdown",
+        summary: "You've probably seen posts promising big payouts. Read this honest comparison to understand the crucial difference between legitimate affiliate marketing and MLMs.",
+        readtime: 4,
+        image: "images/blog-streams.png",
+        ctaText: "Qualifier Quiz Sneak Peek →",
+        ctaUrl: "/index.html#quiz",
+        content: `You've probably seen posts on Instagram or Facebook promising that you can make thousands of dollars working from your phone. And if you're like most sensible moms, your first thought was: "Is this another pyramid scheme?"<br><br>The skepticism is entirely valid. The internet is full of "get-rich-quick" programs and multi-level marketing (MLM) companies that require you to recruit your friends, buy piles of inventory, and sit in peoples' direct messages all day. It's exhausting, and for most moms, it leads to burnout rather than business.<br><br>But there is a legitimate, clean alternative that does not involve recruiting, inventory, or messaging your high school friends: <strong>Affiliate Marketing</strong>. Here is the honest breakdown of how they differ.<br><br><h3>The MLM / Pyramid Scheme Model (Recruiting Focus)</h3>In a pyramid scheme or MLM, the primary way to make real money is by recruiting a "downline" of other distributors. You are forced to buy a minimum amount of product inventory each month just to stay qualified. The emphasis is on building a team, not selling a valuable product. If the system relies on recruiting others to make money, it's a pyramid structure.<br><br><h3>The Affiliate Marketing Model (Sales Focus)</h3>Affiliate marketing is completely different. You simply recommend a product or service that you like. When someone purchases it through your custom tracking link, the company pays you a direct sales commission. <ul><li><strong>No Recruiting:</strong> You do not build a team. You earn only on direct sales you generate.</li><li><strong>No Inventory:</strong> You never purchase or ship physical products.</li><li><strong>Zero Monthly Minimums:</strong> There are no quotas or pressure.</li></ul><h3>The Golden Rule of Legitimate Digital Business</h3>A real affiliate business focuses on connecting buyers to high-quality training and systems. You don't need a massive social media following or MLM tactics if you follow a clean, automated system.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>↓ Not sure which path fits your schedule? Click here to take our 60-second income qualifier quiz on the homepage:</strong><br><br><a href="/#quiz" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Take 60-Second Quiz →</a></div>`
+    },
+    faceless: {
+        title: "How to Sell Digital Products Without Showing Your Face (A Guide to Faceless Marketing)",
+        summary: "Camera shy? You do not need to post family pictures or talk to the camera to run a successful store. Learn how to launch a faceless marketing business today.",
+        readtime: 3,
+        image: "images/blog-faceless.png",
+        ctaText: "Browse PLR Products →",
+        ctaUrl: "/index.html#tools",
+        content: `The dream of running an online business sounds amazing, until you realize that most marketing gurus tell you to record daily videos, dance on camera, and share your personal family life online.<br><br>For many busy moms, that is a dealbreaker. You want to build an income stream, but you also want to protect your family's privacy and avoid being glued to your phone recording selfies.<br><br>The good news? You do not need to show your face to build a thriving online store. Here is the complete framework for faceless digital marketing.<br><br><h3>1. Use Aesthetic Stock Video Clips</h3>You don't need to record yourself typing or making coffee. You can use beautiful, high-quality, pre-recorded stock video libraries (like Canva, Pexels, or specialized faceless aesthetic libraries). These videos feature cozy work setups, kitchen counters, or nature scenes that match a high-end brand aesthetic.<br><br><h3>2. Focus on Strong Hooks and Text-on-Screen</h3>Because you aren't talking directly to the camera, your text-on-screen hook must do the heavy lifting. Address your ideal customer's exact frustration immediately (e.g. <em>"How I set up a passive income stream during naptime without ever showing my face"</em>). Use clean, minimalist fonts that are easy to read.<br><br><h3>3. Leverage Done-For-You (PLR) Digital Products</h3>Building a digital product from scratch is time-consuming. By purchasing high-quality Private Label Rights (PLR) guides, spreadsheets, or templates, you buy the legal license to rebrand and resell them under your own name. You get to keep 100% of the profits without spending weeks designing products.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>💡 Ready to start? Click here to browse and filter high-converting done-for-you products inside the PLR Library:</strong><br><br><a href="/#tools" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Browse PLR Products →</a></div>`
+    },
+    "creator-block": {
+        title: "What to Post When You Have Zero Content Ideas (How to Fix Creator Block)",
+        summary: "Staring at a flashing cursor is exhausting. Use this simple 'Hook, Story, Offer' framework to write sales posts in less than 5 minutes.",
+        readtime: 3,
+        image: "images/own-vault.png",
+        ctaText: "Creative Content Vault Sneak Peek →",
+        ctaUrl: "https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view",
+        content: `You sit down at your desk during a rare quiet moment while the kids are napping, open your phone, and... nothing. You stare at a flashing cursor, completely unsure of what to write.<br><br>You know you need to post to keep your business visible, but the mental energy required to brainstorm new ideas every single day is draining. You either post something generic just to get it out of the way, or you skip posting entirely because the creative block is too overwhelming.<br><br>Here is the secret to consistent social media marketing: stop waiting for inspiration, and use a structured framework.<br><br><h3>The Hook, Story, Offer Framework</h3>Every high-converting post follows three simple stages:<ul><li><strong>1. The Hook:</strong> A scroll-stopping sentence that targets a specific pain point or desire (e.g. <em>"I used to spend 3 hours writing copy, now I do it in 5 minutes."</em>).</li><li><strong>2. The Story:</strong> A short paragraph sharing a personal lesson, customer win, or quick tip that builds trust and adds value.</li><li><strong>3. The Offer (CTA):</strong> A clear instruction on what action to take next. Never write a post without a call-to-action!</li></ul><h3>Putting Your Content on Autopilot</h3>You don't need to invent hooks and story starters daily. By utilizing a pre-vetted bank of scroll-stopping hooks and copy-paste templates, you can write weeks of social media content in a single afternoon.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>📬 Get 90+ days of scroll-stopping hooks, storytelling prompts, and high-converting calls-to-action completely FREE in our Creative Content Vault:</strong><br><br><a href="/#offers" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Download Free Content Vault →</a></div>`
+    }
+};
+
+function generateCustomArticle(promptText) {
+    const formattedPrompt = promptText.trim();
+    if (!formattedPrompt) return null;
+    
+    const title = "The Busy Mom's Guide to " + formattedPrompt.replace(/\b\w/g, c => c.toUpperCase());
+    const summary = `Struggling with ${formattedPrompt}? Learn the exact step-by-step systems and productivity frameworks to master this side-hustle obstacle without losing family time.`;
+    
+    const content = `Managing a side business around a busy family schedule is a massive balancing act. When you are trying to tackle challenges like <strong>${formattedPrompt}</strong>, it is incredibly easy to hit a roadblock and feel completely overwhelmed.<br><br>But the secret isn't working longer hours—it is about working smarter by building structured, automated systems. Let's break down exactly how you can handle ${formattedPrompt} in just 1-2 hours a day.<br><br><h3>Step 1: Simplify and Focus</h3>First, strip away the noise. You don't need to do everything at once. Focus on one specific solution that moves your business forward. Automate your scheduling, use templates, and protect your working hours during naptime or early mornings.<br><br><h3>Step 2: Use Pre-Built Assets</h3>Don't build your product or content from scratch. Bypassing the creation phase by using high-quality done-for-you templates or prompts can save you up to 80% of your time, letting you focus on what actually generates revenue.<br><br><h3>Step 3: Connect with the Right Community</h3>Having step-by-step mentorship is the fastest way to avoid mistakes and get sales. Connect with other side-hustling moms who have already walked this path and built consistent passive income.<br><br><div style="background: rgba(232, 50, 122, 0.05); border: 1px dashed var(--primary); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; text-align: center;"><strong>↓ Ready to find your path? Click here to take our 60-second income qualifier quiz on the homepage to unlock your custom roadmap:</strong><br><br><a href="/#quiz" class="btn btn-primary" style="display:inline-block; margin-top:0.8rem; text-decoration:none;">Find My Roadmap Now →</a></div>`;
+    
+    return { title, summary, readtime: 3, image: "images/blog-autopilot.png", ctaText: "Take the Qualifier Quiz →", ctaUrl: "/index.html#quiz", content };
+}
+
+function openAIEmailEditor(draft) {
+    const modal = document.getElementById('ai-article-editor-modal');
+    if (!modal) return;
+    
+    document.getElementById('ai-art-title').value = draft.title;
+    document.getElementById('ai-art-summary').value = draft.summary;
+    document.getElementById('ai-art-readtime').value = draft.readtime;
+    document.getElementById('ai-art-image').value = draft.image;
+    document.getElementById('ai-art-ctatext').value = draft.ctaText || "Take the Qualifier Quiz →";
+    document.getElementById('ai-art-ctaurl').value = draft.ctaUrl || "/index.html#quiz";
+    document.getElementById('ai-art-content').value = draft.content;
+    
+    // Set default schedule date as next Sunday
+    const today = new Date();
+    const nextSunday = new Date();
+    nextSunday.setDate(today.getDate() + (7 - today.getDay()) % 7);
+    if (today.getDay() === 0) {
+        nextSunday.setDate(today.getDate() + 7);
+    }
+    document.getElementById('ai-art-date').value = nextSunday.toISOString().split('T')[0];
+    
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+// Bind UI event listeners for generator
+document.querySelectorAll('.ai-template-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const topic = btn.getAttribute('data-topic');
+        const draft = aiBlogTemplates[topic];
+        if (draft) {
+            openAIEmailEditor(draft);
+        }
+    });
+});
+
+document.getElementById('btn-generate-ai-blog')?.addEventListener('click', () => {
+    const promptInput = document.getElementById('ai-blog-prompt');
+    const val = promptInput.value.trim();
+    if (!val) { alert('Please enter a custom topic idea first!'); return; }
+    
+    const draft = generateCustomArticle(val);
+    if (draft) {
+        promptInput.value = '';
+        openAIEmailEditor(draft);
+    }
+});
+
+// Close listeners for AI editor modal
+const closeAIModal = () => {
+    const modal = document.getElementById('ai-article-editor-modal');
+    if (modal) { modal.style.display = 'none'; document.body.style.overflow = ''; }
+};
+document.getElementById('btn-close-ai-editor')?.addEventListener('click', closeAIModal);
+document.querySelector('#ai-article-editor-modal .modal-close')?.addEventListener('click', closeAIModal);
+document.getElementById('ai-article-editor-modal')?.addEventListener('click', e => {
+    if (e.target === document.getElementById('ai-article-editor-modal')) {
+        closeAIModal();
+    }
+});
+
+// AI Article Form Submit Handler
+document.getElementById('ai-article-form')?.addEventListener('submit', e => {
+    e.preventDefault();
+    
+    const titleVal = document.getElementById('ai-art-title').value.trim();
+    const summaryVal = document.getElementById('ai-art-summary').value.trim();
+    const dateVal = document.getElementById('ai-art-date').value;
+    const readtimeVal = parseInt(document.getElementById('ai-art-readtime').value);
+    const imageVal = document.getElementById('ai-art-image').value;
+    const ctaTextVal = document.getElementById('ai-art-ctatext').value.trim();
+    const ctaUrlVal = document.getElementById('ai-art-ctaurl').value.trim();
+    const contentVal = document.getElementById('ai-art-content').value.trim();
+    
+    let articles = getBlogArticles();
+    
+    const newArt = {
+        id: Date.now().toString(),
+        title: titleVal,
+        summary: summaryVal,
+        date: dateVal,
+        readtime: readtimeVal,
+        image: imageVal,
+        ctaText: ctaTextVal,
+        ctaUrl: ctaUrlVal,
+        content: contentVal
+    };
+    
+    articles.push(newArt);
+    saveBlogArticles(articles);
+    renderBlogArticlesAdmin();
+    
+    // Close modal
+    const modal = document.getElementById('ai-article-editor-modal');
+    if (modal) { modal.style.display = 'none'; document.body.style.overflow = ''; }
+    
+    alert('✅ SEO Blog post generated and scheduled successfully!');
 });
 
 // Bind cancel button
