@@ -87,11 +87,11 @@
                 image: "images/blog-faceless.png"
             },
             {
-                title: "Do You Really Need 10k Followers? The Truth About Targeted Traffic",
-                summary: "How micro-audiences and high-intent searches attract perfect customers who are already wallet-in-hand, without you needing to do silly viral dances.",
-                date: "2026-07-12",
+                title: "The Autopilot Framework: How to Turn Social Media Followers into Customers Using Smart Systems",
+                summary: "Transform social media from a time-consuming hobby into an income-generating asset. Build an automated organic scaling presence backed by chatbot workflows.",
+                date: "2026-07-19",
                 readtime: 3,
-                image: "images/own-prompts.png"
+                image: "images/blog-autopilot.png"
             }
         ];
 
@@ -120,6 +120,14 @@
                     }
                     a.ctaText = "Access The Boss Suite →";
                     a.ctaUrl = "https://stan.store/affiliates/81495b81-cf82-4813-8634-7f8d9f4369ba";
+                }
+                if (a.title.includes("Autopilot Framework")) {
+                    if (!a.image || a.image === 'images/own-prompts.png' || a.image === 'images/own-create.png' || a.image === 'images/kristan-banner.jpg') {
+                        a.image = 'images/blog-autopilot.png';
+                        migrated = true;
+                    }
+                    a.ctaText = "Unlock Facebook Ecosystem Strategy →";
+                    a.ctaUrl = "https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a";
                 }
                 return a;
             });
