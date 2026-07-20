@@ -17,8 +17,8 @@ const LINKS = {
     fes:       { peek: 'https://stan.store/Kristan_Oconnor/p/preview-inside-fes', buy: 'https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a' },
     plr:       { buy: 'https://stan.store/affiliates/238a4731-b0b4-47ac-8956-51dbc49db694' },
     alignment: { buy: 'https://stan.store/affiliates/98e8fb0b-89ae-4176-a439-f07888142d94' },
-    create27:  'https://stan.store/Kristan_Oconnor/p/create-your-1st-digital-product-in-6-simple-steps',
-    chatgpt:   'https://stan.store/Kristan_Oconnor/p/500-chatgpt-prompts-for-your-digital-business'
+    create27:  'https://buy.stripe.com/3cI3cnbmJ7zA5rMgAuaIM01',
+    chatgpt:   'https://buy.stripe.com/5kQ28jcqNaLM1bwdoiaIM00'
 };
 
 // ============================================================

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Digital Offer | Boss Mama Biz</title>
+    <meta name="description" content="Dedicated sales landing page for Boss Mama Biz digital products. Secure checkout. Direct download.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" href="style.css?v=18.0">
+    <style>
+        /* Landing page specifics to ensure a premium feel */
+        body {
+            background-color: #0f050c;
+            color: #f3f4f6;
+        }
+        .landing-hero {
+            padding: 5rem 1.5rem;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(232, 50, 122, 0.12) 0%, rgba(15, 5, 12, 0) 70%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .landing-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .landing-hook {
+            font-family: var(--font-body);
+            color: var(--primary);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        .landing-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+        .landing-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+        .product-split {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3.5rem;
+            margin: 4rem 0;
+            align-items: center;
+        }
+        @media (max-width: 768px) {
+            .product-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .landing-title {
+                font-size: 2.2rem;
+            }
+        }
+        .product-img-wrapper {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .product-img-wrapper img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        .features-list li {
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+        .features-list li i {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-right: 0.75rem;
+            margin-top: 0.1rem;
+        }
+        .pricing-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(223, 196, 147, 0.12);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            box-shadow: inset 0 0 20px rgba(223, 196, 147, 0.03);
+        }
+        .bonus-box {
+            background: rgba(232, 50, 122, 0.04);
+            border: 1px dashed rgba(232, 50, 122, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+        .section-header-landing {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-header-landing h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: #ffffff;
+        }
+        .section-header-landing p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="nav-bar">
+        <div class="container nav-container">
+            <div class="logo-wrapper">
+                <a href="index.html" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;">
+                    <span class="logo-text">BOSS MAMA BIZ</span>
+                    <span class="logo-sub">EST. 2023</span>
+                </a>
+            </div>
+            <div class="nav-links-desktop">
+                <a href="index.html" class="btn btn-secondary" style="padding:0.6rem 1.2rem;font-size:0.9rem;">← Back Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <header class="landing-hero">
+        <div class="landing-container">
+            <span class="landing-hook" id="landing-hero-hook">Build systems that work when you can't</span>
+            <h1 class="landing-title" id="product-name">Digital Product Name</h1>
+            <p class="landing-subtitle" id="product-tagline">Loading description...</p>
+        </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT SPLIT ===== -->
+    <main class="container" style="padding: 2rem 1.5rem;">
+        <div class="landing-container">
+            
+            <div class="product-split">
+                <div class="product-img-wrapper">
+                    <img id="product-image" src="images/own-create.png" alt="Product Mockup">
+                </div>
+                <div>
+                    <h2 style="font-family:'Cinzel', serif; font-size:1.8rem; margin-top:0;">What's Inside</h2>
+                    <p style="color:var(--text-muted); line-height:1.6; font-size:1rem;" id="product-description">
+                        This is the digital product details section.
+                    </p>
+                    <ul class="features-list" id="features-container">
+                        <!-- Loaded dynamically -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ===== PRICING BOX ===== -->
+            <section class="pricing-section">
+                <div style="font-family:'Cinzel', serif; font-size:1.2rem; letter-spacing:2px; color:var(--text-muted); text-transform:uppercase;">Limited Time Price</div>
+                <div id="product-price" style="font-family:'Cinzel', serif; font-size:4rem; font-weight:700; color:var(--primary); margin: 0.5rem 0;">$27.00</div>
+                <div style="color:var(--text-muted); margin-bottom:2rem; font-size:0.95rem;">One-time payment · Instant digital delivery</div>
+                
+                <a href="#" id="checkout-link" class="btn btn-primary" style="padding:1.2rem 3rem; font-size:1.2rem; display:inline-block; text-decoration:none;">
+                    Secure Checkout with Stripe →
+                </a>
+                <p style="font-size:0.8rem; color:var(--text-muted); margin-top:1rem;">
+                    <i class="ph ph-lock-key" style="margin-right:0.3rem;"></i> Securely processed by Stripe. Checkout takes 10 seconds.
+                </p>
+
+                <!-- Bonus Box (Toggled) -->
+                <div class="bonus-box" id="bonus-section">
+                    <h4 style="margin:0 0 0.5rem 0; color:var(--primary); font-size:1.05rem; display:flex; align-items:center; gap:0.4rem;">
+                        🎁 Special Launch Bonus Included:
+                    </h4>
+                    <p id="bonus-details" style="margin:0; font-size:0.92rem; color:var(--text-main); line-height:1.4;">
+                        Includes 500+ ChatGPT Prompts Guide completely FREE!
+                    </p>
+                </div>
+            </section>
+
+            <!-- ===== TESTIMONIALS SECTION (Toggled) ===== -->
+            <section id="testimonials-section" style="margin: 5rem 0 3rem 0;">
+                <div class="section-header-landing">
+                    <h2>Real Wins From Real Moms</h2>
+                    <p>Here's what mothers are saying about Kristan's digital offers.</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card glass-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"This guide saved me weeks of technical research. I had my digital storefront live by Sunday and made my first sale on Tuesday afternoon!"</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">SL</div>
+                            <div><div class="testimonial-name">Sarah L.</div><div class="testimonial-product">Verified Buyer</div></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card glass-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-quote">"As a mom of three, I have zero spare hours. These prompts literally write my social posts and emails for me. Best $17 I've ever spent."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">MK</div>
+                            <div><div class="testimonial-name">Michelle K.</div><div class="testimonial-product">Verified Buyer</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== FAQ SECTION (Toggled) ===== -->
+            <section id="faq-section" style="margin: 5rem 0;">
+                <div class="section-header-landing">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Have questions? We have answers.</p>
+                </div>
+                <div class="faq-accordion">
+                    <div class="faq-item">
+                        <div class="faq-question">How is this product delivered?</div>
+                        <div class="faq-answer">Immediately after checkout completes, you will be redirected to the download links page. You will also receive an automated email containing your download instructions.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Is checkout secure?</div>
+                        <div class="faq-answer">Yes. Payments are processed securely via Stripe. We do not store or see your credit card information.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Do I get support?</div>
+                        <div class="faq-answer">Absolutely. If you have any questions or download issues, just reach out to us at kristan@bossmamabiz.com.</div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" style="padding: 4rem 1.5rem 2rem; border-top:1px solid rgba(255, 255, 255, 0.05); text-align:center; font-size:0.9rem; color:var(--text-muted);">
+        <p>&copy; 2026 Boss Mama Biz. All rights reserved.</p>
+        <p style="font-size:0.8rem; margin-top:0.5rem;"><a href="privacy.html" style="color:inherit; text-decoration:underline;">Privacy Policy</a> | <a href="terms.html" style="color:inherit; text-decoration:underline;">Terms of Service</a></p>
+    </footer>
+
+    <script>
+        // Product Catalogue
+        const PRODUCTS_DB = {
+            "create-27": {
+                name: "Create Your First Digital Product",
+                tagline: "Go from idea to income in 6 simple steps. Learn how to format, launch, and drive traffic on autopilot.",
+                description: "This comprehensive workbook and guide cuts through the noise. Kristan walks you through the exact blueprint to select your niche, structure your PDF or spreadsheet, set up a secure checkout system, and launch with zero upfront budget.",
+                price: "$27.00",
+                checkoutUrl: "https://buy.stripe.com/3cI3cnbmJ7zA5rMgAuaIM01",
+                image: "images/own-create.png",
+                features: [
+                    "Choose a profitable topic that sells instantly",
+                    "Format & design professionally in Canva",
+                    "Wire up automated delivery step-by-step",
+                    "Generate organic traffic without showing your face"
+                ],
+                bonus: "Includes the flagship 500+ ChatGPT Prompts Guide ($17 value) completely FREE!"
+            },
+            "prompts-17": {
+                name: "500+ ChatGPT Prompts Guide",
+                tagline: "The ultimate AI cheat sheet for digital marketers. Done-for-you prompts for content, emails, & sales.",
+                description: "Stop staring at a blank screen. This prompt bank contains 500+ highly engineered copy-paste prompts designed specifically for content writing, email sequences, landing page sales letters, and social media hooks.",
+                price: "$17.00",
+                checkoutUrl: "https://buy.stripe.com/5kQ28jcqNaLM1bwdoiaIM00",
+                image: "images/own-prompts.png",
+                features: [
+                    "High-converting hook templates by niche",
+                    "Email drip welcome sequence generators",
+                    "Empathetic storytelling prompt frameworks",
+                    "Includes legal resale license (rebrand & sell it yourself!)"
+                ],
+                bonus: "Includes lifetime updates and future prompt library additions!"
+            }
+        };
+
+        // Load Content Dynamically
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id') || 'create-27';
+            
+            // Get configuration from query params or fallback to local storage
+            let config = {};
+            try {
+                const stored = localStorage.getItem(`bmb_landing_config_${productId}`);
+                if (stored) config = JSON.parse(stored);
+            } catch (_) {}
+
+            // Read options with query params overriding local storage
+            const showTestimonials = params.has('showTestimonials') ? (params.get('showTestimonials') === 'true') : (config.showTestimonials !== false);
+            const showFAQ = params.has('showFAQ') ? (params.get('showFAQ') === 'true') : (config.showFAQ !== false);
+            const showBonuses = params.has('showBonuses') ? (params.get('showBonuses') === 'true') : (config.showBonuses !== false);
+            const customHook = params.get('hook') || config.customHook || '';
+
+            const product = PRODUCTS_DB[productId];
+            if (!product) return;
+
+            // Render details
+            document.getElementById('page-title').textContent = `${product.name} | Boss Mama Biz`;
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('product-tagline').textContent = product.tagline;
+            document.getElementById('product-description').textContent = product.description;
+            document.getElementById('product-price').textContent = product.price;
+            document.getElementById('product-image').src = product.image;
+            document.getElementById('product-image').alt = product.name;
+            
+            const checkoutLink = document.getElementById('checkout-link');
+            if (checkoutLink) {
+                checkoutLink.href = product.checkoutUrl;
+            }
+
+            // Hero Hook Customization
+            const hookEl = document.getElementById('landing-hero-hook');
+            if (hookEl) {
+                if (customHook) {
+                    hookEl.textContent = customHook;
+                } else {
+                    hookEl.textContent = productId === 'create-27' 
+                        ? "Build systems that work when you can't" 
+                        : "Put your digital writing on autopilot";
+                }
+            }
+
+            // Render Features
+            const featuresContainer = document.getElementById('features-container');
+            if (featuresContainer) {
+                featuresContainer.innerHTML = product.features.map(f => `
+                    <li><i class="ph-fill ph-check-circle"></i><span>${f}</span></li>
+                `).join('');
+            }
+
+            // Toggles
+            const bonusSec = document.getElementById('bonus-section');
+            if (bonusSec) {
+                if (showBonuses) {
+                    bonusSec.style.display = 'block';
+                    document.getElementById('bonus-details').textContent = product.bonus;
+                } else {
+                    bonusSec.style.display = 'none';
+                }
+            }
+
+            const testimonialsSec = document.getElementById('testimonials-section');
+            if (testimonialsSec) {
+                testimonialsSec.style.display = showTestimonials ? 'block' : 'none';
+            }
+
+            const faqSec = document.getElementById('faq-section');
+            if (faqSec) {
+                faqSec.style.display = showFAQ ? 'block' : 'none';
+            }
+        });
+
+        // Simple FAQ Accordion Logic
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

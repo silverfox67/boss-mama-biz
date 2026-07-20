@@ -326,6 +326,52 @@
                 <p>Track your automated campaigns. Review your sequences, check statuses, and request new upgrades directly.</p>
             </div>
 
+            <!-- 🌐 Standalone Sales Page Toggles -->
+            <div class="glass-card customizer-card" style="margin-bottom: 2.5rem; padding: 2rem; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px;">
+                <h3 style="margin-top: 0; color: #dfc493; display: flex; align-items: center; gap: 0.5rem;"><i class="ph ph-layout" style="font-size: 1.3rem;"></i> 🌐 Standalone Sales Page Configurator</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Configure section visibility, custom hooks, and live layouts for her own product landing pages. Saves instantly.</p>
+                
+                <form id="landing-page-config-form">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                        <div class="field-group">
+                            <label for="config-product-select" style="display:block; margin-bottom:0.4rem; color:var(--text-main); font-weight:600; font-size:0.9rem;">Choose Landing Page Product</label>
+                            <select id="config-product-select" class="dash-input" style="background: rgba(0,0,0,0.3); color: var(--text-main); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 0.75rem; width: 100%; box-sizing: border-box;">
+                                <option value="create-27" style="background: #1e1b29; color: #ffffff;">Create Your First Digital Product ($27)</option>
+                                <option value="prompts-17" style="background: #1e1b29; color: #ffffff;">500+ ChatGPT Prompts Guide ($17)</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label style="display:block; margin-bottom:0.4rem; color:var(--text-main); font-weight:600; font-size:0.9rem;">Toggles &amp; Visibility Options</label>
+                            <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.5rem;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.88rem; cursor: pointer;">
+                                    <input type="checkbox" id="config-show-testimonials" checked style="accent-color: var(--primary);"> Show Testimonials &amp; Wins
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.88rem; cursor: pointer;">
+                                    <input type="checkbox" id="config-show-faq" checked style="accent-color: var(--primary);"> Show FAQ Accordion
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.88rem; cursor: pointer;">
+                                    <input type="checkbox" id="config-show-bonuses" checked style="accent-color: var(--primary);"> Show Free Bonus Offers
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field-group" style="margin-bottom: 1.5rem;">
+                        <label for="config-custom-hook" style="display:block; margin-bottom:0.4rem; color:var(--text-main); font-weight:600; font-size:0.9rem;">Custom Sales Pitch / Hero Hook</label>
+                        <input type="text" id="config-custom-hook" class="dash-input" placeholder="e.g. Stop trading hours for pennies. Build systems that work when you can’t." value="Build systems that work when you can't" style="width: 100%; box-sizing: border-box;">
+                    </div>
+
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                        <button type="button" id="btn-preview-landing" class="btn-primary-dash" style="background: linear-gradient(135deg, #e8327a 0%, #c11f5d 100%); padding: 0.75rem 1.5rem; border: none; font-weight: bold; border-radius: 8px; cursor: pointer; color: white; display: inline-flex; align-items: center; gap: 0.3rem;">
+                            👁️ Preview Landing Page
+                        </button>
+                        <button type="button" id="btn-save-landing-config" class="btn-primary-dash" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); color: #fff; padding: 0.75rem 1.5rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                            💾 Save Page Settings
+                        </button>
+                    </div>
+                </form>
+            </div>
+
             <!-- Category 1: My Own Funnels -->
             <h2 class="funnel-category-title">📁 My Own Funnels (100% Profit)</h2>
             <div class="funnel-grid">
