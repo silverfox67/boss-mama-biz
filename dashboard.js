@@ -1310,11 +1310,44 @@ function openStripeAISetupGuide(productTitle = "Your Product", price = "$27.00")
     }
 }
 
+function openGoogleDriveAISetupGuide(productTitle = "Your Product") {
+    // Open drawer
+    const drawer = document.getElementById('copilot-drawer');
+    if (drawer && !drawer.classList.contains('open')) {
+        drawer.classList.add('open');
+    }
+
+    const feed = document.getElementById('copilot-chat-feed');
+    if (feed) {
+        const msg = document.createElement('div');
+        msg.style.cssText = "background: rgba(34,197,94,0.15); border: 1px solid #22c55e; border-radius: 12px; padding: 1rem; color: #fff; font-size: 0.88rem; margin-bottom: 0.8rem;";
+        msg.innerHTML = `
+            <strong style="color: #4ade80; font-size: 0.95rem; display: block; margin-bottom: 0.4rem;">📁 Trident AI — 1-Click Google Drive Link Assistant</strong>
+            Let's grab your shareable Google Drive link for <strong>${escapeHTML(productTitle)}</strong> in 3 easy steps!<br><br>
+            <strong>Step 1: Open Google Drive</strong><br>
+            Go to: <a href="https://drive.google.com" target="_blank" style="color: #4ade80; text-decoration: underline; font-weight: bold;">drive.google.com</a> and find your PDF or folder.<br><br>
+            <strong>Step 2: Set Share Permissions to "Anyone with link"</strong><br>
+            Right-click the file ➔ Click <em>Share ➔ Share</em>.<br>
+            Under <em>General access</em>, change <em>"Restricted"</em> to <strong>"Anyone with the link"</strong>.<br><br>
+            <strong>Step 3: Copy & Paste</strong><br>
+            Click <em>"Copy link"</em>, return here, and paste it directly into your <code>Product / Download Link</code> box!<br><br>
+            <em style="color: var(--text-muted); font-size: 0.8rem;">💡 Need help? Type any question below or click "🚨 Human Support"!</em>
+        `;
+        feed.appendChild(msg);
+        feed.scrollTop = feed.scrollHeight;
+    }
+
+    if (typeof showToast === 'function') {
+        showToast(`📁 Trident AI Google Drive Assistant Activated!`);
+    }
+}
+
 window.toggleCopilotDrawer = toggleCopilotDrawer;
 window.askCopilotChip = askCopilotChip;
 window.sendCopilotMessage = sendCopilotMessage;
 window.dispatchPrioritySupportTicket = dispatchPrioritySupportTicket;
 window.openStripeAISetupGuide = openStripeAISetupGuide;
+window.openGoogleDriveAISetupGuide = openGoogleDriveAISetupGuide;
 
 
 /* ============================================
