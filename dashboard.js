@@ -1282,7 +1282,7 @@ function renderPlannerSuiteCards(plan) {
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.05);">
                         <span style="font-size: 0.78rem; color: var(--text-muted);">📧 Email Drip Sequence:</span>
                         <div style="display: flex; gap: 0.4rem;">
-                            <button onclick="triggerAIEmailSequence('${escapeHTML(item.title)}', plan.tone)" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); border: none; color: #fff; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">🤖 AI: Write My Email Sequence</button>
+                            <button onclick="triggerAIEmailSequence('${escapeHTML(item.title)}', '${escapeHTML(plan.tone || 'warm')}')" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); border: none; color: #fff; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">🤖 AI: Write My Email Sequence</button>
                         </div>
                     </div>
                 </div>
