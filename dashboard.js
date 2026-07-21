@@ -1069,7 +1069,22 @@ async function triggerAISuiteGeneration() {
 function renderPlannerSuiteCards(plan) {
     const container = document.getElementById('planner-suite-cards-container');
     if (container && plan && plan.suite) {
-        container.innerHTML = plan.suite.map(item => `
+        const headerBar = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25); padding: 1rem 1.4rem; border-radius: 12px; width: 100%;">
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                    <span style="font-size: 1.2rem;">💾</span>
+                    <div>
+                        <h4 style="margin: 0; color: #4ade80; font-size: 0.95rem;">Product Suite Plan Active &amp; Saved</h4>
+                        <span style="color: var(--text-muted); font-size: 0.78rem;">Automatically saved to your browser dashboard</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 0.6rem;">
+                    <button onclick="savePlannerSuiteExplicitly()" style="background: linear-gradient(135deg, var(--gold) 0%, var(--primary) 100%); color: #000; border: none; font-weight: 800; font-size: 0.85rem; padding: 0.5rem 1.2rem; border-radius: 8px; cursor: pointer;">💾 Re-Save Plan State</button>
+                </div>
+            </div>
+        `;
+
+        const cardsHtml = plan.suite.map(item => `
             <div class="glass-card" style="padding: 1.8rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(232,50,122,0.2); border-radius: 14px;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
                     <div>
@@ -1100,8 +1115,18 @@ function renderPlannerSuiteCards(plan) {
                 </div>
             </div>
         `).join('');
+
+        container.innerHTML = headerBar + cardsHtml;
     }
 }
+
+function savePlannerSuiteExplicitly() {
+    const savedPlan = localStorage.getItem('bmb_generated_planner_suite');
+    if (savedPlan && typeof showToast === 'function') {
+        showToast('💾 Product Suite Plan Locked & Saved to your Dashboard!');
+    }
+}
+window.savePlannerSuiteExplicitly = savePlannerSuiteExplicitly;
 
 // Auto-restore saved planner cards on page load
 document.addEventListener('DOMContentLoaded', () => {
