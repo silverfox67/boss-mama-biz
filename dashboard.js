@@ -1302,7 +1302,10 @@ function renderPlannerSuiteCards(plan) {
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.05);">
                         <span style="font-size: 0.78rem; color: var(--text-muted);">📧 Email Drip Sequence:</span>
                         <div style="display: flex; gap: 0.4rem;">
-                            <button onclick="triggerAIEmailSequence('${escapeHTML(item.title)}', '${escapeHTML(plan.tone || 'warm')}', ${idx})" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); border: none; color: #fff; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">🤖 AI: Write My Email Sequence</button>
+                            ${(item.emails && item.emails.length > 3) 
+    ? `<button id="hub-email-btn-${idx}" onclick="triggerAIEmailSequence('${escapeHTML(item.title)}', '${escapeHTML(plan.tone || 'warm')}', ${idx})" style="background: rgba(74,222,128,0.2); border: 1px solid #4ade80; color: #4ade80; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">✅ Sequence Generated</button>` 
+    : `<button id="hub-email-btn-${idx}" onclick="triggerAIEmailSequence('${escapeHTML(item.title)}', '${escapeHTML(plan.tone || 'warm')}', ${idx})" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); border: none; color: #fff; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">🤖 AI: Write My Email Sequence</button>`
+}
                         </div>
                     </div>
                 </div>
@@ -1981,7 +1984,16 @@ function acceptCoverMockup() {
             plan.suite[activeCoverIdx].coverImage = activeCoverImageSrc;
             localStorage.setItem('bmb_generated_planner_suite', JSON.stringify(plan));
             
-            // Also instantly update it in the Vault if it's already there!
+            // Instantly update the Hub DOM button so the user sees it "in the box"
+        const hubBtn = document.getElementById(`hub-email-btn-${activeAIEmailIdx}`);
+        if (hubBtn) {
+            hubBtn.innerHTML = '✅ Sequence Generated';
+            hubBtn.style.background = 'rgba(74,222,128,0.2)';
+            hubBtn.style.border = '1px solid #4ade80';
+            hubBtn.style.color = '#4ade80';
+        }
+        
+        // Also instantly update it in the Vault if it's already there!
             try {
                 let existingAssets = JSON.parse(localStorage.getItem('bmb_saved_vault_assets') || '[]');
                 const vIdx = existingAssets.findIndex(a => a.title === plan.suite[activeCoverIdx].title);
@@ -2406,6 +2418,15 @@ window.autoSaveEmailSequence = function() {
             { day: 6, title: "Scarcity", subject: "Last chance!", body: "The 20% off discount expires tonight. Don't miss out!" }
         ];
         localStorage.setItem('bmb_generated_planner_suite', JSON.stringify(plan));
+        
+        // Instantly update the Hub DOM button so the user sees it "in the box"
+        const hubBtn = document.getElementById(`hub-email-btn-${activeAIEmailIdx}`);
+        if (hubBtn) {
+            hubBtn.innerHTML = '✅ Sequence Generated';
+            hubBtn.style.background = 'rgba(74,222,128,0.2)';
+            hubBtn.style.border = '1px solid #4ade80';
+            hubBtn.style.color = '#4ade80';
+        }
         
         // Also instantly update it in the Vault if it's already there!
         try {
