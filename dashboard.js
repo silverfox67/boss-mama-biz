@@ -1002,6 +1002,11 @@ if (btnPreviewLanding) {
    TRIDENT FLOW AI — DASHBOARD INTEGRATION
    ============================================ */
 async function triggerAISuiteGeneration() {
+    if (typeof decrementAICredit === 'function') {
+        const canProceed = decrementAICredit();
+        if (!canProceed) return;
+    }
+
     const btn = document.getElementById('btn-generate-ai-suite');
     const targetAudience = document.getElementById('ai-target-audience')?.value || "Digital Creators";
     const nicheTopic = document.getElementById('ai-niche-topic')?.value || "Digital Planners";
@@ -1066,15 +1071,119 @@ async function triggerAISuiteGeneration() {
     }
 }
 
+let currentProductCount = parseInt(localStorage.getItem('bmb_product_count')) || 5;
+let aiCreditsRemaining = parseInt(localStorage.getItem('bmb_ai_credits')) || 15;
+
+function updateAICreditBadges() {
+    const hubBadge = document.getElementById('hub-ai-credits-badge');
+    const overviewBadge = document.getElementById('overview-credits-badge');
+    if (hubBadge) hubBadge.innerText = `${aiCreditsRemaining} / 15`;
+    if (overviewBadge) overviewBadge.innerText = `${aiCreditsRemaining} / 15 Monthly Builds`;
+}
+
+function decrementAICredit() {
+    if (aiCreditsRemaining > 0) {
+        aiCreditsRemaining--;
+        localStorage.setItem('bmb_ai_credits', aiCreditsRemaining);
+        updateAICreditBadges();
+        return true;
+    } else {
+        showCreditRefillModal();
+        return false;
+    }
+}
+
+function showCreditRefillModal() {
+    const modal = document.getElementById('ai-credit-refill-modal');
+    if (modal) modal.style.display = 'flex';
+}
+
+function closeCreditRefillModal() {
+    const modal = document.getElementById('ai-credit-refill-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+function refillAICreditsSimulated() {
+    aiCreditsRemaining += 15;
+    localStorage.setItem('bmb_ai_credits', aiCreditsRemaining);
+    updateAICreditBadges();
+    closeCreditRefillModal();
+    if (typeof showToast === 'function') {
+        showToast('⚡ 15 Extra AI Credits Unlocked & Active!');
+    }
+}
+
+function selectProductCount(count) {
+    currentProductCount = count;
+    localStorage.setItem('bmb_product_count', count);
+    
+    document.querySelectorAll('.product-count-btn').forEach(btn => {
+        const c = parseInt(btn.getAttribute('data-count'));
+        if (c === count) {
+            btn.classList.add('active');
+            btn.style.background = 'rgba(232,50,122,0.2)';
+            btn.style.borderColor = 'var(--primary)';
+        } else {
+            btn.classList.remove('active');
+            btn.style.background = 'rgba(255,255,255,0.04)';
+            btn.style.borderColor = 'rgba(255,255,255,0.12)';
+        }
+    });
+
+    const savedPlan = localStorage.getItem('bmb_planner_suite_plan');
+    if (savedPlan) {
+        try {
+            renderPlannerSuiteCards(JSON.parse(savedPlan));
+        } catch(e){}
+    }
+}
+
+function logTridentQuery(query) {
+    if (!query) return;
+    try {
+        let logs = JSON.parse(localStorage.getItem('bmb_trident_ai_query_log')) || [];
+        logs.unshift({
+            timestamp: new Date().toLocaleString(),
+            query: query
+        });
+        logs = logs.slice(0, 50);
+        localStorage.setItem('bmb_trident_ai_query_log', JSON.stringify(logs));
+        renderTridentQueryLogs();
+    } catch(e) {}
+}
+
+function renderTridentQueryLogs() {
+    const container = document.getElementById('trident-query-log-container');
+    if (!container) return;
+    try {
+        const logs = JSON.parse(localStorage.getItem('bmb_trident_ai_query_log')) || [];
+        if (logs.length === 0) {
+            container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem;">No user queries logged yet. Ask Trident AI questions in the drawer to see real-time insights here.</p>`;
+            return;
+        }
+        container.innerHTML = logs.map(l => `
+            <div style="background: rgba(255,255,255,0.03); border-left: 3px solid var(--gold); border-radius: 6px; padding: 0.8rem; margin-bottom: 0.6rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">
+                    <span>👤 User Question</span>
+                    <span>🕒 ${l.timestamp}</span>
+                </div>
+                <div style="font-size: 0.88rem; color: #fff; font-weight: 600;">"${escapeHTML(l.query)}"</div>
+            </div>
+        `).join('');
+    } catch(e) {}
+}
+
 function renderPlannerSuiteCards(plan) {
     const container = document.getElementById('planner-suite-cards-container');
     if (container && plan && plan.suite) {
+        const activeSuite = plan.suite.slice(0, currentProductCount);
+
         const headerBar = `
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25); padding: 1rem 1.4rem; border-radius: 12px; width: 100%;">
                 <div style="display: flex; align-items: center; gap: 0.6rem;">
                     <span style="font-size: 1.2rem;">💾</span>
                     <div>
-                        <h4 style="margin: 0; color: #4ade80; font-size: 0.95rem;">Product Suite Plan Active &amp; Saved</h4>
+                        <h4 style="margin: 0; color: #4ade80; font-size: 0.95rem;">Product Suite Active (${activeSuite.length} of ${plan.suite.length} Products Active)</h4>
                         <span style="color: var(--text-muted); font-size: 0.78rem;">Automatically saved to your browser dashboard</span>
                     </div>
                 </div>
@@ -1084,8 +1193,8 @@ function renderPlannerSuiteCards(plan) {
             </div>
         `;
 
-        const cardsHtml = plan.suite.map(item => `
-            <div class="glass-card" style="padding: 1.8rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(232,50,122,0.2); border-radius: 14px;">
+        const cardsHtml = activeSuite.map(item => `
+            <div class="glass-card" style="padding: 1.8rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(232,50,122,0.2); border-radius: 14px; margin-bottom: 1.2rem;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
                     <div>
                         <span style="background: rgba(232,50,122,0.1); border: 1px solid var(--primary); color: var(--primary); font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 12px; text-transform: uppercase;">Product ${item.tier} · ${item.price === 0 ? 'FREE LEAD MAGNET' : '$' + item.price + '.00 OFFER'}</span>
@@ -1095,7 +1204,7 @@ function renderPlannerSuiteCards(plan) {
                     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                         <button onclick="openProductCoverModal('${escapeHTML(item.title)}', '${item.price === 0 ? 'FREE' : '$' + item.price + '.00'}', '${escapeHTML(item.type)}')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">🖼️ Preview 3D Cover</button>
                         <a href="product.html?id=${item.tier}" target="_blank" style="background: rgba(232,50,122,0.2); border: 1px solid var(--primary); color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;">🌐 View Sales Page</a>
-                        <button onclick="${item.price === 0 ? "alert('🎁 Free Lead Magnet — No Stripe link required! Delivered automatically via email.')" : `openStripeAISetupGuide('${escapeHTML(item.title)}', '$${item.price}.00')`}" style="background: #2563eb; color: #fff; border: none; font-size: 0.8rem; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer;">💳 ${item.price === 0 ? 'Free (No Stripe)' : 'Setup Stripe with AI'}</button>
+                        <button onclick="${item.price === 0 ? "alert('🎁 Free Lead Magnet — Delivered automatically via Brevo email!')" : `openStripeAISetupGuide('${escapeHTML(item.title)}', '$${item.price}.00')`}" style="background: #2563eb; color: #fff; border: none; font-size: 0.8rem; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer;">💳 ${item.price === 0 ? 'Free (No Stripe)' : 'Setup Stripe with AI'}</button>
                     </div>
                 </div>
 
@@ -1272,6 +1381,10 @@ async function sendCopilotMessage() {
 
     const userText = input.value.trim();
     input.value = '';
+
+    if (typeof logTridentQuery === 'function') {
+        logTridentQuery(userText);
+    }
 
     // Append User Message
     const userDiv = document.createElement('div');
@@ -1607,16 +1720,27 @@ function askInlineSectionAI() {
 
     const query = input.value.trim();
     input.value = '';
+
+    if (typeof logTridentQuery === 'function') {
+        logTridentQuery(query);
+    }
+
     responseDiv.style.display = 'block';
     responseDiv.innerHTML = `⏳ <em>Trident AI is analyzing your question...</em>`;
 
     setTimeout(() => {
-        responseDiv.innerHTML = `💡 <strong>Trident AI Section Suggestion:</strong><br>For <em>"${escapeHTML(query)}"</em>, high-demand digital products include <strong>interactive PDF trackers, Canva template bundles, and ChatGPT prompt vaults</strong>. Click <strong>"⚡ Generate Complete 5-Product Suite Plan"</strong> to auto-generate all 5!`;
+        responseDiv.innerHTML = `💡 <strong>Trident AI Section Suggestion:</strong><br>For <em>"${escapeHTML(query)}"</em>, high-demand digital products include <strong>interactive PDF trackers, Canva template bundles, and ChatGPT prompt vaults</strong>. Select your product count above and click <strong>"⚡ Generate Complete Product Suite Plan"</strong>!`;
     }, 400);
 }
 
 window.autoSuggestNicheIdea = autoSuggestNicheIdea;
 window.askInlineSectionAI = askInlineSectionAI;
+window.selectProductCount = selectProductCount;
+window.showCreditRefillModal = showCreditRefillModal;
+window.closeCreditRefillModal = closeCreditRefillModal;
+window.refillAICreditsSimulated = refillAICreditsSimulated;
+window.logTridentQuery = logTridentQuery;
+window.renderTridentQueryLogs = renderTridentQueryLogs;
 
 
 

@@ -243,63 +243,101 @@
             </div>
         </section>
 
-        <!-- ── PRODUCT SUITE PLANNER ── -->
+        <!-- ── 🚀 STEP 1: PRODUCTION HUB ── -->
         <section id="section-planner" class="dash-section">
-            <div class="section-header">
-                <h1>🗺️ Product Suite Planner</h1>
-                <p>Plan, outline, write, and build your digital products. Use the integrated Boss AI to write the ebooks and download them as clean PDFs.</p>
+            <div class="section-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h1 style="font-family: 'Cinzel', serif; font-size: 1.8rem; color: #fff; margin-bottom: 0.3rem;">🚀 Step 1: Production Hub</h1>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Brainstorm ideas with AI, choose your product count (1, 3, or 5), generate your suite, and manage your live product links.</p>
+                </div>
+                <div style="background: rgba(201,168,76,0.15); border: 1px solid var(--gold); color: var(--gold); font-size: 0.85rem; font-weight: 800; padding: 0.5rem 1rem; border-radius: 12px; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>⚡ AI Builds Remaining:</span>
+                    <strong id="hub-ai-credits-badge" style="color: #fff; font-size: 0.95rem;">15 / 15</strong>
+                </div>
             </div>
 
-            <!-- AI Product Suite Generator Panel -->
-            <div class="glass-card" style="padding: 1.5rem; margin-bottom: 1.8rem; border: 1px solid rgba(232, 50, 122, 0.3); background: rgba(232, 50, 122, 0.04);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
-                    <div>
-                        <h3 style="margin: 0; color: #ffffff; font-family: 'Cinzel', serif; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
-                            <span>🔱</span> Trident Flow AI Generator
-                        </h3>
-                        <p style="margin: 0.3rem 0 0 0; color: var(--text-muted); font-size: 0.85rem;">Input your niche details to dynamically generate a complete 5-product sales funnel, outlines, and email sequences.</p>
+            <!-- AI PRODUCT SUITE GENERATOR — NUMBERED 3-STEP PANEL -->
+            <div class="glass-card" style="padding: 1.8rem; margin-bottom: 2rem; border: 1px solid rgba(232, 50, 122, 0.4); background: linear-gradient(135deg, rgba(20, 12, 24, 0.95) 0%, rgba(35, 18, 45, 0.95) 100%); border-radius: 16px;">
+                
+                <!-- STEP 1: CHOOSE PRODUCT COUNT -->
+                <div style="margin-bottom: 1.8rem; padding-bottom: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+                        <span style="background: var(--primary); color: #fff; font-weight: 900; font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 6px;">STEP 1</span>
+                        <h3 style="margin: 0; color: #fff; font-size: 1.1rem; font-family: 'Cinzel', serif;">Choose How Many Products to Build</h3>
                     </div>
-                    <span style="background: rgba(201, 168, 76, 0.15); border: 1px solid var(--gold); color: var(--gold); font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 20px;">⚡ Parameterized Generator</span>
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.2rem;">
-                    <div>
-                        <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem;">Target Audience</label>
-                        <input type="text" id="ai-target-audience" value="Stay-at-Home Moms & Creators" style="width: 100%; padding: 0.6rem 0.8rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: #fff; font-size: 0.9rem;">
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">Select whether you want to launch a 1-product starter guide, a 3-product funnel, or the full 5-product sales vault.</p>
+                    
+                    <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                        <button type="button" class="product-count-btn" data-count="1" onclick="selectProductCount(1)" style="flex: 1; min-width: 140px; padding: 0.8rem 1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #fff; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: all 0.2s;">
+                            <span>📦 1 Product (Starter)</span>
+                        </button>
+                        <button type="button" class="product-count-btn" data-count="3" onclick="selectProductCount(3)" style="flex: 1; min-width: 140px; padding: 0.8rem 1rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: #fff; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: all 0.2s;">
+                            <span>🔥 3 Products (Core)</span>
+                        </button>
+                        <button type="button" class="product-count-btn active" data-count="5" onclick="selectProductCount(5)" style="flex: 1; min-width: 140px; padding: 0.8rem 1rem; background: rgba(232,50,122,0.2); border: 1px solid var(--primary); border-radius: 10px; color: #fff; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: all 0.2s;">
+                            <span>👑 5 Products (Full Vault)</span>
+                        </button>
                     </div>
-                    <div>
-                        <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem;">Niche Topic</label>
-                        <input type="text" id="ai-niche-topic" value="Digital Planners & Side Hustles" style="width: 100%; padding: 0.6rem 0.8rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: #fff; font-size: 0.9rem;">
-                    </div>
-                    <div>
-                        <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem;">Brand Tone</label>
-                        <select id="ai-brand-tone" style="width: 100%; padding: 0.6rem 0.8rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: #fff; font-size: 0.9rem;">
-                            <option value="Empowering & Warm">Empowering & Warm</option>
-                            <option value="Direct & High-Ticket">Direct & High-Ticket</option>
-                            <option value="Playful & Fun">Playful & Fun</option>
-                            <option value="Professional & Authoritative">Professional & Authoritative</option>
-                        </select>
-                    </div>
-                </div>
-                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; margin-bottom: 1rem;">
-                    <button id="btn-generate-ai-suite" onclick="triggerAISuiteGeneration()" style="background: linear-gradient(135deg, var(--primary) 0%, #c9a84c 100%); color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: var(--transition);">
-                        <span>⚡ Generate Complete 5-Product Suite Plan</span>
-                    </button>
-                    <button type="button" onclick="autoSuggestNicheIdea()" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.75rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
-                        <span>🎲 Auto-Suggest Niche Idea</span>
-                    </button>
                 </div>
 
-                <!-- Inline Section AI Assistant Box -->
-                <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 1rem; margin-top: 0.8rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--gold); display: flex; align-items: center; gap: 0.4rem;">💬 Section AI Assistant — Product Suite Helper</span>
-                        <span style="font-size: 0.72rem; color: #4ade80;">Ask anything about your niche or pricing</span>
+                <!-- STEP 2: PROMINENT AI BRAINSTORMING & NICHE INPUTS -->
+                <div style="margin-bottom: 1.8rem; padding-bottom: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+                        <span style="background: var(--gold); color: #000; font-weight: 900; font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 6px;">STEP 2</span>
+                        <h3 style="margin: 0; color: #fff; font-size: 1.1rem; font-family: 'Cinzel', serif;">Brainstorm with AI or Enter Your Niche</h3>
                     </div>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <input type="text" id="inline-planner-ai-input" placeholder="e.g. 'What digital product sells best for moms?' or 'Suggest 3 title ideas'" style="flex: 1; padding: 0.6rem 0.8rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: #fff; font-size: 0.85rem;" onkeypress="if(event.key==='Enter') askInlineSectionAI()">
-                        <button onclick="askInlineSectionAI()" style="background: var(--primary); color: #fff; border: none; padding: 0.6rem 1rem; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">Ask AI</button>
+
+                    <!-- PROMINENT AI BRAINSTORMING CHAT BOX -->
+                    <div style="background: rgba(0,0,0,0.4); border: 1.5px solid var(--gold); border-radius: 12px; padding: 1.2rem; margin-bottom: 1.2rem; box-shadow: 0 4px 16px rgba(201,168,76,0.15);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+                            <span style="font-size: 0.88rem; font-weight: 800; color: var(--gold); display: flex; align-items: center; gap: 0.4rem;">
+                                <span>💬</span> Stuck or Need Product Ideas? Chat with Trident AI First:
+                            </span>
+                            <span style="font-size: 0.75rem; color: #4ade80;">🟢 24/7 AI Brainstormer Ready</span>
+                        </div>
+                        <div style="display: flex; gap: 0.6rem; margin-bottom: 0.6rem;">
+                            <input type="text" id="inline-planner-ai-input" placeholder="e.g. 'I want to sell digital planners for busy moms—suggest 3 product ideas!'" style="flex: 1; padding: 0.75rem 1rem; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;" onkeypress="if(event.key==='Enter') askInlineSectionAI()">
+                            <button onclick="askInlineSectionAI()" style="background: linear-gradient(135deg, var(--gold) 0%, #c9a84c 100%); color: #000; border: none; padding: 0.75rem 1.4rem; border-radius: 8px; font-weight: 800; font-size: 0.88rem; cursor: pointer; flex-shrink: 0;">💬 Brainstorm with AI</button>
+                        </div>
+                        <div id="inline-planner-ai-response" style="display: none; padding: 0.9rem; background: rgba(255,255,255,0.05); border-left: 3px solid var(--gold); border-radius: 8px; font-size: 0.88rem; color: #F5EEF5; line-height: 1.5;"></div>
                     </div>
-                    <div id="inline-planner-ai-response" style="display: none; margin-top: 0.8rem; padding: 0.8rem; background: rgba(255,255,255,0.04); border-left: 3px solid var(--gold); border-radius: 6px; font-size: 0.85rem; color: #F5EEF5;"></div>
+
+                    <!-- PARAMETER FIELDS WITH CLEAR PLACEHOLDERS -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+                        <div>
+                            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem;">Target Audience</label>
+                            <input type="text" id="ai-target-audience" placeholder="e.g. Stay-at-Home Moms &amp; Creators" style="width: 100%; padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem;">Niche Topic</label>
+                            <input type="text" id="ai-niche-topic" placeholder="e.g. Digital Planners &amp; Side Hustles" style="width: 100%; padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem;">Brand Tone</label>
+                            <select id="ai-brand-tone" style="width: 100%; padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                                <option value="Empowering & Warm">Empowering &amp; Warm</option>
+                                <option value="Direct & High-Ticket">Direct &amp; High-Ticket</option>
+                                <option value="Playful & Fun">Playful &amp; Fun</option>
+                                <option value="Professional & Authoritative">Professional &amp; Authoritative</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: GENERATE SUITE BUTTON -->
+                <div>
+                    <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+                        <span style="background: #4ade80; color: #000; font-weight: 900; font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 6px;">STEP 3</span>
+                        <h3 style="margin: 0; color: #fff; font-size: 1.1rem; font-family: 'Cinzel', serif;">Generate Your Product Suite</h3>
+                    </div>
+                    <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center;">
+                        <button id="btn-generate-ai-suite" onclick="triggerAISuiteGeneration()" style="background: linear-gradient(135deg, var(--primary) 0%, #c9a84c 100%); color: #fff; border: none; padding: 0.85rem 1.8rem; border-radius: 10px; font-weight: 800; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; gap: 0.6rem; box-shadow: 0 4px 20px rgba(232, 50, 122, 0.4);">
+                            <span>⚡ Generate Complete Product Suite Plan</span>
+                        </button>
+                        <button type="button" onclick="autoSuggestNicheIdea()" style="background: rgba(201,168,76,0.15); border: 1px solid var(--gold); color: var(--gold); padding: 0.85rem 1.4rem; border-radius: 10px; font-weight: 700; font-size: 0.88rem; cursor: pointer;">
+                            <span>🎲 Auto-Suggest Niche Idea</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -1346,11 +1384,26 @@
 
 
 
-        <!-- ── SITE IMPROVEMENTS ── -->
+        <!-- ── TRIDENT SUPPORT & TICKET INSIGHTS ── -->
         <section id="section-improvements" class="dash-section">
             <div class="section-header">
-                <h1>🛠️ Site Improvements Roadmap</h1>
-                <p>Planned, in-progress, and completed improvements to bossmamabiz.com.</p>
+                <h1>🛠️ Trident Support &amp; Ticket Insights</h1>
+                <p>Track user feedback, questions, support tickets, and system improvements in real-time.</p>
+            </div>
+
+            <!-- TRIDENT SUPPORT & QUESTION ANALYTICS PANEL -->
+            <div class="glass-card" style="padding: 1.5rem; margin-bottom: 2rem; border: 1px solid var(--gold); background: rgba(201, 168, 76, 0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.8rem;">
+                    <div>
+                        <h3 style="margin: 0; color: var(--gold); font-family: 'Cinzel', serif;">📊 Trident Support Insights &amp; User Questions</h3>
+                        <p style="margin: 0.3rem 0 0 0; color: var(--text-muted); font-size: 0.85rem;">Real-time log of what users ask Trident AI Co-Pilot so Todd &amp; Trident Engineering know where users need help.</p>
+                    </div>
+                    <button onclick="renderTridentQueryLogs()" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); font-weight: 700; font-size: 0.8rem; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer;">🔄 Refresh Logs</button>
+                </div>
+
+                <div id="trident-query-log-container" style="max-height: 280px; overflow-y: auto; padding-right: 0.4rem;">
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">No user queries logged yet. Ask Trident AI questions in the chat drawer to see real-time insights here.</p>
+                </div>
             </div>
 
             <div class="kanban-board">
@@ -1586,9 +1639,35 @@
         <input type="text" id="copilot-input-text" placeholder="Ask Trident AI to write copy, setup Stripe, or drop a screenshot..." style="flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); border-radius: 10px; padding: 0.8rem 1.1rem; color: #fff; font-size: 0.95rem;" onkeypress="if(event.key==='Enter') sendCopilotMessage()">
         <button onclick="sendCopilotMessage()" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 10px; font-weight: 800; font-size: 0.95rem; cursor: pointer;">Send</button>
     </div>
+<!-- ===== ⚡ $20 AI CREDIT REFILL MODAL ===== -->
+<div id="ai-credit-refill-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 10000; align-items: center; justify-content: center; padding: 1.5rem;">
+    <div class="glass-card" style="max-width: 520px; width: 100%; padding: 2.2rem; border: 2px solid var(--gold); border-radius: 20px; background: linear-gradient(135deg, rgba(20, 12, 24, 0.98) 0%, rgba(35, 18, 45, 0.98) 100%); text-align: center; box-shadow: 0 10px 50px rgba(201,168,76,0.3);">
+        <div style="width: 64px; height: 64px; background: rgba(201,168,76,0.2); border: 1.5px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1.2rem auto;">⚡</div>
+        
+        <h2 style="font-family: 'Cinzel', serif; color: var(--gold); margin: 0 0 0.6rem 0; font-size: 1.6rem;">Monthly AI Credits Exhausted</h2>
+        
+        <p style="color: #F8F9FA; font-size: 0.98rem; line-height: 1.6; margin-bottom: 1.5rem;">
+            You have used all <strong>15 monthly AI suite builds</strong> included in your plan. Need to finish generating more product funnels right now?
+        </p>
+
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.2rem; margin-bottom: 1.8rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                <span style="font-weight: 700; color: #fff; font-size: 1rem;">15 Extra AI Suite Builds</span>
+                <span style="font-weight: 900; color: var(--gold); font-size: 1.4rem;">$20</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.82rem; margin: 0; text-align: left;">Instant activation. Credits roll over and never expire.</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+            <a href="https://buy.stripe.com/3cI3cnbmJ7zA5rMgAuaIM01" target="_blank" onclick="refillAICreditsSimulated()" style="background: linear-gradient(135deg, var(--gold) 0%, #c9a84c 100%); color: #000; padding: 0.95rem 1.5rem; border-radius: 12px; font-weight: 900; font-size: 1rem; text-decoration: none; display: block; box-shadow: 0 4px 20px rgba(201,168,76,0.4);">
+                ⚡ Unlock 15 Extra AI Builds for $20 →
+            </a>
+            <button onclick="closeCreditRefillModal()" style="background: none; border: none; color: var(--text-muted); font-size: 0.88rem; cursor: pointer; padding: 0.4rem;">Close &amp; Continue with Current Suite</button>
+        </div>
+    </div>
 </div>
 
 <script src="services/generator.js"></script>
-<script src="dashboard.js?v=5"></script>
+<script src="dashboard.js?v=6"></script>
 </body>
 </html>
