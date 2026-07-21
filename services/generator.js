@@ -46,11 +46,15 @@ async function generateProductPlan({ targetAudience = "Digital Creators", nicheT
             },
             {
                 tier: 2,
-                title: `500+ ChatGPT Prompts for ${nicheTopic}`,
+                title: `500+ ChatGPT Prompts for Your Digital Business`,
                 price: 17,
                 type: "Low-Ticket Impulse Offer",
-                description: `Plug-and-play prompt vault helping ${targetAudience} automate their daily content creation in ${brandTone} tone.`,
-                deliverables: ["500+ Copy-Paste Prompts", "Social Media Hook Database", "Email Newsletter Generator Prompts"],
+                description: `The AI cheat sheet for digital marketers. 500+ done-for-you prompts for content, captions, emails, product descriptions, and more — for any niche.`,
+                deliverables: [
+                    `Content & caption prompts by niche`,
+                    `Email, product, & sales page copy`,
+                    `Legally resellable or usable for assets`
+                ],
                 bonus: "Canva Template Cover Design"
             },
             {
