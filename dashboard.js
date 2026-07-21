@@ -150,19 +150,26 @@ document.addEventListener('keydown', (e) => {
 
 // ── Section Navigation ──────────────────────
 function showSection(name) {
+    let targetName = name;
+    if (name === 'funnels' || name === 'assets') targetName = 'planner';
+    if (name === 'links') targetName = 'site-assets';
+
     document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 
-    const target = document.getElementById(`section-${name}`);
+    const target = document.getElementById(`section-${targetName}`);
     if (target) target.classList.add('active');
 
-    const navLink = document.querySelector(`.nav-item[data-section="${name}"]`);
+    const navLink = document.querySelector(`.nav-item[data-section="${targetName}"]`);
     if (navLink) navLink.classList.add('active');
     
-    if (name === 'site-assets') {
+    if (targetName === 'site-assets') {
         renderSiteAssets();
     }
 }
+
+window.switchSection = showSection;
+window.showSection = showSection;
 
 document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', (e) => {
@@ -1238,12 +1245,23 @@ function savePlannerSuiteExplicitly() {
 }
 window.savePlannerSuiteExplicitly = savePlannerSuiteExplicitly;
 
-// Auto-restore saved planner cards on page load
+// Auto-restore saved planner cards on page load or generate default 5-product suite
 document.addEventListener('DOMContentLoaded', () => {
     try {
+        updateAICreditBadges();
+        renderTridentQueryLogs();
+        
+        let plan = null;
         const savedPlan = localStorage.getItem('bmb_generated_planner_suite');
         if (savedPlan) {
-            renderPlannerSuiteCards(JSON.parse(savedPlan));
+            plan = JSON.parse(savedPlan);
+        } else if (window.TridentGenerator && typeof window.TridentGenerator.generateDefaultPlan === 'function') {
+            plan = window.TridentGenerator.generateDefaultPlan();
+            localStorage.setItem('bmb_generated_planner_suite', JSON.stringify(plan));
+        }
+
+        if (plan) {
+            renderPlannerSuiteCards(plan);
         }
     } catch(e) {
         console.warn("Planner restore error:", e);
