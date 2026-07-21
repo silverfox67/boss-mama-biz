@@ -1279,9 +1279,9 @@ function escapeHTML(str) {
 
 function openStripeAISetupGuide(productTitle = "Your Product", price = "$27.00") {
     // Open drawer
-    const drawer = document.getElementById('copilot-drawer');
-    if (drawer && !drawer.classList.contains('open')) {
-        drawer.classList.add('open');
+    const drawer = document.getElementById('trident-copilot-drawer');
+    if (drawer) {
+        drawer.style.display = 'flex';
     }
 
     const feed = document.getElementById('copilot-chat-feed');
@@ -1312,9 +1312,9 @@ function openStripeAISetupGuide(productTitle = "Your Product", price = "$27.00")
 
 function openGoogleDriveAISetupGuide(productTitle = "Your Product") {
     // Open drawer
-    const drawer = document.getElementById('copilot-drawer');
-    if (drawer && !drawer.classList.contains('open')) {
-        drawer.classList.add('open');
+    const drawer = document.getElementById('trident-copilot-drawer');
+    if (drawer) {
+        drawer.style.display = 'flex';
     }
 
     const feed = document.getElementById('copilot-chat-feed');
