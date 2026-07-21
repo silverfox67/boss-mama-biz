@@ -1079,7 +1079,7 @@ function renderPlannerSuiteCards(plan) {
                     </div>
                     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                         <button onclick="openProductCoverModal('${escapeHTML(item.title)}', '${item.price === 0 ? 'FREE' : '$' + item.price + '.00'}', '${escapeHTML(item.type)}')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">🖼️ Preview 3D Cover</button>
-                        <span style="background: #2563eb; color: #fff; font-size: 0.8rem; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 8px;">💳 Stripe Active</span>
+                        <button onclick="${item.price === 0 ? "alert('🎁 Free Lead Magnet — No Stripe link required! Delivered automatically via email.')" : `openStripeAISetupGuide('${escapeHTML(item.title)}', '$${item.price}.00')`}" style="background: #2563eb; color: #fff; border: none; font-size: 0.8rem; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer;">💳 ${item.price === 0 ? 'Free (No Stripe)' : 'Setup Stripe with AI'}</button>
                     </div>
                 </div>
 
@@ -1277,10 +1277,44 @@ function escapeHTML(str) {
     );
 }
 
+function openStripeAISetupGuide(productTitle = "Your Product", price = "$27.00") {
+    // Open drawer
+    const drawer = document.getElementById('copilot-drawer');
+    if (drawer && !drawer.classList.contains('open')) {
+        drawer.classList.add('open');
+    }
+
+    const feed = document.getElementById('copilot-chat-feed');
+    if (feed) {
+        const msg = document.createElement('div');
+        msg.style.cssText = "background: rgba(37,99,235,0.15); border: 1px solid #2563eb; border-radius: 12px; padding: 1rem; color: #fff; font-size: 0.88rem; margin-bottom: 0.8rem;";
+        msg.innerHTML = `
+            <strong style="color: #60a5fa; font-size: 0.95rem; display: block; margin-bottom: 0.4rem;">💳 Trident AI — 1-Click Stripe Setup Assistant</strong>
+            Let's set up your Stripe Payment Link for <strong>${escapeHTML(productTitle)} (${escapeHTML(price)})</strong> together in 3 simple steps!<br><br>
+            <strong>Step 1: Open Stripe Payment Links</strong><br>
+            Open a new tab and go to: <a href="https://dashboard.stripe.com/payment-links/create" target="_blank" style="color: #60a5fa; text-decoration: underline; font-weight: bold;">dashboard.stripe.com/payment-links/create</a><br><br>
+            <strong>Step 2: Add Product & Price</strong><br>
+            • Title: <code>${escapeHTML(productTitle)}</code><br>
+            • Price: <code>${escapeHTML(price)}</code> (One-Time Charge)<br>
+            • Click <em>"Create link"</em> in top right.<br><br>
+            <strong>Step 3: Paste Link Here</strong><br>
+            Copy the <code>https://buy.stripe.com/...</code> link Stripe gives you, and paste it directly into your Stripe input box here!<br><br>
+            <em style="color: var(--text-muted); font-size: 0.8rem;">💡 Need human help? Type your question below or click "🚨 Human Support"!</em>
+        `;
+        feed.appendChild(msg);
+        feed.scrollTop = feed.scrollHeight;
+    }
+
+    if (typeof showToast === 'function') {
+        showToast(`💳 Trident AI Stripe Assistant Activated for ${productTitle}!`);
+    }
+}
+
 window.toggleCopilotDrawer = toggleCopilotDrawer;
 window.askCopilotChip = askCopilotChip;
 window.sendCopilotMessage = sendCopilotMessage;
 window.dispatchPrioritySupportTicket = dispatchPrioritySupportTicket;
+window.openStripeAISetupGuide = openStripeAISetupGuide;
 
 
 /* ============================================
