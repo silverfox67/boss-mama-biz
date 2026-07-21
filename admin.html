@@ -29,18 +29,18 @@
 
         <!-- On-screen keypad — works on all devices -->
         <div class="pin-keypad" id="pin-keypad">
-            <button class="pin-key" data-digit="1">1</button>
-            <button class="pin-key" data-digit="2">2</button>
-            <button class="pin-key" data-digit="3">3</button>
-            <button class="pin-key" data-digit="4">4</button>
-            <button class="pin-key" data-digit="5">5</button>
-            <button class="pin-key" data-digit="6">6</button>
-            <button class="pin-key" data-digit="7">7</button>
-            <button class="pin-key" data-digit="8">8</button>
-            <button class="pin-key" data-digit="9">9</button>
+            <button type="button" class="pin-key" data-digit="1" onclick="pressPinDigit('1')">1</button>
+            <button type="button" class="pin-key" data-digit="2" onclick="pressPinDigit('2')">2</button>
+            <button type="button" class="pin-key" data-digit="3" onclick="pressPinDigit('3')">3</button>
+            <button type="button" class="pin-key" data-digit="4" onclick="pressPinDigit('4')">4</button>
+            <button type="button" class="pin-key" data-digit="5" onclick="pressPinDigit('5')">5</button>
+            <button type="button" class="pin-key" data-digit="6" onclick="pressPinDigit('6')">6</button>
+            <button type="button" class="pin-key" data-digit="7" onclick="pressPinDigit('7')">7</button>
+            <button type="button" class="pin-key" data-digit="8" onclick="pressPinDigit('8')">8</button>
+            <button type="button" class="pin-key" data-digit="9" onclick="pressPinDigit('9')">9</button>
             <div class="pin-key-empty"></div>
-            <button class="pin-key" data-digit="0">0</button>
-            <button class="pin-key pin-key-del" id="pin-delete">⌫</button>
+            <button type="button" class="pin-key" data-digit="0" onclick="pressPinDigit('0')">0</button>
+            <button type="button" class="pin-key pin-key-del" id="pin-delete" onclick="deletePinDigit()">⌫</button>
         </div>
     </div>
 </div>

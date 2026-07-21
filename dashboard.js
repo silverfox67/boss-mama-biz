@@ -103,6 +103,9 @@ function deletePinDigit() {
     updateDots();
 }
 
+window.pressPinDigit = pressPinDigit;
+window.deletePinDigit = deletePinDigit;
+
 // Check if already unlocked in active browser session
 document.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage && sessionStorage.getItem('bmb_pin_unlocked') === 'true') {
