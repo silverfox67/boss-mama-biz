@@ -1110,57 +1110,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedPlan = localStorage.getItem('bmb_generated_planner_suite');
         if (savedPlan) {
             renderPlannerSuiteCards(JSON.parse(savedPlan));
-        } else if (window.TridentGenerator) {
-            window.TridentGenerator.generateProductPlan({
-                targetAudience: "Stay-at-Home Moms & Creators",
-                nicheTopic: "Digital Planners & Side Hustles",
-                brandTone: "Empowering & Warm"
-            }).then(defaultPlan => {
-                renderPlannerSuiteCards(defaultPlan);
-            });
         }
     } catch(e) {
         console.warn("Planner restore error:", e);
     }
 });
-
-        // Update Progress Bar to 50% and turn Step 1 GREEN ✅
-        const progressBar = document.getElementById('setup-progress-bar');
-        const badge = document.getElementById('progress-percent-badge');
-        const stepStatusText = document.getElementById('progress-current-step');
-        const step1Node = document.querySelector('.setup-step-card');
-
-        if (progressBar) progressBar.style.width = '50%';
-        if (badge) {
-            badge.textContent = '50% COMPLETE';
-            badge.style.background = '#22c55e';
-            badge.style.color = '#fff';
-        }
-        if (stepStatusText) {
-            stepStatusText.innerHTML = 'Current Step: <strong>Step 2 of 4 — Customize Store & Funnel</strong>';
-        }
-        if (step1Node) {
-            step1Node.style.background = 'rgba(34, 197, 94, 0.2)';
-            step1Node.style.borderColor = '#22c55e';
-            step1Node.innerHTML = `<span style="font-size: 0.75rem; font-weight: 700; color: #22c55e; display: block;">✅ STEP 1 DONE</span><span style="font-size: 0.8rem; color: #fff; font-weight: 600;">⚡ Product Suite</span>`;
-        }
-
-        if (typeof showToast === 'function') {
-            showToast(`✨ Generated 5-Product Suite for ${nicheTopic}!`);
-        } else {
-            alert(`✨ Trident Flow AI generated 5 products for ${nicheTopic}!`);
-        }
-
-        console.log("Generated Suite Plan:", plan);
-    } catch (err) {
-        console.error("AI Generation error:", err);
-    } finally {
-        if (btn) {
-            btn.disabled = false;
-            btn.innerHTML = `<span>⚡ Generate Complete 5-Product Suite Plan</span>`;
-        }
-    }
-}
 window.triggerAISuiteGeneration = triggerAISuiteGeneration;
 
 /* ============================================
