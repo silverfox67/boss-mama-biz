@@ -539,189 +539,50 @@
 
         <section id="section-assets" class="dash-section">
             <div class="section-header">
-                <h1>📋 Assets Needed From You</h1>
-                <p>Paste your links from Stan Store. This is all we need to finish building your 4 sales funnels!</p>
+                <h1>📂 The Assets Vault</h1>
+                <p>Your permanent digital filing cabinet. View and export your saved funnels, product links, and email copy.</p>
             </div>
 
-            <div class="priority-banner">
-                <span class="priority-badge">⭐ STEP 1 — DO THIS FIRST</span>
-                <p>Once submitted, we can finish all 4 funnels and have your business running on full autopilot. Takes about 5 minutes!</p>
+            <!-- The List View Container (Populated by JS) -->
+            <div id="assets-vault-list-container" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">No products saved to the vault yet. Go to the Production Hub to generate and save your first product.</p>
             </div>
 
-            <form id="assets-form">
+            <!-- Action Center Modal (Hidden by default) -->
+            <div id="asset-action-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; padding: 2rem;">
+                <div style="background: linear-gradient(135deg, rgba(20, 12, 24, 0.98) 0%, rgba(35, 18, 45, 0.98) 100%); border: 1px solid var(--primary); border-radius: 16px; width: 100%; max-width: 800px; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(232, 50, 122, 0.3);">
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); position: sticky; top: 0; background: inherit; z-index: 10;">
+                        <div>
+                            <span id="modal-asset-tag" style="background: rgba(232,50,122,0.1); border: 1px solid var(--primary); color: var(--primary); font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 12px;">Product 1</span>
+                            <h2 id="modal-asset-title" style="margin: 0.5rem 0 0 0; color: #fff; font-family: 'Cinzel', serif; font-size: 1.4rem;">Product Title</h2>
+                        </div>
+                        <div style="display: flex; gap: 0.8rem; align-items: center;">
+                            <button onclick="exportFullFunnel()" style="background: linear-gradient(135deg, var(--gold) 0%, var(--primary) 100%); color: #000; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 800; font-size: 0.85rem; cursor: pointer;">📥 Export Full Funnel</button>
+                            <button onclick="closeAssetModal()" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                        </div>
+                    </div>
 
-                <!-- Product 1 -->
-                <div class="glass-card asset-card" id="asset-1">
-                    <div class="asset-card-header">
-                        <div class="asset-card-title">
-                            <span class="asset-tag free">FREE</span>
-                            <div>
-                                <h3>The Creative Content Vault</h3>
-                                <p>Your lead magnet — 90+ days of content prompts &amp; templates</p>
+                    <div style="padding: 1.5rem;" id="modal-asset-content">
+                        <!-- Content injected by JS -->
+                    </div>
+
+                    <div style="padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.2);">
+                        <h4 style="margin: 0 0 1rem 0; color: var(--gold); font-size: 0.95rem;">🚀 Next Steps (Coming Soon)</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); opacity: 0.6;">
+                                <input type="checkbox" disabled> Sync to Email Sequence
                             </div>
-                        </div>
-                        <div class="asset-status-badge done">✅ Complete</div>
-                    </div>
-                    <div class="asset-fields">
-                        <div class="field-group">
-                            <label for="roadmap-link">PDF Download Link <span class="field-req">*</span></label>
-                            <input type="url" id="roadmap-link" name="roadmap-link" value="https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view" class="dash-input">
-                            <p class="field-help">Google Drive, Dropbox, Stan Store, or any shareable link to the PDF</p>
-                        </div>
-                        <div class="field-group">
-                            <label for="roadmap-notes">Notes about this product</label>
-                            <input type="text" id="roadmap-notes" name="roadmap-notes" value="90+ days of content ideas, hooks, prompts, and call-to-actions in Google Drive PDF. FREE lead magnet — no Stripe needed." class="dash-input">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="glass-card asset-card" id="asset-2">
-                    <div class="asset-card-header">
-                        <div class="asset-card-title">
-                            <span class="asset-tag low">$27</span>
-                            <div>
-                                <h3>Create &amp; Sell Your First Product</h3>
-                                <p>Your entry-level paid guide — step-by-step system for selling digital products</p>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); opacity: 0.6;">
+                                <input type="checkbox" disabled> Publish to Funnel Builder
                             </div>
-                        </div>
-                        <div class="asset-status-badge done">✅ Complete</div>
-                    </div>
-                    <div class="asset-fields">
-                        <div class="field-group">
-                            <label for="guide-link">Google Drive / Download Link <span class="field-req">*</span></label>
-                            <input type="url" id="guide-link" name="guide-link" value="https://drive.google.com/file/d/1bu8X8sQFcf4WJcOIQF6R6Jpnizybrhgy/view" class="dash-input">
-                        </div>
-                        <div class="field-group">
-                            <label for="guide-stripe">Stripe Payment Link</label>
-                            <input type="url" id="guide-stripe" name="guide-stripe" value="https://buy.stripe.com/3cI3cnbmJ7zA5rMgAuaIM01" class="dash-input">
-                        </div>
-                        <div class="field-group">
-                            <label for="guide-notes">What's included?</label>
-                            <input type="text" id="guide-notes" name="guide-notes" value="Step-by-step guide to creating and selling your first digital product online." class="dash-input">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="glass-card asset-card" id="asset-3">
-                    <div class="asset-card-header">
-                        <div class="asset-card-title">
-                            <span class="asset-tag low">$17</span>
-                            <div>
-                                <h3>500+ ChatGPT Prompts Guide</h3>
-                                <p>Your prompts bank ebook and resell package</p>
-                            </div>
-                        </div>
-                        <div class="asset-status-badge done">✅ Complete</div>
-                    </div>
-                    <div class="asset-fields">
-                        <div class="field-group">
-                            <label for="prompts-link">Google Drive / Download Link <span class="field-req">*</span></label>
-                            <input type="url" id="prompts-link" name="prompts-link" value="https://drive.google.com/file/d/1cMH7l6mWILhcQ_JRITen5XcMB6SdWZZf/view" class="dash-input">
-                        </div>
-                        <div class="field-group">
-                            <label for="prompts-stripe">Stripe Payment Link</label>
-                            <input type="url" id="prompts-stripe" name="prompts-stripe" value="https://buy.stripe.com/5kQ28jcqNaLM1bwdoiaIM00" class="dash-input">
-                        </div>
-                        <div class="field-group">
-                            <label for="prompts-notes">What's included?</label>
-                            <textarea id="prompts-notes" name="prompts-notes" class="dash-input dash-textarea" style="min-height:60px;">500+ copy-paste ChatGPT prompts for content creation, business tasks, and social media. Includes resale license rights.</textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="glass-card asset-card" id="asset-4">
-                    <div class="asset-card-header">
-                        <div class="asset-card-title">
-                            <span class="asset-tag mid" style="background: rgba(201,168,76,0.15); border: 1px solid var(--gold); color: var(--gold); font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 6px;">$50</span>
-                            <div>
-                                <h3>30-Day Viral Video &amp; Reels Content Pack</h3>
-                                <p>Faceless video scripts, hooks &amp; B-Roll content vault</p>
-                            </div>
-                        </div>
-                        <div class="asset-status-badge pending">⏳ Needs Setup</div>
-                    </div>
-                    <div class="asset-fields">
-                        <div class="field-group">
-                            <label for="reels-link">Product / Download Link <span class="field-req">*</span></label>
-                            <input type="url" id="reels-link" name="reels-link" placeholder="Paste your Google Drive or Stan Store link when ready" class="dash-input">
-                            <p class="field-help">Paste your Google Drive or delivery link here when the product is ready</p>
-                        </div>
-                        <div class="field-group">
-                            <label for="reels-stripe">Stripe Payment Link</label>
-                            <input type="url" id="reels-stripe" name="reels-stripe" placeholder="https://buy.stripe.com/... (set up in Stripe dashboard)" class="dash-input">
-                        </div>
-                        <div class="field-group">
-                            <label for="reels-notes">What's included?</label>
-                            <textarea id="reels-notes" name="reels-notes" class="dash-input dash-textarea" style="min-height:60px;">30 viral faceless Reel scripts, B-Roll video suggestions, scroll-stopping hooks and caption database.</textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="glass-card asset-card" id="asset-5">
-                    <div class="asset-card-header">
-                        <div class="asset-card-title">
-                            <span class="asset-tag high" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 6px;">$50</span>
-                            <div>
-                                <h3>Complete Done-For-You PLR Digital Assets Bundle</h3>
-                                <p>Full commercial resale rights &amp; Canva digital templates</p>
-                            </div>
-                        </div>
-                        <div class="asset-status-badge pending">⏳ Needs Setup</div>
-                    </div>
-                    <div class="asset-fields">
-                        <div class="field-group">
-                            <label for="plr-link">Product / Download Link <span class="field-req">*</span></label>
-                            <input type="url" id="plr-link" name="plr-link" placeholder="Paste your Google Drive or Stan Store link when ready" class="dash-input">
-                            <p class="field-help">Paste your Google Drive or delivery link here when the product is ready</p>
-                        </div>
-                        <div class="field-group">
-                            <label for="plr-stripe">Stripe Payment Link</label>
-                            <input type="url" id="plr-stripe" name="plr-stripe" placeholder="https://buy.stripe.com/... (set up in Stripe dashboard)" class="dash-input">
-                        </div>
-                        <div class="field-group">
-                            <label for="plr-notes">What's included?</label>
-                            <textarea id="plr-notes" name="plr-notes" class="dash-input dash-textarea" style="min-height:60px;">Rebrandable Canva templates, source documents, and full commercial PLR resale rights.</textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Personal Assets -->
-                <div class="glass-card asset-card" id="asset-personal">
-                    <div class="asset-card-header">
-                        <div class="asset-card-title">
-                            <span class="asset-tag personal">YOU</span>
-                            <div>
-                                <h3>Personal Assets</h3>
-                                <p>For branded emails and payment setup</p>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); opacity: 0.6;">
+                                <input type="checkbox" disabled> Activate SMS Nurture
                             </div>
                         </div>
                     </div>
-                    <div class="asset-fields">
-                        <div class="field-group">
-                            <label for="headshot-link">Your Headshot Photo Link</label>
-                            <input type="url" id="headshot-link" name="headshot-link" placeholder="Google Drive, Dropbox, or image URL" class="dash-input">
-                        </div>
-                        <div class="field-group">
-                            <label for="stripe-email">Your Stripe Account Email (or "Not set up yet")</label>
-                            <input type="text" id="stripe-email" name="stripe-email" placeholder="your@email.com or 'not set up yet'" class="dash-input">
-                        </div>
-                        <div class="field-group">
-                            <label for="extra-notes">Anything else we should know?</label>
-                            <textarea id="extra-notes" name="extra-notes" placeholder="Any other links, notes, or questions..." class="dash-input dash-textarea" style="min-height: 80px;"></textarea>
-                        </div>
-                    </div>
                 </div>
-                <div class="assets-submit-wrapper">
-                    <button type="submit" class="btn-primary-dash" id="assets-submit-btn">
-                        📤 Submit My Assets to Todd
-                    </button>
-                    <p class="submit-note">This emails everything to kristan@bossmamabiz.com so we can finish your funnels.</p>
-                </div>
-            </form>
+            </div>
         </section>
 
         <!-- ── FUNNELS ── -->

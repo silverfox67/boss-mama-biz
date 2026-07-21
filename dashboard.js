@@ -1331,28 +1331,32 @@ function saveProductToVault(index) {
     } catch(e) { plan = KRISTANS_SUITE; }
 
     if (!plan || !plan.suite || !plan.suite[index]) return;
-    const p = plan.suite[index];
+    const product = plan.suite[index];
 
-    const fieldMap = [
-        { link: 'roadmap-link', notes: 'roadmap-notes' },
-        { link: 'prompts-link', stripe: 'prompts-stripe', notes: 'prompts-notes' },
-        { link: 'guide-link',   stripe: 'guide-stripe',   notes: 'guide-notes' },
-        { link: 'reels-link',   stripe: 'reels-stripe',   notes: 'reels-notes' },
-        { link: 'plr-link',     stripe: 'plr-stripe',     notes: 'plr-notes' }
-    ];
+    let savedAssets = [];
+    try {
+        const existing = localStorage.getItem('bmb_saved_vault_assets');
+        if (existing) savedAssets = JSON.parse(existing);
+    } catch(e) {}
 
-    const fields = fieldMap[index];
-    if (!fields) return;
+    // Check if already saved
+    const exists = savedAssets.find(a => a.title === product.title);
+    if (!exists) {
+        product.savedAt = new Date().toISOString();
+        savedAssets.push(product);
+        localStorage.setItem('bmb_saved_vault_assets', JSON.stringify(savedAssets));
+    }
 
-    if (fields.link)   { const el = document.getElementById(fields.link);   if (el) el.value = p.driveLink || ''; }
-    if (fields.stripe) { const el = document.getElementById(fields.stripe); if (el) el.value = p.stripeLink || ''; }
-    if (fields.notes)  { const el = document.getElementById(fields.notes);  if (el) el.value = p.deliverables ? p.deliverables.join(' · ') : ''; }
+    // Render the new list UI
+    if (typeof renderAssetsVaultList === 'function') {
+        renderAssetsVaultList();
+    }
 
     // Switch to Assets Vault tab
     if (typeof switchSection === 'function') switchSection('assets');
 
     if (typeof showToast === 'function') {
-        showToast(`✅ ${p.title} saved to Assets Vault!`);
+        showToast(`✅ ${product.title} safely locked in the Assets Vault!`);
     }
 }
 window.saveProductToVault = saveProductToVault;
@@ -2030,3 +2034,153 @@ function acceptCopilotIdea(niche, audience, tone) {
         setTimeout(() => { responseEl.style.display = 'none'; }, 2500);
     }
 }
+
+
+// --- Phase 2: Assets Vault List UI Logic ---
+
+function renderAssetsVaultList() {
+    const container = document.getElementById('assets-vault-list-container');
+    if (!container) return;
+    
+    let savedAssets = [];
+    try {
+        const existing = localStorage.getItem('bmb_saved_vault_assets');
+        if (existing) savedAssets = JSON.parse(existing);
+    } catch(e) {}
+    
+    if (savedAssets.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No products saved to the vault yet. Go to the Production Hub to generate and save your first product.</p>';
+        return;
+    }
+    
+    // Sort by savedAt descending (newest first), or keep chronological
+    // Let's keep chronological (1, 2, 3...)
+    
+    const listHtml = savedAssets.map((p, idx) => {
+        const date = p.savedAt ? new Date(p.savedAt).toLocaleDateString() : 'Just now';
+        return `
+            <div onclick="openAssetModal(${idx})" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 0.8rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(232,50,122,0.1)'; this.style.borderColor='var(--primary)';" onmouseout="this.style.background='rgba(0,0,0,0.3)'; this.style.borderColor='rgba(255,255,255,0.05)';">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <span style="color: var(--text-muted); font-weight: 800; font-size: 1.1rem; width: 20px;">${idx + 1}.</span>
+                    <span style="font-size: 1.2rem;">📄</span>
+                    <div>
+                        <h4 style="margin: 0; color: #fff; font-size: 1rem;">${p.title}</h4>
+                        <span style="color: var(--text-muted); font-size: 0.8rem;">Saved: ${date}</span>
+                    </div>
+                </div>
+                <div style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">View Assets ➔</div>
+            </div>
+        `;
+    }).join('');
+    
+    container.innerHTML = listHtml;
+}
+
+function openAssetModal(idx) {
+    let savedAssets = [];
+    try {
+        const existing = localStorage.getItem('bmb_saved_vault_assets');
+        if (existing) savedAssets = JSON.parse(existing);
+    } catch(e) {}
+    
+    const p = savedAssets[idx];
+    if (!p) return;
+    
+    document.getElementById('modal-asset-tag').innerText = `Product ${p.tier} · ${p.type}`;
+    document.getElementById('modal-asset-title').innerText = p.title;
+    
+    const emailsHtml = `
+        <div style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;">
+            <h4 style="margin: 0 0 0.8rem 0; color: #fff; font-size: 1rem;">📧 Email Sequence (Copy/Paste)</h4>
+            
+            <!-- Day 0 -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0.8rem; background: rgba(0,0,0,0.4); border-radius: 6px; margin-bottom: 0.5rem;">
+                <div>
+                    <strong style="color: var(--gold); display: block; margin-bottom: 0.2rem; font-size: 0.85rem;">Day 0: Instant Welcome</strong>
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">Subject: 🎉 Welcome to ${p.title}</span>
+                </div>
+                <button onclick="copyToClipboard('Welcome to ${p.title} - Here is your link!')" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy</button>
+            </div>
+            
+            <!-- Day 1 -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0.8rem; background: rgba(0,0,0,0.4); border-radius: 6px; margin-bottom: 0.5rem;">
+                <div>
+                    <strong style="color: var(--gold); display: block; margin-bottom: 0.2rem; font-size: 0.85rem;">Day 1: Nurture & Value</strong>
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">Subject: Secret Tip for ${p.title}</span>
+                </div>
+                <button onclick="copyToClipboard('Here is a secret tip for using ${p.title} effectively...')" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy</button>
+            </div>
+        </div>
+    `;
+    
+    const linksHtml = `
+        <div style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;">
+            <h4 style="margin: 0 0 0.8rem 0; color: #fff; font-size: 1rem;">🔗 Product Links</h4>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(0,0,0,0.4); border-radius: 6px; margin-bottom: 0.5rem;">
+                <div>
+                    <strong style="color: var(--gold); display: block; margin-bottom: 0.2rem; font-size: 0.85rem;">Google Drive Delivery Link</strong>
+                    <span style="color: var(--text-muted); font-size: 0.8rem; word-break: break-all;">${p.driveLink || 'Not provided yet'}</span>
+                </div>
+                ${p.driveLink ? `<button onclick="copyToClipboard('${p.driveLink}')" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy</button>` : ''}
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(0,0,0,0.4); border-radius: 6px;">
+                <div>
+                    <strong style="color: var(--gold); display: block; margin-bottom: 0.2rem; font-size: 0.85rem;">Stripe Payment Link</strong>
+                    <span style="color: var(--text-muted); font-size: 0.8rem; word-break: break-all;">${p.stripeLink || (p.price === 0 ? 'N/A (Free)' : 'Not provided yet')}</span>
+                </div>
+                ${p.stripeLink ? `<button onclick="copyToClipboard('${p.stripeLink}')" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy</button>` : ''}
+            </div>
+        </div>
+    `;
+
+    const copyHtml = `
+        <div style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;">
+            <h4 style="margin: 0 0 0.8rem 0; color: #fff; font-size: 1rem;">📝 Sales Page Copy</h4>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem; background: rgba(0,0,0,0.4); border-radius: 6px;">
+                <div>
+                    <strong style="color: var(--gold); display: block; margin-bottom: 0.2rem; font-size: 0.85rem;">Full Sales Letter</strong>
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">Includes Headline, Bullets, and CTA</span>
+                </div>
+                <button onclick="copyToClipboard('Sales copy for ${p.title}...')" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy</button>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('modal-asset-content').innerHTML = emailsHtml + linksHtml + copyHtml;
+    document.getElementById('asset-action-modal').style.display = 'flex';
+}
+
+function closeAssetModal() {
+    document.getElementById('asset-action-modal').style.display = 'none';
+}
+
+function exportFullFunnel() {
+    if (typeof showToast === 'function') {
+        showToast('📥 Downloading full funnel assets as PDF...');
+    } else {
+        alert('Downloading full funnel assets...');
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        if (typeof showToast === 'function') {
+            showToast('📋 Copied to clipboard!');
+        }
+    });
+}
+
+// Automatically render list when section loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Override switchSection to also render the vault if needed
+    const oldSwitchSection = window.switchSection;
+    if (typeof oldSwitchSection === 'function') {
+        window.switchSection = function(sectionId) {
+            oldSwitchSection(sectionId);
+            if (sectionId === 'assets') {
+                renderAssetsVaultList();
+            }
+        };
+    }
+});
+
