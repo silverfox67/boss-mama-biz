@@ -33,11 +33,15 @@ async function generateProductPlan({ targetAudience = "Digital Creators", nicheT
         suite: [
             {
                 tier: 1,
-                title: `Free ${nicheTopic} Starter Vault`,
+                title: nicheTopic.toLowerCase().includes('planner') ? `The Creative Content Vault (90+ Days of Content Prompts)` : `Free ${nicheTopic} Starter Vault`,
                 price: 0,
-                type: "Lead Magnet",
-                description: `High-value freebie designed to attract ${targetAudience} and build your email list on autopilot.`,
-                deliverables: [`3x Interactive ${nicheTopic} Checklists`, `15-Minute Video Quickstart Guide`, `Daily Habit & Goal Tracker`],
+                type: "Free Lead Magnet",
+                description: `Never wonder what to post again. 90+ days of scroll-stopping hooks, storytelling prompts, and high-converting calls-to-action designed to build your email list on autopilot.`,
+                deliverables: [
+                    `90+ days of scroll-stopping prompt templates`,
+                    `Hooks, storytelling & sales content ideas`,
+                    `Built-in FES chatbot strategies & call-to-actions`
+                ],
                 bonus: "Exclusive VIP Email Sequence Access"
             },
             {
