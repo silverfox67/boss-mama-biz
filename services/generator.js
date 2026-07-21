@@ -18,14 +18,26 @@
  * @returns {Promise<Object>} Structured JSON Product Suite Plan
  */
 async function generateProductPlan({ targetAudience = "Digital Creators", nicheTopic = "Digital Products", brandTone = "Empowering", productGoal = "Passive Revenue" } = {}) {
-    // Parameterized Prompt Template
-    const promptPayload = {
-        task: "GENERATE_PRODUCT_SUITE",
-        system: `You are an elite digital product strategist for Trident Flow AI. Output strictly valid JSON matching the schema.`,
-        variables: { targetAudience, nicheTopic, brandTone, productGoal }
-    };
+    // Attempt live OpenAI gpt-4o-mini generation via serverless API
+    try {
+        const res = await fetch('/api/generate-ai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                system: `You are an elite digital product strategist for Trident Flow AI. Output strictly valid JSON with key "suite" containing an array of 5 products with fields: tier (1-5), title, price (0 for tier 1), type, description, deliverables (array of 3 strings), bonus.`,
+                prompt: `Generate a 5-product sales suite for Target Audience: "${targetAudience}", Niche: "${nicheTopic}", Tone: "${brandTone}".`
+            })
+        });
+        const json = await res.json();
+        if (json.success && json.data && json.data.suite && json.data.suite.length === 5) {
+            console.log("⚡ Live OpenAI gpt-4o-mini Product Plan Generated:", json.data);
+            return json.data;
+        }
+    } catch(e) {
+        console.warn("Live OpenAI generation fallback to local presets:", e);
+    }
 
-    // Structured JSON Response Schema
+    // Structured JSON Response Schema (Fallback / Fast Mode)
     const mockOrResponse = {
         niche: nicheTopic,
         audience: targetAudience,
