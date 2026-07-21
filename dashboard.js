@@ -26,82 +26,122 @@ sidebarOverlay?.addEventListener('click', closeSidebar);
 const pinScreen = document.getElementById('pin-screen');
 const dashboard = document.getElementById('dashboard');
 const pinError  = document.getElementById('pin-error');
-const pinDots   = [
-    document.getElementById('dot-0'),
-    document.getElementById('dot-1'),
-    document.getElementById('dot-2'),
-    document.getElementById('dot-3'),
-];
-
 let pinEntry = []; // track entered digits
 
+function getPinDots() {
+    return [
+        document.getElementById('dot-0'),
+        document.getElementById('dot-1'),
+        document.getElementById('dot-2'),
+        document.getElementById('dot-3'),
+    ];
+}
+
 function updateDots() {
-    pinDots.forEach((dot, i) => {
-        dot.classList.toggle('filled', i < pinEntry.length);
+    const dots = getPinDots();
+    dots.forEach((dot, i) => {
+        if (!dot) return;
+        if (i < pinEntry.length) {
+            dot.classList.add('filled');
+            dot.style.background = 'var(--primary, #E8327A)';
+            dot.style.borderColor = 'var(--primary, #E8327A)';
+            dot.style.boxShadow = '0 0 12px var(--primary, #E8327A)';
+        } else {
+            dot.classList.remove('filled');
+            dot.style.background = 'transparent';
+            dot.style.borderColor = 'rgba(232, 50, 122, 0.4)';
+            dot.style.boxShadow = 'none';
+        }
     });
 }
 
 function unlockDashboard() {
-    pinScreen.style.opacity = '0';
-    pinScreen.style.transition = 'opacity 0.5s ease';
-    setTimeout(() => {
-        pinScreen.classList.add('hidden');
-        dashboard.classList.remove('hidden');
-        dashboard.style.animation = 'fadeUp 0.5s ease';
-    }, 450);
+    if (sessionStorage) {
+        sessionStorage.setItem('bmb_pin_unlocked', 'true');
+    }
+    if (pinScreen && dashboard) {
+        pinScreen.style.opacity = '0';
+        pinScreen.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => {
+            pinScreen.classList.add('hidden');
+            dashboard.classList.remove('hidden');
+            dashboard.style.animation = 'fadeUp 0.5s ease';
+        }, 400);
+    }
 }
 
 function wrongPin() {
-    pinError.classList.add('visible');
-    document.querySelector('.pin-box').classList.add('shake');
+    if (pinError) pinError.classList.add('visible');
+    const pinBox = document.querySelector('.pin-box');
+    if (pinBox) pinBox.classList.add('shake');
     setTimeout(() => {
-        document.querySelector('.pin-box').classList.remove('shake');
+        if (pinBox) pinBox.classList.remove('shake');
         pinEntry = [];
         updateDots();
     }, 450);
 }
 
-// Keypad button clicks
-document.querySelectorAll('.pin-key[data-digit]').forEach(btn => {
-    btn.addEventListener('pointerdown', (e) => {
-        e.preventDefault();
-        if (pinEntry.length >= 4) return;
-        pinEntry.push(btn.dataset.digit);
-        pinError.classList.remove('visible');
-        updateDots();
-
-        if (pinEntry.length === 4) {
-            const entered = pinEntry.join('');
-            if (entered === CORRECT_PIN) {
-                unlockDashboard();
-            } else {
-                wrongPin();
-            }
-        }
-    });
-});
-
-// Delete key
-document.getElementById('pin-delete')?.addEventListener('pointerdown', (e) => {
-    e.preventDefault();
-    pinEntry.pop();
-    pinError.classList.remove('visible');
+function pressPinDigit(digit) {
+    if (pinEntry.length >= 4) return;
+    pinEntry.push(String(digit));
+    if (pinError) pinError.classList.remove('visible');
     updateDots();
+
+    if (pinEntry.length === 4) {
+        const entered = pinEntry.join('');
+        if (entered === CORRECT_PIN) {
+            unlockDashboard();
+        } else {
+            wrongPin();
+        }
+    }
+}
+
+function deletePinDigit() {
+    pinEntry.pop();
+    if (pinError) pinError.classList.remove('visible');
+    updateDots();
+}
+
+// Check if already unlocked in active browser session
+document.addEventListener('DOMContentLoaded', () => {
+    if (sessionStorage && sessionStorage.getItem('bmb_pin_unlocked') === 'true') {
+        if (pinScreen && dashboard) {
+            pinScreen.classList.add('hidden');
+            dashboard.classList.remove('hidden');
+        }
+    }
+
+    // Attach click and touch listeners to keypad buttons
+    document.querySelectorAll('.pin-key[data-digit]').forEach(btn => {
+        const handlePress = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            pressPinDigit(btn.dataset.digit);
+        };
+        btn.addEventListener('click', handlePress);
+        btn.addEventListener('touchstart', handlePress, { passive: false });
+    });
+
+    const delBtn = document.getElementById('pin-delete');
+    if (delBtn) {
+        const handleDelete = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            deletePinDigit();
+        };
+        delBtn.addEventListener('click', handleDelete);
+        delBtn.addEventListener('touchstart', handleDelete, { passive: false });
+    }
 });
 
-// Also support physical keyboard for desktop
+// Also support physical keyboard digits for desktop
 document.addEventListener('keydown', (e) => {
-    if (pinScreen.classList.contains('hidden')) return;
-    if (e.key >= '0' && e.key <= '9' && pinEntry.length < 4) {
-        pinEntry.push(e.key);
-        pinError.classList.remove('visible');
-        updateDots();
-        if (pinEntry.length === 4) {
-            pinEntry.join('') === CORRECT_PIN ? unlockDashboard() : wrongPin();
-        }
+    if (pinScreen && pinScreen.classList.contains('hidden')) return;
+    if (e.key >= '0' && e.key <= '9') {
+        pressPinDigit(e.key);
     } else if (e.key === 'Backspace') {
-        pinEntry.pop();
-        updateDots();
+        deletePinDigit();
     }
 });
 
