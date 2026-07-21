@@ -992,6 +992,27 @@ async function triggerAISuiteGeneration() {
             `).join('');
         }
 
+        // Update Progress Bar to 50% and turn Step 1 GREEN ✅
+        const progressBar = document.getElementById('setup-progress-bar');
+        const badge = document.getElementById('progress-percent-badge');
+        const stepStatusText = document.getElementById('progress-current-step');
+        const step1Node = document.querySelector('.setup-step-card');
+
+        if (progressBar) progressBar.style.width = '50%';
+        if (badge) {
+            badge.textContent = '50% COMPLETE';
+            badge.style.background = '#22c55e';
+            badge.style.color = '#fff';
+        }
+        if (stepStatusText) {
+            stepStatusText.innerHTML = 'Current Step: <strong>Step 2 of 4 — Customize Store & Funnel</strong>';
+        }
+        if (step1Node) {
+            step1Node.style.background = 'rgba(34, 197, 94, 0.2)';
+            step1Node.style.borderColor = '#22c55e';
+            step1Node.innerHTML = `<span style="font-size: 0.75rem; font-weight: 700; color: #22c55e; display: block;">✅ STEP 1 DONE</span><span style="font-size: 0.8rem; color: #fff; font-weight: 600;">⚡ Product Suite</span>`;
+        }
+
         if (typeof showToast === 'function') {
             showToast(`✨ Generated 5-Product Suite for ${nicheTopic}!`);
         } else {
@@ -1200,6 +1221,54 @@ function closeProductCoverModal() {
 
 window.openProductCoverModal = openProductCoverModal;
 window.closeProductCoverModal = closeProductCoverModal;
+
+/* ============================================
+   NEWBIE NICHE AUTO-SUGGEST & INLINE AI HELP
+   ============================================ */
+const provenNicheIdeas = [
+    { target: "Busy Stay-at-Home Moms", topic: "Weekly Meal Prep & Budgeting Planners", tone: "Empowering & Warm" },
+    { target: "Fitness Coaches & Trainers", topic: "Client Onboarding & Workout Tracking Kits", tone: "Direct & High-Ticket" },
+    { target: "Etsy Sellers & Digital Crafters", topic: "Canva Templates & Social Media Assets", tone: "Playful & Fun" },
+    { target: "Real Estate Agents", topic: "Open House Checklists & Property Listing Guides", tone: "Professional & Authoritative" },
+    { target: "Self-Care & Wellness Creators", topic: "Somatic Recovery & Mindfulness Journals", tone: "Empowering & Warm" }
+];
+let currentNicheIndex = 0;
+
+function autoSuggestNicheIdea() {
+    const idea = provenNicheIdeas[currentNicheIndex % provenNicheIdeas.length];
+    currentNicheIndex++;
+
+    const audienceInput = document.getElementById('ai-target-audience');
+    const topicInput = document.getElementById('ai-niche-topic');
+    const toneInput = document.getElementById('ai-brand-tone');
+
+    if (audienceInput) audienceInput.value = idea.target;
+    if (topicInput) topicInput.value = idea.topic;
+    if (toneInput) toneInput.value = idea.tone;
+
+    if (typeof showToast === 'function') {
+        showToast(`🎲 Auto-Suggested Niche: ${idea.topic}!`);
+    }
+}
+
+function askInlineSectionAI() {
+    const input = document.getElementById('inline-planner-ai-input');
+    const responseDiv = document.getElementById('inline-planner-ai-response');
+    if (!input || !input.value.trim() || !responseDiv) return;
+
+    const query = input.value.trim();
+    input.value = '';
+    responseDiv.style.display = 'block';
+    responseDiv.innerHTML = `⏳ <em>Trident AI is analyzing your question...</em>`;
+
+    setTimeout(() => {
+        responseDiv.innerHTML = `💡 <strong>Trident AI Section Suggestion:</strong><br>For <em>"${escapeHTML(query)}"</em>, high-demand digital products include <strong>interactive PDF trackers, Canva template bundles, and ChatGPT prompt vaults</strong>. Click <strong>"⚡ Generate Complete 5-Product Suite Plan"</strong> to auto-generate all 5!`;
+    }, 400);
+}
+
+window.autoSuggestNicheIdea = autoSuggestNicheIdea;
+window.askInlineSectionAI = askInlineSectionAI;
+
 
 
 

@@ -266,9 +266,27 @@
                         </select>
                     </div>
                 </div>
-                <button id="btn-generate-ai-suite" onclick="triggerAISuiteGeneration()" style="background: linear-gradient(135deg, var(--primary) 0%, #c9a84c 100%); color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: var(--transition);">
-                    <span>⚡ Generate Complete 5-Product Suite Plan</span>
-                </button>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; margin-bottom: 1rem;">
+                    <button id="btn-generate-ai-suite" onclick="triggerAISuiteGeneration()" style="background: linear-gradient(135deg, var(--primary) 0%, #c9a84c 100%); color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: var(--transition);">
+                        <span>⚡ Generate Complete 5-Product Suite Plan</span>
+                    </button>
+                    <button type="button" onclick="autoSuggestNicheIdea()" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.75rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+                        <span>🎲 Auto-Suggest Niche Idea</span>
+                    </button>
+                </div>
+
+                <!-- Inline Section AI Assistant Box -->
+                <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 1rem; margin-top: 0.8rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--gold); display: flex; align-items: center; gap: 0.4rem;">💬 Section AI Assistant — Product Suite Helper</span>
+                        <span style="font-size: 0.72rem; color: #4ade80;">Ask anything about your niche or pricing</span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="text" id="inline-planner-ai-input" placeholder="e.g. 'What digital product sells best for moms?' or 'Suggest 3 title ideas'" style="flex: 1; padding: 0.6rem 0.8rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: #fff; font-size: 0.85rem;" onkeypress="if(event.key==='Enter') askInlineSectionAI()">
+                        <button onclick="askInlineSectionAI()" style="background: var(--primary); color: #fff; border: none; padding: 0.6rem 1rem; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">Ask AI</button>
+                    </div>
+                    <div id="inline-planner-ai-response" style="display: none; margin-top: 0.8rem; padding: 0.8rem; background: rgba(255,255,255,0.04); border-left: 3px solid var(--gold); border-radius: 6px; font-size: 0.85rem; color: #F5EEF5;"></div>
+                </div>
             </div>
 
             <!-- Visual Flowchart Cards -->
