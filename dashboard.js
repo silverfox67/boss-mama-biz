@@ -81,7 +81,12 @@ function wrongPin() {
     }, 450);
 }
 
+let lastPinTapTime = 0;
 function pressPinDigit(digit) {
+    const now = Date.now();
+    if (now - lastPinTapTime < 150) return; // Prevent double-triggering within 150ms
+    lastPinTapTime = now;
+
     if (pinEntry.length >= 4) return;
     pinEntry.push(String(digit));
     if (pinError) pinError.classList.remove('visible');
@@ -115,26 +120,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Attach click and touch listeners to keypad buttons
+    // Attach single click listener to keypad buttons
     document.querySelectorAll('.pin-key[data-digit]').forEach(btn => {
-        const handlePress = (e) => {
+        btn.addEventListener('click', (e) => {
             e.preventDefault();
-            e.stopPropagation();
             pressPinDigit(btn.dataset.digit);
-        };
-        btn.addEventListener('click', handlePress);
-        btn.addEventListener('touchstart', handlePress, { passive: false });
+        });
     });
 
     const delBtn = document.getElementById('pin-delete');
     if (delBtn) {
-        const handleDelete = (e) => {
+        delBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            e.stopPropagation();
             deletePinDigit();
-        };
-        delBtn.addEventListener('click', handleDelete);
-        delBtn.addEventListener('touchstart', handleDelete, { passive: false });
+        });
     }
 });
 
