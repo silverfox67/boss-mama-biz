@@ -1094,6 +1094,7 @@ function renderPlannerSuiteCards(plan) {
                     </div>
                     <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                         <button onclick="openProductCoverModal('${escapeHTML(item.title)}', '${item.price === 0 ? 'FREE' : '$' + item.price + '.00'}', '${escapeHTML(item.type)}')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">🖼️ Preview 3D Cover</button>
+                        <a href="product.html?id=${item.tier}" target="_blank" style="background: rgba(232,50,122,0.2); border: 1px solid var(--primary); color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;">🌐 View Sales Page</a>
                         <button onclick="${item.price === 0 ? "alert('🎁 Free Lead Magnet — No Stripe link required! Delivered automatically via email.')" : `openStripeAISetupGuide('${escapeHTML(item.title)}', '$${item.price}.00')`}" style="background: #2563eb; color: #fff; border: none; font-size: 0.8rem; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer;">💳 ${item.price === 0 ? 'Free (No Stripe)' : 'Setup Stripe with AI'}</button>
                     </div>
                 </div>
