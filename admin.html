@@ -1403,8 +1403,8 @@
         <span style="background: rgba(201,168,76,0.15); border: 1px solid var(--gold); color: var(--gold); font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.8rem; border-radius: 12px; text-transform: uppercase;">🖼️ Visual 3D Product Mockup</span>
         
         <!-- 3D Graphic Image Cover Container -->
-        <div id="cover-mockup-img-wrap" style="display: none; margin: 1.5rem auto; width: 230px; height: 310px; border-radius: 12px; overflow: hidden; border: 2px solid var(--gold); box-shadow: -12px 12px 25px rgba(0,0,0,0.6); transform: perspective(800px) rotateY(-8deg); transition: transform 0.3s ease;" onmouseover="this.style.transform='perspective(800px) rotateY(0deg)'" onmouseout="this.style.transform='perspective(800px) rotateY(-8deg)'">
-            <img id="cover-mockup-img" src="" alt="3D Product Cover" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <div id="cover-mockup-img-wrap" style="display: none; margin: 1.5rem auto; width: 240px; height: 320px; border-radius: 12px; overflow: hidden; border: 2px solid var(--gold); box-shadow: -12px 12px 25px rgba(0,0,0,0.6); background: #0c0712; transform: perspective(800px) rotateY(-6deg); transition: transform 0.3s ease;" onmouseover="this.style.transform='perspective(800px) rotateY(0deg)'" onmouseout="this.style.transform='perspective(800px) rotateY(-6deg)'">
+            <img id="cover-mockup-img" src="" alt="3D Product Cover" style="width: 100%; height: 100%; object-fit: contain; display: block; background: #0c0712;">
         </div>
 
         <!-- 3D CSS Card Container (Fallback) -->
@@ -1420,8 +1420,17 @@
             </div>
         </div>
 
-        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">This is how your digital product visual cover displays on your storefront and checkout pages.</p>
-        <button onclick="closeProductCoverModal()" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); color: #fff; border: none; padding: 0.6rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">Awesome!</button>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">This is how your digital product visual cover displays on your storefront and checkout pages.</p>
+        
+        <!-- Action Buttons: Regenerate & Accept -->
+        <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+            <button type="button" onclick="regenerateCoverMockup()" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+                <span>✨ Regenerate Cover</span>
+            </button>
+            <button type="button" onclick="acceptCoverMockup()" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); color: #fff; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+                <span>✅ Accept &amp; Save Cover</span>
+            </button>
+        </div>
     </div>
 </div>
 

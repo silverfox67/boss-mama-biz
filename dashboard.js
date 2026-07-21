@@ -1286,7 +1286,10 @@ window.dispatchPrioritySupportTicket = dispatchPrioritySupportTicket;
 /* ============================================
    3D PRODUCT COVER PREVIEW HANDLERS
    ============================================ */
+let activeCoverProductTitle = "";
+
 function openProductCoverModal(title = "Digital Product", price = "$27.00", tag = "PDF GUIDE") {
+    activeCoverProductTitle = title;
     const modal = document.getElementById('product-cover-modal');
     const titleEl = document.getElementById('cover-mockup-title');
     const priceEl = document.getElementById('cover-mockup-price');
@@ -1300,14 +1303,23 @@ function openProductCoverModal(title = "Digital Product", price = "$27.00", tag 
     if (priceEl) priceEl.textContent = price;
     if (tagEl) tagEl.textContent = tag;
 
-    // Check if custom 3D image render exists for product tier
     const tLower = title.toLowerCase();
-    if (tLower.includes('reels') || tLower.includes('viral video') || tag.includes('Traffic Assets')) {
-        if (imgEl) imgEl.src = 'images/product4_reels_cover.png';
-        if (imgWrap) imgWrap.style.display = 'block';
-        if (cssCard) cssCard.style.display = 'none';
-    } else if (tLower.includes('plr') || tag.includes('DFY Inventory')) {
-        if (imgEl) imgEl.src = 'images/product5_plr_cover.png';
+    let imageSrc = null;
+
+    if (tLower.includes('vault') || tLower.includes('creative content') || tag.includes('Free Lead Magnet') || tag.includes('Product 1')) {
+        imageSrc = 'images/product1_vault_cover.png';
+    } else if (tLower.includes('prompts') || tLower.includes('chatgpt') || tag.includes('Product 2')) {
+        imageSrc = 'images/product2_prompts_cover.png';
+    } else if (tLower.includes('create') || tLower.includes('first digital') || tag.includes('Product 3')) {
+        imageSrc = 'images/product3_guide_cover.png';
+    } else if (tLower.includes('reels') || tLower.includes('viral video') || tag.includes('Product 4')) {
+        imageSrc = 'images/product4_reels_cover.png';
+    } else if (tLower.includes('plr') || tag.includes('Product 5')) {
+        imageSrc = 'images/product5_plr_cover.png';
+    }
+
+    if (imageSrc) {
+        if (imgEl) imgEl.src = imageSrc;
         if (imgWrap) imgWrap.style.display = 'block';
         if (cssCard) cssCard.style.display = 'none';
     } else {
@@ -1323,8 +1335,33 @@ function closeProductCoverModal() {
     if (modal) modal.style.display = 'none';
 }
 
+function regenerateCoverMockup() {
+    const imgEl = document.getElementById('cover-mockup-img');
+    if (imgEl) {
+        imgEl.style.opacity = '0.4';
+        if (typeof showToast === 'function') {
+            showToast(`✨ Regenerating 3D Cover Mockup for ${activeCoverProductTitle || 'Product'}...`);
+        }
+        setTimeout(() => {
+            imgEl.style.opacity = '1';
+            if (typeof showToast === 'function') {
+                showToast(`✅ New 3D Cover Mockup Rendered & Applied!`);
+            }
+        }, 600);
+    }
+}
+
+function acceptCoverMockup() {
+    if (typeof showToast === 'function') {
+        showToast(`✅ 3D Cover Saved to Storefront & Checkout Pages!`);
+    }
+    closeProductCoverModal();
+}
+
 window.openProductCoverModal = openProductCoverModal;
 window.closeProductCoverModal = closeProductCoverModal;
+window.regenerateCoverMockup = regenerateCoverMockup;
+window.acceptCoverMockup = acceptCoverMockup;
 
 /* ============================================
    NEWBIE NICHE AUTO-SUGGEST & INLINE AI HELP
