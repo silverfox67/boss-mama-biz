@@ -1205,6 +1205,31 @@ function toggleCopilotDrawer() {
     }
 }
 
+function toggleExpandCopilotDrawer() {
+    const drawer = document.getElementById('trident-copilot-drawer');
+    if (drawer) {
+        if (drawer.classList.contains('expanded-full')) {
+            drawer.classList.remove('expanded-full');
+            drawer.style.width = '560px';
+            drawer.style.height = '650px';
+            drawer.style.top = 'auto';
+            drawer.style.left = 'auto';
+            drawer.style.bottom = '5rem';
+            drawer.style.right = '1.5rem';
+            drawer.style.transform = 'none';
+        } else {
+            drawer.classList.add('expanded-full');
+            drawer.style.width = '88vw';
+            drawer.style.height = '85vh';
+            drawer.style.top = '50%';
+            drawer.style.left = '50%';
+            drawer.style.transform = 'translate(-50%, -50%)';
+            drawer.style.bottom = 'auto';
+            drawer.style.right = 'auto';
+        }
+    }
+}
+
 function askCopilotChip(questionText) {
     const input = document.getElementById('copilot-input-text');
     if (input) {
@@ -1348,6 +1373,7 @@ window.sendCopilotMessage = sendCopilotMessage;
 window.dispatchPrioritySupportTicket = dispatchPrioritySupportTicket;
 window.openStripeAISetupGuide = openStripeAISetupGuide;
 window.openGoogleDriveAISetupGuide = openGoogleDriveAISetupGuide;
+window.toggleExpandCopilotDrawer = toggleExpandCopilotDrawer;
 
 
 /* ============================================

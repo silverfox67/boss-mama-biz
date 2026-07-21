@@ -1527,39 +1527,42 @@
     <span>🤖 Trident AI Co-Pilot</span>
 </div>
 
-<div id="trident-copilot-drawer" style="display: none; position: fixed; bottom: 5rem; right: 1.5rem; width: 380px; max-width: 92vw; height: 500px; max-height: 80vh; background: #140C18; border: 1px solid var(--primary); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); z-index: 1000; flex-direction: column; overflow: hidden; backdrop-filter: blur(10px);">
-    <div style="background: rgba(232,50,122,0.12); padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 1.2rem;">🔱</span>
+<div id="trident-copilot-drawer" style="display: none; position: fixed; bottom: 5rem; right: 1.5rem; width: 560px; max-width: 95vw; height: 650px; max-height: 85vh; background: #140C18; border: 1px solid var(--primary); border-radius: 18px; box-shadow: 0 10px 45px rgba(0,0,0,0.85); z-index: 1000; flex-direction: column; overflow: hidden; backdrop-filter: blur(12px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);">
+    <div style="background: rgba(232,50,122,0.14); padding: 1rem 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <span style="font-size: 1.3rem;">🔱</span>
             <div>
-                <h4 style="margin: 0; color: #fff; font-size: 0.95rem; font-family: 'Cinzel', serif;">Trident AI Co-Pilot</h4>
-                <span style="font-size: 0.72rem; color: #4ade80;">🟢 24/7 Personal Mentor Active</span>
+                <h4 style="margin: 0; color: #fff; font-size: 1rem; font-family: 'Cinzel', serif; font-weight: 700;">Trident AI Co-Pilot</h4>
+                <span style="font-size: 0.75rem; color: #4ade80;">🟢 24/7 Personal Mentor Active</span>
             </div>
         </div>
-        <button onclick="toggleCopilotDrawer()" style="background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer;">&times;</button>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <button type="button" onclick="toggleExpandCopilotDrawer()" style="background: rgba(201,168,76,0.15); border: 1px solid var(--gold); color: var(--gold); font-size: 0.9rem; padding: 0.2rem 0.6rem; border-radius: 6px; cursor: pointer; font-weight: 700;" title="Toggle Full Screen View">⛶ Expand View</button>
+            <button onclick="toggleCopilotDrawer()" style="background: none; border: none; color: #fff; font-size: 1.6rem; cursor: pointer; line-height: 1;">&times;</button>
+        </div>
     </div>
 
     <!-- Quick Help Chips -->
-    <div style="padding: 0.8rem; background: rgba(0,0,0,0.3); border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 0.4rem; overflow-x: auto; scrollbar-width: none;">
-        <button onclick="askCopilotChip('🚨 I need human support / technical help')" style="white-space: nowrap; background: rgba(220,38,38,0.2); border: 1px solid #dc2626; color: #f87171; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; cursor: pointer; font-weight: 700;">🚨 Human Support</button>
-        <button onclick="openStripeAISetupGuide('Your Product', '$27.00')" style="white-space: nowrap; background: rgba(37,99,235,0.2); border: 1px solid #2563eb; color: #60a5fa; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; cursor: pointer; font-weight: 700;">💳 Stripe Help</button>
-        <button onclick="openGoogleDriveAISetupGuide('Your Product')" style="white-space: nowrap; background: rgba(34,197,94,0.15); border: 1px solid #22c55e; color: #4ade80; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; cursor: pointer; font-weight: 700;">📁 Google Drive Help</button>
-        <button onclick="askCopilotChip('🏷️ What price should I charge for my guide?')" style="white-space: nowrap; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; cursor: pointer;">🏷️ Pricing Help</button>
-        <button onclick="askCopilotChip('📢 Give me 3 TikTok video hooks for my product')" style="white-space: nowrap; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; cursor: pointer;">📢 TikTok Hooks</button>
+    <div style="padding: 0.8rem 1rem; background: rgba(0,0,0,0.3); border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 0.5rem; overflow-x: auto; scrollbar-width: none;">
+        <button onclick="askCopilotChip('🚨 I need human support / technical help')" style="white-space: nowrap; background: rgba(220,38,38,0.2); border: 1px solid #dc2626; color: #f87171; padding: 0.4rem 0.75rem; border-radius: 12px; font-size: 0.8rem; cursor: pointer; font-weight: 700;">🚨 Human Support</button>
+        <button onclick="openStripeAISetupGuide('Your Product', '$27.00')" style="white-space: nowrap; background: rgba(37,99,235,0.2); border: 1px solid #2563eb; color: #60a5fa; padding: 0.4rem 0.75rem; border-radius: 12px; font-size: 0.8rem; cursor: pointer; font-weight: 700;">💳 Stripe Help</button>
+        <button onclick="openGoogleDriveAISetupGuide('Your Product')" style="white-space: nowrap; background: rgba(34,197,94,0.15); border: 1px solid #22c55e; color: #4ade80; padding: 0.4rem 0.75rem; border-radius: 12px; font-size: 0.8rem; cursor: pointer; font-weight: 700;">📁 Google Drive Help</button>
+        <button onclick="askCopilotChip('🏷️ What price should I charge for my guide?')" style="white-space: nowrap; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.4rem 0.75rem; border-radius: 12px; font-size: 0.8rem; cursor: pointer;">🏷️ Pricing Help</button>
+        <button onclick="askCopilotChip('📢 Give me 3 TikTok video hooks for my product')" style="white-space: nowrap; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.4rem 0.75rem; border-radius: 12px; font-size: 0.8rem; cursor: pointer;">📢 TikTok Hooks</button>
     </div>
 
     <!-- Chat Messages Feed -->
-    <div id="copilot-chat-feed" style="flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.88rem;">
-        <div style="background: rgba(255,255,255,0.04); border-radius: 10px; padding: 0.8rem; border-left: 3px solid var(--gold);">
-            <strong style="color: var(--gold); display: block; font-size: 0.78rem; margin-bottom: 0.2rem;">🔱 Trident AI Co-Pilot</strong>
+    <div id="copilot-chat-feed" style="flex: 1; padding: 1.2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; font-size: 0.95rem; line-height: 1.55;">
+        <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 1rem; border-left: 3px solid var(--gold);">
+            <strong style="color: var(--gold); display: block; font-size: 0.82rem; margin-bottom: 0.3rem;">🔱 Trident AI Co-Pilot</strong>
             Hi Kristan! I'm your 24/7 business mentor. Ask me anything about setting up Stripe, pricing your guide, or rewriting copy!
         </div>
     </div>
 
     <!-- Chat Input Form -->
-    <div style="padding: 0.8rem; background: rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: 0.5rem;">
-        <input type="text" id="copilot-input-text" placeholder="Ask Trident AI a question..." style="flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 0.6rem 0.8rem; color: #fff; font-size: 0.85rem;" onkeypress="if(event.key==='Enter') sendCopilotMessage()">
-        <button onclick="sendCopilotMessage()" style="background: var(--primary); color: #fff; border: none; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">Send</button>
+    <div style="padding: 1rem; background: rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: 0.6rem;">
+        <input type="text" id="copilot-input-text" placeholder="Ask Trident AI a question..." style="flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 0.7rem 1rem; color: #fff; font-size: 0.92rem;" onkeypress="if(event.key==='Enter') sendCopilotMessage()">
+        <button onclick="sendCopilotMessage()" style="background: var(--primary); color: #fff; border: none; padding: 0.7rem 1.3rem; border-radius: 10px; font-weight: 700; font-size: 0.9rem; cursor: pointer;">Send</button>
     </div>
 </div>
 
