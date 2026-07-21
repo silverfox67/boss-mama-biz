@@ -246,6 +246,36 @@
                 </div>
             </div>
 
+            <!-- 📥 MANUAL PRODUCT INPUT -->
+            <div class="glass-card" style="padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid rgba(74, 222, 128, 0.4); background: rgba(34, 197, 94, 0.05); border-radius: 12px;">
+                <h4 style="margin: 0 0 1rem 0; color: #4ade80; display: flex; align-items: center; gap: 0.5rem; font-size: 1.05rem;">
+                    <span>⚡</span> Already have a product? Add it instantly
+                </h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem;">Product Name</label>
+                        <input type="text" id="manual-product-name" placeholder="e.g. Content Vault" style="width: 100%; padding: 0.7rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem;">Price</label>
+                        <input type="number" id="manual-product-price" placeholder="e.g. 27" style="width: 100%; padding: 0.7rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff;">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem;">Google Drive Link</label>
+                        <input type="url" id="manual-drive-link" placeholder="https://drive.google.com/..." style="width: 100%; padding: 0.7rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem;">Stripe Payment Link</label>
+                        <input type="url" id="manual-stripe-link" placeholder="https://buy.stripe.com/..." style="width: 100%; padding: 0.7rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff;">
+                    </div>
+                </div>
+                <button type="button" onclick="generateFromManualInput()" style="background: rgba(74, 222, 128, 0.2); border: 1px solid #4ade80; color: #4ade80; padding: 0.7rem 1.4rem; border-radius: 8px; font-weight: 800; font-size: 0.9rem; cursor: pointer;">
+                    🚀 Build Funnel from this Product
+                </button>
+            </div>
+
             <!-- AI PRODUCT SUITE GENERATOR — NUMBERED 3-STEP PANEL -->
             <div class="glass-card" style="padding: 1.8rem; margin-bottom: 2rem; border: 1px solid rgba(232, 50, 122, 0.4); background: linear-gradient(135deg, rgba(20, 12, 24, 0.95) 0%, rgba(35, 18, 45, 0.95) 100%); border-radius: 16px;">
                 
@@ -270,45 +300,34 @@
                     </div>
                 </div>
 
-                <!-- STEP 2: PROMINENT AI BRAINSTORMING & NICHE INPUTS -->
+                <!-- STEP 2: DEFINE YOUR NICHE -->
                 <div style="margin-bottom: 1.8rem; padding-bottom: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.08);">
                     <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
                         <span style="background: var(--gold); color: #000; font-weight: 900; font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 6px;">STEP 2</span>
-                        <h3 style="margin: 0; color: #fff; font-size: 1.1rem; font-family: 'Cinzel', serif;">Brainstorm with AI or Enter Your Niche</h3>
+                        <h3 style="margin: 0; color: #fff; font-size: 1.1rem; font-family: 'Cinzel', serif;">Define Your Niche</h3>
                     </div>
 
-                    <!-- PROMINENT AI BRAINSTORMING CHAT BOX -->
-                    <div style="background: rgba(0,0,0,0.4); border: 1.5px solid var(--gold); border-radius: 12px; padding: 1.2rem; margin-bottom: 1.2rem; box-shadow: 0 4px 16px rgba(201,168,76,0.15);">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
-                            <span style="font-size: 0.88rem; font-weight: 800; color: var(--gold); display: flex; align-items: center; gap: 0.4rem;">
-                                <span>💬</span> Stuck or Need Product Ideas? Chat with Trident AI First:
-                            </span>
-                            <span style="font-size: 0.75rem; color: #4ade80;">🟢 24/7 AI Brainstormer Ready</span>
-                        </div>
-                        <div style="display: flex; gap: 0.6rem; margin-bottom: 0.6rem;">
-                            <input type="text" id="inline-planner-ai-input" placeholder="e.g. 'I want to sell digital planners for busy moms—suggest 3 product ideas!'" style="flex: 1; padding: 0.75rem 1rem; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;" onkeypress="if(event.key==='Enter') askInlineSectionAI()">
-                            <button onclick="askInlineSectionAI()" style="background: linear-gradient(135deg, var(--gold) 0%, #c9a84c 100%); color: #000; border: none; padding: 0.75rem 1.4rem; border-radius: 8px; font-weight: 800; font-size: 0.88rem; cursor: pointer; flex-shrink: 0;">💬 Brainstorm with AI</button>
-                        </div>
-                        <div id="inline-planner-ai-response" style="display: none; padding: 0.9rem; background: rgba(255,255,255,0.05); border-left: 3px solid var(--gold); border-radius: 8px; font-size: 0.88rem; color: #F5EEF5; line-height: 1.5;"></div>
-                    </div>
-
-                    <!-- PARAMETER FIELDS WITH CLEAR PLACEHOLDERS -->
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; align-items: end;">
                         <div>
                             <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem;">Target Audience</label>
-                            <input type="text" id="ai-target-audience" placeholder="e.g. Stay-at-Home Moms &amp; Creators" style="width: 100%; padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                            <input type="text" id="ai-target-audience" placeholder="e.g. Stay-at-Home Moms & Creators" style="width: 100%; padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;">
                         </div>
                         <div>
                             <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem;">Niche Topic</label>
-                            <input type="text" id="ai-niche-topic" placeholder="e.g. Digital Planners &amp; Side Hustles" style="width: 100%; padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                            <div style="display: flex; gap: 0.4rem;">
+                                <input type="text" id="ai-niche-topic" placeholder="e.g. Digital Planners" style="width: 100%; padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                                <button type="button" onclick="autoSuggestNicheIdea()" style="background: rgba(201,168,76,0.15); border: 1px solid var(--gold); color: var(--gold); padding: 0.7rem 1rem; border-radius: 8px; font-weight: 800; font-size: 0.9rem; cursor: pointer; flex-shrink: 0;" title="Auto-Suggest Idea">
+                                    ✨ Suggest
+                                </button>
+                            </div>
                         </div>
                         <div>
                             <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem;">Brand Tone</label>
                             <select id="ai-brand-tone" style="width: 100%; padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;">
-                                <option value="Empowering & Warm">Empowering &amp; Warm</option>
-                                <option value="Direct & High-Ticket">Direct &amp; High-Ticket</option>
-                                <option value="Playful & Fun">Playful &amp; Fun</option>
-                                <option value="Professional & Authoritative">Professional &amp; Authoritative</option>
+                                <option value="Empowering & Warm">Empowering & Warm</option>
+                                <option value="Direct & High-Ticket">Direct & High-Ticket</option>
+                                <option value="Playful & Fun">Playful & Fun</option>
+                                <option value="Professional & Authoritative">Professional & Authoritative</option>
                             </select>
                         </div>
                     </div>
@@ -322,10 +341,7 @@
                     </div>
                     <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center;">
                         <button id="btn-generate-ai-suite" onclick="triggerAISuiteGeneration()" style="background: linear-gradient(135deg, var(--primary) 0%, #c9a84c 100%); color: #fff; border: none; padding: 0.85rem 1.8rem; border-radius: 10px; font-weight: 800; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; gap: 0.6rem; box-shadow: 0 4px 20px rgba(232, 50, 122, 0.4);">
-                            <span>⚡ Generate Complete Product Suite Plan</span>
-                        </button>
-                        <button type="button" onclick="autoSuggestNicheIdea()" style="background: rgba(201,168,76,0.15); border: 1px solid var(--gold); color: var(--gold); padding: 0.85rem 1.4rem; border-radius: 10px; font-weight: 700; font-size: 0.88rem; cursor: pointer;">
-                            <span>🎲 Auto-Suggest Niche Idea</span>
+                            <span>🚀 Generate Complete Product Suite Plan</span>
                         </button>
                     </div>
                 </div>

@@ -1078,6 +1078,64 @@ async function triggerAISuiteGeneration() {
     }
 }
 
+function generateFromManualInput() {
+    const name = document.getElementById('manual-product-name')?.value || "My Product";
+    const price = parseInt(document.getElementById('manual-product-price')?.value || "27");
+    const drive = document.getElementById('manual-drive-link')?.value || "";
+    const stripe = document.getElementById('manual-stripe-link')?.value || "";
+
+    const plan = {
+        niche: "Custom Product",
+        audience: "Custom Audience",
+        tone: "Warm",
+        suite: [
+            {
+                tier: 1,
+                title: name,
+                price: price,
+                type: price === 0 ? "Free Lead Magnet" : "Core Offer",
+                description: `A customized digital product: ${name}. Set up and ready for funnel integration.`,
+                deliverables: ["Product Access via Google Drive", "Welcome email sequence", "Sales page template"],
+                bonus: "None",
+                driveLink: drive,
+                stripeLink: stripe
+            }
+        ]
+    };
+    
+    // Select 1 product count automatically
+    selectProductCount(1);
+    
+    // Save & render
+    localStorage.setItem('bmb_generated_planner_suite', JSON.stringify(plan));
+    renderPlannerSuiteCards(plan);
+    
+    if (typeof showToast === 'function') {
+        showToast(`✨ Funnel build started for ${name}!`);
+    }
+}
+
+function clearAISession() {
+    if(confirm("Are you sure you want to clear the workspace? This will reset the generated cards (but will not delete items already saved to your Assets Vault).")) {
+        localStorage.removeItem('bmb_generated_planner_suite');
+        renderPlannerSuiteCards(KRISTANS_SUITE);
+        if (typeof showToast === 'function') {
+            showToast(`🔄 Workspace cleared. Ready for a new niche!`);
+        }
+    }
+}
+
+function updateCardLink(index, field, value) {
+    try {
+        const saved = localStorage.getItem('bmb_generated_planner_suite');
+        const plan = saved ? JSON.parse(saved) : KRISTANS_SUITE;
+        if (plan && plan.suite && plan.suite[index]) {
+            plan.suite[index][field] = value;
+            localStorage.setItem('bmb_generated_planner_suite', JSON.stringify(plan));
+        }
+    } catch(e) { console.error("Error updating link:", e); }
+}
+
 let currentProductCount = parseInt(localStorage.getItem('bmb_product_count')) || 5;
 let aiCreditsRemaining = parseInt(localStorage.getItem('bmb_ai_credits')) || 15;
 
@@ -1200,24 +1258,28 @@ function renderPlannerSuiteCards(plan) {
             </div>
         `;
 
-        const cardsHtml = activeSuite.map(item => `
+        const cardsHtml = activeSuite.map((item, idx) => `
             <div class="glass-card" style="padding: 1.8rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(232,50,122,0.2); border-radius: 14px; margin-bottom: 1.2rem;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                <div style="margin-bottom: 1rem;">
+                    <span style="background: rgba(232,50,122,0.1); border: 1px solid var(--primary); color: var(--primary); font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 12px; text-transform: uppercase;">Product ${item.tier} · ${item.price === 0 ? 'FREE LEAD MAGNET' : '$' + item.price + '.00 OFFER'}</span>
+                    <h3 style="margin: 0.5rem 0 0.2rem 0; font-family: 'Cinzel', serif; color: #fff;">${escapeHTML(item.title)}</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">${escapeHTML(item.description)}</p>
+                </div>
+                
+                <!-- Drive and Stripe Links Inputs -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
                     <div>
-                        <span style="background: rgba(232,50,122,0.1); border: 1px solid var(--primary); color: var(--primary); font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 12px; text-transform: uppercase;">Product ${item.tier} · ${item.price === 0 ? 'FREE LEAD MAGNET' : '$' + item.price + '.00 OFFER'}</span>
-                        <h3 style="margin: 0.5rem 0 0.2rem 0; font-family: 'Cinzel', serif; color: #fff;">${escapeHTML(item.title)}</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">${escapeHTML(item.description)}</p>
+                        <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.3rem;">📁 Google Drive Link</label>
+                        <input type="url" id="hub-drive-${idx}" placeholder="Paste Drive Link..." value="${item.driveLink || ''}" style="width: 100%; padding: 0.6rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; font-size: 0.85rem;" onchange="updateCardLink(${idx}, 'driveLink', this.value)">
                     </div>
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                        <button onclick="openProductCoverModal('${escapeHTML(item.title)}', '${item.price === 0 ? 'FREE' : '$' + item.price + '.00'}', '${escapeHTML(item.type)}')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">🖼️ Preview 3D Cover</button>
-                        <a href="product.html?id=${item.tier}" target="_blank" style="background: rgba(232,50,122,0.2); border: 1px solid var(--primary); color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;">🌐 View Sales Page</a>
-                        <button onclick="${item.price === 0 ? "alert('🎁 Free Lead Magnet — Delivered automatically via Brevo email!')" : `openStripeAISetupGuide('${escapeHTML(item.title)}', '$${item.price}.00')`}" style="background: #2563eb; color: #fff; border: none; font-size: 0.8rem; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer;">💳 ${item.price === 0 ? 'Free (No Stripe)' : 'Setup Stripe with AI'}</button>
-                        <button onclick="saveProductToVault(${item.tier - 1})" style="background: rgba(74,222,128,0.2); border: 1px solid #4ade80; color: #4ade80; font-size: 0.8rem; font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer;">📤 Save to Assets Vault</button>
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.3rem;">💳 Stripe Payment Link</label>
+                        <input type="url" id="hub-stripe-${idx}" placeholder="Paste Stripe Link..." value="${item.stripeLink || ''}" style="width: 100%; padding: 0.6rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; font-size: 0.85rem;" onchange="updateCardLink(${idx}, 'stripeLink', this.value)" ${item.price === 0 ? 'disabled style="opacity: 0.5; width: 100%; padding: 0.6rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; font-size: 0.85rem;"' : ''}>
                     </div>
                 </div>
 
                 <!-- Deliverables & Sequence Bar -->
-                <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1rem; margin-top: 1rem;">
+                <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1rem; margin-bottom: 1.2rem;">
                     <h4 style="margin: 0 0 0.5rem 0; font-size: 0.85rem; color: var(--gold);">📦 Included Core Deliverables:</h4>
                     <ul style="margin: 0 0 1rem 1.2rem; color: var(--text-main); font-size: 0.85rem;">
                         ${item.deliverables.map(d => `<li>${escapeHTML(d)}</li>`).join('')}
@@ -1231,10 +1293,24 @@ function renderPlannerSuiteCards(plan) {
                         </div>
                     </div>
                 </div>
+
+                <!-- Action Buttons Moved to Bottom -->
+                <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.2rem;">
+                    <button onclick="openProductCoverModal('${escapeHTML(item.title)}', '${item.price === 0 ? 'FREE' : '$' + item.price + '.00'}', '${escapeHTML(item.type)}')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">🖼️ Preview 3D Cover</button>
+                    <a href="product.html?id=${item.tier}" target="_blank" style="background: rgba(232,50,122,0.2); border: 1px solid var(--primary); color: var(--primary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;">🌐 View Sales Page</a>
+                    <button onclick="${item.price === 0 ? "alert('🎁 Free Lead Magnet — Delivered automatically via Brevo email!')" : `openStripeAISetupGuide('${escapeHTML(item.title)}', '$${item.price}.00')`}" style="background: #2563eb; color: #fff; border: none; font-size: 0.85rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">💳 ${item.price === 0 ? 'Free (No Stripe)' : 'Setup Stripe'}</button>
+                    <button onclick="saveProductToVault(${idx})" style="background: rgba(74,222,128,0.2); border: 1px solid #4ade80; color: #4ade80; font-size: 0.85rem; font-weight: 800; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; margin-left: auto;">📤 Save to Assets Vault</button>
+                </div>
             </div>
         `).join('');
 
-        container.innerHTML = headerBar + cardsHtml;
+        const clearBtnHtml = `
+            <div style="text-align: center; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem;">
+                <button onclick="clearAISession()" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">🔄 Clear & Start New Session</button>
+            </div>
+        `;
+
+        container.innerHTML = headerBar + cardsHtml + clearBtnHtml;
     }
 }
 
