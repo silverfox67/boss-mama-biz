@@ -1282,7 +1282,7 @@ function renderPlannerSuiteCards(plan) {
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.05);">
                         <span style="font-size: 0.78rem; color: var(--text-muted);">📧 Email Drip Sequence:</span>
                         <div style="display: flex; gap: 0.4rem;">
-                            <button onclick="triggerAIEmailSequence('${escapeHTML(item.title)}', '${escapeHTML(plan.tone || 'warm')}')" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); border: none; color: #fff; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">🤖 AI: Write My Email Sequence</button>
+                            <button onclick="triggerAIEmailSequence('${escapeHTML(item.title)}', '${escapeHTML(plan.tone || 'warm')}', ${idx})" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); border: none; color: #fff; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">🤖 AI: Write My Email Sequence</button>
                         </div>
                     </div>
                 </div>
@@ -1617,7 +1617,9 @@ function askCopilotChip(questionText) {
 }
 
 
-window.triggerAIEmailSequence = function(title, tone) {
+let activeAIEmailIdx = null;
+window.triggerAIEmailSequence = function(title, tone, idx) {
+    activeAIEmailIdx = idx;
     const input = document.getElementById('copilot-input-text');
     const drawer = document.getElementById('trident-copilot-drawer');
     if (drawer) {
@@ -1714,7 +1716,8 @@ function getSmartFallbackReply(userText) {
         <strong>Day 4 (Case Study):</strong> Check out how Sarah made $1,200 in 24 hours using this system.<br>
         <strong>Day 5 (FAQ):</strong> Will this work for beginners? Absolutely. Here is why.<br>
         <strong>Day 6 (Scarcity):</strong> Last chance! The 20% off discount expires tonight. Don't miss out!<br><br>
-        <em>👉 Copy this sequence directly into your Assets Vault!</em>`;
+        <em>👉 You can copy these manually, or click here to auto-save them to your Hub product:</em><br><br>
+        <button onclick="autoSaveEmailSequence()" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 800; font-size: 0.85rem; cursor: pointer; display: block; width: 100%;">💾 Auto-Save 7-Day Sequence</button>`;
     } else if (q.includes('description') || q.includes('copy') || q.includes('write')) {
         return `✨ <strong>Ready-to-Use High-Converting Product Description:</strong><br><br><em>"Unlock the ultimate shortcut to creating, launching, and monetizing your digital products! Includes fillable workbooks, automated sales funnel templates, and 90+ days of viral content prompts."</em>`;
     } else {
@@ -2361,4 +2364,32 @@ window.downloadVaultImage = function(url, filename) {
     a.click();
     document.body.removeChild(a);
     if(typeof showToast === 'function') showToast("📥 Image download started!");
+};
+
+window.autoSaveEmailSequence = function() {
+    if (activeAIEmailIdx === null) {
+        if(typeof showToast === 'function') showToast("Error: No active product selected.");
+        return;
+    }
+    
+    const saved = localStorage.getItem('bmb_generated_planner_suite');
+    if (!saved) return;
+    const plan = JSON.parse(saved);
+    
+    if (plan && plan.suite && plan.suite[activeAIEmailIdx]) {
+        plan.suite[activeAIEmailIdx].emails = [
+            { day: 0, title: "Instant", subject: "🎉 Welcome! Here is your download link.", body: "We are so excited to have you..." },
+            { day: 1, title: "Value", subject: "Secret tip: Automate your delivery", body: "Use Brevo to save 10 hours a week..." },
+            { day: 2, title: "Story", subject: "Why I almost quit...", body: "And the one system that changed everything." },
+            { day: 3, title: "Soft Pitch", subject: "Ready for the next step?", body: "Grab the Masterclass at 20% off today." },
+            { day: 4, title: "Case Study", subject: "Check out how Sarah made $1,200", body: "In 24 hours using this system." },
+            { day: 5, title: "FAQ", subject: "Will this work for beginners?", body: "Absolutely. Here is why." },
+            { day: 6, title: "Scarcity", subject: "Last chance!", body: "The 20% off discount expires tonight. Don't miss out!" }
+        ];
+        localStorage.setItem('bmb_generated_planner_suite', JSON.stringify(plan));
+        
+        if (typeof showToast === 'function') {
+            showToast("✨ 7-Day Email Sequence saved to Product Hub!");
+        }
+    }
 };
