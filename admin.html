@@ -307,19 +307,28 @@
                         <h3 style="margin: 0; color: #fff; font-size: 1.1rem; font-family: 'Cinzel', serif;">Define Your Niche</h3>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; align-items: end;">
+                    <!-- AI CO-PILOT BRAINSTORMING (OPTIONAL) -->
+                    <div style="background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.3); border-radius: 12px; padding: 1.2rem; margin-bottom: 1.5rem;">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--gold); font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span>🧠</span> AI Co-Pilot Brainstorming <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: normal;">(Optional)</span>
+                        </h4>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">Stuck on ideas? Tell me what you're passionate about and let's brainstorm! <strong style="color: #fff;">(Or, if you already know your niche, skip this and fill out the 3 boxes below).</strong></p>
+                        <div style="display: flex; gap: 0.6rem;">
+                            <input type="text" id="copilot-input" placeholder="e.g. 'I want to help busy moms organize their kitchens'" style="flex: 1; padding: 0.75rem 1rem; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;" onkeypress="if(event.key==='Enter') askCopilot()">
+                            <button onclick="askCopilot()" id="copilot-btn" style="background: linear-gradient(135deg, var(--gold) 0%, #c9a84c 100%); color: #000; border: none; padding: 0.75rem 1.4rem; border-radius: 8px; font-weight: 800; font-size: 0.88rem; cursor: pointer; flex-shrink: 0;">💬 Chat</button>
+                        </div>
+                        <div id="copilot-response" style="display: none; padding: 1rem; background: rgba(0,0,0,0.4); border-left: 3px solid var(--gold); border-radius: 8px; font-size: 0.9rem; color: #fff; line-height: 1.6; margin-top: 1rem;"></div>
+                    </div>
+
+                    <!-- MANUAL FORM FIELDS -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
                         <div>
                             <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem;">Target Audience</label>
                             <input type="text" id="ai-target-audience" placeholder="e.g. Stay-at-Home Moms & Creators" style="width: 100%; padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;">
                         </div>
                         <div>
                             <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem;">Niche Topic</label>
-                            <div style="display: flex; gap: 0.4rem;">
-                                <input type="text" id="ai-niche-topic" placeholder="e.g. Digital Planners" style="width: 100%; padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;">
-                                <button type="button" onclick="autoSuggestNicheIdea()" style="background: rgba(201,168,76,0.15); border: 1px solid var(--gold); color: var(--gold); padding: 0.7rem 1rem; border-radius: 8px; font-weight: 800; font-size: 0.9rem; cursor: pointer; flex-shrink: 0;" title="Auto-Suggest Idea">
-                                    ✨ Suggest
-                                </button>
-                            </div>
+                            <input type="text" id="ai-niche-topic" placeholder="e.g. Digital Planners & Side Hustles" style="width: 100%; padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #fff; font-size: 0.9rem;">
                         </div>
                         <div>
                             <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem;">Brand Tone</label>

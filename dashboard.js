@@ -1947,3 +1947,86 @@ window.renderTridentQueryLogs = renderTridentQueryLogs;
 
 
 
+
+
+// --- AI Co-Pilot Brainstorming Logic ---
+async function askCopilot(isRetry = false) {
+    const inputEl = document.getElementById('copilot-input');
+    const responseEl = document.getElementById('copilot-response');
+    const btnEl = document.getElementById('copilot-btn');
+    
+    if (!inputEl || !responseEl || !btnEl) return;
+    
+    const userPrompt = inputEl.value.trim();
+    if (!userPrompt && !isRetry) return;
+    
+    // UI Loading State
+    btnEl.innerHTML = '<span>⏳</span> Thinking...';
+    btnEl.disabled = true;
+    responseEl.style.display = 'block';
+    responseEl.innerHTML = '<span style="color: var(--gold);">🧠 Trident AI is brainstorming...</span>';
+    
+    try {
+        // Simulate API call for the mockup
+        await new Promise(r => setTimeout(r, 1500));
+        
+        let niche, audience, tone, pitch;
+        
+        if (isRetry || userPrompt.toLowerCase().includes('planner') || userPrompt.toLowerCase().includes('organize')) {
+            niche = 'Digital Planners & Organization';
+            audience = 'Busy Working Moms';
+            tone = 'Empowering & Warm';
+            pitch = 'I love that! Organization is a massive pain point. We could build a product suite around "Life & Home Mastery for Busy Moms". Should I fill out your builder with this idea?';
+        } else {
+            niche = 'Digital Wealth & Passive Income';
+            audience = 'Stay-at-Home Moms';
+            tone = 'Direct & High-Ticket';
+            pitch = 'Great idea! Teaching financial independence is highly profitable right now. We could build a suite around "The Stay-at-Home Wealth System". Should I fill out your builder with this idea?';
+        }
+        
+        // Render the response with the Yes/No buttons
+        responseEl.innerHTML = `
+            <div style="margin-bottom: 1rem;">
+                <strong style="color: var(--gold);">Trident AI:</strong> ${pitch}
+            </div>
+            <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                <button type="button" onclick="acceptCopilotIdea('${niche}', '${audience}', '${tone}')" style="background: rgba(74,222,128,0.2); border: 1px solid #4ade80; color: #4ade80; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">✨ Yes, use this idea!</button>
+                <button type="button" onclick="askCopilot(true)" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">🔄 No, brainstorm another idea</button>
+            </div>
+        `;
+        
+    } catch (e) {
+        responseEl.innerHTML = '<span style="color: #ef4444;">Error connecting to AI. Please try again.</span>';
+    } finally {
+        btnEl.innerHTML = '💬 Chat';
+        btnEl.disabled = false;
+    }
+}
+
+function acceptCopilotIdea(niche, audience, tone) {
+    const targetEl = document.getElementById('ai-target-audience');
+    const nicheEl = document.getElementById('ai-niche-topic');
+    const toneEl = document.getElementById('ai-brand-tone');
+    
+    if (targetEl) targetEl.value = audience;
+    if (nicheEl) nicheEl.value = niche;
+    
+    if (toneEl) {
+        let found = false;
+        for (let i = 0; i < toneEl.options.length; i++) {
+            if (toneEl.options[i].value === tone) {
+                toneEl.selectedIndex = i;
+                found = true;
+                break;
+            }
+        }
+        if (!found) toneEl.selectedIndex = 0;
+    }
+    
+    // Hide the chat response to clear clutter
+    const responseEl = document.getElementById('copilot-response');
+    if (responseEl) {
+        responseEl.innerHTML = '<span style="color: #4ade80;">✅ Idea successfully loaded into your builder!</span>';
+        setTimeout(() => { responseEl.style.display = 'none'; }, 2500);
+    }
+}
