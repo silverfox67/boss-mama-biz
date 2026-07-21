@@ -1239,7 +1239,7 @@ function askCopilotChip(questionText) {
     }
 }
 
-function sendCopilotMessage() {
+async function sendCopilotMessage() {
     const input = document.getElementById('copilot-input-text');
     const feed = document.getElementById('copilot-chat-feed');
     if (!input || !input.value.trim() || !feed) return;
@@ -1249,56 +1249,66 @@ function sendCopilotMessage() {
 
     // Append User Message
     const userDiv = document.createElement('div');
-    userDiv.style.cssText = "background: rgba(232,50,122,0.15); border-radius: 10px; padding: 0.7rem 0.9rem; align-self: flex-end; max-width: 85%; color: #fff; font-size: 0.85rem;";
+    userDiv.style.cssText = "background: rgba(232,50,122,0.15); border-radius: 12px; padding: 0.8rem 1rem; align-self: flex-end; max-width: 85%; color: #fff; font-size: 0.92rem;";
     userDiv.innerHTML = `<strong>You:</strong> ${escapeHTML(userText)}`;
     feed.appendChild(userDiv);
     feed.scrollTop = feed.scrollHeight;
 
-    // Simulate AI Response
-    setTimeout(() => {
-        const aiDiv = document.createElement('div');
-        aiDiv.style.cssText = "background: rgba(255,255,255,0.04); border-radius: 10px; padding: 0.8rem; border-left: 3px solid var(--gold); max-width: 90%; color: #F5EEF5; font-size: 0.85rem;";
-        
-        let reply = "I'm analyzing your request... Here is the best action step for your business:";
-        const q = userText.toLowerCase();
+    // Show Typing Indicator
+    const typingDiv = document.createElement('div');
+    typingDiv.style.cssText = "background: rgba(255,255,255,0.04); border-radius: 12px; padding: 0.8rem 1rem; border-left: 4px solid var(--gold); max-width: 90%; color: var(--gold); font-size: 0.9rem;";
+    typingDiv.innerHTML = `<strong>🔱 Trident AI:</strong> <em>Thinking...</em>`;
+    feed.appendChild(typingDiv);
+    feed.scrollTop = feed.scrollHeight;
 
-        if (q.includes('human') || q.includes('support') || q.includes('issue') || q.includes('broken')) {
-            reply = `🚨 <strong>Priority Support Ticket Escalation:</strong><br>Need priority technical help from Todd at Trident Website Design?<br><br>Click below to dispatch an urgent support alert straight to engineering:<br><button onclick="dispatchPrioritySupportTicket('${escapeHTML(userText)}')" style="background: linear-gradient(135deg, #dc2626 0%, #c9a84c 100%); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 800; margin-top: 0.5rem; cursor: pointer;">🚨 Send Priority Ticket to Todd</button>`;
-        } else if (q.includes('tax') || q.includes('dropdown') || q.includes('category') || q.includes('taxable')) {
-            reply = `📊 <strong>Stripe Tax Dropdown Setup Guide:</strong><br><br>
-            When creating your Stripe Payment Link:<br><br>
-            1. Under <strong>Tax Category</strong>, select <strong>"Nontaxable Digital Goods"</strong> or <strong>"Digital Goods - Ebooks & Digital Downloads"</strong>.<br><br>
-            2. Under <strong>Collect Tax Automatically</strong>, you can leave it set to <em>"No" / Off</em> for digital guides & PDF downloads.<br><br>
-            3. Under <strong>Advanced Options</strong>, leave everything else as default and click <strong>Create Link</strong> in top right!`;
-        } else if (q.includes('description') || q.includes('write') || q.includes('copy') || q.includes('summary') || q.includes('give me')) {
-            reply = `✨ <strong>Ready-to-Use High-Converting Product Description:</strong><br><br>
-            <em>"Unlock the ultimate shortcut to creating, launching, and monetizing your digital products! Designed specifically for creators and busy moms, this step-by-step master guide & resource vault gives you plug-and-play templates, proven sales copy, and 90+ days of viral content prompts so you can start generating digital income on full autopilot without trading hours for dollars."</em><br><br>
-            <strong>Included Highlights:</strong><br>
-            • 90+ Days of Content & Story Prompts<br>
-            • Fillable Step-by-Step Action Workbooks<br>
-            • Full Commercial Resale & PLR Rights License<br><br>
-            <button onclick="navigator.clipboard.writeText('Unlock the ultimate shortcut to creating, launching, and monetizing your digital products! Designed specifically for creators and busy moms, this step-by-step master guide & resource vault gives you plug-and-play templates, proven sales copy, and 90+ days of viral content prompts so you can start generating digital income on full autopilot without trading hours for dollars.'); if(typeof showToast==='function') showToast('📋 Description Copied to Clipboard!')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.35rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.78rem; cursor: pointer;">📋 Copy Description to Clipboard</button>`;
-        } else if (q.includes('email') || q.includes('drip') || q.includes('sequence') || q.includes('welcome')) {
-            reply = `📧 <strong>High-Converting Welcome Email Draft:</strong><br><br>
-            <strong>Subject:</strong> 🎉 Your Download is Inside! (Plus a secret bonus)<br><br>
-            <em>Hey Mama! Thank you so much for claiming your digital product. Here is your direct download link to access your files: [PASTE_YOUR_LINK_HERE]<br><br>
-            Quick Tip: Start with Step 1 in your workbook before diving into the prompts. It will save you hours of trial and error!<br><br>
-            To your success,<br>Kristan — Boss Mama Biz</em><br><br>
-            <button onclick="navigator.clipboard.writeText('Subject: 🎉 Your Download is Inside! (Plus a secret bonus)\\n\\nHey Mama! Thank you so much for claiming your digital product. Here is your direct download link to access your files: [PASTE_YOUR_LINK_HERE]\\n\\nQuick Tip: Start with Step 1 in your workbook before diving into the prompts. It will save you hours of trial and error!\\n\\nTo your success,\\nKristan — Boss Mama Biz'); if(typeof showToast==='function') showToast('📋 Email Draft Copied!')" style="background: rgba(232,50,122,0.2); border: 1px solid var(--primary); color: var(--primary); padding: 0.35rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.78rem; cursor: pointer;">📋 Copy Email Draft</button>`;
-        } else if (q.includes('stripe')) {
-            reply = "💳 <strong>Stripe Setup Guide:</strong><br>1. Log into your Stripe Dashboard at dashboard.stripe.com.<br>2. Click <em>More ➔ Payment Links</em>.<br>3. Create a link for $27 (or your price), copy the URL, and paste it into the Payment Links tab here!";
-        } else if (q.includes('price') || q.includes('charge')) {
-            reply = "🏷️ <strong>Pricing Recommendation:</strong><br>• Lead Magnet: <strong>$0 (Free)</strong><br>• Prompts Vault: <strong>$17</strong><br>• Core Guide: <strong>$27</strong><br>• Reels Content Pack: <strong>$50</strong><br>• Full PLR Bundle: <strong>$97</strong>";
-        } else if (q.includes('tiktok') || q.includes('hook')) {
-            reply = "📢 <strong>3 Viral Video Hooks for Your Product:</strong><br>1. <em>'If I had to restart my digital business from $0, I’d do this...'</em><br>2. <em>'3 passive income products you can launch this weekend...'</em><br>3. <em>'Stop trading hours for dollars. Here’s the 1-click blueprint...'</em>";
+    try {
+        const res = await fetch('/api/generate-ai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                system: `You are Trident AI, an elite 24/7 business co-pilot and mentor for digital creators and stay-at-home moms launching digital products. Give direct, warm, concise, and highly practical answers. Never tell users to 'go back to step 1' unless they specifically ask about step 1. If they ask 'is this correct', 'what about taxes', or ask follow-up questions, answer their specific question directly.`,
+                prompt: userText
+            })
+        });
+
+        const json = await res.json();
+        if (feed.contains(typingDiv)) feed.removeChild(typingDiv);
+
+        let reply = "";
+        if (json.success && json.data) {
+            const raw = typeof json.data === 'string' ? json.data : (json.data.text || json.data.response || json.data.answer || JSON.stringify(json.data));
+            reply = escapeHTML(raw).replace(/\n/g, '<br>');
         } else {
-            reply = `✨ <strong>Trident AI Response:</strong><br>Great question! For <em>${userText}</em>, I recommend starting with Step 1 in your Product Suite Planner. Keep it simple and focus on launching your free lead magnet first!`;
+            reply = getSmartFallbackReply(userText);
         }
 
-        aiDiv.innerHTML = `<strong style="color: var(--gold); display: block; font-size: 0.78rem; margin-bottom: 0.2rem;">🔱 Trident AI Co-Pilot</strong>${reply}`;
+        const aiDiv = document.createElement('div');
+        aiDiv.style.cssText = "background: rgba(255,255,255,0.04); border-radius: 12px; padding: 1rem; border-left: 4px solid var(--gold); max-width: 90%; color: #F5EEF5; font-size: 0.95rem; line-height: 1.55;";
+        aiDiv.innerHTML = `<strong style="color: var(--gold); display: block; font-size: 0.85rem; margin-bottom: 0.4rem;">🔱 Trident AI Co-Pilot</strong>${reply}`;
         feed.appendChild(aiDiv);
         feed.scrollTop = feed.scrollHeight;
-    }, 500);
+
+    } catch(err) {
+        if (feed.contains(typingDiv)) feed.removeChild(typingDiv);
+        const fallbackDiv = document.createElement('div');
+        fallbackDiv.style.cssText = "background: rgba(255,255,255,0.04); border-radius: 12px; padding: 1rem; border-left: 4px solid var(--gold); max-width: 90%; color: #F5EEF5; font-size: 0.95rem;";
+        fallbackDiv.innerHTML = `<strong style="color: var(--gold); display: block; font-size: 0.85rem; margin-bottom: 0.4rem;">🔱 Trident AI Co-Pilot</strong>${getSmartFallbackReply(userText)}`;
+        feed.appendChild(fallbackDiv);
+        feed.scrollTop = feed.scrollHeight;
+    }
+}
+
+function getSmartFallbackReply(userText) {
+    const q = userText.toLowerCase();
+    if (q.includes('tax') || q.includes('dropdown') || q.includes('category') || q.includes('taxable')) {
+        return `📊 <strong>Stripe Tax Dropdown Setup Guide:</strong><br><br>Under <strong>Tax Category</strong>, select <strong>"Nontaxable Digital Goods"</strong> or <strong>"Digital Goods - Ebooks & Downloads"</strong>.<br>Under <em>Collect Tax Automatically</em>, leave it set to <strong>No / Off</strong>. Click <strong>Create Link</strong>!`;
+    } else if (q.includes('is this correct') || q.includes('correct') || q.includes('right') || q.includes('good')) {
+        return `✅ <strong>Yes, that looks 100% correct!</strong><br><br>You're doing great! Copy the link or settings you created and save them directly in your dashboard. You are ready for the next step!`;
+    } else if (q.includes('description') || q.includes('copy') || q.includes('write')) {
+        return `✨ <strong>Ready-to-Use High-Converting Product Description:</strong><br><br><em>"Unlock the ultimate shortcut to creating, launching, and monetizing your digital products! Includes fillable workbooks, automated sales funnel templates, and 90+ days of viral content prompts."</em>`;
+    } else {
+        return `✨ <strong>Trident AI Response:</strong><br>Great question about <em>${escapeHTML(userText)}</em>! You are on the right track. Follow the step-by-step guidance above or ask me to draft custom copy or help with Stripe settings!`;
+    }
 }
 
 function dispatchPrioritySupportTicket(note = "General Help Request") {
@@ -1422,6 +1432,28 @@ function handleCopilotImageUpload(input) {
     };
     reader.readAsDataURL(file);
 }
+
+// Global Ctrl + V Clipboard Image Paste Listener for Co-Pilot
+document.addEventListener('paste', (e) => {
+    const drawer = document.getElementById('trident-copilot-drawer');
+    if (!drawer || drawer.style.display === 'none') return;
+
+    const items = (e.clipboardData || e.originalEvent?.clipboardData)?.items;
+    if (!items) return;
+
+    for (let item of items) {
+        if (item.type.indexOf('image') !== -1) {
+            e.preventDefault();
+            const blob = item.getAsFile();
+            const fakeInput = { files: [blob] };
+            handleCopilotImageUpload(fakeInput);
+            if (typeof showToast === 'function') {
+                showToast(`📸 Screenshot Pasted into Trident AI!`);
+            }
+            break;
+        }
+    }
+});
 
 window.toggleCopilotDrawer = toggleCopilotDrawer;
 window.askCopilotChip = askCopilotChip;
