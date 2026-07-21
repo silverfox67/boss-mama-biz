@@ -1292,9 +1292,28 @@ function openProductCoverModal(title = "Digital Product", price = "$27.00", tag 
     const priceEl = document.getElementById('cover-mockup-price');
     const tagEl = document.getElementById('cover-mockup-tag');
 
+    const imgWrap = document.getElementById('cover-mockup-img-wrap');
+    const imgEl = document.getElementById('cover-mockup-img');
+    const cssCard = document.getElementById('cover-mockup-card');
+
     if (titleEl) titleEl.textContent = title;
     if (priceEl) priceEl.textContent = price;
     if (tagEl) tagEl.textContent = tag;
+
+    // Check if custom 3D image render exists for product tier
+    const tLower = title.toLowerCase();
+    if (tLower.includes('reels') || tLower.includes('viral video') || tag.includes('Traffic Assets')) {
+        if (imgEl) imgEl.src = 'images/product4_reels_cover.png';
+        if (imgWrap) imgWrap.style.display = 'block';
+        if (cssCard) cssCard.style.display = 'none';
+    } else if (tLower.includes('plr') || tag.includes('DFY Inventory')) {
+        if (imgEl) imgEl.src = 'images/product5_plr_cover.png';
+        if (imgWrap) imgWrap.style.display = 'block';
+        if (cssCard) cssCard.style.display = 'none';
+    } else {
+        if (imgWrap) imgWrap.style.display = 'none';
+        if (cssCard) cssCard.style.display = 'flex';
+    }
 
     if (modal) modal.style.display = 'flex';
 }
