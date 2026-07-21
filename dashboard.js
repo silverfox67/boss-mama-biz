@@ -1263,6 +1263,21 @@ function sendCopilotMessage() {
 
         if (q.includes('human') || q.includes('support') || q.includes('issue') || q.includes('broken')) {
             reply = `🚨 <strong>Priority Support Ticket Escalation:</strong><br>Need priority technical help from Todd at Trident Website Design?<br><br>Click below to dispatch an urgent support alert straight to engineering:<br><button onclick="dispatchPrioritySupportTicket('${escapeHTML(userText)}')" style="background: linear-gradient(135deg, #dc2626 0%, #c9a84c 100%); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 800; margin-top: 0.5rem; cursor: pointer;">🚨 Send Priority Ticket to Todd</button>`;
+        } else if (q.includes('description') || q.includes('write') || q.includes('copy') || q.includes('summary') || q.includes('give me')) {
+            reply = `✨ <strong>Ready-to-Use High-Converting Product Description:</strong><br><br>
+            <em>"Unlock the ultimate shortcut to creating, launching, and monetizing your digital products! Designed specifically for creators and busy moms, this step-by-step master guide & resource vault gives you plug-and-play templates, proven sales copy, and 90+ days of viral content prompts so you can start generating digital income on full autopilot without trading hours for dollars."</em><br><br>
+            <strong>Included Highlights:</strong><br>
+            • 90+ Days of Content & Story Prompts<br>
+            • Fillable Step-by-Step Action Workbooks<br>
+            • Full Commercial Resale & PLR Rights License<br><br>
+            <button onclick="navigator.clipboard.writeText('Unlock the ultimate shortcut to creating, launching, and monetizing your digital products! Designed specifically for creators and busy moms, this step-by-step master guide & resource vault gives you plug-and-play templates, proven sales copy, and 90+ days of viral content prompts so you can start generating digital income on full autopilot without trading hours for dollars.'); if(typeof showToast==='function') showToast('📋 Description Copied to Clipboard!')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.35rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.78rem; cursor: pointer;">📋 Copy Description to Clipboard</button>`;
+        } else if (q.includes('email') || q.includes('drip') || q.includes('sequence') || q.includes('welcome')) {
+            reply = `📧 <strong>High-Converting Welcome Email Draft:</strong><br><br>
+            <strong>Subject:</strong> 🎉 Your Download is Inside! (Plus a secret bonus)<br><br>
+            <em>Hey Mama! Thank you so much for claiming your digital product. Here is your direct download link to access your files: [PASTE_YOUR_LINK_HERE]<br><br>
+            Quick Tip: Start with Step 1 in your workbook before diving into the prompts. It will save you hours of trial and error!<br><br>
+            To your success,<br>Kristan — Boss Mama Biz</em><br><br>
+            <button onclick="navigator.clipboard.writeText('Subject: 🎉 Your Download is Inside! (Plus a secret bonus)\\n\\nHey Mama! Thank you so much for claiming your digital product. Here is your direct download link to access your files: [PASTE_YOUR_LINK_HERE]\\n\\nQuick Tip: Start with Step 1 in your workbook before diving into the prompts. It will save you hours of trial and error!\\n\\nTo your success,\\nKristan — Boss Mama Biz'); if(typeof showToast==='function') showToast('📋 Email Draft Copied!')" style="background: rgba(232,50,122,0.2); border: 1px solid var(--primary); color: var(--primary); padding: 0.35rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.78rem; cursor: pointer;">📋 Copy Email Draft</button>`;
         } else if (q.includes('stripe')) {
             reply = "💳 <strong>Stripe Setup Guide:</strong><br>1. Log into your Stripe Dashboard at dashboard.stripe.com.<br>2. Click <em>More ➔ Payment Links</em>.<br>3. Create a link for $27 (or your price), copy the URL, and paste it into the Payment Links tab here!";
         } else if (q.includes('price') || q.includes('charge')) {
