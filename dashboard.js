@@ -2140,13 +2140,15 @@ function openAssetModal(idx) {
     document.getElementById('modal-asset-title').innerText = p.title;
     
     
-    if (!p.emails) {
+    if (!p.emails || p.emails.length < 7) {
         p.emails = [
-            { day: 0, title: "Instant Welcome", subject: `🎉 Welcome to ${p.title}`, body: `Here is your download link for ${p.title}...\\n\\nThanks for downloading!` },
-            { day: 1, title: "Nurture & Value", subject: `Secret Tip for ${p.title}`, body: `Here is a secret tip I discovered...\\n\\nUse this to get results faster.` },
-            { day: 2, title: "Story / Connection", subject: "Why I almost quit...", body: "I remember when I first started, I struggled a lot. But then I figured out this one method..." },
-            { day: 3, title: "Soft Pitch", subject: "Ready for the next step?", body: "If you liked the starter guide, you are going to love the full Masterclass. Here is a special discount..." },
-            { day: 4, title: "Hard Pitch / Scarcity", subject: "Closing soon...", body: "This is your last chance to grab the discount. Don't miss out!" }
+            { day: 0, title: "Instant Welcome", subject: `🎉 Welcome to ${p.title}`, body: `Here is your download link for ${p.title}...\n\nThanks for downloading!` },
+            { day: 1, title: "Nurture & Value", subject: `Secret Tip for ${p.title}`, body: `Here is a secret tip I discovered...\n\nUse this to get results faster.` },
+            { day: 2, title: "Story / Connection", subject: "Why I almost quit...", body: `I remember when I first started, I struggled a lot.\n\nBut then I figured out this one method...` },
+            { day: 3, title: "Value + Soft Pitch", subject: "Ready for the next step?", body: `If you liked the starter guide, you are going to love the full Masterclass.\n\nHere is a special discount...` },
+            { day: 4, title: "Case Study / Proof", subject: "How she did it...", body: `Check out these amazing results from someone who used the exact same system...\n\nYou can do this too.` },
+            { day: 5, title: "FAQ / Overcoming Objections", subject: "Is this for you?", body: `I get a lot of questions about whether this works for beginners.\n\nThe short answer is: YES.` },
+            { day: 6, title: "Hard Pitch / Scarcity", subject: "Closing soon...", body: `This is your last chance to grab the discount.\n\nDon't miss out!` }
         ];
         savedAssets[idx] = p;
         localStorage.setItem('bmb_saved_vault_assets', JSON.stringify(savedAssets));
