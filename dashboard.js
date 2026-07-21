@@ -163,11 +163,37 @@ const assetsForm     = document.getElementById('assets-form');
 const assetsSubmitBtn = document.getElementById('assets-submit-btn');
 
 if (assetsForm) {
+    // Auto-restore saved data on load
+    try {
+        const savedData = localStorage.getItem('bmb_saved_assets_form_data');
+        if (savedData) {
+            const parsed = JSON.parse(savedData);
+            Object.keys(parsed).forEach(key => {
+                const el = assetsForm.elements[key];
+                if (el && parsed[key]) {
+                    el.value = parsed[key];
+                }
+            });
+        }
+    } catch (err) {
+        console.warn('Could not restore assets form data:', err);
+    }
+
+    // Auto-save on every input stroke
+    assetsForm.addEventListener('input', () => {
+        const formData = new FormData(assetsForm);
+        const data = Object.fromEntries(formData.entries());
+        localStorage.setItem('bmb_saved_assets_form_data', JSON.stringify(data));
+    });
+
     assetsForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const formData = new FormData(assetsForm);
         const data = Object.fromEntries(formData.entries());
+
+        // Always save to localStorage on submit
+        localStorage.setItem('bmb_saved_assets_form_data', JSON.stringify(data));
 
         assetsSubmitBtn.textContent = '📤 Sending...';
         assetsSubmitBtn.disabled = true;
