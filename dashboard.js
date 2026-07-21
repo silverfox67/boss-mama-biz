@@ -1327,6 +1327,12 @@ function saveProductToVault(index) {
 
     if (!plan || !plan.suite || !plan.suite[index]) return;
     const product = plan.suite[index];
+    
+    // Always grab the freshest link data directly from the UI inputs!
+    const driveInput = document.getElementById(`hub-drive-${index}`);
+    const stripeInput = document.getElementById(`hub-stripe-${index}`);
+    if (driveInput) product.driveLink = driveInput.value;
+    if (stripeInput) product.stripeLink = stripeInput.value;
 
     let savedAssets = [];
     try {
@@ -2054,8 +2060,8 @@ function renderAssetsVaultList() {
     const listHtml = savedAssets.map((p, idx) => {
         const date = p.savedAt ? new Date(p.savedAt).toLocaleDateString() : 'Just now';
         return `
-            <div onclick="openAssetModal(${idx})" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 0.8rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(232,50,122,0.1)'; this.style.borderColor='var(--primary)';" onmouseout="this.style.background='rgba(0,0,0,0.3)'; this.style.borderColor='rgba(255,255,255,0.05)';">
-                <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 0.8rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(232,50,122,0.1)'; this.style.borderColor='var(--primary)';" onmouseout="this.style.background='rgba(0,0,0,0.3)'; this.style.borderColor='rgba(255,255,255,0.05)';">
+                <div style="display: flex; align-items: center; gap: 1rem; cursor: pointer;" onclick="openAssetModal(${idx})">
                     <span style="color: var(--text-muted); font-weight: 800; font-size: 1.1rem; width: 20px;">${idx + 1}.</span>
                     <span style="font-size: 1.2rem;">📄</span>
                     <div>
@@ -2063,7 +2069,9 @@ function renderAssetsVaultList() {
                         <span style="color: var(--text-muted); font-size: 0.8rem;">Saved: ${date}</span>
                     </div>
                 </div>
-                <div style="color: var(--primary); font-weight: bold; font-size: 0.85rem;">View Assets ➔</div>
+                <div style="display: flex; align-items: center; gap: 1rem; cursor: pointer; flex: 1;" onclick="openAssetModal(${idx})">
+                    <button onclick="deleteAssetFromVault(${idx}, event)" style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #ef4444; border-radius: 6px; padding: 0.4rem 0.8rem; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='rgba(239,68,68,0.1)'">🗑️ Delete</button>
+                    <div onclick="openAssetModal(${idx})" style="color: var(--primary); cursor: pointer; font-weight: bold; font-size: 0.85rem;">View Assets ➔</div>
             </div>
         `;
     }).join('');
@@ -2179,3 +2187,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
+window.deleteAssetFromVault = function(idx, event) {
+    if (event) event.stopPropagation();
+    if(confirm("Are you sure you want to delete this product from your Vault?")) {
+        let savedAssets = [];
+        try {
+            const existing = localStorage.getItem('bmb_saved_vault_assets');
+            if (existing) savedAssets = JSON.parse(existing);
+        } catch(e) {}
+        
+        savedAssets.splice(idx, 1);
+        localStorage.setItem('bmb_saved_vault_assets', JSON.stringify(savedAssets));
+        renderAssetsVaultList();
+        if (typeof showToast === 'function') showToast("🗑️ Asset deleted from Vault.");
+    }
+}
