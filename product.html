@@ -260,14 +260,32 @@
 
     <script>
         // Product Catalogue
+        // Product Catalogue Database
         const PRODUCTS_DB = {
+            "vault-0": {
+                id: "vault-0",
+                name: "The Creative Content Vault",
+                tagline: "90+ Days of Scroll-Stopping Prompts & Story Hooks for Busy Moms",
+                description: "Never wonder what to post again. 90+ days of scroll-stopping hooks, storytelling prompts, and high-converting calls-to-action designed to build your email list on autopilot.",
+                price: "FREE",
+                checkoutUrl: "https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view",
+                image: "images/product1_vault_cover.png",
+                features: [
+                    "90+ days of scroll-stopping prompt templates",
+                    "Hooks, storytelling & sales content ideas",
+                    "Instant PDF delivery directly to your inbox"
+                ],
+                bonus: "Exclusive VIP Email Sequence Access"
+            },
+            "1": { id: "vault-0" },
             "create-27": {
-                name: "Create Your First Digital Product",
+                id: "create-27",
+                name: "Create & Sell Your First Product Guide",
                 tagline: "Go from idea to income in 6 simple steps. Learn how to format, launch, and drive traffic on autopilot.",
                 description: "This comprehensive workbook and guide cuts through the noise. Kristan walks you through the exact blueprint to select your niche, structure your PDF or spreadsheet, set up a secure checkout system, and launch with zero upfront budget.",
                 price: "$27.00",
                 checkoutUrl: "https://buy.stripe.com/3cI3cnbmJ7zA5rMgAuaIM01",
-                image: "images/own-create.png",
+                image: "images/product3_guide_cover.png",
                 features: [
                     "Choose a profitable topic that sells instantly",
                     "Format & design professionally in Canva",
@@ -276,13 +294,15 @@
                 ],
                 bonus: "Includes the flagship 500+ ChatGPT Prompts Guide ($17 value) completely FREE!"
             },
+            "2": { id: "create-27" },
             "prompts-17": {
+                id: "prompts-17",
                 name: "500+ ChatGPT Prompts Guide",
                 tagline: "The ultimate AI cheat sheet for digital marketers. Done-for-you prompts for content, emails, & sales.",
                 description: "Stop staring at a blank screen. This prompt bank contains 500+ highly engineered copy-paste prompts designed specifically for content writing, email sequences, landing page sales letters, and social media hooks.",
                 price: "$17.00",
                 checkoutUrl: "https://buy.stripe.com/5kQ28jcqNaLM1bwdoiaIM00",
-                image: "images/own-prompts.png",
+                image: "images/product2_prompts_cover.png",
                 features: [
                     "High-converting hook templates by niche",
                     "Email drip welcome sequence generators",
@@ -290,60 +310,97 @@
                     "Includes legal resale license (rebrand & sell it yourself!)"
                 ],
                 bonus: "Includes lifetime updates and future prompt library additions!"
-            }
+            },
+            "3": { id: "prompts-17" },
+            "reels-50": {
+                id: "reels-50",
+                name: "30-Day Viral Video & Reels Content Pack",
+                tagline: "Faceless B-Roll concepts, video scripts, and viral hooks designed for instant organic reach.",
+                description: "Dominate Instagram Reels & TikTok without spending hours on camera. Get 30 done-for-you video scripts, aesthetic stock footage suggestions, and caption frameworks engineered for sales.",
+                price: "$50.00",
+                checkoutUrl: "https://bossmamabiz.com/admin",
+                image: "images/product4_reels_cover.png",
+                features: [
+                    "30 faceless Reel & TikTok scripts with visual cues",
+                    "High-converting call-to-action caption templates",
+                    "Aesthetic B-Roll stock footage curation guide",
+                    "Pinterest Pin title & graphic tag generator bonus"
+                ],
+                bonus: "Includes Pinterest Pin Title & Keyword Tag Generator"
+            },
+            "4": { id: "reels-50" },
+            "plr-50": {
+                id: "plr-50",
+                name: "Complete DFY PLR Digital Assets Bundle",
+                tagline: "Full commercial rights package — rebrand, rename, and sell these exact assets as your own!",
+                description: "Unlock immediate digital inventory with full Private Label Rights (PLR). Get fully editable Canva templates, Google Doc source files, and sales copy to start selling digital products under your own brand today.",
+                price: "$50.00",
+                checkoutUrl: "https://bossmamabiz.com/vault/plr-bundle",
+                image: "images/product5_plr_cover.png",
+                features: [
+                    "Fully editable Canva template source links",
+                    "Raw Word & Google Doc source files",
+                    "Full Commercial PLR Resell Rights Certificate",
+                    "High-converting sales page copy template"
+                ],
+                bonus: "Includes Commercial Resell Certificate & License Rights"
+            },
+            "5": { id: "plr-50" }
         };
 
         // Load Content Dynamically
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const productId = params.get('id') || 'create-27';
-            
-            // Get configuration from query params or fallback to local storage
-            let config = {};
+            let rawId = params.get('id') || 'create-27';
+
+            let targetProduct = PRODUCTS_DB[rawId];
+            if (targetProduct && targetProduct.id) {
+                targetProduct = PRODUCTS_DB[targetProduct.id];
+            }
+            if (!targetProduct) targetProduct = PRODUCTS_DB["create-27"];
+
+            // Check localStorage for saved custom stripe links
             try {
-                const stored = localStorage.getItem(`bmb_landing_config_${productId}`);
-                if (stored) config = JSON.parse(stored);
-            } catch (_) {}
-
-            // Read options with query params overriding local storage
-            const showTestimonials = params.has('showTestimonials') ? (params.get('showTestimonials') === 'true') : (config.showTestimonials !== false);
-            const showFAQ = params.has('showFAQ') ? (params.get('showFAQ') === 'true') : (config.showFAQ !== false);
-            const showBonuses = params.has('showBonuses') ? (params.get('showBonuses') === 'true') : (config.showBonuses !== false);
-            const customHook = params.get('hook') || config.customHook || '';
-
-            const product = PRODUCTS_DB[productId];
-            if (!product) return;
+                const savedForm = localStorage.getItem('bmb_assets_form');
+                if (savedForm) {
+                    const parsed = JSON.parse(savedForm);
+                    if (targetProduct.id === 'create-27' && parsed['guide-stripe']) {
+                        targetProduct.checkoutUrl = parsed['guide-stripe'];
+                    } else if (targetProduct.id === 'prompts-17' && parsed['academy-stripe']) {
+                        targetProduct.checkoutUrl = parsed['academy-stripe'];
+                    }
+                }
+            } catch(e) {}
 
             // Render details
-            document.getElementById('page-title').textContent = `${product.name} | Boss Mama Biz`;
-            document.getElementById('product-name').textContent = product.name;
-            document.getElementById('product-tagline').textContent = product.tagline;
-            document.getElementById('product-description').textContent = product.description;
-            document.getElementById('product-price').textContent = product.price;
-            document.getElementById('product-image').src = product.image;
-            document.getElementById('product-image').alt = product.name;
+            document.getElementById('page-title').textContent = `${targetProduct.name} | Boss Mama Biz`;
+            document.getElementById('product-name').textContent = targetProduct.name;
+            document.getElementById('product-tagline').textContent = targetProduct.tagline;
+            document.getElementById('product-description').textContent = targetProduct.description;
+            document.getElementById('product-price').textContent = targetProduct.price;
+            document.getElementById('product-image').src = targetProduct.image;
+            document.getElementById('product-image').alt = targetProduct.name;
             
             const checkoutLink = document.getElementById('checkout-link');
             if (checkoutLink) {
-                checkoutLink.href = product.checkoutUrl;
+                checkoutLink.href = targetProduct.checkoutUrl;
+                if (targetProduct.price === 'FREE') {
+                    checkoutLink.textContent = "Claim Free Vault Access Now →";
+                } else {
+                    checkoutLink.textContent = `Get Instant Access (${targetProduct.price}) →`;
+                }
             }
 
             // Hero Hook Customization
             const hookEl = document.getElementById('landing-hero-hook');
             if (hookEl) {
-                if (customHook) {
-                    hookEl.textContent = customHook;
-                } else {
-                    hookEl.textContent = productId === 'create-27' 
-                        ? "Build systems that work when you can't" 
-                        : "Put your digital writing on autopilot";
-                }
+                hookEl.textContent = targetProduct.tagline;
             }
 
             // Render Features
             const featuresContainer = document.getElementById('features-container');
             if (featuresContainer) {
-                featuresContainer.innerHTML = product.features.map(f => `
+                featuresContainer.innerHTML = targetProduct.features.map(f => `
                     <li><i class="ph-fill ph-check-circle"></i><span>${f}</span></li>
                 `).join('');
             }
@@ -351,22 +408,17 @@
             // Toggles
             const bonusSec = document.getElementById('bonus-section');
             if (bonusSec) {
-                if (showBonuses) {
-                    bonusSec.style.display = 'block';
-                    document.getElementById('bonus-details').textContent = product.bonus;
-                } else {
-                    bonusSec.style.display = 'none';
-                }
+                bonusSec.style.display = 'block';
+                document.getElementById('bonus-details').textContent = targetProduct.bonus;
             }
-
             const testimonialsSec = document.getElementById('testimonials-section');
             if (testimonialsSec) {
-                testimonialsSec.style.display = showTestimonials ? 'block' : 'none';
+                testimonialsSec.style.display = 'block';
             }
 
             const faqSec = document.getElementById('faq-section');
             if (faqSec) {
-                faqSec.style.display = showFAQ ? 'block' : 'none';
+                faqSec.style.display = 'block';
             }
         });
 
