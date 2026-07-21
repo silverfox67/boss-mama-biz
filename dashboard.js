@@ -982,41 +982,104 @@ async function triggerAISuiteGeneration() {
             brandTone
         });
 
-        // Render 5 Product Suite Cards into container
-        const container = document.getElementById('planner-suite-cards-container');
-        if (container && plan && plan.suite) {
-            container.innerHTML = plan.suite.map(item => `
-                <div class="glass-card" style="padding: 1.8rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(232,50,122,0.2); border-radius: 14px;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
-                        <div>
-                            <span style="background: rgba(232,50,122,0.1); border: 1px solid var(--primary); color: var(--primary); font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 12px; text-transform: uppercase;">Product ${item.tier} · ${item.price === 0 ? 'FREE LEAD MAGNET' : '$' + item.price + '.00 OFFER'}</span>
-                            <h3 style="margin: 0.5rem 0 0.2rem 0; font-family: 'Cinzel', serif; color: #fff;">${escapeHTML(item.title)}</h3>
-                            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">${escapeHTML(item.description)}</p>
-                        </div>
-                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                            <button onclick="openProductCoverModal('${escapeHTML(item.title)}', '${item.price === 0 ? 'FREE' : '$' + item.price + '.00'}', '${escapeHTML(item.type)}')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">🖼️ Preview 3D Cover</button>
-                            <span style="background: #2563eb; color: #fff; font-size: 0.8rem; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 8px;">💳 Stripe Active</span>
-                        </div>
-                    </div>
+        // Save plan to localStorage for permanent persistence on refresh
+        localStorage.setItem('bmb_generated_planner_suite', JSON.stringify(plan));
+        renderPlannerSuiteCards(plan);
 
-                    <!-- Deliverables & Sequence Bar -->
-                    <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1rem; margin-top: 1rem;">
-                        <h4 style="margin: 0 0 0.5rem 0; font-size: 0.85rem; color: var(--gold);">📦 Included Core Deliverables:</h4>
-                        <ul style="margin: 0 0 1rem 1.2rem; color: var(--text-main); font-size: 0.85rem;">
-                            ${item.deliverables.map(d => `<li>${escapeHTML(d)}</li>`).join('')}
-                        </ul>
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.05);">
-                            <span style="font-size: 0.78rem; color: var(--text-muted);">📧 Email Drip Sequence:</span>
-                            <div style="display: flex; gap: 0.4rem;">
-                                <button onclick="openEmailModal('🎉 Welcome to ${escapeHTML(item.title)}', 'Here is your download link...', 'Day 0 Instant Welcome')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 0</button>
-                                <button onclick="openEmailModal('Secret Tip for ${escapeHTML(item.title)}', 'Here is step 1...', 'Day 1 Nurture')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 1</button>
-                                <button onclick="openEmailModal('Case Study: ${escapeHTML(item.title)}', 'See how this works...', 'Day 3 Offer')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 3</button>
-                            </div>
+        // Update Progress Bar to 50% and turn Step 1 GREEN ✅
+        const progressBar = document.getElementById('setup-progress-bar');
+        const badge = document.getElementById('progress-percent-badge');
+        const stepStatusText = document.getElementById('progress-current-step');
+        const step1Node = document.querySelector('.setup-step-card');
+
+        if (progressBar) progressBar.style.width = '50%';
+        if (badge) {
+            badge.textContent = '50% COMPLETE';
+            badge.style.background = '#22c55e';
+            badge.style.color = '#fff';
+        }
+        if (stepStatusText) {
+            stepStatusText.innerHTML = 'Current Step: <strong>Step 2 of 4 — Customize Store & Funnel</strong>';
+        }
+        if (step1Node) {
+            step1Node.style.background = 'rgba(34, 197, 94, 0.2)';
+            step1Node.style.borderColor = '#22c55e';
+            step1Node.innerHTML = `<span style="font-size: 0.75rem; font-weight: 700; color: #22c55e; display: block;">✅ STEP 1 DONE</span><span style="font-size: 0.8rem; color: #fff; font-weight: 600;">⚡ Product Suite</span>`;
+        }
+
+        if (typeof showToast === 'function') {
+            showToast(`✨ Generated 5-Product Suite for ${nicheTopic}!`);
+        } else {
+            alert(`✨ Trident Flow AI generated 5 products for ${nicheTopic}!`);
+        }
+
+        console.log("Generated Suite Plan:", plan);
+    } catch (err) {
+        console.error("AI Generation error:", err);
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = `<span>⚡ Generate Complete 5-Product Suite Plan</span>`;
+        }
+    }
+}
+
+function renderPlannerSuiteCards(plan) {
+    const container = document.getElementById('planner-suite-cards-container');
+    if (container && plan && plan.suite) {
+        container.innerHTML = plan.suite.map(item => `
+            <div class="glass-card" style="padding: 1.8rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(232,50,122,0.2); border-radius: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <span style="background: rgba(232,50,122,0.1); border: 1px solid var(--primary); color: var(--primary); font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 12px; text-transform: uppercase;">Product ${item.tier} · ${item.price === 0 ? 'FREE LEAD MAGNET' : '$' + item.price + '.00 OFFER'}</span>
+                        <h3 style="margin: 0.5rem 0 0.2rem 0; font-family: 'Cinzel', serif; color: #fff;">${escapeHTML(item.title)}</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">${escapeHTML(item.description)}</p>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button onclick="openProductCoverModal('${escapeHTML(item.title)}', '${item.price === 0 ? 'FREE' : '$' + item.price + '.00'}', '${escapeHTML(item.type)}')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">🖼️ Preview 3D Cover</button>
+                        <span style="background: #2563eb; color: #fff; font-size: 0.8rem; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 8px;">💳 Stripe Active</span>
+                    </div>
+                </div>
+
+                <!-- Deliverables & Sequence Bar -->
+                <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1rem; margin-top: 1rem;">
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.85rem; color: var(--gold);">📦 Included Core Deliverables:</h4>
+                    <ul style="margin: 0 0 1rem 1.2rem; color: var(--text-main); font-size: 0.85rem;">
+                        ${item.deliverables.map(d => `<li>${escapeHTML(d)}</li>`).join('')}
+                    </ul>
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                        <span style="font-size: 0.78rem; color: var(--text-muted);">📧 Email Drip Sequence:</span>
+                        <div style="display: flex; gap: 0.4rem;">
+                            <button onclick="openEmailModal('🎉 Welcome to ${escapeHTML(item.title)}', 'Here is your download link...', 'Day 0 Instant Welcome')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 0</button>
+                            <button onclick="openEmailModal('Secret Tip for ${escapeHTML(item.title)}', 'Here is step 1...', 'Day 1 Nurture')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 1</button>
+                            <button onclick="openEmailModal('Case Study: ${escapeHTML(item.title)}', 'See how this works...', 'Day 3 Offer')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 3</button>
                         </div>
                     </div>
                 </div>
-            `).join('');
+            </div>
+        `).join('');
+    }
+}
+
+// Auto-restore saved planner cards on page load
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        const savedPlan = localStorage.getItem('bmb_generated_planner_suite');
+        if (savedPlan) {
+            renderPlannerSuiteCards(JSON.parse(savedPlan));
+        } else if (window.TridentGenerator) {
+            window.TridentGenerator.generateProductPlan({
+                targetAudience: "Stay-at-Home Moms & Creators",
+                nicheTopic: "Digital Planners & Side Hustles",
+                brandTone: "Empowering & Warm"
+            }).then(defaultPlan => {
+                renderPlannerSuiteCards(defaultPlan);
+            });
         }
+    } catch(e) {
+        console.warn("Planner restore error:", e);
+    }
+});
 
         // Update Progress Bar to 50% and turn Step 1 GREEN ✅
         const progressBar = document.getElementById('setup-progress-bar');

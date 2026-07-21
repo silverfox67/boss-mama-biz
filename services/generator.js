@@ -59,12 +59,16 @@ async function generateProductPlan({ targetAudience = "Digital Creators", nicheT
             },
             {
                 tier: 3,
-                title: `The Ultimate ${nicheTopic} Master Blueprint`,
+                title: `Create Your First Digital Product (In 6 Simple Steps)`,
                 price: 27,
                 type: "Core Entry Product",
-                description: `Step-by-step digital guide teaching ${targetAudience} how to master ${nicheTopic} without overwhelm.`,
-                deliverables: ["45-Page Comprehensive PDF Guide", "Fillable Action Workbooks", "Resource & Tool Directory"],
-                bonus: "Lifetime Access to Future Updates"
+                description: `Go from idea to income in 6 easy steps. Includes the complete 500+ ChatGPT Prompts guide ($17 Value) FREE as a special launch bundle!`,
+                deliverables: [
+                    `Choose your idea & create your product`,
+                    `Set it up, launch it, get traffic`,
+                    `FREE BONUS: 500+ Prompts Guide ($17 value)`
+                ],
+                bonus: "500+ ChatGPT Prompts Guide ($17 Value)"
             },
             {
                 tier: 4,
