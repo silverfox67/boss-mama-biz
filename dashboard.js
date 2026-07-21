@@ -1302,10 +1302,16 @@ function renderPlannerSuiteCards(plan) {
                 </div>
 
                 <!-- Action Buttons Moved to Bottom -->
-                <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.2rem;">
+                <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.2rem; align-items: center;">
                     <button onclick="openProductCoverModal('${escapeHTML(item.title)}', '${item.price === 0 ? 'FREE' : '$' + item.price + '.00'}', '${escapeHTML(item.type)}')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">🖼️ Preview 3D Cover</button>
                     <a href="product.html?id=${item.tier}" target="_blank" style="background: rgba(232,50,122,0.2); border: 1px solid var(--primary); color: var(--primary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;">🌐 View Sales Page</a>
                     <button onclick="${item.price === 0 ? "alert('🎁 Free Lead Magnet — Delivered automatically via Brevo email!')" : `openStripeAISetupGuide('${escapeHTML(item.title)}', '$${item.price}.00')`}" style="background: #2563eb; color: #fff; border: none; font-size: 0.85rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">💳 ${item.price === 0 ? 'Free (No Stripe)' : 'Setup Stripe'}</button>
+                    
+                    ${(item.emails && item.emails.length > 3) 
+                        ? `<button id="hub-email-btn-${idx}" onclick="openHubAssetPreview(${idx})" style="background: rgba(74,222,128,0.2); border: 1px solid #4ade80; color: #4ade80; font-size: 0.85rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">✅ View / Edit Emails</button>`
+                        : `<button id="hub-email-btn-${idx}" onclick="triggerAIEmailSequence('${escapeHTML(item.title)}', '${escapeHTML(plan.tone || 'warm')}', ${idx})" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); border: none; color: #fff; font-size: 0.85rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">🤖 AI: Write Emails</button>`
+                    }
+
                     <button onclick="saveProductToVault(${idx})" style="background: rgba(74,222,128,0.2); border: 1px solid #4ade80; color: #4ade80; font-size: 0.85rem; font-weight: 800; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; margin-left: auto;">📤 Save to Assets Vault</button>
                 </div>
             </div>
