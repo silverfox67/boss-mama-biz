@@ -1341,12 +1341,15 @@ function saveProductToVault(index) {
     } catch(e) {}
 
     // Check if already saved
-    const exists = savedAssets.find(a => a.title === product.title);
-    if (!exists) {
+    const existingIndex = savedAssets.findIndex(a => a.title === product.title);
+    if (existingIndex === -1) {
         product.savedAt = new Date().toISOString();
         savedAssets.push(product);
-        localStorage.setItem('bmb_saved_vault_assets', JSON.stringify(savedAssets));
+    } else {
+        savedAssets[existingIndex].driveLink = product.driveLink;
+        savedAssets[existingIndex].stripeLink = product.stripeLink;
     }
+    localStorage.setItem('bmb_saved_vault_assets', JSON.stringify(savedAssets));
 
     // Render the new list UI
     if (typeof renderAssetsVaultList === 'function') {
