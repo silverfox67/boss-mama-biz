@@ -2139,12 +2139,8 @@ function openAssetModal(idx) {
     
     if (!p.emails) {
         p.emails = [
-            { day: 0, title: "Instant Welcome", subject: `🎉 Welcome to ${p.title}`, body: `Here is your download link for ${p.title}...
-
-Thanks for downloading!` },
-            { day: 1, title: "Nurture & Value", subject: `Secret Tip for ${p.title}`, body: "Here is a secret tip I discovered...
-
-Use this to get results faster." },
+            { day: 0, title: "Instant Welcome", subject: `🎉 Welcome to ${p.title}`, body: `Here is your download link for ${p.title}...\\n\\nThanks for downloading!` },
+            { day: 1, title: "Nurture & Value", subject: `Secret Tip for ${p.title}`, body: `Here is a secret tip I discovered...\\n\\nUse this to get results faster.` },
             { day: 2, title: "Story / Connection", subject: "Why I almost quit...", body: "I remember when I first started, I struggled a lot. But then I figured out this one method..." },
             { day: 3, title: "Soft Pitch", subject: "Ready for the next step?", body: "If you liked the starter guide, you are going to love the full Masterclass. Here is a special discount..." },
             { day: 4, title: "Hard Pitch / Scarcity", subject: "Closing soon...", body: "This is your last chance to grab the discount. Don't miss out!" }
@@ -2167,8 +2163,7 @@ Use this to get results faster." },
                 </div>
                 <div style="display: flex; gap: 0.5rem;">
                     <button onclick="editVaultEmail(${idx}, ${emailIdx})" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📝 View / Edit</button>
-                    <button onclick="copyToClipboard('${em.subject}\n\n${em.body.replace(/
-/g, '\n')}')" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy</button>
+                    <button onclick="copyToClipboard(decodeURIComponent('${encodeURIComponent(em.subject + '\\n\\n' + em.body)}'))" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy</button>
                 </div>
             </div>
         `;
