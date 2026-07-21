@@ -2060,8 +2060,10 @@ function renderAssetsVaultList() {
     const listHtml = savedAssets.map((p, idx) => {
         const date = p.savedAt ? new Date(p.savedAt).toLocaleDateString() : 'Just now';
         return `
-            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 0.8rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(232,50,122,0.1)'; this.style.borderColor='var(--primary)';" onmouseout="this.style.background='rgba(0,0,0,0.3)'; this.style.borderColor='rgba(255,255,255,0.05)';">
-                <div style="display: flex; align-items: center; gap: 1rem; cursor: pointer;" onclick="openAssetModal(${idx})">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 0.8rem; transition: all 0.2s;" onmouseover="this.style.background='rgba(232,50,122,0.1)'; this.style.borderColor='var(--primary)';" onmouseout="this.style.background='rgba(0,0,0,0.3)'; this.style.borderColor='rgba(255,255,255,0.05)';">
+                
+                <!-- Left Side: Title -->
+                <div style="display: flex; align-items: center; gap: 1rem; cursor: pointer; flex: 1;" onclick="openAssetModal(${idx})">
                     <span style="color: var(--text-muted); font-weight: 800; font-size: 1.1rem; width: 20px;">${idx + 1}.</span>
                     <span style="font-size: 1.2rem;">📄</span>
                     <div>
@@ -2069,9 +2071,13 @@ function renderAssetsVaultList() {
                         <span style="color: var(--text-muted); font-size: 0.8rem;">Saved: ${date}</span>
                     </div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 1rem; cursor: pointer; flex: 1;" onclick="openAssetModal(${idx})">
+                
+                <!-- Right Side: Actions -->
+                <div style="display: flex; align-items: center; gap: 1rem;">
                     <button onclick="deleteAssetFromVault(${idx}, event)" style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #ef4444; border-radius: 6px; padding: 0.4rem 0.8rem; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='rgba(239,68,68,0.1)'">🗑️ Delete</button>
                     <div onclick="openAssetModal(${idx})" style="color: var(--primary); cursor: pointer; font-weight: bold; font-size: 0.85rem;">View Assets ➔</div>
+                </div>
+                
             </div>
         `;
     }).join('');
