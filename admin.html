@@ -62,61 +62,63 @@
 
     <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="sidebar-logo" style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; padding: 1.2rem 1rem; text-align: center;">
-            <img src="images/trident_flow_ai_logo.png" alt="Trident Flow AI" style="max-width: 145px; height: auto; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
-            <span class="sidebar-logo-text" style="font-size: 0.8rem; letter-spacing: 2px; color: var(--gold); margin-top: 0.2rem;">BOSS MAMA BIZ</span>
-            <span class="sidebar-logo-sub" style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">COMMAND CENTER</span>
+        <div class="sidebar-logo" style="padding: 1.2rem 1rem; text-align: center;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0.4rem; margin-bottom: 0.3rem;">
+                <span style="font-size: 1.5rem; color: var(--gold);">🔱</span>
+                <span style="font-family: 'Cinzel', serif; font-weight: 800; font-size: 1.15rem; color: #fff; letter-spacing: 1.5px;">BOSS MAMA BIZ</span>
+            </div>
+            <span class="sidebar-logo-sub" style="font-size: 0.65rem; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; display: block;">COMMAND CENTER</span>
         </div>
         <nav class="sidebar-nav" style="gap: 0.15rem;">
             <a href="#" class="nav-item active" data-section="overview">
-                <span class="nav-icon">📊</span>
-                <span>Overview</span>
+                <span class="nav-icon">👋</span>
+                <span>Welcome &amp; Overview</span>
             </a>
             
             <hr style="border:0; border-top: 1px solid rgba(255,255,255,0.08); margin: 0.6rem 0.9rem;">
 
             <a href="#" class="nav-item" data-section="planner">
-                <span class="nav-icon">🗺️</span>
-                <span>Product Planner</span>
+                <span class="nav-icon">🚀</span>
+                <span>Step 1: Production Hub</span>
             </a>
             
-            <a href="#" class="nav-item urgent" data-section="assets">
-                <span class="nav-icon">📋</span>
-                <span>Products</span>
-                <span class="nav-badge">!</span>
+            <a href="#" class="nav-item" data-section="email-seq">
+                <span class="nav-icon">📧</span>
+                <span>Step 2: Email Automations</span>
             </a>
-            <a href="#" class="nav-item" data-section="funnels">
-                <span class="nav-icon">🔁</span>
-                <span>Sales Funnels</span>
+
+            <a href="#" class="nav-item" data-section="traffic">
+                <span class="nav-icon">📱</span>
+                <span>Step 3: Traffic &amp; Social Engine</span>
             </a>
+
             <a href="#" class="nav-item" data-section="leads">
-                <span class="nav-icon">👥</span>
-                <span>Leads</span>
+                <span class="nav-icon">📊</span>
+                <span>Step 4: Dashboard &amp; Analytics</span>
             </a>
             
             <hr style="border:0; border-top: 1px solid rgba(255,255,255,0.08); margin: 0.6rem 0.9rem;">
-            
 
             <a href="#" class="nav-item" data-section="site-assets">
                 <span class="nav-icon">📁</span>
-                <span>Site Assets</span>
+                <span>Asset Vault</span>
             </a>
             <a href="#" class="nav-item" data-section="improvements">
                 <span class="nav-icon">🛠️</span>
-                <span>Site Improvements</span>
+                <span>Trident Support Insights</span>
             </a>
-            <a href="#" class="nav-item" data-section="links">
-                <span class="nav-icon">⚡</span>
-                <span>Vault</span>
-            </a>
+        </nav>
             
             <hr style="border:0; border-top: 1px solid rgba(255,255,255,0.08); margin: 0.6rem 0.9rem; margin-bottom: 0.8rem;">
 
-        </nav>
-        <div class="sidebar-footer">
-            <a href="/" class="sidebar-back-link">← Back to Website</a>
-            <a href="https://tridentflowai.com" target="_blank" class="trident-flow-brand" style="display: flex; align-items: center; justify-content: center; margin-top: 0.6rem; text-decoration: none;">
-                <img src="images/trident_flow_ai_logo.png" alt="Powered by Trident Flow AI" style="height: 32px; width: auto; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));">
+        <div class="sidebar-footer" style="padding: 1rem 0.5rem; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; background: transparent;">
+            <a href="/" class="sidebar-back-link" style="font-size: 0.8rem; color: var(--text-muted); text-decoration: none; display: block; margin-bottom: 0.6rem;">← Back to Website</a>
+            <a href="https://tridentflowai.com" target="_blank" class="trident-flow-brand" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; text-decoration: none; background: transparent; padding: 0.3rem 0.6rem; border-radius: 8px;">
+                <span style="font-size: 1.1rem;">🔱</span>
+                <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 500;">Powered by</span>
+                <span style="font-size: 0.88rem; font-weight: 800; color: #ffffff; letter-spacing: 0.5px;">TRIDENT</span>
+                <span style="font-size: 0.88rem; font-weight: 800; color: #D01C1C; letter-spacing: 0.5px;">FLOW</span>
+                <span style="background: linear-gradient(135deg, #F5BA23 0%, #c9a84c 100%); color: #000; font-weight: 900; font-size: 0.68rem; padding: 0.1rem 0.4rem; border-radius: 5px; text-transform: uppercase; letter-spacing: 0.5px;">AI</span>
             </a>
         </div>
     </aside>
@@ -159,65 +161,74 @@
             </div>
         </div>
 
-        <!-- ── OVERVIEW ── -->
+        <!-- ── 👋 WELCOME & QUICK-START OVERVIEW ── -->
         <section id="section-overview" class="dash-section active">
-            <div class="section-header">
-                <h1>Welcome back, Kristan 👑</h1>
-                <p>Here's where your business stands today.</p>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-icon">👥</span>
-                    <div class="stat-value">—</div>
-                    <div class="stat-label">Total Subscribers</div>
-                    <div class="stat-sub"><a href="https://app.brevo.com" target="_blank">View in Brevo →</a></div>
+            <div class="section-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h1 style="font-family: 'Cinzel', serif; font-size: 2rem; color: #fff; margin-bottom: 0.3rem;">Welcome back, Kristan 👑</h1>
+                    <p style="color: var(--text-muted); font-size: 1rem;">Here is your step-by-step launch guide and business roadmap.</p>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-icon">🔁</span>
-                    <div class="stat-value">1 / 4</div>
-                    <div class="stat-label">Funnels Live</div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-icon">📦</span>
-                    <div class="stat-value">8 / 8</div>
-                    <div class="stat-label">Products Connected</div>
-                </div>
-                <div class="stat-card highlight">
-                    <span class="stat-icon">✅</span>
-                    <div class="stat-value">6</div>
-                    <div class="stat-label">Setup Tasks Complete</div>
-                </div>
-            </div>
-
-            <div class="glass-card action-card">
-                <h3>🔴 Your Action Items — Start Here</h3>
-                <p>Everything else is built and waiting. We just need a few things from you!</p>
-                <div class="action-list">
-                    <div class="action-item priority" id="goto-assets-btn">
-                        <span class="action-num">1</span>
-                        <div class="action-text">
-                            <strong>Provide your product files & links</strong>
-                            <p>Your PDFs, course links, and Stan Store URLs so we can wire up your funnels.</p>
-                        </div>
-                        <a href="#" class="btn-action-sm" data-section="assets">Go →</a>
+                <div style="background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); padding: 0.6rem 1.2rem; border-radius: 12px; display: flex; align-items: center; gap: 0.6rem;">
+                    <span style="font-size: 1.2rem;">⚡</span>
+                    <div>
+                        <strong style="color: #4ade80; font-size: 0.88rem; display: block;">Trident AI Engine Active</strong>
+                        <span style="color: var(--text-muted); font-size: 0.75rem;" id="overview-credits-badge">15 / 15 Monthly Builds</span>
                     </div>
-                    <div class="action-item">
-                        <span class="action-num">2</span>
-                        <div class="action-text">
-                            <strong>Set up your Stripe account</strong>
-                            <p>We need Stripe payment links to replace the checkout mockup on your site.</p>
-                        </div>
-                        <a href="https://stripe.com/register" target="_blank" class="btn-action-sm">Go →</a>
-                    </div>
-
                 </div>
             </div>
 
-            <div class="glass-card infra-card">
-                <h3>✅ What's Already Live</h3>
-                <div class="infra-grid">
-                    <div class="infra-item done"><span>✅</span> bossmamabiz.com is live</div>
+            <!-- ENCOURAGING STARTER ADVICE BANNER -->
+            <div class="glass-card" style="margin: 1.5rem 0; padding: 1.6rem 2rem; background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(232,50,122,0.1) 100%); border: 1px solid var(--gold); border-radius: 16px;">
+                <div style="display: flex; gap: 1.2rem; align-items: flex-start;">
+                    <div style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">💡</div>
+                    <div>
+                        <h3 style="margin: 0 0 0.4rem 0; font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.15rem;">Pro Strategy Tip for Beginners:</h3>
+                        <p style="color: #F8F9FA; font-size: 0.96rem; line-height: 1.6; margin: 0;">
+                            <strong>Building your first digital product business?</strong> We recommend starting with <strong>1 or 2 products first</strong> (a Free Lead Magnet + $27 Guide) to learn the ropes! Once you're comfortable, scale up to the full 5-product sales vault in your Production Hub!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP-BY-STEP MAP GRID -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-bottom: 2rem;">
+                <div onclick="switchSection('planner')" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(232,50,122,0.3); padding: 1.5rem; border-radius: 14px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                        <span style="background: rgba(232,50,122,0.2); color: var(--primary); font-weight: 800; font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 8px;">STEP 1</span>
+                        <span style="font-size: 1.4rem;">🚀</span>
+                    </div>
+                    <h4 style="margin: 0 0 0.4rem 0; color: #fff; font-size: 1.05rem;">Production Hub</h4>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Brainstorm ideas with AI, pick 1-5 products, preview 3D covers, and paste your Stripe &amp; Drive links.</p>
+                </div>
+
+                <div onclick="switchSection('email-seq')" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(201,168,76,0.3); padding: 1.5rem; border-radius: 14px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                        <span style="background: rgba(201,168,76,0.2); color: var(--gold); font-weight: 800; font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 8px;">STEP 2</span>
+                        <span style="font-size: 1.4rem;">📧</span>
+                    </div>
+                    <h4 style="margin: 0 0 0.4rem 0; color: #fff; font-size: 1.05rem;">Email Automations</h4>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Customize your automatic Welcome Email and 3-day nurture drip sequence for your buyers.</p>
+                </div>
+
+                <div onclick="switchSection('traffic')" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(34,197,94,0.3); padding: 1.5rem; border-radius: 14px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                        <span style="background: rgba(34,197,94,0.2); color: #4ade80; font-weight: 800; font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 8px;">STEP 3</span>
+                        <span style="font-size: 1.4rem;">📱</span>
+                    </div>
+                    <h4 style="margin: 0 0 0.4rem 0; color: #fff; font-size: 1.05rem;">Traffic &amp; Social Engine</h4>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Generate 30 days of viral Reel/TikTok hooks and Pinterest pins to drive sales to your pages.</p>
+                </div>
+
+                <div onclick="switchSection('leads')" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(59,130,246,0.3); padding: 1.5rem; border-radius: 14px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                        <span style="background: rgba(59,130,246,0.2); color: #60a5fa; font-weight: 800; font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 8px;">STEP 4</span>
+                        <span style="font-size: 1.4rem;">📊</span>
+                    </div>
+                    <h4 style="margin: 0 0 0.4rem 0; color: #fff; font-size: 1.05rem;">Dashboard &amp; Analytics</h4>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Track your total leads, page visitors, conversion rates, and export subscriber CSVs.</p>
+                </div>
+            </div>
+        </section>
                     <div class="infra-item done"><span>✅</span> Auto-deploys from GitHub</div>
                     <div class="infra-item done"><span>✅</span> Email capture → Brevo List #10</div>
                     <div class="infra-item done"><span>✅</span> kristan@bossmamabiz.com routing active</div>
@@ -1529,10 +1540,15 @@
 
 <div id="trident-copilot-drawer" style="display: none; position: fixed; bottom: 2rem; right: 2rem; width: 50vw; min-width: 600px; max-width: 95vw; height: 88vh; background: #140C18; border: 2px solid var(--primary); border-radius: 20px; box-shadow: 0 10px 50px rgba(0,0,0,0.9); z-index: 1000; flex-direction: column; overflow: hidden; backdrop-filter: blur(14px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);">
     <div style="background: rgba(232,50,122,0.14); padding: 1.2rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 0.85rem;">
-            <img src="images/trident_flow_ai_logo.png" alt="Trident Flow AI" style="height: 38px; width: auto; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span style="font-size: 1.5rem;">🔱</span>
             <div>
-                <h4 style="margin: 0; color: #fff; font-size: 1.05rem; font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 1px;">TRIDENT AI CO-PILOT</h4>
+                <h4 style="margin: 0; font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 800; color: #fff; letter-spacing: 0.5px; display: flex; align-items: center; gap: 0.35rem;">
+                    <span>TRIDENT</span>
+                    <span style="color: #D01C1C;">FLOW</span>
+                    <span style="background: linear-gradient(135deg, #F5BA23 0%, #c9a84c 100%); color: #000; font-size: 0.65rem; font-weight: 900; padding: 0.1rem 0.4rem; border-radius: 4px; text-transform: uppercase;">AI</span>
+                    <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: 400; margin-left: 0.2rem;">CO-PILOT</span>
+                </h4>
                 <span style="font-size: 0.78rem; color: #4ade80;">🟢 24/7 Personal Mentor &amp; Copy Generator Active</span>
             </div>
         </div>
