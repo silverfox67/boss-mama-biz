@@ -151,8 +151,7 @@ document.addEventListener('keydown', (e) => {
 // ── Section Navigation ──────────────────────
 function showSection(name) {
     let targetName = name;
-    if (name === 'funnels' || name === 'assets') targetName = 'planner';
-    if (name === 'links') targetName = 'site-assets';
+    if (name === 'funnels') targetName = 'planner';
 
     document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -162,10 +161,6 @@ function showSection(name) {
 
     const navLink = document.querySelector(`.nav-item[data-section="${targetName}"]`);
     if (navLink) navLink.classList.add('active');
-    
-    if (targetName === 'site-assets') {
-        renderSiteAssets();
-    }
 }
 
 window.switchSection = showSection;
