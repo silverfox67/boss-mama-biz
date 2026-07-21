@@ -1705,6 +1705,16 @@ function getSmartFallbackReply(userText) {
         return `📊 <strong>Stripe Tax Dropdown Setup Guide:</strong><br><br>Under <strong>Tax Category</strong>, select <strong>"Nontaxable Digital Goods"</strong> or <strong>"Digital Goods - Ebooks & Downloads"</strong>.<br>Under <em>Collect Tax Automatically</em>, leave it set to <strong>No / Off</strong>. Click <strong>Create Link</strong>!`;
     } else if (q.includes('is this correct') || q.includes('correct') || q.includes('right') || q.includes('good')) {
         return `✅ <strong>Yes, that looks 100% correct!</strong><br><br>You're doing great! Copy the link or settings you created and save them directly in your dashboard. You are ready for the next step!`;
+    } else if (q.includes('email sequence') || q.includes('email')) {
+        return `📧 <strong>Here is your 7-Day High-Converting Email Sequence:</strong><br><br>
+        <strong>Day 0 (Instant):</strong> 🎉 Welcome! Here is your download link. We are so excited to have you.<br>
+        <strong>Day 1 (Value):</strong> Secret tip: Automate your delivery using Brevo to save 10 hours a week.<br>
+        <strong>Day 2 (Story):</strong> Why I almost quit... and the one system that changed everything.<br>
+        <strong>Day 3 (Soft Pitch):</strong> Ready for the next step? Grab the Masterclass at 20% off today.<br>
+        <strong>Day 4 (Case Study):</strong> Check out how Sarah made $1,200 in 24 hours using this system.<br>
+        <strong>Day 5 (FAQ):</strong> Will this work for beginners? Absolutely. Here is why.<br>
+        <strong>Day 6 (Scarcity):</strong> Last chance! The 20% off discount expires tonight. Don't miss out!<br><br>
+        <em>👉 Copy this sequence directly into your Assets Vault!</em>`;
     } else if (q.includes('description') || q.includes('copy') || q.includes('write')) {
         return `✨ <strong>Ready-to-Use High-Converting Product Description:</strong><br><br><em>"Unlock the ultimate shortcut to creating, launching, and monetizing your digital products! Includes fillable workbooks, automated sales funnel templates, and 90+ days of viral content prompts."</em>`;
     } else {
