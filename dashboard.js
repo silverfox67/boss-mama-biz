@@ -2154,6 +2154,33 @@ function openAssetModal(idx) {
         localStorage.setItem('bmb_saved_vault_assets', JSON.stringify(savedAssets));
     }
 
+
+    const imgUrl = p.coverImage || '';
+    const deliverablesList = Array.isArray(p.deliverables) ? p.deliverables.map(d => `• ${d}`).join('\\n') : '• Exclusive Digital Asset';
+    
+    let headerHtml = `
+        <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+            
+            <!-- Left: Cover Image -->
+            <div style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <h4 style="margin: 0 0 0.8rem 0; color: #fff; font-size: 1rem; align-self: flex-start;">🖼️ 3D Cover Image</h4>
+                ${imgUrl ? `<img src="${imgUrl}" style="max-width: 100%; max-height: 200px; object-fit: contain; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); margin-bottom: 1rem;">
+                <button onclick="downloadVaultImage('${imgUrl}', '${p.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_cover')" style="width: 100%; background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.6rem; border-radius: 6px; font-weight: bold; font-size: 0.85rem; cursor: pointer;">📥 Download Image</button>`
+                : `<div style="flex:1; display:flex; align-items:center; justify-content:center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">No Cover Generated</div>`}
+            </div>
+
+            <!-- Right: What's Included -->
+            <div style="flex: 1.5; min-width: 300px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem; display: flex; flex-direction: column;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                    <h4 style="margin: 0; color: #fff; font-size: 1rem;">📦 What is Included</h4>
+                    <button onclick="copyToClipboard(decodeURIComponent('${encodeURIComponent(deliverablesList)}'))" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy List</button>
+                </div>
+                <div style="flex: 1; background: rgba(0,0,0,0.4); border-radius: 6px; padding: 1rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; white-space: pre-line;">${deliverablesList}</div>
+            </div>
+            
+        </div>
+    `;
+
     let emailsHtml = `
         <div style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;">
             <h4 style="margin: 0 0 0.8rem 0; color: #fff; font-size: 1rem;">📧 Email Sequence (Copy/Paste)</h4>
@@ -2208,7 +2235,7 @@ function openAssetModal(idx) {
         </div>
     `;
 
-    document.getElementById('modal-asset-content').innerHTML = emailsHtml + linksHtml + copyHtml;
+    document.getElementById('modal-asset-content').innerHTML = headerHtml + emailsHtml + linksHtml + copyHtml;
     document.getElementById('asset-action-modal').style.display = 'flex';
 }
 
@@ -2262,3 +2289,14 @@ window.deleteAssetFromVault = function(idx, event) {
         if (typeof showToast === 'function') showToast("🗑️ Asset deleted from Vault.");
     }
 }
+
+window.downloadVaultImage = function(url, filename) {
+    if (!url) return;
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename || 'cover_image';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    if(typeof showToast === 'function') showToast("📥 Image download started!");
+};
