@@ -2393,8 +2393,7 @@ window.autoSaveEmailSequence = function() {
     }
     
     const saved = localStorage.getItem('bmb_generated_planner_suite');
-    if (!saved) return;
-    const plan = JSON.parse(saved);
+    const plan = saved ? JSON.parse(saved) : KRISTANS_SUITE;
     
     if (plan && plan.suite && plan.suite[activeAIEmailIdx]) {
         plan.suite[activeAIEmailIdx].emails = [
