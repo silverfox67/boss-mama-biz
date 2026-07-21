@@ -1299,15 +1299,6 @@ function renderPlannerSuiteCards(plan) {
                     <ul style="margin: 0 0 1rem 1.2rem; color: var(--text-main); font-size: 0.85rem;">
                         ${item.deliverables.map(d => `<li>${escapeHTML(d)}</li>`).join('')}
                     </ul>
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.05);">
-                        <span style="font-size: 0.78rem; color: var(--text-muted);">📧 Email Drip Sequence:</span>
-                        <div style="display: flex; gap: 0.4rem;">
-                            ${(item.emails && item.emails.length > 3) 
-    ? `<button id="hub-email-btn-${idx}" onclick="triggerAIEmailSequence('${escapeHTML(item.title)}', '${escapeHTML(plan.tone || 'warm')}', ${idx})" style="background: rgba(74,222,128,0.2); border: 1px solid #4ade80; color: #4ade80; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">✅ Sequence Generated</button>` 
-    : `<button id="hub-email-btn-${idx}" onclick="triggerAIEmailSequence('${escapeHTML(item.title)}', '${escapeHTML(plan.tone || 'warm')}', ${idx})" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); border: none; color: #fff; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">🤖 AI: Write My Email Sequence</button>`
-}
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Action Buttons Moved to Bottom -->
@@ -1509,7 +1500,7 @@ function saveEmailNode() {
     const body = document.getElementById('editor-email-body')?.value;
 
     // Check if we are editing a Vault email
-    if (typeof window.currentEditingVaultIdx !== 'undefined' && typeof window.currentEditingEmailIdx !== 'undefined') {
+    if (typeof window.currentEditingVaultIdx !== 'undefined' && window.currentEditingVaultIdx !== null && typeof window.currentEditingEmailIdx !== 'undefined') {
         let savedAssets = [];
         try {
             const existing = localStorage.getItem('bmb_saved_vault_assets');
@@ -1525,6 +1516,26 @@ function saveEmailNode() {
                 openAssetModal(window.currentEditingVaultIdx);
             }
         } catch(e) { console.error("Error saving email to vault", e); }
+    }
+    
+    // Check if we are editing a Hub preview email
+    if (typeof window.currentEditingHubIdx !== 'undefined' && window.currentEditingHubIdx !== null && typeof window.currentEditingEmailIdx !== 'undefined') {
+        try {
+            const saved = localStorage.getItem('bmb_generated_planner_suite');
+            const plan = saved ? JSON.parse(saved) : KRISTANS_SUITE;
+            
+            if (plan && plan.suite && plan.suite[window.currentEditingHubIdx]) {
+                const p = plan.suite[window.currentEditingHubIdx];
+                if (p && p.emails && p.emails[window.currentEditingEmailIdx]) {
+                    p.emails[window.currentEditingEmailIdx].subject = subj;
+                    p.emails[window.currentEditingEmailIdx].body = body;
+                    localStorage.setItem('bmb_generated_planner_suite', JSON.stringify(plan));
+                    
+                    // Refresh the hub preview modal
+                    openHubAssetPreview(window.currentEditingHubIdx);
+                }
+            }
+        } catch(e) { console.error("Error saving email to hub", e); }
     }
 
     const btn = document.getElementById('btn-save-email-node');
@@ -2422,7 +2433,8 @@ window.autoSaveEmailSequence = function() {
         // Instantly update the Hub DOM button so the user sees it "in the box"
         const hubBtn = document.getElementById(`hub-email-btn-${activeAIEmailIdx}`);
         if (hubBtn) {
-            hubBtn.innerHTML = '✅ Sequence Generated';
+            hubBtn.innerHTML = '✅ View / Edit Emails';
+            hubBtn.onclick = function() { openHubAssetPreview(activeAIEmailIdx); };
             hubBtn.style.background = 'rgba(74,222,128,0.2)';
             hubBtn.style.border = '1px solid #4ade80';
             hubBtn.style.color = '#4ade80';
@@ -2448,3 +2460,83 @@ window.autoSaveEmailSequence = function() {
         }
     }
 };
+
+window.openHubAssetPreview = function(idx) {
+    const saved = localStorage.getItem('bmb_generated_planner_suite');
+    const plan = saved ? JSON.parse(saved) : KRISTANS_SUITE;
+    if (!plan || !plan.suite || !plan.suite[idx]) return;
+    const p = plan.suite[idx];
+    
+    // Pass references to editHubEmail instead of editVaultEmail
+    window.currentEditingHubIdx = idx;
+    
+    document.getElementById('modal-asset-tag').innerText = `Product ${p.tier} • ${p.type} (Hub Preview)`;
+    document.getElementById('modal-asset-title').innerText = p.title;
+    
+    const coverImageSrc = p.coverImage || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop';
+    
+    let headerHtml = `
+        <div style="display: flex; gap: 1.5rem; margin-bottom: 2rem; align-items: stretch;">
+            <div style="flex: 0 0 160px; display: flex; flex-direction: column; gap: 0.8rem;">
+                <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; aspect-ratio: 1/1.3; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <img src="${coverImageSrc}" style="width: 100%; height: 100%; object-fit: cover;" alt="Cover">
+                </div>
+            </div>
+            
+            <div style="flex: 1; display: flex; flex-direction: column;">
+                <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 1.2rem; flex: 1;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem;">
+                        <h4 style="margin: 0; color: var(--gold); font-size: 1.1rem; font-family: 'Cinzel', serif;">What is Included</h4>
+                    </div>
+                    <ul style="margin: 0; padding-left: 1.2rem; color: #F5EEF5; font-size: 0.9rem; line-height: 1.6;">
+                        ${Array.isArray(p.deliverables) ? p.deliverables.map(d => `<li>${d}</li>`).join('') : '<li>Exclusive Digital Asset</li>'}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `;
+
+    let emailsHtml = `
+        <div style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;">
+            <h4 style="margin: 0 0 0.8rem 0; color: #fff; font-size: 1rem;">📧 Email Sequence</h4>
+    `;
+    
+    if (p.emails) {
+        p.emails.forEach((em, emailIdx) => {
+            emailsHtml += `
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0.8rem; background: rgba(0,0,0,0.4); border-radius: 6px; margin-bottom: 0.5rem;">
+                    <div>
+                        <strong style="color: var(--gold); display: block; margin-bottom: 0.2rem; font-size: 0.85rem;">Day ${em.day}: ${em.title}</strong>
+                        <span style="color: var(--text-muted); font-size: 0.8rem;">Subject: ${em.subject}</span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button onclick="editHubEmail(${idx}, ${emailIdx})" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📝 View / Edit</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    emailsHtml += `</div>`;
+    
+    document.getElementById('modal-asset-content').innerHTML = headerHtml + emailsHtml;
+    document.getElementById('asset-action-modal').style.display = 'flex';
+}
+
+window.editHubEmail = function(hubIdx, emailIdx) {
+    const saved = localStorage.getItem('bmb_generated_planner_suite');
+    const plan = saved ? JSON.parse(saved) : KRISTANS_SUITE;
+    if (!plan || !plan.suite || !plan.suite[hubIdx]) return;
+    
+    const p = plan.suite[hubIdx];
+    if (!p.emails || !p.emails[emailIdx]) return;
+    
+    const em = p.emails[emailIdx];
+    
+    window.currentEditingHubIdx = hubIdx;
+    window.currentEditingEmailIdx = emailIdx;
+    
+    // Make sure we aren't editing a vault email
+    window.currentEditingVaultIdx = null;
+    
+    openEmailModal(em.subject, em.body, `Day ${em.day}: ${em.title}`);
+}
