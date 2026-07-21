@@ -1,3 +1,23 @@
+
+window.showToast = function(msg) {
+    let toast = document.getElementById('bmb-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'bmb-toast';
+        toast.style.cssText = "position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(30,30,35,0.95); border: 1px solid var(--primary); color: #fff; padding: 1rem 2rem; border-radius: 50px; font-weight: 700; z-index: 99999; box-shadow: 0 10px 30px rgba(232,50,122,0.3); opacity: 0; transition: opacity 0.3s ease, bottom 0.3s ease; pointer-events: none;";
+        document.body.appendChild(toast);
+    }
+    toast.innerHTML = msg;
+    toast.style.bottom = '40px';
+    toast.style.opacity = '1';
+    
+    if (window.toastTimeout) clearTimeout(window.toastTimeout);
+    window.toastTimeout = setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.bottom = '30px';
+    }, 3000);
+};
+
 // ============================================
 // BOSS MAMA BIZ — DASHBOARD LOGIC
 // dashboard.js
@@ -2388,8 +2408,23 @@ window.autoSaveEmailSequence = function() {
         ];
         localStorage.setItem('bmb_generated_planner_suite', JSON.stringify(plan));
         
+        // Also instantly update it in the Vault if it's already there!
+        try {
+            let existingAssets = JSON.parse(localStorage.getItem('bmb_saved_vault_assets') || '[]');
+            const vIdx = existingAssets.findIndex(a => a.title === plan.suite[activeAIEmailIdx].title);
+            if (vIdx !== -1) {
+                existingAssets[vIdx].emails = plan.suite[activeAIEmailIdx].emails;
+                localStorage.setItem('bmb_saved_vault_assets', JSON.stringify(existingAssets));
+                
+                // If Vault list is open, re-render it
+                if (typeof renderAssetsVaultList === 'function') {
+                    renderAssetsVaultList();
+                }
+            }
+        } catch(e) {}
+        
         if (typeof showToast === 'function') {
-            showToast("✨ 7-Day Email Sequence saved to Product Hub!");
+            showToast("✨ 7-Day Email Sequence saved to Product Hub & Vault!");
         }
     }
 };
