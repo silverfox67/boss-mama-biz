@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boss Mama Biz Command Center — Powered by Trident Flow™</title>
+    <title>Boss Mama Biz Command Center — Powered by Trident Flow AI™</title>
     <meta name="robots" content="noindex, nofollow">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="dashboard.css?v=3">
@@ -16,7 +16,7 @@
         <div class="pin-logo">
             <span class="pin-logo-text">BOSS MAMA BIZ</span>
             <span class="pin-logo-sub">COMMAND CENTER</span>
-            <span class="pin-logo-brand">Powered by Trident Flow™</span>
+            <span class="pin-logo-brand">Powered by Trident Flow AI™</span>
         </div>
         <p class="pin-label">Enter your 4-digit PIN</p>
         <div class="pin-dots" id="pin-dots">
@@ -114,15 +114,50 @@
         </nav>
         <div class="sidebar-footer">
             <a href="/" class="sidebar-back-link">← Back to Website</a>
-            <a href="https://tridentwebsitedesign.com" target="_blank" class="trident-flow-brand">
+            <a href="https://tridentflowai.com" target="_blank" class="trident-flow-brand">
                 <span class="tf-logo">🔱</span>
-                <span>Powered by <strong>Trident Flow™</strong></span>
+                <span>Powered by <strong>Trident Flow AI™</strong></span>
             </a>
         </div>
     </aside>
 
     <!-- Main Content -->
     <main class="main-content">
+
+        <!-- ── GAMIFIED 4-STEP LAUNCH PROGRESS BAR ── -->
+        <div class="launch-progress-banner glass-card" style="margin-bottom: 1.5rem; padding: 1.2rem 1.5rem; border: 1px solid rgba(201, 168, 76, 0.3); background: linear-gradient(135deg, rgba(22, 13, 26, 0.9) 0%, rgba(35, 18, 45, 0.9) 100%); border-radius: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 0.6rem;">
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                    <span style="font-size: 1.3rem;">🚀</span>
+                    <strong style="color: #fff; font-size: 0.95rem;">Your Business Setup Status:</strong>
+                    <span id="progress-percent-badge" style="background: var(--gold); color: #000; font-weight: 800; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 12px;">25% COMPLETE</span>
+                </div>
+                <span style="color: var(--text-muted); font-size: 0.85rem;" id="progress-current-step">Current Step: <strong>Step 1 of 4 — Product Suite Generation</strong></span>
+            </div>
+            <!-- Glowing Progress Bar Track -->
+            <div style="width: 100%; height: 10px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1);">
+                <div id="setup-progress-bar" style="width: 25%; height: 100%; background: linear-gradient(90deg, var(--primary) 0%, var(--gold) 100%); transition: width 0.4s ease; box-shadow: 0 0 10px rgba(201, 168, 76, 0.5);"></div>
+            </div>
+            <!-- 4-Step Interactive Nodes -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.6rem; text-align: center;">
+                <div class="setup-step-card active" onclick="switchSection('planner')" style="background: rgba(232,50,122,0.12); border: 1px solid var(--primary); border-radius: 8px; padding: 0.5rem; cursor: pointer;">
+                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary); display: block;">STEP 1</span>
+                    <span style="font-size: 0.8rem; color: #fff; font-weight: 600;">⚡ Product Suite</span>
+                </div>
+                <div class="setup-step-card" onclick="switchSection('funnels')" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 0.5rem; cursor: pointer;">
+                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block;">STEP 2</span>
+                    <span style="font-size: 0.8rem; color: #fff; font-weight: 600;">🎨 Store & Funnel</span>
+                </div>
+                <div class="setup-step-card" onclick="switchSection('links')" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 0.5rem; cursor: pointer;">
+                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block;">STEP 3</span>
+                    <span style="font-size: 0.8rem; color: #fff; font-weight: 600;">💳 Stripe Payments</span>
+                </div>
+                <div class="setup-step-card" onclick="switchSection('email-seq')" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 0.5rem; cursor: pointer;">
+                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block;">STEP 4</span>
+                    <span style="font-size: 0.8rem; color: #fff; font-weight: 600;">📧 Auto-Delivery</span>
+                </div>
+            </div>
+        </div>
 
         <!-- ── OVERVIEW ── -->
         <section id="section-overview" class="dash-section active">
@@ -201,6 +236,41 @@
                 <p>Plan, outline, write, and build your digital products. Use the integrated Boss AI to write the ebooks and download them as clean PDFs.</p>
             </div>
 
+            <!-- AI Product Suite Generator Panel -->
+            <div class="glass-card" style="padding: 1.5rem; margin-bottom: 1.8rem; border: 1px solid rgba(232, 50, 122, 0.3); background: rgba(232, 50, 122, 0.04);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <h3 style="margin: 0; color: #ffffff; font-family: 'Cinzel', serif; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span>🔱</span> Trident Flow AI Generator
+                        </h3>
+                        <p style="margin: 0.3rem 0 0 0; color: var(--text-muted); font-size: 0.85rem;">Input your niche details to dynamically generate a complete 5-product sales funnel, outlines, and email sequences.</p>
+                    </div>
+                    <span style="background: rgba(201, 168, 76, 0.15); border: 1px solid var(--gold); color: var(--gold); font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 20px;">⚡ Parameterized Generator</span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.2rem;">
+                    <div>
+                        <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem;">Target Audience</label>
+                        <input type="text" id="ai-target-audience" value="Stay-at-Home Moms & Creators" style="width: 100%; padding: 0.6rem 0.8rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: #fff; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem;">Niche Topic</label>
+                        <input type="text" id="ai-niche-topic" value="Digital Planners & Side Hustles" style="width: 100%; padding: 0.6rem 0.8rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: #fff; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem;">Brand Tone</label>
+                        <select id="ai-brand-tone" style="width: 100%; padding: 0.6rem 0.8rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; color: #fff; font-size: 0.9rem;">
+                            <option value="Empowering & Warm">Empowering & Warm</option>
+                            <option value="Direct & High-Ticket">Direct & High-Ticket</option>
+                            <option value="Playful & Fun">Playful & Fun</option>
+                            <option value="Professional & Authoritative">Professional & Authoritative</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="btn-generate-ai-suite" onclick="triggerAISuiteGeneration()" style="background: linear-gradient(135deg, var(--primary) 0%, #c9a84c 100%); color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: var(--transition);">
+                    <span>⚡ Generate Complete 5-Product Suite Plan</span>
+                </button>
+            </div>
+
             <!-- Visual Flowchart Cards -->
             <div class="glass-card" style="padding: 1.5rem; margin-bottom: 2rem; border-color: rgba(223, 196, 147, 0.2); background: rgba(255,255,255,0.01);">
                 <h4 style="margin: 0 0 1rem 0; color: #dfc493; font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 1px;">📈 Your 5-Product Sales Funnel Journey</h4>
@@ -242,7 +312,7 @@
             </div>
 
             <!-- Product Cards with Built-in AI Generator -->
-            <div style="display: flex; flex-direction: column; gap: 2rem;">
+            <div id="planner-suite-cards-container" style="display: flex; flex-direction: column; gap: 2rem;">
                 
                 <!-- Product 2 Card -->
                 <div class="glass-card" style="padding: 1.8rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08);">
@@ -1308,17 +1378,54 @@
     </main>
 </div>
 
-<!-- ===== EMAIL PREVIEW MODAL ===== -->
-<div id="email-preview-modal" class="email-preview-overlay">
-    <div class="email-preview-box glass-card">
-        <button class="email-preview-close" id="close-email-preview">&times;</button>
-        <div class="email-preview-header">
-            <span class="preview-badge">📧 Email Template Preview</span>
-            <h2 id="preview-subject">Email Subject Line</h2>
-            <p id="preview-goal">Email Goal</p>
+<!-- ===== 🖼️ 3D PRODUCT COVER PREVIEW MODAL ===== -->
+<div id="product-cover-modal" class="email-preview-overlay" style="display: none;">
+    <div class="glass-card" style="max-width: 550px; width: 90%; background: #160D1A; border: 1px solid var(--gold); padding: 2rem; border-radius: 20px; position: relative; text-align: center;">
+        <button onclick="closeProductCoverModal()" style="position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer;">&times;</button>
+        <span style="background: rgba(201,168,76,0.15); border: 1px solid var(--gold); color: var(--gold); font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.8rem; border-radius: 12px; text-transform: uppercase;">🖼️ Visual 3D Product Mockup</span>
+        
+        <!-- 3D Book / Card Container -->
+        <div style="margin: 1.5rem auto; width: 220px; height: 300px; background: linear-gradient(135deg, #2A1232 0%, #0D0612 100%); border: 2px solid var(--gold); border-radius: 12px; box-shadow: -12px 12px 25px rgba(0,0,0,0.6), inset 2px 2px 10px rgba(255,255,255,0.1); display: flex; flex-direction: column; justify-content: space-between; padding: 1.2rem; transform: perspective(800px) rotateY(-12deg) rotateX(4deg); transition: transform 0.3s ease;" onmouseover="this.style.transform='perspective(800px) rotateY(0deg) rotateX(0deg)'" onmouseout="this.style.transform='perspective(800px) rotateY(-12deg) rotateX(4deg)'">
+            <div style="text-align: left;">
+                <span style="font-size: 0.7rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">TRIDENT FLOW AI</span>
+                <h3 id="cover-mockup-title" style="margin: 0.4rem 0 0 0; font-family: 'Cinzel', serif; font-size: 1.05rem; color: #fff; line-height: 1.3;">Digital Product Title</h3>
+            </div>
+            <div style="text-align: center; font-size: 2.5rem; margin: 0.5rem 0;">📘</div>
+            <div>
+                <div id="cover-mockup-tag" style="background: var(--primary); color: #fff; font-size: 0.7rem; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 6px; display: inline-block; margin-bottom: 0.3rem;">PDF GUIDE</div>
+                <div id="cover-mockup-price" style="color: var(--gold); font-weight: 800; font-size: 1.1rem;">$27.00</div>
+            </div>
         </div>
-        <div class="email-preview-body" id="preview-body">
-            <!-- Email Body will load here dynamically -->
+
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem;">This is how your digital product visual cover displays on your storefront and checkout pages.</p>
+        <button onclick="closeProductCoverModal()" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); color: #fff; border: none; padding: 0.6rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">Awesome!</button>
+    </div>
+</div>
+
+<!-- ===== INTERACTIVE EMAIL SEQUENCE EDITOR MODAL ===== -->
+<div id="email-preview-modal" class="email-preview-overlay">
+    <div class="email-preview-box glass-card" style="max-width: 650px; width: 90%; background: #160D1A; border: 1px solid var(--primary); padding: 1.8rem; border-radius: 16px; position: relative;">
+        <button class="email-preview-close" id="close-email-preview" onclick="closeEmailModal()" style="position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer;">&times;</button>
+        <div class="email-preview-header" style="margin-bottom: 1rem;">
+            <span class="preview-badge" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 12px; text-transform: uppercase;">📧 Interactive Email Editor</span>
+            <h2 id="preview-subject" style="margin: 0.5rem 0 0.2rem 0; font-family: 'Cinzel', serif; font-size: 1.2rem; color: #fff;">Email Subject Line</h2>
+            <p id="preview-goal" style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Email Node Goal</p>
+        </div>
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem;">Subject Line</label>
+            <input type="text" id="editor-email-subject" style="width: 100%; padding: 0.6rem 0.8rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; font-size: 0.95rem;">
+        </div>
+        <div style="margin-bottom: 1.2rem;">
+            <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem;">Email Copy Body</label>
+            <textarea id="editor-email-body" rows="8" style="width: 100%; padding: 0.8rem; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; font-size: 0.9rem; font-family: inherit; line-height: 1.5; resize: vertical;"></textarea>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <button id="btn-ai-rewrite-email" onclick="reWriteEmailWithAI()" style="background: rgba(201, 168, 76, 0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem;">
+                <span>✨ AI Polish Copy</span>
+            </button>
+            <button id="btn-save-email-node" onclick="saveEmailNode()" style="background: var(--primary); color: #fff; border: none; padding: 0.6rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">
+                💾 Save Email Node
+            </button>
         </div>
     </div>
 </div>
@@ -1327,6 +1434,47 @@
 
 
 
+<!-- ===== 🤖 TRIDENT AI CO-PILOT ASSISTANT DRAWER ===== -->
+<div id="trident-copilot-trigger" onclick="toggleCopilotDrawer()" style="position: fixed; bottom: 1.5rem; right: 1.5rem; background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); color: #fff; padding: 0.8rem 1.4rem; border-radius: 30px; font-weight: 800; font-size: 0.9rem; cursor: pointer; z-index: 999; box-shadow: 0 4px 20px rgba(232, 50, 122, 0.4); display: flex; align-items: center; gap: 0.5rem; transition: transform 0.2s ease;">
+    <span>🤖 Trident AI Co-Pilot</span>
+</div>
+
+<div id="trident-copilot-drawer" style="display: none; position: fixed; bottom: 5rem; right: 1.5rem; width: 380px; max-width: 92vw; height: 500px; max-height: 80vh; background: #140C18; border: 1px solid var(--primary); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); z-index: 1000; flex-direction: column; overflow: hidden; backdrop-filter: blur(10px);">
+    <div style="background: rgba(232,50,122,0.12); padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-size: 1.2rem;">🔱</span>
+            <div>
+                <h4 style="margin: 0; color: #fff; font-size: 0.95rem; font-family: 'Cinzel', serif;">Trident AI Co-Pilot</h4>
+                <span style="font-size: 0.72rem; color: #4ade80;">🟢 24/7 Personal Mentor Active</span>
+            </div>
+        </div>
+        <button onclick="toggleCopilotDrawer()" style="background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer;">&times;</button>
+    </div>
+
+    <!-- Quick Help Chips -->
+    <div style="padding: 0.8rem; background: rgba(0,0,0,0.3); border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 0.4rem; overflow-x: auto; scrollbar-width: none;">
+        <button onclick="askCopilotChip('🚨 I need human support / technical help')" style="white-space: nowrap; background: rgba(220,38,38,0.2); border: 1px solid #dc2626; color: #f87171; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; cursor: pointer; font-weight: 700;">🚨 Human Support</button>
+        <button onclick="askCopilotChip('💳 How do I connect my Stripe buy button?')" style="white-space: nowrap; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; cursor: pointer;">💳 Stripe Help</button>
+        <button onclick="askCopilotChip('🏷️ What price should I charge for my guide?')" style="white-space: nowrap; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; cursor: pointer;">🏷️ Pricing Help</button>
+        <button onclick="askCopilotChip('📢 Give me 3 TikTok video hooks for my product')" style="white-space: nowrap; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 0.75rem; cursor: pointer;">📢 TikTok Hooks</button>
+    </div>
+
+    <!-- Chat Messages Feed -->
+    <div id="copilot-chat-feed" style="flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.88rem;">
+        <div style="background: rgba(255,255,255,0.04); border-radius: 10px; padding: 0.8rem; border-left: 3px solid var(--gold);">
+            <strong style="color: var(--gold); display: block; font-size: 0.78rem; margin-bottom: 0.2rem;">🔱 Trident AI Co-Pilot</strong>
+            Hi Kristan! I'm your 24/7 business mentor. Ask me anything about setting up Stripe, pricing your guide, or rewriting copy!
+        </div>
+    </div>
+
+    <!-- Chat Input Form -->
+    <div style="padding: 0.8rem; background: rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: 0.5rem;">
+        <input type="text" id="copilot-input-text" placeholder="Ask Trident AI a question..." style="flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 0.6rem 0.8rem; color: #fff; font-size: 0.85rem;" onkeypress="if(event.key==='Enter') sendCopilotMessage()">
+        <button onclick="sendCopilotMessage()" style="background: var(--primary); color: #fff; border: none; padding: 0.6rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">Send</button>
+    </div>
+</div>
+
+<script src="services/generator.js"></script>
 <script src="dashboard.js?v=5"></script>
 </body>
 </html>

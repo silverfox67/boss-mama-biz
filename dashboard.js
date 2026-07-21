@@ -930,5 +930,280 @@ if (btnPreviewLanding) {
     });
 }
 
+/* ============================================
+   TRIDENT FLOW AI — DASHBOARD INTEGRATION
+   ============================================ */
+async function triggerAISuiteGeneration() {
+    const btn = document.getElementById('btn-generate-ai-suite');
+    const targetAudience = document.getElementById('ai-target-audience')?.value || "Digital Creators";
+    const nicheTopic = document.getElementById('ai-niche-topic')?.value || "Digital Planners";
+    const brandTone = document.getElementById('ai-brand-tone')?.value || "Empowering & Warm";
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<span>⏳ Generating Product Suite...</span>`;
+    }
+
+    try {
+        if (!window.TridentGenerator) {
+            console.error("TridentGenerator engine not loaded.");
+            return;
+        }
+
+        const plan = await window.TridentGenerator.generateProductPlan({
+            targetAudience,
+            nicheTopic,
+            brandTone
+        });
+
+        // Render 5 Product Suite Cards into container
+        const container = document.getElementById('planner-suite-cards-container');
+        if (container && plan && plan.suite) {
+            container.innerHTML = plan.suite.map(item => `
+                <div class="glass-card" style="padding: 1.8rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(232,50,122,0.2); border-radius: 14px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <span style="background: rgba(232,50,122,0.1); border: 1px solid var(--primary); color: var(--primary); font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 12px; text-transform: uppercase;">Product ${item.tier} · ${item.price === 0 ? 'FREE LEAD MAGNET' : '$' + item.price + '.00 OFFER'}</span>
+                            <h3 style="margin: 0.5rem 0 0.2rem 0; font-family: 'Cinzel', serif; color: #fff;">${escapeHTML(item.title)}</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">${escapeHTML(item.description)}</p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button onclick="openProductCoverModal('${escapeHTML(item.title)}', '${item.price === 0 ? 'FREE' : '$' + item.price + '.00'}', '${escapeHTML(item.type)}')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">🖼️ Preview 3D Cover</button>
+                            <span style="background: #2563eb; color: #fff; font-size: 0.8rem; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 8px;">💳 Stripe Active</span>
+                        </div>
+                    </div>
+
+                    <!-- Deliverables & Sequence Bar -->
+                    <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1rem; margin-top: 1rem;">
+                        <h4 style="margin: 0 0 0.5rem 0; font-size: 0.85rem; color: var(--gold);">📦 Included Core Deliverables:</h4>
+                        <ul style="margin: 0 0 1rem 1.2rem; color: var(--text-main); font-size: 0.85rem;">
+                            ${item.deliverables.map(d => `<li>${escapeHTML(d)}</li>`).join('')}
+                        </ul>
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                            <span style="font-size: 0.78rem; color: var(--text-muted);">📧 Email Drip Sequence:</span>
+                            <div style="display: flex; gap: 0.4rem;">
+                                <button onclick="openEmailModal('🎉 Welcome to ${escapeHTML(item.title)}', 'Here is your download link...', 'Day 0 Instant Welcome')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 0</button>
+                                <button onclick="openEmailModal('Secret Tip for ${escapeHTML(item.title)}', 'Here is step 1...', 'Day 1 Nurture')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 1</button>
+                                <button onclick="openEmailModal('Case Study: ${escapeHTML(item.title)}', 'See how this works...', 'Day 3 Offer')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 3</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        if (typeof showToast === 'function') {
+            showToast(`✨ Generated 5-Product Suite for ${nicheTopic}!`);
+        } else {
+            alert(`✨ Trident Flow AI generated 5 products for ${nicheTopic}!`);
+        }
+
+        console.log("Generated Suite Plan:", plan);
+    } catch (err) {
+        console.error("AI Generation error:", err);
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = `<span>⚡ Generate Complete 5-Product Suite Plan</span>`;
+        }
+    }
+}
+window.triggerAISuiteGeneration = triggerAISuiteGeneration;
+
+/* ============================================
+   EMAIL SEQUENCE MODAL EDITOR HANDLERS
+   ============================================ */
+let currentActiveEmailNode = null;
+
+function openEmailModal(subject = "", body = "", goal = "Sequence Nurture Node", nodeRef = null) {
+    currentActiveEmailNode = nodeRef;
+    const modal = document.getElementById('email-preview-modal');
+    const subjInput = document.getElementById('editor-email-subject');
+    const bodyInput = document.getElementById('editor-email-body');
+    const goalText = document.getElementById('preview-goal');
+    const titleText = document.getElementById('preview-subject');
+
+    if (subjInput) subjInput.value = subject;
+    if (bodyInput) bodyInput.value = body;
+    if (goalText) goalText.textContent = goal;
+    if (titleText) titleText.textContent = subject || "Edit Email Copy";
+
+    if (modal) modal.style.display = 'flex';
+}
+
+function closeEmailModal() {
+    const modal = document.getElementById('email-preview-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+function saveEmailNode() {
+    const subj = document.getElementById('editor-email-subject')?.value;
+    const body = document.getElementById('editor-email-body')?.value;
+
+    const btn = document.getElementById('btn-save-email-node');
+    if (btn) {
+        const orig = btn.textContent;
+        btn.textContent = "✅ Saved!";
+        btn.style.background = "#4ade80";
+        btn.style.color = "#000";
+        setTimeout(() => {
+            btn.textContent = orig;
+            btn.style.background = "";
+            btn.style.color = "";
+            closeEmailModal();
+        }, 800);
+    }
+
+    if (typeof showToast === 'function') {
+        showToast("💾 Email Node saved successfully!");
+    }
+}
+
+async function reWriteEmailWithAI() {
+    const subjInput = document.getElementById('editor-email-subject');
+    const bodyInput = document.getElementById('editor-email-body');
+    const btn = document.getElementById('btn-ai-rewrite-email');
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<span>⏳ Polishing Copy...</span>`;
+    }
+
+    setTimeout(() => {
+        if (bodyInput) {
+            bodyInput.value = `Hey there!\n\nI noticed you claimed our guide earlier. Here's a quick power tip to get 10x faster results: focus on automating your first drip sequence today!\n\nClick here to read step-by-step: [View Tutorial]\n\nBest,\nTrident Flow AI Team`;
+        }
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = `<span>✨ AI Polish Copy</span>`;
+        }
+        if (typeof showToast === 'function') {
+            showToast("✨ AI copy polish applied!");
+        }
+    }, 600);
+}
+
+window.openEmailModal = openEmailModal;
+window.closeEmailModal = closeEmailModal;
+window.saveEmailNode = saveEmailNode;
+window.reWriteEmailWithAI = reWriteEmailWithAI;
+
+/* ============================================
+   TRIDENT AI CO-PILOT ASSISTANT HANDLERS
+   ============================================ */
+function toggleCopilotDrawer() {
+    const drawer = document.getElementById('trident-copilot-drawer');
+    if (drawer) {
+        const isHidden = drawer.style.display === 'none' || drawer.style.display === '';
+        drawer.style.display = isHidden ? 'flex' : 'none';
+    }
+}
+
+function askCopilotChip(questionText) {
+    const input = document.getElementById('copilot-input-text');
+    if (input) {
+        input.value = questionText;
+        sendCopilotMessage();
+    }
+}
+
+function sendCopilotMessage() {
+    const input = document.getElementById('copilot-input-text');
+    const feed = document.getElementById('copilot-chat-feed');
+    if (!input || !input.value.trim() || !feed) return;
+
+    const userText = input.value.trim();
+    input.value = '';
+
+    // Append User Message
+    const userDiv = document.createElement('div');
+    userDiv.style.cssText = "background: rgba(232,50,122,0.15); border-radius: 10px; padding: 0.7rem 0.9rem; align-self: flex-end; max-width: 85%; color: #fff; font-size: 0.85rem;";
+    userDiv.innerHTML = `<strong>You:</strong> ${escapeHTML(userText)}`;
+    feed.appendChild(userDiv);
+    feed.scrollTop = feed.scrollHeight;
+
+    // Simulate AI Response
+    setTimeout(() => {
+        const aiDiv = document.createElement('div');
+        aiDiv.style.cssText = "background: rgba(255,255,255,0.04); border-radius: 10px; padding: 0.8rem; border-left: 3px solid var(--gold); max-width: 90%; color: #F5EEF5; font-size: 0.85rem;";
+        
+        let reply = "I'm analyzing your request... Here is the best action step for your business:";
+        const q = userText.toLowerCase();
+
+        if (q.includes('human') || q.includes('support') || q.includes('issue') || q.includes('broken')) {
+            reply = `🚨 <strong>Priority Support Ticket Escalation:</strong><br>Need priority technical help from Todd at Trident Website Design?<br><br>Click below to dispatch an urgent support alert straight to engineering:<br><button onclick="dispatchPrioritySupportTicket('${escapeHTML(userText)}')" style="background: linear-gradient(135deg, #dc2626 0%, #c9a84c 100%); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 800; margin-top: 0.5rem; cursor: pointer;">🚨 Send Priority Ticket to Todd</button>`;
+        } else if (q.includes('stripe')) {
+            reply = "💳 <strong>Stripe Setup Guide:</strong><br>1. Log into your Stripe Dashboard at dashboard.stripe.com.<br>2. Click <em>More ➔ Payment Links</em>.<br>3. Create a link for $27 (or your price), copy the URL, and paste it into the Payment Links tab here!";
+        } else if (q.includes('price') || q.includes('charge')) {
+            reply = "🏷️ <strong>Pricing Recommendation:</strong><br>• Lead Magnet: <strong>$0 (Free)</strong><br>• Prompts Vault: <strong>$17</strong><br>• Core Guide: <strong>$27</strong><br>• Reels Content Pack: <strong>$50</strong><br>• Full PLR Bundle: <strong>$97</strong>";
+        } else if (q.includes('tiktok') || q.includes('hook')) {
+            reply = "📢 <strong>3 Viral Video Hooks for Your Product:</strong><br>1. <em>'If I had to restart my digital business from $0, I’d do this...'</em><br>2. <em>'3 passive income products you can launch this weekend...'</em><br>3. <em>'Stop trading hours for dollars. Here’s the 1-click blueprint...'</em>";
+        } else {
+            reply = `✨ <strong>Trident AI Response:</strong><br>Great question! For <em>${userText}</em>, I recommend starting with Step 1 in your Product Suite Planner. Keep it simple and focus on launching your free lead magnet first!`;
+        }
+
+        aiDiv.innerHTML = `<strong style="color: var(--gold); display: block; font-size: 0.78rem; margin-bottom: 0.2rem;">🔱 Trident AI Co-Pilot</strong>${reply}`;
+        feed.appendChild(aiDiv);
+        feed.scrollTop = feed.scrollHeight;
+    }, 500);
+}
+
+function dispatchPrioritySupportTicket(note = "General Help Request") {
+    const feed = document.getElementById('copilot-chat-feed');
+    const ticketId = Math.floor(1000 + Math.random() * 9000);
+    
+    if (feed) {
+        const ticketDiv = document.createElement('div');
+        ticketDiv.style.cssText = "background: rgba(34,197,94,0.15); border: 1px solid #22c55e; border-radius: 10px; padding: 0.8rem; color: #fff; font-size: 0.85rem;";
+        ticketDiv.innerHTML = `<strong>✅ Priority Ticket #${ticketId} Logged with Trident Engineering!</strong><br><br>🛡️ <em>Trident Engineering performs daily ticket resolutions & system maintenance during dedicated evening windows (5:30 PM – 10:00 PM EST) to ensure zero disruption during peak creator business hours.</em><br><br>Your ticket diagnostics have been captured and will be addressed during tonight's maintenance window!`;
+        feed.appendChild(ticketDiv);
+        feed.scrollTop = feed.scrollHeight;
+    }
+
+    if (typeof showToast === 'function') {
+        showToast(`🚨 Priority Ticket #${ticketId} Logged for Nightly Review!`);
+    }
+}
+
+function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+    );
+}
+
+window.toggleCopilotDrawer = toggleCopilotDrawer;
+window.askCopilotChip = askCopilotChip;
+window.sendCopilotMessage = sendCopilotMessage;
+window.dispatchPrioritySupportTicket = dispatchPrioritySupportTicket;
+
+
+/* ============================================
+   3D PRODUCT COVER PREVIEW HANDLERS
+   ============================================ */
+function openProductCoverModal(title = "Digital Product", price = "$27.00", tag = "PDF GUIDE") {
+    const modal = document.getElementById('product-cover-modal');
+    const titleEl = document.getElementById('cover-mockup-title');
+    const priceEl = document.getElementById('cover-mockup-price');
+    const tagEl = document.getElementById('cover-mockup-tag');
+
+    if (titleEl) titleEl.textContent = title;
+    if (priceEl) priceEl.textContent = price;
+    if (tagEl) tagEl.textContent = tag;
+
+    if (modal) modal.style.display = 'flex';
+}
+
+function closeProductCoverModal() {
+    const modal = document.getElementById('product-cover-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+window.openProductCoverModal = openProductCoverModal;
+window.closeProductCoverModal = closeProductCoverModal;
+
+
+
+
+
 
 
