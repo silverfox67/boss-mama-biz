@@ -1282,9 +1282,7 @@ function renderPlannerSuiteCards(plan) {
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.6rem; border-top: 1px solid rgba(255,255,255,0.05);">
                         <span style="font-size: 0.78rem; color: var(--text-muted);">📧 Email Drip Sequence:</span>
                         <div style="display: flex; gap: 0.4rem;">
-                            <button onclick="openEmailModal('🎉 Welcome to ${escapeHTML(item.title)}', 'Here is your download link...', 'Day 0 Instant Welcome')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 0</button>
-                            <button onclick="openEmailModal('Secret Tip for ${escapeHTML(item.title)}', 'Here is step 1...', 'Day 1 Nurture')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 1</button>
-                            <button onclick="openEmailModal('Case Study: ${escapeHTML(item.title)}', 'See how this works...', 'Day 3 Offer')" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">Day 3</button>
+                            <button onclick="triggerAIEmailSequence('${escapeHTML(item.title)}', plan.tone)" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); border: none; color: #fff; padding: 0.3rem 0.8rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">🤖 AI: Write My Email Sequence</button>
                         </div>
                     </div>
                 </div>
@@ -1617,6 +1615,26 @@ function askCopilotChip(questionText) {
         sendCopilotMessage();
     }
 }
+
+
+window.triggerAIEmailSequence = function(title, tone) {
+    const input = document.getElementById('copilot-input-text');
+    const drawer = document.getElementById('trident-copilot-drawer');
+    if (drawer) {
+        drawer.style.display = 'flex';
+        if (!drawer.classList.contains('expanded-full')) {
+            drawer.classList.add('expanded-full');
+        }
+    }
+    if (input) {
+        input.value = `I am ready to write the 7-day email sequence for my product: "${title}". Can you help me write it using a ${tone || 'warm'} tone?`;
+        setTimeout(() => {
+            if (typeof sendCopilotMessage === 'function') {
+                sendCopilotMessage();
+            }
+        }, 300);
+    }
+};
 
 async function sendCopilotMessage() {
     const input = document.getElementById('copilot-input-text');
