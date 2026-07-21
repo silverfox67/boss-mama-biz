@@ -1212,6 +1212,7 @@ function renderPlannerSuiteCards(plan) {
                         <button onclick="openProductCoverModal('${escapeHTML(item.title)}', '${item.price === 0 ? 'FREE' : '$' + item.price + '.00'}', '${escapeHTML(item.type)}')" style="background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer;">🖼️ Preview 3D Cover</button>
                         <a href="product.html?id=${item.tier}" target="_blank" style="background: rgba(232,50,122,0.2); border: 1px solid var(--primary); color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;">🌐 View Sales Page</a>
                         <button onclick="${item.price === 0 ? "alert('🎁 Free Lead Magnet — Delivered automatically via Brevo email!')" : `openStripeAISetupGuide('${escapeHTML(item.title)}', '$${item.price}.00')`}" style="background: #2563eb; color: #fff; border: none; font-size: 0.8rem; font-weight: 700; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer;">💳 ${item.price === 0 ? 'Free (No Stripe)' : 'Setup Stripe with AI'}</button>
+                        <button onclick="saveProductToVault(${item.tier - 1})" style="background: rgba(74,222,128,0.2); border: 1px solid #4ade80; color: #4ade80; font-size: 0.8rem; font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer;">📤 Save to Assets Vault</button>
                     </div>
                 </div>
 
@@ -1245,19 +1246,120 @@ function savePlannerSuiteExplicitly() {
 }
 window.savePlannerSuiteExplicitly = savePlannerSuiteExplicitly;
 
-// Auto-restore saved planner cards on page load or generate default 5-product suite
+// Save a specific product card's data into the matching Assets Vault field
+function saveProductToVault(index) {
+    let plan = null;
+    try {
+        const saved = localStorage.getItem('bmb_generated_planner_suite');
+        plan = saved ? JSON.parse(saved) : KRISTANS_SUITE;
+    } catch(e) { plan = KRISTANS_SUITE; }
+
+    if (!plan || !plan.suite || !plan.suite[index]) return;
+    const p = plan.suite[index];
+
+    const fieldMap = [
+        { link: 'roadmap-link', notes: 'roadmap-notes' },
+        { link: 'prompts-link', stripe: 'prompts-stripe', notes: 'prompts-notes' },
+        { link: 'guide-link',   stripe: 'guide-stripe',   notes: 'guide-notes' },
+        { link: 'reels-link',   stripe: 'reels-stripe',   notes: 'reels-notes' },
+        { link: 'plr-link',     stripe: 'plr-stripe',     notes: 'plr-notes' }
+    ];
+
+    const fields = fieldMap[index];
+    if (!fields) return;
+
+    if (fields.link)   { const el = document.getElementById(fields.link);   if (el) el.value = p.driveLink || ''; }
+    if (fields.stripe) { const el = document.getElementById(fields.stripe); if (el) el.value = p.stripeLink || ''; }
+    if (fields.notes)  { const el = document.getElementById(fields.notes);  if (el) el.value = p.deliverables ? p.deliverables.join(' · ') : ''; }
+
+    // Switch to Assets Vault tab
+    if (typeof switchSection === 'function') switchSection('assets');
+
+    if (typeof showToast === 'function') {
+        showToast(`✅ ${p.title} saved to Assets Vault!`);
+    }
+}
+window.saveProductToVault = saveProductToVault;
+
+// Also add driveLink/stripeLink rows inside each card render
+
+// Kristan's real 5-product suite — always the default
+const KRISTANS_SUITE = {
+    niche: "Digital Planners & Side Hustles",
+    audience: "Stay-at-Home Moms & Creators",
+    tone: "Empowering & Warm",
+    suite: [
+        {
+            tier: 1,
+            title: "The Creative Content Vault",
+            price: 0,
+            type: "Free Lead Magnet",
+            description: "90+ days of scroll-stopping hooks, storytelling prompts & call-to-actions. Builds your email list on autopilot.",
+            deliverables: ["90+ days of content prompt templates", "Hooks, storytelling & sales content ideas", "FES chatbot strategies & call-to-actions"],
+            bonus: "Exclusive VIP Email Sequence Access",
+            driveLink: "https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view",
+            stripeLink: ""
+        },
+        {
+            tier: 2,
+            title: "500+ ChatGPT Prompts Guide",
+            price: 17,
+            type: "Low-Ticket Impulse Offer",
+            description: "The AI cheat sheet for digital marketers. 500+ done-for-you prompts for content, captions, emails & product descriptions.",
+            deliverables: ["500+ copy-paste ChatGPT prompts", "Content, captions & email copy by niche", "Resale license rights included"],
+            bonus: "Canva Template Cover Design",
+            driveLink: "https://drive.google.com/file/d/1cMH7l6mWILhcQ_JRITen5XcMB6SdWZZf/view",
+            stripeLink: "https://buy.stripe.com/5kQ28jcqNaLM1bwdoiaIM00"
+        },
+        {
+            tier: 3,
+            title: "Create & Sell Your First Digital Product",
+            price: 27,
+            type: "Core Entry Product",
+            description: "Step-by-step guide: brainstorm, design, set up checkouts & drive organic traffic. FREE BONUS: 500+ Prompts Guide ($17 value)!",
+            deliverables: ["6-step product creation system", "Checkout & traffic setup walkthrough", "FREE BONUS: 500+ ChatGPT Prompts Guide ($17 value)"],
+            bonus: "500+ ChatGPT Prompts Guide ($17 Value)",
+            driveLink: "https://drive.google.com/file/d/1bu8X8sQFcf4WJcOIQF6R6Jpnizybrhgy/view",
+            stripeLink: "https://buy.stripe.com/3cI3cnbmJ7zA5rMgAuaIM01"
+        },
+        {
+            tier: 4,
+            title: "30-Day Viral Video & Reels Content Pack",
+            price: 50,
+            type: "Traffic & Content Asset",
+            description: "Done-for-you faceless video scripts, viral hooks & B-Roll content vault for stay-at-home moms & creators.",
+            deliverables: ["30 viral faceless Reel scripts", "B-Roll stock footage suggestions", "Scroll-stopping hooks & caption database"],
+            bonus: "Pinterest Pin Title Generator",
+            driveLink: "https://bossmamabiz.com/vault/reels",
+            stripeLink: ""
+        },
+        {
+            tier: 5,
+            title: "Complete Done-For-You PLR Digital Assets Bundle",
+            price: 50,
+            type: "DFY Inventory & Resell Rights",
+            description: "Full commercial rights package — rebrand, customize & sell as your own. Canva templates + source docs included.",
+            deliverables: ["Rebrandable Canva template files", "Raw Google Doc source documents", "Full commercial PLR resell rights certificate"],
+            bonus: "Sales Page Copy Template",
+            driveLink: "https://bossmamabiz.com/vault/plr",
+            stripeLink: ""
+        }
+    ]
+};
+
+// Auto-restore saved planner cards on page load — always default to Kristan's real suite
 document.addEventListener('DOMContentLoaded', () => {
     try {
         updateAICreditBadges();
         renderTridentQueryLogs();
-        
-        let plan = null;
+
+        // Always use Kristan's real suite as the seed if nothing has been AI-generated
         const savedPlan = localStorage.getItem('bmb_generated_planner_suite');
-        if (savedPlan) {
-            plan = JSON.parse(savedPlan);
-        } else if (window.TridentGenerator && typeof window.TridentGenerator.generateDefaultPlan === 'function') {
-            plan = window.TridentGenerator.generateDefaultPlan();
-            localStorage.setItem('bmb_generated_planner_suite', JSON.stringify(plan));
+        let plan = savedPlan ? JSON.parse(savedPlan) : KRISTANS_SUITE;
+
+        // If saved plan doesn't have driveLink (old format), reset to real suite
+        if (plan && plan.suite && !plan.suite[0].hasOwnProperty('driveLink')) {
+            plan = KRISTANS_SUITE;
         }
 
         if (plan) {
@@ -1265,9 +1367,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } catch(e) {
         console.warn("Planner restore error:", e);
+        renderPlannerSuiteCards(KRISTANS_SUITE);
     }
 });
 window.triggerAISuiteGeneration = triggerAISuiteGeneration;
+
 
 /* ============================================
    EMAIL SEQUENCE MODAL EDITOR HANDLERS
