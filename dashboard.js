@@ -1484,6 +1484,25 @@ function saveEmailNode() {
     const subj = document.getElementById('editor-email-subject')?.value;
     const body = document.getElementById('editor-email-body')?.value;
 
+    // Check if we are editing a Vault email
+    if (typeof window.currentEditingVaultIdx !== 'undefined' && typeof window.currentEditingEmailIdx !== 'undefined') {
+        let savedAssets = [];
+        try {
+            const existing = localStorage.getItem('bmb_saved_vault_assets');
+            if (existing) savedAssets = JSON.parse(existing);
+            
+            const p = savedAssets[window.currentEditingVaultIdx];
+            if (p && p.emails && p.emails[window.currentEditingEmailIdx]) {
+                p.emails[window.currentEditingEmailIdx].subject = subj;
+                p.emails[window.currentEditingEmailIdx].body = body;
+                localStorage.setItem('bmb_saved_vault_assets', JSON.stringify(savedAssets));
+                
+                // Refresh the modal content behind the editor
+                openAssetModal(window.currentEditingVaultIdx);
+            }
+        } catch(e) { console.error("Error saving email to vault", e); }
+    }
+
     const btn = document.getElementById('btn-save-email-node');
     if (btn) {
         const orig = btn.textContent;
@@ -1499,11 +1518,30 @@ function saveEmailNode() {
     }
 
     if (typeof showToast === 'function') {
-        showToast("💾 Email Node saved successfully!");
+        showToast("✅ Email copy permanently saved to Vault!");
     }
 }
 
-async function reWriteEmailWithAI() {
+window.editVaultEmail = function(vaultIdx, emailIdx) {
+    let savedAssets = [];
+    try {
+        const existing = localStorage.getItem('bmb_saved_vault_assets');
+        if (existing) savedAssets = JSON.parse(existing);
+    } catch(e) {}
+    
+    const p = savedAssets[vaultIdx];
+    if (!p || !p.emails || !p.emails[emailIdx]) return;
+    
+    const em = p.emails[emailIdx];
+    
+    // Pass references to global variables so saveEmailNode knows what to update
+    window.currentEditingVaultIdx = vaultIdx;
+    window.currentEditingEmailIdx = emailIdx;
+    
+    openEmailModal(em.subject, em.body, `Day ${em.day}: ${em.title}`);
+}
+
+function reWriteEmailWithAI() {
     const subjInput = document.getElementById('editor-email-subject');
     const bodyInput = document.getElementById('editor-email-body');
     const btn = document.getElementById('btn-ai-rewrite-email');
@@ -2098,29 +2136,44 @@ function openAssetModal(idx) {
     document.getElementById('modal-asset-tag').innerText = `Product ${p.tier} · ${p.type}`;
     document.getElementById('modal-asset-title').innerText = p.title;
     
-    const emailsHtml = `
+    
+    if (!p.emails) {
+        p.emails = [
+            { day: 0, title: "Instant Welcome", subject: `🎉 Welcome to ${p.title}`, body: `Here is your download link for ${p.title}...
+
+Thanks for downloading!` },
+            { day: 1, title: "Nurture & Value", subject: `Secret Tip for ${p.title}`, body: "Here is a secret tip I discovered...
+
+Use this to get results faster." },
+            { day: 2, title: "Story / Connection", subject: "Why I almost quit...", body: "I remember when I first started, I struggled a lot. But then I figured out this one method..." },
+            { day: 3, title: "Soft Pitch", subject: "Ready for the next step?", body: "If you liked the starter guide, you are going to love the full Masterclass. Here is a special discount..." },
+            { day: 4, title: "Hard Pitch / Scarcity", subject: "Closing soon...", body: "This is your last chance to grab the discount. Don't miss out!" }
+        ];
+        savedAssets[idx] = p;
+        localStorage.setItem('bmb_saved_vault_assets', JSON.stringify(savedAssets));
+    }
+
+    let emailsHtml = `
         <div style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;">
             <h4 style="margin: 0 0 0.8rem 0; color: #fff; font-size: 1rem;">📧 Email Sequence (Copy/Paste)</h4>
-            
-            <!-- Day 0 -->
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0.8rem; background: rgba(0,0,0,0.4); border-radius: 6px; margin-bottom: 0.5rem;">
-                <div>
-                    <strong style="color: var(--gold); display: block; margin-bottom: 0.2rem; font-size: 0.85rem;">Day 0: Instant Welcome</strong>
-                    <span style="color: var(--text-muted); font-size: 0.8rem;">Subject: 🎉 Welcome to ${p.title}</span>
-                </div>
-                <button onclick="copyToClipboard('Welcome to ${p.title} - Here is your link!')" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy</button>
-            </div>
-            
-            <!-- Day 1 -->
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0.8rem; background: rgba(0,0,0,0.4); border-radius: 6px; margin-bottom: 0.5rem;">
-                <div>
-                    <strong style="color: var(--gold); display: block; margin-bottom: 0.2rem; font-size: 0.85rem;">Day 1: Nurture & Value</strong>
-                    <span style="color: var(--text-muted); font-size: 0.8rem;">Subject: Secret Tip for ${p.title}</span>
-                </div>
-                <button onclick="copyToClipboard('Here is a secret tip for using ${p.title} effectively...')" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy</button>
-            </div>
-        </div>
     `;
+    
+    p.emails.forEach((em, emailIdx) => {
+        emailsHtml += `
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 0.8rem; background: rgba(0,0,0,0.4); border-radius: 6px; margin-bottom: 0.5rem;">
+                <div>
+                    <strong style="color: var(--gold); display: block; margin-bottom: 0.2rem; font-size: 0.85rem;">Day ${em.day}: ${em.title}</strong>
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">Subject: ${em.subject}</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button onclick="editVaultEmail(${idx}, ${emailIdx})" style="background: rgba(232,50,122,0.15); border: 1px solid var(--primary); color: var(--primary); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📝 View / Edit</button>
+                    <button onclick="copyToClipboard('${em.subject}\n\n${em.body.replace(/
+/g, '\n')}')" style="background: rgba(255,255,255,0.1); border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.75rem; cursor: pointer;">📋 Copy</button>
+                </div>
+            </div>
+        `;
+    });
+    emailsHtml += `</div>`;
     
     const linksHtml = `
         <div style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 1rem;">
