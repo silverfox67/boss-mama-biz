@@ -1853,7 +1853,12 @@ window.handleCopilotImageUpload = handleCopilotImageUpload;
    ============================================ */
 let activeCoverProductTitle = "";
 
-function openProductCoverModal(title = "Digital Product", price = "$27.00", tag = "PDF GUIDE") {
+let activeCoverIdx = null;
+let activeCoverImageSrc = null;
+
+function openProductCoverModal(title = "Digital Product", price = "$27.00", tag = "PDF GUIDE", idx = null) {
+    activeCoverIdx = idx;
+    activeCoverImageSrc = null;
     activeCoverProductTitle = title;
     const modal = document.getElementById('product-cover-modal');
     const titleEl = document.getElementById('cover-mockup-title');
@@ -1883,6 +1888,7 @@ function openProductCoverModal(title = "Digital Product", price = "$27.00", tag 
         imageSrc = 'images/product5_plr_cover.png';
     }
 
+    activeCoverImageSrc = imageSrc;
     if (imageSrc) {
         if (imgEl) imgEl.src = imageSrc;
         if (imgWrap) imgWrap.style.display = 'block';
@@ -1917,6 +1923,24 @@ function regenerateCoverMockup() {
 }
 
 function acceptCoverMockup() {
+    if (activeCoverIdx !== null && activeCoverImageSrc) {
+        const saved = localStorage.getItem('bmb_generated_planner_suite');
+        const plan = saved ? JSON.parse(saved) : KRISTANS_SUITE;
+        if (plan && plan.suite && plan.suite[activeCoverIdx]) {
+            plan.suite[activeCoverIdx].coverImage = activeCoverImageSrc;
+            localStorage.setItem('bmb_generated_planner_suite', JSON.stringify(plan));
+            
+            // Also instantly update it in the Vault if it's already there!
+            try {
+                let existingAssets = JSON.parse(localStorage.getItem('bmb_saved_vault_assets') || '[]');
+                const vIdx = existingAssets.findIndex(a => a.title === plan.suite[activeCoverIdx].title);
+                if (vIdx !== -1) {
+                    existingAssets[vIdx].coverImage = activeCoverImageSrc;
+                    localStorage.setItem('bmb_saved_vault_assets', JSON.stringify(existingAssets));
+                }
+            } catch(e) {}
+        }
+    }
     if (typeof showToast === 'function') {
         showToast(`✅ 3D Cover Saved to Storefront & Checkout Pages!`);
     }
@@ -2155,7 +2179,17 @@ function openAssetModal(idx) {
     }
 
 
-    const imgUrl = p.coverImage || '';
+
+    const tLower = p.title.toLowerCase();
+    let fallbackImg = '';
+    if (tLower.includes('vault') || tLower.includes('creative content') || (p.type && p.type.includes('Free Lead Magnet')) || (p.type && p.type.includes('Product 1'))) fallbackImg = 'images/product1_vault_cover.png';
+    else if (tLower.includes('prompts') || tLower.includes('chatgpt') || (p.type && p.type.includes('Product 2'))) fallbackImg = 'images/product2_prompts_cover.png';
+    else if (tLower.includes('create') || tLower.includes('first digital') || (p.type && p.type.includes('Product 3'))) fallbackImg = 'images/product3_guide_cover.png';
+    else if (tLower.includes('reels') || tLower.includes('viral video') || (p.type && p.type.includes('Product 4'))) fallbackImg = 'images/product4_reels_cover.png';
+    else if (tLower.includes('plr') || (p.type && p.type.includes('Product 5'))) fallbackImg = 'images/product5_plr_cover.png';
+
+    const imgUrl = p.coverImage || fallbackImg || '';
+
     const deliverablesList = Array.isArray(p.deliverables) ? p.deliverables.map(d => `• ${d}`).join('\\n') : '• Exclusive Digital Asset';
     
     let headerHtml = `
