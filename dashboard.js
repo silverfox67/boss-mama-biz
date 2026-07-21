@@ -1264,6 +1264,12 @@ function sendCopilotMessage() {
 
         if (q.includes('human') || q.includes('support') || q.includes('issue') || q.includes('broken')) {
             reply = `🚨 <strong>Priority Support Ticket Escalation:</strong><br>Need priority technical help from Todd at Trident Website Design?<br><br>Click below to dispatch an urgent support alert straight to engineering:<br><button onclick="dispatchPrioritySupportTicket('${escapeHTML(userText)}')" style="background: linear-gradient(135deg, #dc2626 0%, #c9a84c 100%); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 800; margin-top: 0.5rem; cursor: pointer;">🚨 Send Priority Ticket to Todd</button>`;
+        } else if (q.includes('tax') || q.includes('dropdown') || q.includes('category') || q.includes('taxable')) {
+            reply = `📊 <strong>Stripe Tax Dropdown Setup Guide:</strong><br><br>
+            When creating your Stripe Payment Link:<br><br>
+            1. Under <strong>Tax Category</strong>, select <strong>"Nontaxable Digital Goods"</strong> or <strong>"Digital Goods - Ebooks & Digital Downloads"</strong>.<br><br>
+            2. Under <strong>Collect Tax Automatically</strong>, you can leave it set to <em>"No" / Off</em> for digital guides & PDF downloads.<br><br>
+            3. Under <strong>Advanced Options</strong>, leave everything else as default and click <strong>Create Link</strong> in top right!`;
         } else if (q.includes('description') || q.includes('write') || q.includes('copy') || q.includes('summary') || q.includes('give me')) {
             reply = `✨ <strong>Ready-to-Use High-Converting Product Description:</strong><br><br>
             <em>"Unlock the ultimate shortcut to creating, launching, and monetizing your digital products! Designed specifically for creators and busy moms, this step-by-step master guide & resource vault gives you plug-and-play templates, proven sales copy, and 90+ days of viral content prompts so you can start generating digital income on full autopilot without trading hours for dollars."</em><br><br>
@@ -1383,6 +1389,40 @@ function openGoogleDriveAISetupGuide(productTitle = "Your Product") {
     }
 }
 
+function handleCopilotImageUpload(input) {
+    if (!input || !input.files || !input.files[0]) return;
+    const file = input.files[0];
+    const feed = document.getElementById('copilot-chat-feed');
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const imgUrl = e.target.result;
+        if (feed) {
+            // Render User Attached Screenshot
+            const userImgDiv = document.createElement('div');
+            userImgDiv.style.cssText = "background: rgba(232,50,122,0.15); border-radius: 12px; padding: 0.8rem; align-self: flex-end; max-width: 85%; color: #fff; font-size: 0.85rem;";
+            userImgDiv.innerHTML = `<strong>You Attached a Screenshot:</strong><br><img src="${imgUrl}" style="max-width: 100%; max-height: 220px; border-radius: 8px; margin-top: 0.5rem; border: 1px solid var(--gold); display: block;">`;
+            feed.appendChild(userImgDiv);
+
+            // Render AI Visual Diagnostics Response
+            setTimeout(() => {
+                const aiDiv = document.createElement('div');
+                aiDiv.style.cssText = "background: rgba(255,255,255,0.04); border-radius: 12px; padding: 1rem; border-left: 4px solid #22c55e; max-width: 90%; color: #F5EEF5; font-size: 0.9rem;";
+                aiDiv.innerHTML = `
+                    <strong style="color: #4ade80; display: block; font-size: 0.85rem; margin-bottom: 0.3rem;">🔱 Trident AI Visual Diagnostics &amp; Ticket Alert</strong>
+                    📸 <strong>Screenshot Analyzed!</strong><br><br>
+                    • <strong>If this is the Stripe Product Creation Screen:</strong> Under <em>Tax Category</em> select <strong>"Nontaxable Digital Goods"</strong> and click <em>Create Link</em>.<br>
+                    • <strong>If you need Todd at Trident Support to visually inspect this screenshot:</strong> Click below to dispatch this visual diagnostic ticket straight to engineering!<br><br>
+                    <button onclick="dispatchPrioritySupportTicket('Attached Screenshot Analysis Request')" style="background: linear-gradient(135deg, #dc2626 0%, #c9a84c 100%); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 800; font-size: 0.82rem; cursor: pointer;">🚨 Send Screenshot to Todd at Support</button>
+                `;
+                feed.appendChild(aiDiv);
+                feed.scrollTop = feed.scrollHeight;
+            }, 600);
+        }
+    };
+    reader.readAsDataURL(file);
+}
+
 window.toggleCopilotDrawer = toggleCopilotDrawer;
 window.askCopilotChip = askCopilotChip;
 window.sendCopilotMessage = sendCopilotMessage;
@@ -1390,6 +1430,7 @@ window.dispatchPrioritySupportTicket = dispatchPrioritySupportTicket;
 window.openStripeAISetupGuide = openStripeAISetupGuide;
 window.openGoogleDriveAISetupGuide = openGoogleDriveAISetupGuide;
 window.toggleExpandCopilotDrawer = toggleExpandCopilotDrawer;
+window.handleCopilotImageUpload = handleCopilotImageUpload;
 
 
 /* ============================================

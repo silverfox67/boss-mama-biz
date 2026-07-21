@@ -1561,8 +1561,10 @@
     </div>
 
     <!-- Chat Input Form -->
-    <div style="padding: 1rem 1.2rem; background: rgba(0,0,0,0.5); border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: 0.75rem;">
-        <input type="text" id="copilot-input-text" placeholder="Ask Trident AI to write copy, setup Stripe, or answer questions..." style="flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); border-radius: 10px; padding: 0.8rem 1.1rem; color: #fff; font-size: 0.95rem;" onkeypress="if(event.key==='Enter') sendCopilotMessage()">
+    <div style="padding: 1rem 1.2rem; background: rgba(0,0,0,0.5); border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: 0.75rem; align-items: center;">
+        <label for="copilot-file-input" style="cursor: pointer; background: rgba(201,168,76,0.18); border: 1px solid var(--gold); color: var(--gold); padding: 0.75rem 0.95rem; border-radius: 10px; font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;" title="Attach Screenshot / Image">📷</label>
+        <input type="file" id="copilot-file-input" accept="image/*" style="display: none;" onchange="handleCopilotImageUpload(this)">
+        <input type="text" id="copilot-input-text" placeholder="Ask Trident AI to write copy, setup Stripe, or drop a screenshot..." style="flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); border-radius: 10px; padding: 0.8rem 1.1rem; color: #fff; font-size: 0.95rem;" onkeypress="if(event.key==='Enter') sendCopilotMessage()">
         <button onclick="sendCopilotMessage()" style="background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 10px; font-weight: 800; font-size: 0.95rem; cursor: pointer;">Send</button>
     </div>
 </div>
