@@ -2184,6 +2184,345 @@ footer {
     color: var(--primary) !important;
 }
 
+/* ============================================================
+   PWA INSTALL BANNER & MODAL (Platform-Aware)
+   ============================================================ */
+.pwa-install-banner {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 440px;
+    z-index: 10000;
+    font-family: var(--font-body);
+    animation: pwaSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pwaSlideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 25px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+.pwa-banner-card {
+    background: rgba(26, 10, 28, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(232, 50, 122, 0.38);
+    border-radius: 20px;
+    padding: 1.25rem 1.35rem;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(232, 50, 122, 0.22);
+    position: relative;
+    color: #ffffff;
+}
+
+.pwa-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+    font-size: 0.95rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+
+.pwa-close-btn:hover {
+    background: rgba(232, 50, 122, 0.3);
+    border-color: var(--primary);
+    transform: scale(1.08);
+}
+
+.pwa-banner-header {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding-right: 34px;
+    margin-bottom: 0.85rem;
+}
+
+.pwa-app-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
+    object-fit: cover;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(232, 50, 122, 0.35);
+    flex-shrink: 0;
+}
+
+.pwa-app-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+}
+
+.pwa-app-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.pwa-app-name {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.pwa-app-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(232, 50, 122, 0.25), rgba(201, 168, 76, 0.25));
+    border: 1px solid rgba(201, 168, 76, 0.6);
+    color: var(--gold);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+}
+
+.pwa-rating-row {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+}
+
+.pwa-stars {
+    color: #F8B84E;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+}
+
+.pwa-rating-text {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.75rem;
+}
+
+.pwa-benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.7rem 0 0.95rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.pwa-benefits-list li {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.92);
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    line-height: 1.35;
+}
+
+.pwa-benefits-list li i {
+    color: var(--primary);
+    font-size: 1.05rem;
+    flex-shrink: 0;
+}
+
+.pwa-actions-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.35rem;
+}
+
+.pwa-btn-install {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 0.96rem;
+    font-weight: 700;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #F05595 0%, #E8327A 60%, #C4285E 100%);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(232, 50, 122, 0.45);
+    transition: all 0.25s ease;
+    font-family: var(--font-body);
+}
+
+.pwa-btn-install:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(232, 50, 122, 0.65);
+    background: linear-gradient(135deg, #ff6daa 0%, #F05595 60%, #E8327A 100%);
+}
+
+.pwa-btn-dismiss {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.82rem;
+    cursor: pointer;
+    padding: 0.35rem;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+    text-align: center;
+    font-family: var(--font-body);
+}
+
+.pwa-btn-dismiss:hover {
+    color: #ffffff;
+}
+
+.pwa-ios-guide {
+    margin-top: 0.85rem;
+    padding: 0.85rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px dashed rgba(232, 50, 122, 0.45);
+    border-radius: 10px;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+.pwa-ios-guide p {
+    color: #ffffff;
+    margin-bottom: 0.6rem;
+    font-size: 0.82rem;
+}
+
+.pwa-ios-guide strong {
+    color: var(--gold);
+}
+
+.pwa-ios-guide .btn-sm {
+    padding: 0.4rem 1.1rem;
+    font-size: 0.78rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.pwa-ios-guide .btn-sm:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+/* ============================================================
+   STEP 2: SCOPED IN-APP BROWSER CALIBRATION (Messenger, Meta, TikTok)
+   Fixes WebView font blowup & header/card clearance
+   ============================================================ */
+html.in-app-messenger {
+    --scale: 1.35;
+    font-size: calc(16px / var(--scale, 1.35)) !important;
+}
+
+/* Header & Nav Clearance */
+html.in-app-messenger .nav-bar,
+html.in-app-messenger .site-header {
+    padding: 0.35rem 0 !important;
+}
+
+html.in-app-messenger .logo-text,
+html.in-app-messenger .brand-header-logo {
+    font-size: 1.35rem !important;
+    letter-spacing: 2px !important;
+}
+
+html.in-app-messenger .logo-sub {
+    font-size: 0.58rem !important;
+    letter-spacing: 3px !important;
+}
+
+/* MUST USE FIXED PIXELS to prevent rem scaling shrink */
+html.in-app-messenger .hero,
+html.in-app-messenger .hero-section {
+    padding-top: 62px !important;
+    padding-bottom: 1.5rem !important;
+}
+
+/* Hero Typography & CTAs */
+html.in-app-messenger .hero h1,
+html.in-app-messenger h1 {
+    font-size: calc(2.4rem / var(--scale, 1.35)) !important;
+    line-height: 1.18 !important;
+    margin: 0.32rem 0 0.42rem !important;
+}
+
+html.in-app-messenger .hero p {
+    font-size: calc(15px / var(--scale, 1.35)) !important;
+    margin-bottom: 1.1rem !important;
+}
+
+html.in-app-messenger .cta-row .btn,
+html.in-app-messenger .hero-ctas .btn {
+    padding: 0.55rem 0.9rem !important;
+    font-size: calc(14px / var(--scale, 1.35)) !important;
+}
+
+/* Lower Page Headings & Cards */
+html.in-app-messenger h2 {
+    font-size: calc(1.75rem / var(--scale, 1.35)) !important;
+}
+
+html.in-app-messenger .editorial-story,
+html.in-app-messenger .editorial-guide,
+html.in-app-messenger .glass-card,
+html.in-app-messenger .offer-card,
+html.in-app-messenger .quiz-card,
+html.in-app-messenger .contact-card {
+    padding: 1.15rem 1rem !important;
+}
+
+/* PWA Card Header & Button Calibration */
+html.in-app-messenger .pwa-install-banner {
+    bottom: 64px !important;
+}
+
+html.in-app-messenger .pwa-banner-card {
+    padding: 0.95rem 1rem !important;
+}
+
+/* Reserves space on right so close (✕) button never collides with text */
+html.in-app-messenger .pwa-banner-header {
+    padding-right: 36px !important;
+}
+
+/* Stacks Title and [OFFICIAL APP] badge vertically */
+html.in-app-messenger .pwa-app-title-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.25rem !important;
+}
+
+/* Ensures the platform-aware CTA text fits on one line */
+html.in-app-messenger .pwa-btn-install {
+    padding: 0.72rem 0.65rem !important;
+    font-size: 0.88rem !important;
+    letter-spacing: -0.01em !important;
+}
+
 
 
 
