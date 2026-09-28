@@ -131,16 +131,23 @@
     }
     </script>
 
-    <!-- ===== FONTS & STYLES ===== -->
+    <!-- ===== PRELOAD CRITICAL ASSETS (LCP OPTIMIZATION) ===== -->
+    <link rel="preload" as="image" href="images/kris-hero1.webp" fetchpriority="high">
+
+    <!-- ===== FONTS & STYLES (NON-BLOCKING) ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=23.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    </noscript>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <link rel="stylesheet" href="style.css?v=22.0">
+    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -189,7 +196,7 @@
             </div>
             <div class="hero-content-right">
                 <div class="hero-image-frame">
-                    <img src="images/kris-hero1.jpg" alt="Kristan O'Connor" class="hero-profile-img" fetchpriority="high" />
+                    <img src="images/kris-hero1.webp" alt="Kristan O'Connor" class="hero-profile-img" fetchpriority="high" />
                     <div class="hero-image-glow"></div>
                 </div>
             </div>
@@ -284,7 +291,7 @@
         <div class="container about-container">
             <div class="about-image-wrap">
                 <div class="about-photo-frame">
-                    <img src="images/kristan-blazer.jpg" alt="Kristan O'Connor" loading="lazy" decoding="async" />
+                    <img src="images/kristan-blazer.webp" alt="Kristan O'Connor" loading="lazy" decoding="async" />
                     <div class="about-photo-inner" style="position:absolute;bottom:1rem;left:0;right:0;text-align:center;">
                         <span style="font-family:var(--font-heading);font-size:0.85rem;letter-spacing:2px;color:#ffffff;text-shadow:0 1px 6px rgba(0,0,0,0.9);">KRISTAN O'CONNOR</span>
                     </div>
@@ -587,7 +594,7 @@
                 <!-- Creative Content Vault Card -->
                 <div class="own-product-card glass-card">
                     <div class="own-product-img">
-                        <img src="images/own-vault.png" alt="The Creative Content Vault Mockup" loading="lazy" decoding="async" />
+                        <img src="images/own-vault.webp" alt="The Creative Content Vault Mockup" loading="lazy" decoding="async" />
                     </div>
                     <div class="own-product-content">
                         <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem;">
@@ -611,7 +618,7 @@
 
                 <div class="own-product-card glass-card">
                     <div class="own-product-img">
-                        <img src="images/own-create.png" alt="Create Your First Digital Product Mockup" loading="lazy" decoding="async" />
+                        <img src="images/own-create.webp" alt="Create Your First Digital Product Mockup" loading="lazy" decoding="async" />
                     </div>
                     <div class="own-product-content">
                         <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem;">
@@ -632,7 +639,7 @@
                 <!-- ChatGPT Prompts card -->
                 <div class="own-product-card glass-card">
                     <div class="own-product-img">
-                        <img src="images/own-prompts.png" alt="500+ ChatGPT Prompts Bank Mockup" loading="lazy" decoding="async" />
+                        <img src="images/own-prompts.webp" alt="500+ ChatGPT Prompts Bank Mockup" loading="lazy" decoding="async" />
                     </div>
                     <div class="own-product-content">
                         <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem;">
@@ -662,7 +669,7 @@
             </div>
             <div class="tools-grid">
                 <div class="tool-card glass-card">
-                    <div class="tool-icon"><img src="images/tool-calc.png" alt="Income Potential Calculator Icon" loading="lazy" decoding="async" /></div>
+                    <div class="tool-icon"><img src="images/tool-calc.webp" alt="Income Potential Calculator Icon" loading="lazy" decoding="async" /></div>
                     <h3>Income Potential Calculator</h3>
                     <p>Find out how much you could realistically earn based on your hours, budget, and goals — with a personalized path recommendation.</p>
                     <div class="tool-usage-bar"><div class="tool-usage-fill" id="calc-usage-fill"></div></div>
@@ -670,7 +677,7 @@
                     <button class="btn btn-primary" id="open-calculator" style="margin-top:1rem;width:100%;">Calculate My Potential →</button>
                 </div>
                 <div class="tool-card glass-card">
-                    <div class="tool-icon"><img src="images/tool-niche.png" alt="Digital Niche Finder Icon" loading="lazy" decoding="async" /></div>
+                    <div class="tool-icon"><img src="images/tool-niche.webp" alt="Digital Niche Finder Icon" loading="lazy" decoding="async" /></div>
                     <h3>Digital Niche Finder</h3>
                     <p>Tell us your interests and audience. We'll match you to the most profitable digital product niches and show you exactly what to sell.</p>
                     <div class="tool-usage-bar"><div class="tool-usage-fill" id="niche-usage-fill"></div></div>
@@ -678,7 +685,7 @@
                     <button class="btn btn-primary" id="open-niche-finder" style="margin-top:1rem;width:100%;">Find My Niche →</button>
                 </div>
                 <div class="tool-card glass-card">
-                    <div class="tool-icon"><img src="images/tool-filter.png" alt="PLR Product Filter Icon" loading="lazy" decoding="async" /></div>
+                    <div class="tool-icon"><img src="images/tool-filter.webp" alt="PLR Product Filter Icon" loading="lazy" decoding="async" /></div>
                     <h3>PLR Product Filter</h3>
                     <p>Stop scrolling through hundreds of PLR products. Filter by niche, format, and audience — find exactly what will sell in your market.</p>
                     <div class="tool-usage-bar"><div class="tool-usage-fill" id="plr-usage-fill"></div></div>
@@ -686,7 +693,7 @@
                     <button class="btn btn-primary" id="open-plr-filter" style="margin-top:1rem;width:100%;">Filter PLR Products →</button>
                 </div>
                 <div class="tool-card glass-card tool-card-ai">
-                    <div class="tool-icon"><img src="images/tool-coach.png" alt="Boss AI Income Coach Icon" loading="lazy" decoding="async" /></div>
+                    <div class="tool-icon"><img src="images/tool-coach.webp" alt="Boss AI Income Coach Icon" loading="lazy" decoding="async" /></div>
                     <h3>Boss AI Income Coach</h3>
                     <p>Chat with our AI coach. Tell it your situation, your goals, and your budget — it'll recommend the exact income stream and offer for your life.</p>
                     <div class="tool-usage-bar"><div class="tool-usage-fill" id="ai-usage-fill"></div></div>
@@ -983,7 +990,7 @@
             <!-- Form State -->
             <div id="vault-form-wrapper">
                 <div style="width:100%;max-width:180px;height:120px;overflow:hidden;border-radius:12px;margin:0.5rem auto 1.5rem;border:1px solid rgba(232,50,122,0.25);">
-                    <img src="images/own-vault.png" style="width:100%;height:100%;object-fit:cover;" alt="Creative Content Vault" loading="lazy" decoding="async">
+                    <img src="images/own-vault.webp" style="width:100%;height:100%;object-fit:cover;" alt="Creative Content Vault" loading="lazy" decoding="async">
                 </div>
                 <h3 style="font-family:var(--font-heading);font-size:1.4rem;color:#fff;margin-bottom:0.5rem;">Unlock the Content Vault</h3>
                 <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.5;">Enter your name and email to get the 90+ Days of Content Prompts sent to your inbox + instant access right now.</p>
