@@ -1,8 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /admin.html
-Disallow: /admin_legacy_archive.html
-Disallow: /dashboard_legacy_archive.js
-Disallow: /dashboard_legacy_archive.css
 
 Sitemap: https://bossmamabiz.com/sitemap.xml
