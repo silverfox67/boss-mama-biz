@@ -6,17 +6,18 @@
       navigator.serviceWorker.register('sw.js').catch(function() {});
     });
   }
-  // 2. Hide if already installed
+  // 2. Hide if already installed in standalone mode
   if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) return;
   
   // 3. Platform & Browser Detection
   var ua = navigator.userAgent || navigator.vendor || window.opera || '';
   var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || (window.innerWidth <= 768);
   var isInAppBrowser = /FBAN|FBAV|FB_IAB|FBSS|Orca|Messenger|Instagram|TikTok|musical_ly|Line|Twitter|Snapchat|Pinterest/i.test(ua) || 
                        (/\bAndroid\b/i.test(ua) && (/\bwv\b/i.test(ua) || /Version\/[0-9]/i.test(ua))) ||
                        document.documentElement.classList.contains('in-app-messenger');
   var deferredPrompt = null;
-  var banner, installBtn, dismissBtn, closeBtn, iosGuide, iosGotItBtn, inAppGuide, inAppGotItBtn;
+  var banner, installBtn, dismissBtn, closeBtn, iosGuide, iosGotItBtn, inAppGuide, inAppGotItBtn, desktopGuide, desktopGotItBtn;
 
   // 4. Dynamic Platform-Aware CTA Label
   function updateButtonLabel() {
@@ -26,8 +27,10 @@
       label.textContent = isIOS ? 'Install App (Opens in Safari)' : 'Install App (Opens in Chrome)';
     } else if (isIOS) {
       label.textContent = 'Install App (Add to Home Screen)';
-    } else {
+    } else if (isMobile) {
       label.textContent = 'Install Phone App';
+    } else {
+      label.textContent = 'Install App';
     }
   }
 
@@ -40,6 +43,8 @@
     iosGotItBtn = document.getElementById('pwaIosGotItBtn');
     inAppGuide = document.getElementById('pwaInAppGuide');
     inAppGotItBtn = document.getElementById('pwaInAppGotItBtn');
+    desktopGuide = document.getElementById('pwaDesktopGuide');
+    desktopGotItBtn = document.getElementById('pwaDesktopGotItBtn');
     if (!banner) return;
     updateButtonLabel();
 
@@ -47,23 +52,29 @@
       banner.style.display = 'none';
       if (inAppGuide) inAppGuide.style.display = 'none';
       if (iosGuide) iosGuide.style.display = 'none';
+      if (desktopGuide) desktopGuide.style.display = 'none';
       if (installBtn) installBtn.style.display = '';
-      try {
-        sessionStorage.setItem('bmb_pwa_dismissed', 'true');
-      } catch(e) {}
     }
 
     if (dismissBtn) dismissBtn.addEventListener('click', dismiss);
     if (closeBtn) closeBtn.addEventListener('click', dismiss);
     if (iosGotItBtn) iosGotItBtn.addEventListener('click', dismiss);
     if (inAppGotItBtn) inAppGotItBtn.addEventListener('click', dismiss);
+    if (desktopGotItBtn) desktopGotItBtn.addEventListener('click', dismiss);
 
     if (installBtn) {
       installBtn.addEventListener('click', function() {
         if (deferredPrompt) {
-          // Native Chromium prompt (Regular Chrome / Edge)
+          // Native Chromium prompt (Regular Chrome / Edge / Brave)
           deferredPrompt.prompt();
-          deferredPrompt = null;
+          deferredPrompt.userChoice.then(function(choice) {
+            if (choice.outcome === 'accepted') {
+              dismiss();
+            }
+            deferredPrompt = null;
+          }).catch(function() {
+            deferredPrompt = null;
+          });
         } else if (isInAppBrowser) {
           if (isIOS) {
             if (inAppGuide) inAppGuide.style.display = 'block';
@@ -80,31 +91,34 @@
             iosGuide.style.display = 'block';
             installBtn.style.display = 'none';
           }
+        } else {
+          // Desktop without active deferred prompt (e.g. click address bar icon)
+          if (desktopGuide) {
+            desktopGuide.style.display = 'block';
+            installBtn.style.display = 'none';
+          }
         }
       });
     }
   }
 
   function showBanner() {
-    try {
-      if (sessionStorage.getItem('bmb_pwa_dismissed') === 'true') return;
-    } catch(e) {}
     if (!banner) initElements();
     if (!banner) return;
     updateButtonLabel();
     banner.style.display = 'block';
   }
 
+  // Native Chrome / Edge / Android install prompt hook
   window.addEventListener('beforeinstallprompt', function(e) {
     e.preventDefault();
     deferredPrompt = e;
-    setTimeout(showBanner, 2000);
+    setTimeout(showBanner, 1500);
   });
 
+  // DOMContentLoaded trigger for both desktop and mobile
   window.addEventListener('DOMContentLoaded', function() {
     initElements();
-    if (window.innerWidth <= 768 || isInAppBrowser) {
-      setTimeout(showBanner, 3000);
-    }
+    setTimeout(showBanner, 2000);
   });
 })();
