@@ -3,41 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog — Boss Mama Biz</title>
+    <title>The Boss Mom Journal — Boss Mama Biz</title>
     <meta name="description" content="Read Kristan's latest strategies, guides, and honest opinions on building automated digital income streams without social media burnout.">
+    <link rel="canonical" href="https://bossmamabiz.com/blog.html">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Kristan O'Connor">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="blog">
+    <meta property="og:url" content="https://bossmamabiz.com/blog.html">
+    <meta property="og:site_name" content="Boss Mama Biz">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="The Boss Mom Journal — Boss Mama Biz">
+    <meta property="og:description" content="Read Kristan's latest strategies, guides, and honest opinions on building automated digital income streams without social media burnout.">
+    <meta property="og:image" content="https://bossmamabiz.com/images/kris-hero1.jpg">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Boss Mom Journal — Boss Mama Biz">
+    <meta name="twitter:description" content="Read Kristan's latest strategies, guides, and honest opinions on building automated digital income streams without social media burnout.">
+    <meta name="twitter:image" content="https://bossmamabiz.com/images/kris-hero1.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
-    <link rel="stylesheet" href="style.css?v=18.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="stylesheet" href="style.css?v=22.0">
 </head>
 <body style="background: var(--bg-dark); color: var(--text-main); font-family: var(--font-body); min-height: 100vh; display: flex; flex-direction: column;">
 
     <!-- ===== NAVIGATION ===== -->
     <nav class="nav-bar">
         <div class="container nav-container">
-            <a href="/" style="text-decoration: none;" class="logo-wrapper">
+            <a href="index.html" style="text-decoration: none;" class="logo-wrapper">
                 <span class="logo-text">BOSS MAMA BIZ</span>
                 <span class="logo-sub">EST. 2023</span>
             </a>
             <div class="nav-links-desktop">
-                <a href="blog.html" class="btn btn-secondary active-link" style="padding:0.6rem 1.2rem;font-size:0.9rem;border-color:var(--primary);color:var(--primary);background:rgba(232, 50, 122, 0.05);">Blog</a>
-                <a href="/#tools" class="btn btn-secondary" style="padding:0.6rem 1.2rem;font-size:0.85rem;">Free Tools</a>
-                <a href="/#offers" class="btn btn-secondary" style="padding:0.6rem 1.2rem;font-size:0.9rem;">View Offers</a>
+                <a href="index.html#offers" class="nav-link">Offers</a>
+                <a href="index.html#tools" class="nav-link">Free Tools</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+                <a href="blog.html" class="nav-link">Blog</a>
             </div>
             <button class="hamburger-btn" aria-label="Toggle Navigation" onclick="document.getElementById('mobile-menu').classList.toggle('active')">
                 <i class="ph ph-list"></i>
             </button>
         </div>
         <div class="mobile-menu" id="mobile-menu">
-            <a href="blog.html" class="mobile-menu-link" style="color:var(--primary);">Blog</a>
-            <a href="/#tools" class="mobile-menu-link">Free Tools</a>
-            <a href="/#offers" class="mobile-menu-link">View Offers</a>
+            <a href="index.html#offers" class="mobile-menu-link">Offers</a>
+            <a href="index.html#tools" class="mobile-menu-link">Free Tools</a>
+            <a href="index.html#contact" class="mobile-menu-link">Contact</a>
+            <a href="blog.html" class="mobile-menu-link">Blog</a>
         </div>
     </nav>
 
     <!-- ===== BLOG HERO (Cream Theme) ===== -->
     <header style="padding: 5rem 0 3.5rem; text-align: center; background-color: #F5F0E6; border-bottom: 1px solid rgba(232, 50, 122, 0.12); color: #1A0A14;">
         <div class="container">
-            <span class="pill-tag" style="margin-bottom: 1rem; background: rgba(232, 50, 122, 0.08); border: 1px solid rgba(232, 50, 122, 0.3); color: #C4285E;">Honest Business Blueprint</span>
+            <div style="font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; color: #C4285E; margin-bottom: 0.8rem;">Honest Business Blueprint</div>
             <h1 style="font-family: var(--font-heading); font-size: 2.8rem; line-height: 1.2; color: #1A0A14; text-transform: uppercase; letter-spacing: 2px;">The Boss Mom Journal</h1>
             <p style="color: #5A2E45; font-size: 1.15rem; max-width: 600px; margin: 1rem auto 0; font-weight: 300; line-height: 1.5;">Real strategies, actual tools, and zero-fluff guides to building automated systems that work when you can't.</p>
         </div>
@@ -57,13 +81,22 @@
     <!-- ===== FOOTER ===== -->
     <footer style="border-top: 1px solid var(--border-color); padding: 4rem 0; text-align: center; background: var(--bg-dark); margin-top: auto;">
         <div class="container" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;">
-            <div class="logo-wrapper" style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;line-height:1;margin:0;">
+            <a href="index.html" class="logo-wrapper" style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;line-height:1;margin:0;text-decoration:none;">
                 <span class="logo-text" style="font-family:var(--font-heading);font-size:1.9rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#ffffff;">BOSS MAMA BIZ</span>
                 <span style="font-family:var(--font-body);font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:5px;color:rgba(255,255,255,0.55);">EST. 2023</span>
-            </div>
+            </a>
             <p style="margin:0;font-size:1rem;">Helping Busy Moms Build Income Online Without Being Glued To Social Media</p>
+
+            <!-- Footer Navigation Menu -->
+            <div class="footer-nav-links">
+                <a href="index.html#offers" class="footer-nav-link">Offers</a>
+                <a href="index.html#tools" class="footer-nav-link">Free Tools</a>
+                <a href="index.html#contact" class="footer-nav-link">Contact</a>
+                <a href="blog.html" class="footer-nav-link">Blog</a>
+            </div>
+
             <p style="margin:0;font-size:0.95rem;color:var(--text-muted);">Contact: <a href="mailto:kristan@bossmamabiz.com" style="color:var(--text-main);text-decoration:none;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-main)'">kristan@bossmamabiz.com</a></p>
-            <p style="margin:0;font-size:0.95rem;color:var(--text-muted);">Designed by <a href="https://tridentwebsitedesign.com" target="_blank" style="color:var(--primary);text-decoration:none;font-weight:600;" onmouseover="this.style.color='#fff3d1'" onmouseout="this.style.color='var(--primary)'">Trident Website Design</a></p>
+            <p style="margin:0;font-size:0.95rem;color:var(--text-muted);">Designed by <a href="https://tridentwebsitedesign.com" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:none;font-weight:600;" onmouseover="this.style.color='#fff3d1'" onmouseout="this.style.color='var(--primary)'">Trident Website Design</a></p>
             <p style="margin:0;font-size:0.85rem;color:var(--text-muted);"><a href="privacy.html" style="color:var(--text-muted);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">Privacy Policy</a> | <a href="terms.html" style="color:var(--text-muted);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">Terms of Service</a></p>
             <p style="color:var(--text-muted);font-size:0.8rem;margin:0;">&copy; 2026 Boss Mama Biz. All rights reserved.</p>
         </div>
@@ -259,7 +292,7 @@
                     
                     <!-- Full-Bleed Cover Image -->
                     <div style="height: 200px; width: 100%; overflow: hidden; position: relative; background: #130716;">
-                        <img src="${art.image || 'images/blog-streams.png'}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1.0)'">
+                        <img src="${art.image || 'images/blog-streams.png'}" alt="${art.title}" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1.0)'">
                     </div>
 
                     <!-- Card Body Content -->

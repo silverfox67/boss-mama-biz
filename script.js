@@ -12,7 +12,7 @@ const BREVO_LIST_ID = 2;  // Replace with your Brevo list ID number
 // ---- AFFILIATE LINKS ----
 const LINKS = {
     quiz:      'https://stan.store/Kristan_Oconnor/p/which-income-stream-matches-your-energy-w4rgsje8',
-    stacked:   { peek: 'https://stan.store/Kristan_Oconnor/p/the-stacked-sneak-peek-qukh6f7x', buy: 'https://stan.store/affiliates/8f9bdd55-e647-44d1-89cf-78f3b3750daa' },
+    stacked:   { peek: 'https://stan.store/Kristan_Oconnor/p/the-stacked-sneak-peek-qukh6f7x', buy: 'https://stan.store/Kristan_Oconnor/p/stacked-by-emily' },
     boss:      { peek: 'https://stan.store/Kristan_Oconnor/p/bosssuite-sneak-peek', buy: 'https://stan.store/affiliates/81495b81-cf82-4813-8634-7f8d9f4369ba' },
     fes:       { peek: 'https://stan.store/Kristan_Oconnor/p/preview-inside-fes', buy: 'https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a' },
     plr:       { buy: 'https://stan.store/affiliates/238a4731-b0b4-47ac-8956-51dbc49db694' },
@@ -1093,3 +1093,54 @@ loadLiveReviews();
         });
     }
 })();
+
+// ============================================================
+//  CONTACT FORM HANDLER
+// ============================================================
+window.handleContactSubmit = async function(e) {
+    e.preventDefault();
+    const nameInput    = document.getElementById('contact-name');
+    const emailInput   = document.getElementById('contact-email');
+    const topicInput   = document.getElementById('contact-topic');
+    const messageInput = document.getElementById('contact-message');
+    const btn          = document.getElementById('contact-submit-btn');
+    const successMsg   = document.getElementById('contact-success-msg');
+
+    const name    = nameInput ? nameInput.value.trim() : '';
+    const email   = emailInput ? emailInput.value.trim() : '';
+    const topic   = topicInput ? topicInput.value : 'General Question';
+    const message = messageInput ? messageInput.value.trim() : '';
+
+    if (!name || !email || !message) return;
+
+    if (btn) {
+        btn.textContent = 'Sending Message...';
+        btn.disabled = true;
+    }
+
+    // Save lead to local dashboard leads
+    try {
+        saveLocalLead(name, email, `Contact: ${topic}`);
+    } catch (_) {}
+
+    // Send via EmailJS if configured
+    try {
+        if (typeof emailjs !== 'undefined' && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
+            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                from_name: name,
+                from_email: email,
+                topic: topic,
+                message: message,
+                to_email: 'kristan@bossmamabiz.com'
+            });
+        }
+    } catch (_) {}
+
+    if (btn) {
+        btn.style.display = 'none';
+    }
+    if (successMsg) {
+        successMsg.style.display = 'flex';
+    }
+};
+

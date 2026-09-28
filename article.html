@@ -6,38 +6,41 @@
     <title>Read Article — Boss Mama Biz</title>
     <meta name="robots" content="noindex, nofollow">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
-    <link rel="stylesheet" href="style.css?v=18.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="stylesheet" href="style.css?v=22.0">
 </head>
 <body style="background: var(--bg-dark); color: var(--text-main); font-family: var(--font-body); min-height: 100vh; display: flex; flex-direction: column;">
 
     <!-- ===== NAVIGATION ===== -->
     <nav class="nav-bar">
         <div class="container nav-container">
-            <a href="/" style="text-decoration: none;" class="logo-wrapper">
+            <a href="index.html" style="text-decoration: none;" class="logo-wrapper">
                 <span class="logo-text">BOSS MAMA BIZ</span>
                 <span class="logo-sub">EST. 2023</span>
             </a>
             <div class="nav-links-desktop">
-                <a href="blog.html" class="btn btn-secondary active-link" style="padding:0.6rem 1.2rem;font-size:0.9rem;border-color:var(--primary);color:var(--primary);background:rgba(232, 50, 122, 0.05);">Blog</a>
-                <a href="/#tools" class="btn btn-secondary" style="padding:0.6rem 1.2rem;font-size:0.85rem;">Free Tools</a>
-                <a href="/#offers" class="btn btn-secondary" style="padding:0.6rem 1.2rem;font-size:0.9rem;">View Offers</a>
+                <a href="index.html#offers" class="nav-link">Offers</a>
+                <a href="index.html#tools" class="nav-link">Free Tools</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+                <a href="blog.html" class="nav-link">Blog</a>
             </div>
             <button class="hamburger-btn" aria-label="Toggle Navigation" onclick="document.getElementById('mobile-menu').classList.toggle('active')">
                 <i class="ph ph-list"></i>
             </button>
         </div>
         <div class="mobile-menu" id="mobile-menu">
-            <a href="blog.html" class="mobile-menu-link" style="color:var(--primary);">Blog</a>
-            <a href="/#tools" class="mobile-menu-link">Free Tools</a>
-            <a href="/#offers" class="mobile-menu-link">View Offers</a>
+            <a href="index.html#offers" class="mobile-menu-link">Offers</a>
+            <a href="index.html#tools" class="mobile-menu-link">Free Tools</a>
+            <a href="index.html#contact" class="mobile-menu-link">Contact</a>
+            <a href="blog.html" class="mobile-menu-link">Blog</a>
         </div>
     </nav>
 
     <!-- ===== BLOG HERO (Cream Theme) ===== -->
     <header style="padding: 5rem 0 3.5rem; text-align: center; background-color: #F5F0E6; border-bottom: 1px solid rgba(232, 50, 122, 0.12); color: #1A0A14;">
         <div class="container">
-            <span class="pill-tag" style="margin-bottom: 1rem; background: rgba(232, 50, 122, 0.08); border: 1px solid rgba(232, 50, 122, 0.3); color: #C4285E;">Honest Business Journal</span>
+            <div style="font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; color: #C4285E; margin-bottom: 0.8rem;">Honest Business Journal</div>
             <h1 style="font-family: var(--font-heading); font-size: 2.8rem; line-height: 1.2; color: #1A0A14; text-transform: uppercase; letter-spacing: 2px;">The Boss Mom Journal</h1>
             <p style="color: #5A2E45; font-size: 1.15rem; max-width: 600px; margin: 1rem auto 0; font-weight: 300; line-height: 1.5;">Real strategies, actual tools, and zero-fluff guides to building automated systems that work when you can't.</p>
         </div>
@@ -86,12 +89,12 @@
                     </a>
 
                     <!-- CTA 2: Energy Qualifier -->
-                    <a href="/#quiz" class="btn btn-secondary" style="border-color:#C4285E; color:#C4285E; padding:0.8rem 1.5rem; font-size:0.9rem; font-weight:700; display:flex; align-items:center; gap:0.4rem; background:rgba(232, 50, 122, 0.02); border-radius:8px;">
+                    <a href="index.html#quiz" class="btn btn-secondary" style="border-color:#C4285E; color:#C4285E; padding:0.8rem 1.5rem; font-size:0.9rem; font-weight:700; display:flex; align-items:center; gap:0.4rem; background:rgba(232, 50, 122, 0.02); border-radius:8px;">
                         <i class="ph ph-lightning"></i> Take Energy Qualifier
                     </a>
 
                     <!-- CTA 3: Target Offer (Dynamic) -->
-                    <a id="article-cta-offer" href="" target="_blank" class="btn btn-primary" style="box-shadow: 0 4px 15px rgba(232, 50, 122, 0.25); padding:0.8rem 1.8rem; font-size:0.9rem; font-weight:700; display:flex; align-items:center; gap:0.4rem; border-radius:8px; display:none;">
+                    <a id="article-cta-offer" href="" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="box-shadow: 0 4px 15px rgba(232, 50, 122, 0.25); padding:0.8rem 1.8rem; font-size:0.9rem; font-weight:700; display:flex; align-items:center; gap:0.4rem; border-radius:8px; display:none;">
                         <span id="article-cta-offer-text">Access Recommended Offer</span> <i class="ph ph-arrow-square-out"></i>
                     </a>
                     
@@ -104,13 +107,22 @@
     <!-- ===== FOOTER ===== -->
     <footer style="border-top: 1px solid var(--border-color); padding: 4rem 0; text-align: center; background: var(--bg-dark); margin-top: auto;">
         <div class="container" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;">
-            <div class="logo-wrapper" style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;line-height:1;margin:0;">
+            <a href="index.html" class="logo-wrapper" style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;line-height:1;margin:0;text-decoration:none;">
                 <span class="logo-text" style="font-family:var(--font-heading);font-size:1.9rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#ffffff;">BOSS MAMA BIZ</span>
                 <span style="font-family:var(--font-body);font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:5px;color:rgba(255,255,255,0.55);">EST. 2023</span>
-            </div>
+            </a>
             <p style="margin:0;font-size:1rem;">Helping Busy Moms Build Income Online Without Being Glued To Social Media</p>
+
+            <!-- Footer Navigation Menu -->
+            <div class="footer-nav-links">
+                <a href="index.html#offers" class="footer-nav-link">Offers</a>
+                <a href="index.html#tools" class="footer-nav-link">Free Tools</a>
+                <a href="index.html#contact" class="footer-nav-link">Contact</a>
+                <a href="blog.html" class="footer-nav-link">Blog</a>
+            </div>
+
             <p style="margin:0;font-size:0.95rem;color:var(--text-muted);">Contact: <a href="mailto:kristan@bossmamabiz.com" style="color:var(--text-main);text-decoration:none;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-main)'">kristan@bossmamabiz.com</a></p>
-            <p style="margin:0;font-size:0.95rem;color:var(--text-muted);">Designed by <a href="https://tridentwebsitedesign.com" target="_blank" style="color:var(--primary);text-decoration:none;font-weight:600;" onmouseover="this.style.color='#fff3d1'" onmouseout="this.style.color='var(--primary)'">Trident Website Design</a></p>
+            <p style="margin:0;font-size:0.95rem;color:var(--text-muted);">Designed by <a href="https://tridentwebsitedesign.com" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:none;font-weight:600;" onmouseover="this.style.color='#fff3d1'" onmouseout="this.style.color='var(--primary)'">Trident Website Design</a></p>
             <p style="margin:0;font-size:0.85rem;color:var(--text-muted);"><a href="privacy.html" style="color:var(--text-muted);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">Privacy Policy</a> | <a href="terms.html" style="color:var(--text-muted);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">Terms of Service</a></p>
             <p style="color:var(--text-muted);font-size:0.8rem;margin:0;">&copy; 2026 Boss Mama Biz. All rights reserved.</p>
         </div>
@@ -450,7 +462,7 @@
             <!-- Form State -->
             <div id="vault-form-wrapper">
                 <div style="width:100%;max-width:180px;height:120px;overflow:hidden;border-radius:12px;margin:0.5rem auto 1.5rem;border:1px solid rgba(232,50,122,0.25);">
-                    <img src="images/own-vault.png" style="width:100%;height:100%;object-fit:cover;" alt="Creative Content Vault">
+                    <img src="images/own-vault.png" style="width:100%;height:100%;object-fit:cover;" alt="Creative Content Vault" loading="lazy" decoding="async">
                 </div>
                 <h3 style="font-family:var(--font-heading);font-size:1.4rem;color:#fff;margin-bottom:0.5rem;">Unlock the Content Vault</h3>
                 <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;line-height:1.5;">Enter your name and email to get the 90+ Days of Content Prompts sent to your inbox + instant access right now.</p>
@@ -464,12 +476,12 @@
 
             <!-- Success State -->
             <div id="vault-success-wrapper" style="display:none; flex-direction:column; align-items:center; text-align:center; padding:1rem 0;">
-                <div style="font-size:3.5rem; margin-bottom:1rem; animation: float 3s ease-in-out infinite;">📬</div>
+                <i class="ph ph-envelope-simple-open" style="font-size:3.5rem; color:var(--primary); line-height:1; display:inline-block; margin-bottom:1rem; animation: float 3s ease-in-out infinite;"></i>
                 <h3 style="font-family:var(--font-heading); font-size:1.6rem; margin-bottom:0.75rem; color:var(--primary);">You're in!</h3>
                 <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:1.5rem; line-height:1.5; text-align:center; max-width:280px; margin-left:auto; margin-right:auto;">
                     The Creative Content Vault is on its way to your inbox. Check your email in a few minutes!
                 </p>
-                <a href="https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view" target="_blank" class="btn btn-primary" style="width:100%; text-align:center; margin-bottom:1rem; text-decoration:none; display:inline-block; box-sizing:border-box;">Open My Vault Instantly →</a>
+                <a href="https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%; text-align:center; margin-bottom:1rem; text-decoration:none; display:inline-block; box-sizing:border-box;">Open My Vault Instantly →</a>
                 <button class="modal-close tool-modal-close" data-modal="vault-optin-modal" style="background:none; border:none; text-decoration:underline; font-size:0.85rem; cursor:pointer; color:var(--text-muted); margin-top:0.5rem; padding:0; font-family:var(--font-body);">Back to website</button>
             </div>
         </div>

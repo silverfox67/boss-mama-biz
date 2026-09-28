@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bmb-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F05595" />
+      <stop offset="50%" stop-color="#E8327A" />
+      <stop offset="100%" stop-color="#C9A84C" />
+    </linearGradient>
+    <radialGradient id="bg-glow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#3A173E" />
+      <stop offset="100%" stop-color="#120615" />
+    </radialGradient>
+  </defs>
+  <!-- Background with rounded corners -->
+  <rect width="512" height="512" rx="120" fill="url(#bg-glow)" stroke="rgba(232, 50, 122, 0.45)" stroke-width="12" />
+  
+  <!-- Subtle inner border -->
+  <rect x="24" y="24" width="464" height="464" rx="98" fill="none" stroke="rgba(201, 168, 76, 0.25)" stroke-width="3" />
+
+  <!-- Monogram BMB -->
+  <g transform="translate(256, 290)" text-anchor="middle">
+    <!-- Main Text BMB -->
+    <text font-family="'Playfair Display', Georgia, serif" font-size="160" font-weight="700" fill="url(#bmb-grad)" letter-spacing="8" x="0" y="0">BMB</text>
+  </g>
+  
+  <!-- Decorative small crown/accent bar -->
+  <path d="M 216 145 L 256 125 L 296 145 L 280 170 L 232 170 Z" fill="#C9A84C" />
+  <circle cx="216" cy="140" r="5" fill="#F05595" />
+  <circle cx="256" cy="120" r="6" fill="#C9A84C" />
+  <circle cx="296" cy="140" r="5" fill="#F05595" />
+</svg>
