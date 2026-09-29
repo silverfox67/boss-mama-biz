@@ -2527,6 +2527,28 @@ html.in-app-messenger .pwa-btn-install {
     letter-spacing: -0.01em !important;
 }
 
+/* Secondary Offer Card CTA Link */
+.btn-card-secondary {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+    padding: 0.35rem 0.5rem;
+    transition: var(--transition-smooth);
+    border-radius: 8px;
+    letter-spacing: 0.3px;
+    box-sizing: border-box;
+}
+
+.btn-card-secondary:hover {
+    color: var(--primary) !important;
+    background: rgba(232, 50, 122, 0.08);
+}
+
 
 
 
