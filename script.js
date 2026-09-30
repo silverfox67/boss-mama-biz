@@ -372,12 +372,7 @@ if (sneakPeekForm) {
         btn.disabled = false;
         sneakPeekForm.reset();
 
-        showToast(`✅ Access unlocked! Opening inside look...`);
-
-        // Smooth redirect to our dedicated sneak peek page after brief confirmation
-        setTimeout(() => {
-            window.location.href = offer.previewUrl;
-        }, 1100);
+        showToast(`✅ Instant access unlocked! Check your email or tap below.`);
     });
 }
 
