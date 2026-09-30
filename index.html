@@ -387,12 +387,11 @@
                                style="width:100%;text-align:center;display:block;box-sizing:border-box;">
                                 Enroll Now →
                             </a>
-                            <a href="https://stan.store/Kristan_Oconnor/p/the-stacked-sneak-peek-qukh6f7x" 
-                               target="_blank" 
-                               rel="noopener noreferrer"
-                               class="btn-card-secondary">
+                            <button type="button" 
+                                class="btn-card-secondary open-sneak-peek-btn" 
+                                data-offer="stacked">
                                 Stacked Sneak Peek →
-                            </a>
+                            </button>
                         </div>
                     </div>
 
@@ -418,12 +417,11 @@
                                style="width:100%;text-align:center;display:block;box-sizing:border-box;">
                                 Enroll Now →
                             </a>
-                            <a href="https://stan.store/Kristan_Oconnor/p/bosssuite-sneak-peek" 
-                               target="_blank" 
-                               rel="noopener noreferrer"
-                               class="btn-card-secondary">
+                            <button type="button" 
+                                class="btn-card-secondary open-sneak-peek-btn" 
+                                data-offer="boss">
                                 Boss Suite Sneak Peek →
-                            </a>
+                            </button>
                         </div>
                     </div>
 
@@ -450,12 +448,11 @@
                                style="width:100%;text-align:center;display:block;box-sizing:border-box;">
                                 Enroll Now →
                             </a>
-                            <a href="https://stan.store/Kristan_Oconnor/p/preview-inside-fes" 
-                               target="_blank" 
-                               rel="noopener noreferrer"
-                               class="btn-card-secondary">
+                            <button type="button" 
+                                class="btn-card-secondary open-sneak-peek-btn" 
+                                data-offer="fes">
                                 FES Sneak Peek →
-                            </a>
+                            </button>
                         </div>
                     </div>
 
@@ -1050,6 +1047,59 @@
                 </p>
                 <a href="https://drive.google.com/file/d/16ghn0fLMiAL72yz_JwCaLGR9ASeZRFQz/view" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%; text-align:center; margin-bottom:1rem; text-decoration:none; display:inline-block; box-sizing:border-box;">Open My Vault Instantly →</a>
                 <button class="modal-close tool-modal-close" data-modal="vault-optin-modal" style="background:none; border:none; text-decoration:underline; font-size:0.85rem; cursor:pointer; color:var(--text-muted); margin-top:0.5rem; padding:0; font-family:var(--font-body);">Back to website</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Dynamic Affiliate Sneak Peek Opt-in Modal -->
+    <div id="sneak-peek-modal" class="tool-modal" role="dialog" aria-modal="true" aria-labelledby="sneak-peek-title">
+        <div class="tool-modal-content" style="max-width:460px;text-align:center;">
+            <button type="button" class="modal-close tool-modal-close" data-modal="sneak-peek-modal" style="background:none;border:none;color:#fff;font-size:1.8rem;position:absolute;top:1rem;right:1.2rem;cursor:pointer;" aria-label="Close modal">&times;</button>
+            
+            <!-- Form State -->
+            <div id="sneak-peek-form-wrapper">
+                <div style="margin-bottom:0.8rem;">
+                    <span id="sneak-peek-badge" class="offer-badge offer-badge-popular" style="position:static;display:inline-flex;"><i class="ph-fill ph-seal-check"></i> Free Inside Look</span>
+                </div>
+                <h3 id="sneak-peek-title" style="font-family:var(--font-heading);font-size:1.45rem;color:#fff;margin-bottom:0.4rem;">Inside Stacked by Emily</h3>
+                <p id="sneak-peek-subtitle" style="color:var(--text-muted);font-size:0.88rem;line-height:1.45;margin-bottom:1.1rem;">A free, honest walkthrough of the curriculum, mentorship, and automated income streams before you decide.</p>
+                
+                <!-- Highlights Box -->
+                <div id="sneak-peek-bullets" style="text-align:left;background:rgba(255,255,255,0.03);border:1px solid rgba(232,50,122,0.18);border-radius:12px;padding:0.9rem 1rem;margin-bottom:1.2rem;display:flex;flex-direction:column;gap:0.55rem;">
+                    <div style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.86rem;color:var(--text-main);line-height:1.35;">
+                        <i class="ph-fill ph-check-circle" style="color:var(--primary);font-size:1.1rem;flex-shrink:0;margin-top:0.1rem;"></i>
+                        <span id="sneak-peek-bullet-1">A direct, no-BS walkthrough of the curriculum</span>
+                    </div>
+                    <div style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.86rem;color:var(--text-main);line-height:1.35;">
+                        <i class="ph-fill ph-check-circle" style="color:var(--primary);font-size:1.1rem;flex-shrink:0;margin-top:0.1rem;"></i>
+                        <span id="sneak-peek-bullet-2">Designed for busy moms with limited daily pockets of time</span>
+                    </div>
+                    <div style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.86rem;color:var(--text-main);line-height:1.35;">
+                        <i class="ph-fill ph-check-circle" style="color:var(--primary);font-size:1.1rem;flex-shrink:0;margin-top:0.1rem;"></i>
+                        <span id="sneak-peek-bullet-3">Real mentorship, weekly live Zooms &amp; active community</span>
+                    </div>
+                </div>
+
+                <form id="sneak-peek-form" style="display:flex;flex-direction:column;gap:0.8rem;">
+                    <input type="hidden" id="sneak-peek-offer-key" value="stacked">
+                    <input type="text" id="sneak-peek-name" placeholder="Your first name" class="tool-input" required style="width:100%;box-sizing:border-box;">
+                    <input type="email" id="sneak-peek-email" placeholder="Your best email" class="tool-input" required style="width:100%;box-sizing:border-box;">
+                    <button type="submit" id="sneak-peek-submit-btn" class="btn btn-primary" style="width:100%;border:none;cursor:pointer;">Get Instant Sneak Peek →</button>
+                </form>
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-top:1rem;">Zero spam. Instant access link delivered to your screen &amp; inbox.</p>
+            </div>
+
+            <!-- Success State -->
+            <div id="sneak-peek-success-wrapper" style="display:none;flex-direction:column;align-items:center;text-align:center;padding:1rem 0;">
+                <i class="ph-fill ph-sparkle" style="font-size:3.5rem;color:var(--primary);line-height:1;display:inline-block;margin-bottom:0.8rem;animation:float 3s ease-in-out infinite;"></i>
+                <h3 id="sneak-peek-success-title" style="font-family:var(--font-heading);font-size:1.55rem;margin-bottom:0.5rem;color:var(--primary);">You're In!</h3>
+                <p id="sneak-peek-success-msg" style="color:var(--text-muted);font-size:0.92rem;margin-bottom:1.4rem;line-height:1.5;max-width:320px;">
+                    Your inside look has been sent to your inbox. You can also watch the full walkthrough right now below:
+                </p>
+                <a id="sneak-peek-view-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;text-align:center;margin-bottom:0.8rem;text-decoration:none;display:inline-block;box-sizing:border-box;">Watch Sneak Peek Now →</a>
+                <a id="sneak-peek-buy-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-card-secondary" style="width:100%;text-align:center;display:block;box-sizing:border-box;margin-bottom:0.8rem;font-size:0.88rem;">Ready to enroll? Direct Checkout →</a>
+                <button type="button" class="modal-close tool-modal-close" data-modal="sneak-peek-modal" style="background:none;border:none;text-decoration:underline;font-size:0.85rem;cursor:pointer;color:var(--text-muted);margin-top:0.4rem;padding:0;font-family:var(--font-body);">Back to website</button>
             </div>
         </div>
     </div>

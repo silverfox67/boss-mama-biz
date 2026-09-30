@@ -1,7 +1,7 @@
 export async function onRequestPost(context) {
   try {
     const { request, env } = context;
-    const { email, name, product } = await request.json();
+    const { email, name, product, listId } = await request.json();
 
     if (!email || !email.includes('@')) {
       return new Response(JSON.stringify({ error: 'Invalid email address' }), {
@@ -12,8 +12,8 @@ export async function onRequestPost(context) {
 
     // BREVO_API_KEY must be set in Cloudflare Pages environment variables
     const brevoApiKey = env.BREVO_API_KEY;
-    // BREVO_LIST_ID is the contact list ID in Brevo
-    const brevoListId = parseInt(env.BREVO_LIST_ID || '2'); // Default fallback list ID
+    // Default master list ID (List 10: Boss Mama Biz Leads)
+    const masterListId = parseInt(env.BREVO_LIST_ID || '10');
 
     if (!brevoApiKey) {
       console.error('Missing BREVO_API_KEY environment variable');
@@ -22,6 +22,19 @@ export async function onRequestPost(context) {
         headers: { 'Content-Type': 'application/json' },
       });
     }
+
+    // Determine target lists: Master list + offer-specific list
+    const targetListIds = [masterListId];
+    if (listId) {
+      targetListIds.push(parseInt(listId));
+    } else if (product) {
+      const p = product.toLowerCase();
+      if (p.includes('stacked')) targetListIds.push(11);
+      else if (p.includes('boss')) targetListIds.push(12);
+      else if (p.includes('facebook') || p.includes('fes')) targetListIds.push(13);
+      else if (p.includes('vault') || p.includes('creative')) targetListIds.push(14);
+    }
+    const finalLists = [...new Set(targetListIds)];
 
     // Call Brevo Contacts API
     const response = await fetch('https://api.brevo.com/v3/contacts', {
@@ -32,12 +45,12 @@ export async function onRequestPost(context) {
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        email: email,
-        listIds: [brevoListId],
+        email: email.trim().toLowerCase(),
+        listIds: finalLists,
         updateEnabled: true,
         attributes: {
-          FIRSTNAME: name || '',
-          LAST_PRODUCT_INTEREST: product || ''
+          FIRSTNAME: (name || '').trim(),
+          LAST_PRODUCT_INTEREST: (product || '').trim()
         }
       }),
     });

@@ -2542,6 +2542,10 @@ html.in-app-messenger .pwa-btn-install {
     border-radius: 8px;
     letter-spacing: 0.3px;
     box-sizing: border-box;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
 }
 
 .btn-card-secondary:hover {

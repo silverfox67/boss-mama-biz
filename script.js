@@ -229,6 +229,155 @@ if (vaultOptinForm) {
 }
 
 // ============================================================
+//  AFFILIATE SNEAK PEEK SYSTEM (Connected to Brevo Lists)
+// ============================================================
+const SNEAK_PEEK_OFFERS = {
+    stacked: {
+        title: 'Inside Stacked by Emily',
+        subtitle: 'A free, honest walkthrough of the curriculum, mentorship, and 14 automated income streams before you decide.',
+        badge: 'Beginner Friendly',
+        badgeIcon: 'ph-seal-check',
+        bullets: [
+            'A direct, no-BS walkthrough of the STACKED curriculum',
+            'How 14 beginner-friendly streams are built for busy schedules',
+            'Weekly live Zooms, 1-on-1 strategy support & active community'
+        ],
+        listId: 11,
+        productName: 'Stacked by Emily',
+        previewUrl: 'https://stan.store/Kristan_Oconnor/p/the-stacked-sneak-peek-qukh6f7x',
+        buyUrl: 'https://stan.store/Kristan_Oconnor/p/stacked-by-emily',
+        buttonText: 'Get Stacked Sneak Peek →'
+    },
+    boss: {
+        title: 'Inside The Boss Suite',
+        subtitle: 'Take a private tour inside the community, live mentorship hub, and 15+ income paths.',
+        badge: 'Most Popular',
+        badgeIcon: 'ph-fire',
+        bullets: [
+            '15+ digital income streams including faceless marketing paths',
+            'Daily mentorship, weekly live coaching & community hub tour',
+            'The 2-tier commission structure and resell rights explained'
+        ],
+        listId: 12,
+        productName: 'The Boss Suite',
+        previewUrl: 'https://stan.store/Kristan_Oconnor/p/bosssuite-sneak-peek',
+        buyUrl: 'https://stan.store/affiliates/81495b81-cf82-4813-8634-7f8d9f4369ba',
+        buttonText: 'Get Boss Suite Sneak Peek →'
+    },
+    fes: {
+        title: 'Inside Facebook Ecosystem Strategy',
+        subtitle: 'Behind-the-scenes look at the organic Facebook audience, profile funnel, and Manychat automation blueprint.',
+        badge: 'Hot Right Now',
+        badgeIcon: 'ph-trend-up',
+        bullets: [
+            'Inside look at Manychat & chatbot automated funnel blueprints',
+            'The 5-part Facebook profile setup to attract buyers organically',
+            'The Rule of 7s trust-building formula without paid ads'
+        ],
+        listId: 13,
+        productName: 'Facebook Ecosystem Strategy',
+        previewUrl: 'https://stan.store/Kristan_Oconnor/p/preview-inside-fes',
+        buyUrl: 'https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a',
+        buttonText: 'Get FES Sneak Peek →'
+    }
+};
+
+function openSneakPeekModal(offerKey) {
+    const offer = SNEAK_PEEK_OFFERS[offerKey] || SNEAK_PEEK_OFFERS.stacked;
+    const badgeEl = document.getElementById('sneak-peek-badge');
+    const titleEl = document.getElementById('sneak-peek-title');
+    const subEl = document.getElementById('sneak-peek-subtitle');
+    const b1 = document.getElementById('sneak-peek-bullet-1');
+    const b2 = document.getElementById('sneak-peek-bullet-2');
+    const b3 = document.getElementById('sneak-peek-bullet-3');
+    const keyInput = document.getElementById('sneak-peek-offer-key');
+    const submitBtn = document.getElementById('sneak-peek-submit-btn');
+    const formWrap = document.getElementById('sneak-peek-form-wrapper');
+    const successWrap = document.getElementById('sneak-peek-success-wrapper');
+
+    if (badgeEl) badgeEl.innerHTML = `<i class="ph-fill ${offer.badgeIcon}"></i> ${offer.badge}`;
+    if (titleEl) titleEl.textContent = offer.title;
+    if (subEl) subEl.textContent = offer.subtitle;
+    if (b1) b1.textContent = offer.bullets[0];
+    if (b2) b2.textContent = offer.bullets[1];
+    if (b3) b3.textContent = offer.bullets[2];
+    if (keyInput) keyInput.value = offerKey;
+    if (submitBtn) submitBtn.textContent = offer.buttonText;
+
+    if (formWrap) formWrap.style.display = 'block';
+    if (successWrap) successWrap.style.display = 'none';
+
+    openModal('sneak-peek-modal');
+}
+
+// Bind all sneak peek trigger buttons
+document.querySelectorAll('.open-sneak-peek-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const offerKey = btn.getAttribute('data-offer') || 'stacked';
+        openSneakPeekModal(offerKey);
+    });
+});
+
+// Sneak Peek form submission
+const sneakPeekForm = document.getElementById('sneak-peek-form');
+if (sneakPeekForm) {
+    sneakPeekForm.addEventListener('submit', async e => {
+        e.preventDefault();
+        const offerKey = document.getElementById('sneak-peek-offer-key')?.value || 'stacked';
+        const offer = SNEAK_PEEK_OFFERS[offerKey] || SNEAK_PEEK_OFFERS.stacked;
+        const name = (document.getElementById('sneak-peek-name')?.value || '').trim();
+        const email = (document.getElementById('sneak-peek-email')?.value || '').trim();
+        const btn = document.getElementById('sneak-peek-submit-btn');
+
+        if (!email) return;
+
+        btn.textContent = 'Opening Your Access...';
+        btn.disabled = true;
+
+        saveLocalLead(name, email, `${offer.productName} Sneak Peek`);
+
+        try {
+            await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email,
+                    name,
+                    product: offer.productName,
+                    listId: offer.listId
+                })
+            });
+        } catch (_) { /* non-blocking fallback */ }
+
+        // Flip to success state
+        const formWrap = document.getElementById('sneak-peek-form-wrapper');
+        const successWrap = document.getElementById('sneak-peek-success-wrapper');
+        const viewBtn = document.getElementById('sneak-peek-view-btn');
+        const buyBtn = document.getElementById('sneak-peek-buy-btn');
+
+        if (viewBtn) {
+            viewBtn.href = offer.previewUrl;
+            viewBtn.textContent = `Watch ${offer.productName} Walkthrough Now →`;
+        }
+        if (buyBtn) {
+            buyBtn.href = offer.buyUrl;
+            buyBtn.textContent = `Ready to enroll? Direct Checkout →`;
+        }
+
+        if (formWrap) formWrap.style.display = 'none';
+        if (successWrap) successWrap.style.display = 'flex';
+
+        btn.textContent = offer.buttonText;
+        btn.disabled = false;
+        sneakPeekForm.reset();
+
+        showToast(`✅ Instant access unlocked! Preview link sent to ${email}`);
+    });
+}
+
+
+// ============================================================
 //  TOOL 1: INCOME POTENTIAL CALCULATOR
 // ============================================================
 const hoursSlider = document.getElementById('calc-hours');
