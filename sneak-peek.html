@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="sp-page-title">Inside The Program | Boss Mama Biz Sneak Peek</title>
+    <meta id="sp-meta-desc" name="description" content="Take a transparent, honest inside look at the exact curriculum, modules, and mentorship before you enroll. Direct access with Boss Mama Biz.">
+    
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" href="style.css?v=28.0">
+
+    <style>
+        :root {
+            --sp-bg-dark: #0d040a;
+            --sp-card-bg: rgba(255, 255, 255, 0.035);
+            --sp-card-border: rgba(232, 50, 122, 0.22);
+            --sp-gold: #dfc493;
+        }
+
+        body {
+            background-color: var(--sp-bg-dark);
+            color: var(--text-main, #f3f4f6);
+            font-family: var(--font-body, 'Outfit', sans-serif);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Top Bar Navigation */
+        .sp-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13, 4, 10, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            padding: 0.85rem 1.5rem;
+        }
+        .sp-nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .sp-logo {
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+        .sp-logo-title {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .sp-logo-sub {
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            color: var(--primary, #e8327a);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .sp-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-muted, #9ca3af);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .sp-nav-btn:hover {
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .sp-hero {
+            padding: 4.5rem 1.5rem 3rem;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at 50% 20%, rgba(232, 50, 122, 0.14) 0%, rgba(13, 4, 10, 0) 70%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .sp-container {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+        .sp-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: rgba(232, 50, 122, 0.12);
+            border: 1px solid rgba(232, 50, 122, 0.35);
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.4rem 1.1rem;
+            border-radius: 999px;
+            margin-bottom: 1.4rem;
+        }
+        .sp-title {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+            line-height: 1.15;
+            color: #ffffff;
+            margin: 0 0 1rem;
+        }
+        .sp-tagline {
+            font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+            color: var(--primary, #e8327a);
+            font-weight: 500;
+            max-width: 720px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.5;
+        }
+        .sp-hook {
+            font-size: 0.98rem;
+            color: var(--text-muted, #9ca3af);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        /* Quick Meta Highlights Bar */
+        .sp-meta-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.25rem;
+            margin: 2rem 0 3rem;
+            text-align: left;
+        }
+        .sp-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+        .sp-meta-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(232, 50, 122, 0.12);
+            color: var(--primary, #e8327a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            flex-shrink: 0;
+        }
+        .sp-meta-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted, #9ca3af);
+            display: block;
+        }
+        .sp-meta-val {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        /* Note From Kristan Card */
+        .sp-note-card {
+            background: linear-gradient(135deg, rgba(232, 50, 122, 0.08) 0%, rgba(223, 196, 147, 0.05) 100%);
+            border: 1px solid rgba(232, 50, 122, 0.25);
+            border-radius: 20px;
+            padding: 2.2rem;
+            margin: 3.5rem 0;
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 2rem;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+        }
+        @media (max-width: 680px) {
+            .sp-note-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 1.2rem;
+                padding: 1.6rem;
+            }
+        }
+        .sp-note-avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary, #e8327a);
+            box-shadow: 0 0 20px rgba(232, 50, 122, 0.3);
+            margin: 0 auto;
+        }
+        .sp-note-heading {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: 1.55rem;
+            color: #fff;
+            margin: 0 0 0.75rem;
+        }
+        .sp-note-text {
+            font-size: 0.95rem;
+            color: var(--text-main, #f3f4f6);
+            line-height: 1.65;
+            margin: 0 0 1rem;
+        }
+        .sp-note-sign {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--sp-gold);
+            letter-spacing: 0.5px;
+        }
+
+        /* Curriculum & Modules Showcase */
+        .sp-section-head {
+            text-align: center;
+            margin: 4.5rem 0 2rem;
+        }
+        .sp-section-badge {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary, #e8327a);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .sp-section-title {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            color: #ffffff;
+            margin: 0 0 0.8rem;
+        }
+        .sp-section-sub {
+            font-size: 0.98rem;
+            color: var(--text-muted, #9ca3af);
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        .sp-modules-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin: 2.5rem 0;
+        }
+        .sp-module-card {
+            background: var(--sp-card-bg);
+            border: 1px solid var(--sp-card-border);
+            border-radius: 16px;
+            padding: 1.6rem 1.8rem;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+        .sp-module-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(232, 50, 122, 0.45);
+        }
+        .sp-module-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .sp-module-pill {
+            background: rgba(232, 50, 122, 0.15);
+            color: var(--primary, #e8327a);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.25rem 0.7rem;
+            border-radius: 6px;
+        }
+        .sp-module-title {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: 1.25rem;
+            color: #ffffff;
+            margin: 0;
+        }
+        .sp-module-desc {
+            font-size: 0.92rem;
+            color: var(--text-muted, #9ca3af);
+            line-height: 1.55;
+            margin: 0 0 1rem;
+        }
+        .sp-module-topics {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 0.5rem;
+        }
+        .sp-module-topics li {
+            font-size: 0.86rem;
+            color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .sp-module-topics li i {
+            color: var(--primary, #e8327a);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* Two-Column Comparison (Is vs Is NOT) */
+        .sp-comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 3.5rem 0;
+        }
+        @media (max-width: 640px) {
+            .sp-comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .sp-compare-box {
+            border-radius: 16px;
+            padding: 1.8rem;
+        }
+        .sp-compare-is {
+            background: rgba(45, 122, 70, 0.06);
+            border: 1px solid rgba(45, 122, 70, 0.25);
+        }
+        .sp-compare-not {
+            background: rgba(207, 57, 46, 0.06);
+            border: 1px solid rgba(207, 57, 46, 0.25);
+        }
+        .sp-compare-title {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 0 0 1.2rem;
+        }
+        .sp-compare-is .sp-compare-title { color: #4ade80; }
+        .sp-compare-not .sp-compare-title { color: #f87171; }
+        .sp-compare-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+        .sp-compare-list li {
+            font-size: 0.9rem;
+            line-height: 1.45;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+        }
+        .sp-compare-is li i { color: #4ade80; font-size: 1.1rem; margin-top: 0.1rem; flex-shrink: 0; }
+        .sp-compare-not li i { color: #f87171; font-size: 1.1rem; margin-top: 0.1rem; flex-shrink: 0; }
+
+        /* The Main Conversion / Pricing Box */
+        .sp-enroll-card {
+            background: linear-gradient(135deg, rgba(232, 50, 122, 0.12) 0%, rgba(20, 6, 16, 0.95) 100%);
+            border: 1px solid rgba(232, 50, 122, 0.35);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 4.5rem 0 3rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+        .sp-enroll-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(232, 50, 122, 0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .sp-enroll-badge {
+            background: var(--primary, #e8327a);
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.4rem 1.2rem;
+            border-radius: 999px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+        .sp-enroll-title {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: clamp(2rem, 4.5vw, 2.8rem);
+            color: #ffffff;
+            margin: 0 0 0.8rem;
+        }
+        .sp-enroll-sub {
+            font-size: 1rem;
+            color: var(--text-muted, #9ca3af);
+            max-width: 580px;
+            margin: 0 auto 2rem;
+        }
+        .sp-price-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-bottom: 1.8rem;
+        }
+        .sp-price-amount {
+            font-family: var(--font-heading, 'Playfair Display', serif);
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary, #e8327a);
+            line-height: 1;
+        }
+        .sp-price-meta {
+            font-size: 0.95rem;
+            color: var(--text-muted, #9ca3af);
+            text-align: left;
+        }
+        .sp-features-checklist {
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            text-align: left;
+        }
+        .sp-features-checklist li {
+            font-size: 0.96rem;
+            color: #f3f4f6;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            line-height: 1.45;
+        }
+        .sp-features-checklist li i {
+            color: var(--primary, #e8327a);
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            margin-top: 0.05rem;
+        }
+
+        .sp-cta-btn {
+            display: inline-block;
+            width: 100%;
+            max-width: 500px;
+            padding: 1.25rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(135deg, #e8327a 0%, #c42060 100%);
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            text-align: center;
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(232, 50, 122, 0.45);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+        .sp-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 38px rgba(232, 50, 122, 0.6);
+        }
+        .sp-trust-row {
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            font-size: 0.82rem;
+            color: var(--text-muted, #9ca3af);
+            flex-wrap: wrap;
+        }
+        .sp-trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* FAQ Accordion */
+        .sp-faq-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 750px;
+            margin: 2.5rem auto 5rem;
+        }
+        .sp-faq-item {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.2rem 1.4rem;
+        }
+        .sp-faq-q {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #fff;
+            margin: 0 0 0.45rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .sp-faq-q i {
+            color: var(--primary, #e8327a);
+        }
+        .sp-faq-a {
+            font-size: 0.92rem;
+            color: var(--text-muted, #9ca3af);
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* Floating Sticky Mobile Bottom Bar */
+        .sp-sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            background: rgba(13, 4, 10, 0.92);
+            backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(232, 50, 122, 0.3);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.5);
+        }
+        .sp-sticky-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .sp-sticky-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .sp-sticky-price {
+            font-size: 0.82rem;
+            color: var(--primary, #e8327a);
+            font-weight: 600;
+        }
+        .sp-sticky-btn {
+            background: var(--primary, #e8327a);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.65rem 1.25rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(232, 50, 122, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== TOP NAVIGATION ===== -->
+    <header class="sp-nav">
+        <div class="sp-nav-container">
+            <a href="index.html" class="sp-logo">
+                <span class="sp-logo-title">Boss Mama Biz</span>
+                <span class="sp-logo-sub">EST. 2023</span>
+            </a>
+            <a href="index.html#offers" class="sp-nav-btn">
+                <i class="ph ph-arrow-left"></i>
+                <span>Back to All Offers</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="sp-hero">
+        <div class="sp-container">
+            <div id="sp-badge" class="sp-badge">
+                <i class="ph-fill ph-seal-check"></i>
+                <span>Official Inside Look &amp; Curriculum Walkthrough</span>
+            </div>
+            <h1 id="sp-hero-title" class="sp-title">Inside Stacked by Emily</h1>
+            <p id="sp-hero-tagline" class="sp-tagline">The 14-Stream Digital Income Roadmap Built Specifically for Busy Moms</p>
+            <p id="sp-hero-hook" class="sp-hook">Zero fluff. No confusing tech. An honest inside walkthrough of the curriculum, mentorship, and automated income streams before you decide.</p>
+
+            <!-- Quick Meta Bar -->
+            <div class="sp-meta-bar">
+                <div class="sp-meta-item">
+                    <div class="sp-meta-icon"><i class="ph-fill ph-video"></i></div>
+                    <div>
+                        <span class="sp-meta-label">Format</span>
+                        <span id="sp-meta-format" class="sp-meta-val">Step-by-Step Video Modules</span>
+                    </div>
+                </div>
+                <div class="sp-meta-item">
+                    <div class="sp-meta-icon"><i class="ph-fill ph-users"></i></div>
+                    <div>
+                        <span class="sp-meta-label">Community</span>
+                        <span id="sp-meta-community" class="sp-meta-val">Weekly Live Zooms &amp; 1-on-1 Q&amp;A</span>
+                    </div>
+                </div>
+                <div class="sp-meta-item">
+                    <div class="sp-meta-icon"><i class="ph-fill ph-clock"></i></div>
+                    <div>
+                        <span class="sp-meta-label">Time Commitment</span>
+                        <span id="sp-meta-time" class="sp-meta-val">30–45 Mins / Day (Self-Paced)</span>
+                    </div>
+                </div>
+                <div class="sp-meta-item">
+                    <div class="sp-meta-icon"><i class="ph-fill ph-shield-check"></i></div>
+                    <div>
+                        <span class="sp-meta-label">Resell Rights</span>
+                        <span id="sp-meta-rights" class="sp-meta-val">Master Resell Rights (MRR) Included</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Direct Enroll Primary Button (Hero) -->
+            <div>
+                <a id="sp-hero-cta" href="https://stan.store/Kristan_Oconnor/p/stacked-by-emily" target="_blank" rel="noopener noreferrer" class="sp-cta-btn">
+                    Enroll in Stacked by Emily Now →
+                </a>
+                <div class="sp-trust-row">
+                    <span class="sp-trust-item"><i class="ph-fill ph-lock-key" style="color:var(--primary);"></i> Secure Checkout via Stan Store</span>
+                    <span class="sp-trust-item"><i class="ph-fill ph-lightning" style="color:var(--sp-gold);"></i> Instant Course Access &amp; Community Link</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAIN CONTENT CONTAINER ===== -->
+    <main class="sp-container" style="padding: 1rem 1.5rem 6rem;">
+
+        <!-- Personal Story Note from Kristan -->
+        <section class="sp-note-card">
+            <img src="images/kristan-blazer.webp" alt="Kristan O'Connor" class="sp-note-avatar">
+            <div>
+                <h3 class="sp-note-heading">From Me To You</h3>
+                <p id="sp-note-body" class="sp-note-text">
+                    "If you’ve been going back and forth on starting, I know exactly what you are feeling. You don't need more random tips or 50 hours of confusing theory—you need something that actually makes sense for a busy household.<br><br>
+                    Inside STACKED, the focus is on building multiple streams of income without getting overwhelmed. I didn't join to be 'just another affiliate'; I joined to build something sustainable around my family schedule. This inside look will show you why this is the roadmap that finally works."
+                </p>
+                <div class="sp-note-sign">— Kristan | Founder, Boss Mama Biz</div>
+            </div>
+        </section>
+
+        <!-- Curriculum & Modules Showcase -->
+        <section>
+            <div class="sp-section-head">
+                <span class="sp-section-badge">Curriculum Tour</span>
+                <h2 id="sp-curr-title" class="sp-section-title">What You'll Actually Find Inside</h2>
+                <p id="sp-curr-sub" class="sp-section-sub">A clear, bite-sized breakdown of the modules and step-by-step roadmaps you unlock today.</p>
+            </div>
+
+            <div id="sp-modules-container" class="sp-modules-grid">
+                <!-- Modules injected dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- What This IS vs What This Is NOT (The Honest Truth) -->
+        <section>
+            <div class="sp-comparison-grid">
+                <!-- What You Get / Is -->
+                <div class="sp-compare-box sp-compare-is">
+                    <div class="sp-compare-title">
+                        <i class="ph-fill ph-check-circle"></i>
+                        <span>What You Actually Get</span>
+                    </div>
+                    <ul id="sp-is-list" class="sp-compare-list">
+                        <li><i class="ph-fill ph-check-circle"></i> <span><strong>A direct, no-BS walkthrough</strong> of 14 automated income streams</span></li>
+                        <li><i class="ph-fill ph-check-circle"></i> <span><strong>Bite-sized video lessons</strong> designed to be watched in 5-10 minute pockets</span></li>
+                        <li><i class="ph-fill ph-check-circle"></i> <span><strong>Plug-and-play templates:</strong> Email sequences, social hooks, and DM scripts</span></li>
+                        <li><i class="ph-fill ph-check-circle"></i> <span><strong>Weekly live Zooms:</strong> Real strategy reviews and direct mentor access</span></li>
+                        <li><i class="ph-fill ph-check-circle"></i> <span><strong>Full Resell Rights:</strong> Learn the systems, then resell the program for 100% profit</span></li>
+                    </ul>
+                </div>
+
+                <!-- What This Is NOT -->
+                <div class="sp-compare-box sp-compare-not">
+                    <div class="sp-compare-title">
+                        <i class="ph-fill ph-x-circle"></i>
+                        <span>What This Is NOT</span>
+                    </div>
+                    <ul class="sp-compare-list">
+                        <li><i class="ph-fill ph-x-circle"></i> <span><strong>NOT a get-rich-quick promise:</strong> This requires real, focused 30-minute daily effort</span></li>
+                        <li><i class="ph-fill ph-x-circle"></i> <span><strong>NOT 50 hours of boring theory:</strong> No college lectures—only tactical, actionable steps</span></li>
+                        <li><i class="ph-fill ph-x-circle"></i> <span><strong>NOT high-pressure cold messaging:</strong> You will never have to bother friends or family</span></li>
+                        <li><i class="ph-fill ph-x-circle"></i> <span><strong>NOT a complicated tech maze:</strong> Zero coding or software expertise required</span></li>
+                        <li><i class="ph-fill ph-x-circle"></i> <span><strong>NOT a course that leaves you alone:</strong> Live mentorship ensures you never stay stuck</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- High-Converting Master Enrollment Box -->
+        <section class="sp-enroll-card">
+            <span class="sp-enroll-badge">Ready to Step In?</span>
+            <h2 id="sp-enroll-heading" class="sp-enroll-title">Enroll in Stacked by Emily Today</h2>
+            <p id="sp-enroll-sub" class="sp-enroll-sub">Get instant access to all 14 income stream roadmaps, weekly live mentorship, and full Master Resell Rights.</p>
+
+            <div class="sp-price-row">
+                <span id="sp-enroll-price" class="sp-price-amount">$267</span>
+                <div class="sp-price-meta">
+                    <div>One-time payment</div>
+                    <div style="color:var(--sp-gold);font-weight:600;">Full MRR Resell Rights Included</div>
+                </div>
+            </div>
+
+            <ul id="sp-enroll-checklist" class="sp-features-checklist">
+                <li><i class="ph-fill ph-check-circle"></i> <span><strong>All 14 Income Stream Roadmaps:</strong> Amazon reviews, Etsy digital assets, and faceless marketing</span></li>
+                <li><i class="ph-fill ph-check-circle"></i> <span><strong>Weekly Live Mentorship Zooms:</strong> Join live coaching and get your personal questions answered</span></li>
+                <li><i class="ph-fill ph-check-circle"></i> <span><strong>Master Resell Rights (MRR):</strong> Rebrand, resell, and keep 100% of every sale you make</span></li>
+                <li><i class="ph-fill ph-check-circle"></i> <span><strong>Done-For-You Funnels &amp; Prompts:</strong> Proven copy, email sequences, and aesthetic assets</span></li>
+                <li><i class="ph-fill ph-check-circle"></i> <span><strong>Lifetime Access &amp; Future Updates:</strong> Never pay a monthly fee or subscription</span></li>
+            </ul>
+
+            <a id="sp-bottom-cta" href="https://stan.store/Kristan_Oconnor/p/stacked-by-emily" target="_blank" rel="noopener noreferrer" class="sp-cta-btn" style="font-size:1.3rem;">
+                Claim Your Spot &amp; Enroll Now →
+            </a>
+
+            <div class="sp-trust-row" style="margin-top:2rem;">
+                <span class="sp-trust-item"><i class="ph-fill ph-shield-check" style="color:#4ade80;"></i> Official Checkout</span>
+                <span class="sp-trust-item"><i class="ph-fill ph-device-mobile" style="color:var(--primary);"></i> Instant Mobile Access</span>
+                <span class="sp-trust-item"><i class="ph-fill ph-lock-key" style="color:var(--sp-gold);"></i> 256-Bit SSL Encrypted</span>
+            </div>
+        </section>
+
+        <!-- Frequently Asked Questions -->
+        <section>
+            <div class="sp-section-head" style="margin-top:3rem;">
+                <span class="sp-section-badge">Common Questions</span>
+                <h2 class="sp-section-title">Frequently Asked Questions</h2>
+            </div>
+
+            <div id="sp-faq-container" class="sp-faq-grid">
+                <!-- FAQs injected dynamically via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FLOATING STICKY MOBILE ENROLL BAR ===== -->
+    <div class="sp-sticky-bar">
+        <div class="sp-sticky-info">
+            <span id="sp-sticky-name" class="sp-sticky-title">Stacked by Emily</span>
+            <span id="sp-sticky-price" class="sp-sticky-price">$267 · Instant Access</span>
+        </div>
+        <a id="sp-sticky-btn" href="https://stan.store/Kristan_Oconnor/p/stacked-by-emily" target="_blank" rel="noopener noreferrer" class="sp-sticky-btn">
+            Enroll Now →
+        </a>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer style="background:#080206;border-top:1px solid rgba(255,255,255,0.06);padding:3rem 1.5rem 6rem;text-align:center;">
+        <div class="sp-container">
+            <div style="font-family:var(--font-heading);font-size:1.4rem;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:0.5rem;">BOSS MAMA BIZ</div>
+            <p style="color:var(--text-muted);font-size:0.9rem;margin:0 0 1.5rem;">Helping Busy Moms Build Income Online Without Being Glued To Social Media</p>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">
+                <a href="privacy.html" style="color:var(--text-muted);text-decoration:none;">Privacy Policy</a> | 
+                <a href="terms.html" style="color:var(--text-muted);text-decoration:none;">Terms of Service</a> | 
+                <a href="index.html#offers" style="color:var(--primary);text-decoration:none;">All Offers</a>
+            </p>
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-top:1rem;">&copy; 2026 Boss Mama Biz. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ===== DYNAMIC SCRIPT LOGIC ===== -->
+    <script>
+        // Offer Content Database
+        const SNEAK_PEEK_DATA = {
+            stacked: {
+                pageTitle: "Inside Stacked by Emily | Official Sneak Peek & Walkthrough",
+                metaDesc: "Take an honest inside look at Stacked by Emily: the 14-stream income roadmap, weekly mentorship, and beginner systems.",
+                badge: "Official Inside Look & Curriculum Walkthrough",
+                title: "Inside Stacked by Emily",
+                tagline: "The 14-Stream Digital Income Roadmap Built Specifically for Busy Moms",
+                hook: "Zero fluff. No confusing tech. An honest inside walkthrough of the curriculum, mentorship, and automated income streams before you decide.",
+                price: "$267",
+                priceSub: "Full MRR Resell Rights Included",
+                checkoutUrl: "https://stan.store/Kristan_Oconnor/p/stacked-by-emily",
+                buttonText: "Enroll in Stacked by Emily ($267) →",
+                meta: {
+                    format: "Step-by-Step Video Modules",
+                    community: "Weekly Live Zooms & 1-on-1 Q&A",
+                    time: "30–45 Mins / Day (Self-Paced)",
+                    rights: "Master Resell Rights (MRR) Included"
+                },
+                note: `"If you’ve been going back and forth on starting, I know exactly what you are feeling. You don't need more random tips or 50 hours of confusing theory—you need something that actually makes sense for a busy household.<br><br>Inside STACKED, the focus is on building multiple streams of income without getting overwhelmed. I didn't join to be 'just another affiliate'; I joined to build something sustainable around my family schedule. This inside look will show you why this is the roadmap that finally works."`,
+                modules: [
+                    {
+                        pill: "Phase 1",
+                        title: "Foundations & Low-Lift Income Streams",
+                        desc: "Master the beginner basics and launch immediate revenue channels that require zero prior following.",
+                        topics: [
+                            "Amazon Influencer Program & 60-Second Video Reviews",
+                            "Beginner Affiliate Marketing without Cold Pitching",
+                            "Simple Print-on-Demand & Low-Maintenance Storefronts"
+                        ]
+                    },
+                    {
+                        pill: "Phase 2",
+                        title: "Digital Products & Faceless Storefronts",
+                        desc: "Create and launch done-for-you digital downloads on Etsy and Stan Store without ever showing your face.",
+                        topics: [
+                            "Etsy Digital Downloads & Passive Search Traffic",
+                            "Done-For-You (PLR) Templates & Rebranding Secrets",
+                            "Automated DM Funnels & Lead Generation Setups"
+                        ]
+                    },
+                    {
+                        pill: "Phase 3",
+                        title: "Recurring Cash Flow & Resell Licensing",
+                        desc: "Stack high-ticket payouts and recurring monthly commissions while building an automated email ecosystem.",
+                        topics: [
+                            "Master Resell Rights (MRR) — Keeping 100% of Every Sale",
+                            "Building an Automated 4-Part Email Sales Sequence",
+                            "Scaling Multiple Streams Simultaneously without Burnout"
+                        ]
+                    },
+                    {
+                        pill: "Phase 4",
+                        title: "Live Mentorship, Community & Weekly Coaching",
+                        desc: "Never build alone. Access weekly live coaching Zooms, private strategy audits, and real peer support.",
+                        topics: [
+                            "Weekly Live Q&A Strategy Zooms with Mentors",
+                            "Private Community Hub with Daily Student Wins",
+                            "1-on-1 Direct Support Channels When You Hit Roadblocks"
+                        ]
+                    }
+                ],
+                checklist: [
+                    "<strong>All 14 Income Stream Roadmaps:</strong> Amazon reviews, Etsy digital assets, and faceless marketing",
+                    "<strong>Weekly Live Mentorship Zooms:</strong> Join live coaching and get your personal questions answered",
+                    "<strong>Master Resell Rights (MRR):</strong> Rebrand, resell, and keep 100% of every sale you make",
+                    "<strong>Done-For-You Funnels & Prompts:</strong> Proven copy, email sequences, and aesthetic assets",
+                    "<strong>Lifetime Access & Future Updates:</strong> Never pay a monthly fee or subscription"
+                ],
+                faqs: [
+                    {
+                        q: "How much time do I realistically need each day?",
+                        a: "Stacked was designed specifically for busy parents. Modules are bite-sized (5 to 10 minutes each), and daily action steps take about 30 to 45 minutes."
+                    },
+                    {
+                        q: "Do I have to show my face on social media?",
+                        a: "No! Stacked includes dedicated faceless digital marketing modules showing you how to build audience trust and drive sales without ever appearing on camera."
+                    },
+                    {
+                        q: "What does Master Resell Rights (MRR) mean?",
+                        a: "MRR means once you purchase Stacked, you legally own the resell license. You can resell the course as your own and pocket 100% of the profits directly to your bank account."
+                    },
+                    {
+                        q: "What happens immediately after I enroll?",
+                        a: "You receive an immediate email with your course login and direct invitation link to the private student community."
+                    }
+                ]
+            },
+            boss: {
+                pageTitle: "Inside The Boss Suite | Community & Mentorship Tour",
+                metaDesc: "Take an inside tour of The Boss Suite: 15+ income paths, faceless marketing, daily mentorship, and 2-tier commissions.",
+                badge: "Community & Mentorship Hub Tour",
+                title: "Inside The Boss Suite",
+                tagline: "The Go-All-In Mentorship Community, Faceless Marketing Hub & 15+ Income Streams",
+                hook: "Step inside the go-all-in community with daily mentorship, weekly live coaching Zooms, and 2-tier recurring commission pathways.",
+                price: "Community Access",
+                priceSub: "Includes 2-Tier Pay & Daily Mentorship",
+                checkoutUrl: "https://stan.store/affiliates/81495b81-cf82-4813-8634-7f8d9f4369ba",
+                buttonText: "Enroll in The Boss Suite Today →",
+                meta: {
+                    format: "Live Hub + Video Masterclasses",
+                    community: "Daily Mentorship & Live Weekly Zooms",
+                    time: "Flexible Self-Paced Community",
+                    rights: "2-Tier Affiliate Rights & Resell Licensing"
+                },
+                note: `"The Boss Suite is where community and accountability come to life. If you've ever felt isolated trying to figure out digital business alone, having Madison Hatten and our coaches in your corner every single day makes all the difference."`,
+                modules: [
+                    {
+                        pill: "Phase 1",
+                        title: "Faceless Marketing Blueprint",
+                        desc: "How to craft viral, aesthetic content and build an audience of buyers without showing your face.",
+                        topics: ["B-Roll Sourcing & Aesthetic Curation", "Viral Hook Formulas that Stop the Scroll", "Automated Comment-to-DM Systems"]
+                    },
+                    {
+                        pill: "Phase 2",
+                        title: "15+ Digital Income Paths",
+                        desc: "Explore master resell rights, print-on-demand, digital guides, and affiliate blueprints.",
+                        topics: ["Digital Product Vault & Done-For-You Guides", "Master Resell Rights Implementation", "Print-on-Demand Scaling"]
+                    },
+                    {
+                        pill: "Phase 3",
+                        title: "Daily Mentorship & Live Coaching",
+                        desc: "Direct access to mentors who are actively scaling 6-figure storefronts right alongside you.",
+                        topics: ["Weekly Live Strategy Calls with Madison", "Live Q&A Audits on Your Storefront", "Active Student Community Hub"]
+                    },
+                    {
+                        pill: "Phase 4",
+                        title: "2-Tier Passive Commission Engine",
+                        desc: "Earn directly on your own sales and unlock passive override commissions on your team referrals.",
+                        topics: ["Tier 1 Direct Resell Profits", "Tier 2 Team Override Payouts", "Automated Payout Setup via Stan Store"]
+                    }
+                ],
+                checklist: [
+                    "<strong>Access to All 15+ Income Stream Roadmaps:</strong> Full library of video masterclasses",
+                    "<strong>Daily Community Mentorship:</strong> Never feel stuck with real coaches answering questions",
+                    "<strong>Weekly Live Zooms:</strong> Hands-on storefront audits and strategic reviews",
+                    "<strong>2-Tier Resell Rights:</strong> Earn direct sales plus recurring team referral bonuses",
+                    "<strong>Plug-and-Play Aesthetic Vault:</strong> Done-for-you reels, caption hooks, and templates"
+                ],
+                faqs: [
+                    {
+                        q: "What makes The Boss Suite unique?",
+                        a: "The level of live mentorship and the 2-tier commission structure. It is designed as an interactive hub, not just a static video library."
+                    },
+                    {
+                        q: "Can beginners do this?",
+                        a: "Yes. Over 80% of members started with zero social media experience."
+                    }
+                ]
+            },
+            fes: {
+                pageTitle: "Inside Facebook Ecosystem Strategy | Chatbot & Profile Blueprint",
+                metaDesc: "Take an inside look at the Facebook Ecosystem Strategy: profile funnels, chatbot automation, and organic reach without ads.",
+                badge: "Organic Funnel & Chatbot Tour",
+                title: "Inside Facebook Ecosystem Strategy",
+                tagline: "The 5-Part Facebook Profile Funnel & Automated Chatbot Architecture",
+                hook: "Master profile funnels and chatbot automation to convert followers into paying customers organically without spending $1 on ads.",
+                price: "Organic Blueprint",
+                priceSub: "Includes Manychat Blueprints & Content Matrix",
+                checkoutUrl: "https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a",
+                buttonText: "Get Facebook Ecosystem Strategy Now →",
+                meta: {
+                    format: "Action-Oriented Video Framework",
+                    community: "Ecosystem Mastermind Group",
+                    time: "Fast-Track 7-Day Implementation",
+                    rights: "Affiliate Licensing Included"
+                },
+                note: `"Facebook is where mature buyers with real purchasing intent hang out every day. Jasmine Cruz's Facebook Ecosystem Strategy completely shifted how I view social media—from mindless posting to an automated conversion machine."`,
+                modules: [
+                    {
+                        pill: "Phase 1",
+                        title: "Profile Funnel Optimization",
+                        desc: "Turn your personal Facebook profile into an attractive, high-converting digital storefront.",
+                        topics: ["Banner & Bio Conversion Positioning", "Featured Link & Trust Highlights", "Setting Up Frictionless DM Entryways"]
+                    },
+                    {
+                        pill: "Phase 2",
+                        title: "Chatbot & Manychat Blueprints",
+                        desc: "Automate your lead capture so prospects get instant access to freebies and checkout links 24/7.",
+                        topics: ["One-Click Manychat Automation Blueprints", "Keyword Trigger Funnels in Comments", "Handling Objections via Automated DMs"]
+                    },
+                    {
+                        pill: "Phase 3",
+                        title: "The 'Rule of 7s' Trust Matrix",
+                        desc: "Organic content frameworks that build rapport and convert cold viewers into eager buyers.",
+                        topics: ["Storytelling Frameworks that Sell", "Overcoming Price Resistance Organically", "Non-Salesy Content Prompts"]
+                    }
+                ],
+                checklist: [
+                    "<strong>Complete 5-Part Profile Funnel Blueprint:</strong> Turn friends and followers into buyers",
+                    "<strong>Plug-and-Play Manychat Flows:</strong> Set up automated chatbots in under 20 minutes",
+                    "<strong>The 'Rule of 7s' Content Strategy:</strong> Proven prompts and posting schedules",
+                    "<strong>Zero Ad Spend Required:</strong> 100% organic audience-building strategies",
+                    "<strong>Instant Digital Delivery:</strong> Start implementing immediately after checkout"
+                ],
+                faqs: [
+                    {
+                        q: "Do I need to run paid Facebook ads?",
+                        a: "No! This framework is 100% organic and operates without paying for ads."
+                    },
+                    {
+                        q: "Do I need technical skills to set up chatbots?",
+                        a: "No. Jasmine provides pre-built Manychat templates that you can clone into your account with one click."
+                    }
+                ]
+            }
+        };
+
+        // Render Page based on URL parameter (?offer=stacked|boss|fes)
+        function initSneakPeekPage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let offerKey = urlParams.get('offer') || 'stacked';
+            if (!SNEAK_PEEK_DATA[offerKey]) offerKey = 'stacked';
+
+            const data = SNEAK_PEEK_DATA[offerKey];
+
+            // Page Title & Meta
+            document.title = data.pageTitle;
+            document.getElementById('sp-page-title').textContent = data.pageTitle;
+            document.getElementById('sp-meta-desc').setAttribute('content', data.metaDesc);
+
+            // Hero
+            document.getElementById('sp-badge').querySelector('span').textContent = data.badge;
+            document.getElementById('sp-hero-title').textContent = data.title;
+            document.getElementById('sp-hero-tagline').textContent = data.tagline;
+            document.getElementById('sp-hero-hook').textContent = data.hook;
+            document.getElementById('sp-hero-cta').href = data.checkoutUrl;
+            document.getElementById('sp-hero-cta').textContent = data.buttonText;
+
+            // Meta Bar
+            document.getElementById('sp-meta-format').textContent = data.meta.format;
+            document.getElementById('sp-meta-community').textContent = data.meta.community;
+            document.getElementById('sp-meta-time').textContent = data.meta.time;
+            document.getElementById('sp-meta-rights').textContent = data.meta.rights;
+
+            // Personal Note
+            document.getElementById('sp-note-body').innerHTML = data.note;
+
+            // Modules
+            const modContainer = document.getElementById('sp-modules-container');
+            modContainer.innerHTML = data.modules.map(m => `
+                <div class="sp-module-card">
+                    <div class="sp-module-header">
+                        <span class="sp-module-pill">${m.pill}</span>
+                        <h3 class="sp-module-title">${m.title}</h3>
+                    </div>
+                    <p class="sp-module-desc">${m.desc}</p>
+                    <ul class="sp-module-topics">
+                        ${m.topics.map(t => `<li><i class="ph-fill ph-check-circle"></i><span>${t}</span></li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+
+            // Enrollment Card
+            document.getElementById('sp-enroll-heading').textContent = `Enroll in ${data.title.replace('Inside ', '')} Today`;
+            document.getElementById('sp-enroll-price').textContent = data.price;
+            document.getElementById('sp-bottom-cta').href = data.checkoutUrl;
+            document.getElementById('sp-bottom-cta').textContent = data.buttonText;
+
+            const checkContainer = document.getElementById('sp-enroll-checklist');
+            checkContainer.innerHTML = data.checklist.map(c => `<li><i class="ph-fill ph-check-circle"></i><span>${c}</span></li>`).join('');
+
+            // FAQs
+            const faqContainer = document.getElementById('sp-faq-container');
+            faqContainer.innerHTML = data.faqs.map(f => `
+                <div class="sp-faq-item">
+                    <div class="sp-faq-q"><i class="ph-fill ph-question"></i><span>${f.q}</span></div>
+                    <p class="sp-faq-a">${f.a}</p>
+                </div>
+            `).join('');
+
+            // Sticky Bar
+            document.getElementById('sp-sticky-name').textContent = data.title.replace('Inside ', '');
+            document.getElementById('sp-sticky-price').textContent = `${data.price} · Instant Access`;
+            document.getElementById('sp-sticky-btn').href = data.checkoutUrl;
+        }
+
+        document.addEventListener('DOMContentLoaded', initSneakPeekPage);
+    </script>
+</body>
+</html>

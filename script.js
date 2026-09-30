@@ -244,7 +244,7 @@ const SNEAK_PEEK_OFFERS = {
         ],
         listId: 11,
         productName: 'Stacked by Emily',
-        previewUrl: 'https://stan.store/Kristan_Oconnor/p/the-stacked-sneak-peek-qukh6f7x',
+        previewUrl: 'sneak-peek.html?offer=stacked',
         buyUrl: 'https://stan.store/Kristan_Oconnor/p/stacked-by-emily',
         buttonText: 'Get Stacked Sneak Peek →'
     },
@@ -260,7 +260,7 @@ const SNEAK_PEEK_OFFERS = {
         ],
         listId: 12,
         productName: 'The Boss Suite',
-        previewUrl: 'https://stan.store/Kristan_Oconnor/p/bosssuite-sneak-peek',
+        previewUrl: 'sneak-peek.html?offer=boss',
         buyUrl: 'https://stan.store/affiliates/81495b81-cf82-4813-8634-7f8d9f4369ba',
         buttonText: 'Get Boss Suite Sneak Peek →'
     },
@@ -276,7 +276,7 @@ const SNEAK_PEEK_OFFERS = {
         ],
         listId: 13,
         productName: 'Facebook Ecosystem Strategy',
-        previewUrl: 'https://stan.store/Kristan_Oconnor/p/preview-inside-fes',
+        previewUrl: 'sneak-peek.html?offer=fes',
         buyUrl: 'https://stan.store/affiliates/7c8ee611-3279-4951-851c-41172d524e9a',
         buttonText: 'Get FES Sneak Peek →'
     }
@@ -358,7 +358,7 @@ if (sneakPeekForm) {
 
         if (viewBtn) {
             viewBtn.href = offer.previewUrl;
-            viewBtn.textContent = `Watch ${offer.productName} Walkthrough Now →`;
+            viewBtn.textContent = `Open ${offer.productName} Inside Look →`;
         }
         if (buyBtn) {
             buyBtn.href = offer.buyUrl;
@@ -372,7 +372,12 @@ if (sneakPeekForm) {
         btn.disabled = false;
         sneakPeekForm.reset();
 
-        showToast(`✅ Instant access unlocked! Preview link sent to ${email}`);
+        showToast(`✅ Access unlocked! Opening inside look...`);
+
+        // Smooth redirect to our dedicated sneak peek page after brief confirmation
+        setTimeout(() => {
+            window.location.href = offer.previewUrl;
+        }, 1100);
     });
 }
 
