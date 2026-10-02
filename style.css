@@ -2553,6 +2553,90 @@ html.in-app-messenger .pwa-btn-install {
     background: rgba(232, 50, 122, 0.08);
 }
 
+/* ============================================================
+   LIGHT BOUTIQUE EDITORIAL MODALS (SNEAK PEEK & LEAD MAGNETS)
+   ============================================================ */
+#sneak-peek-modal .tool-modal-content,
+#vault-optin-modal .tool-modal-content {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(232, 50, 122, 0.22) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 60px rgba(26, 10, 20, 0.25) !important;
+    color: #1A0A14 !important;
+}
+
+#sneak-peek-modal .tool-modal-close,
+#vault-optin-modal .tool-modal-close {
+    color: #7A5C6D !important;
+    transition: color 0.2s ease;
+}
+
+#sneak-peek-modal .tool-modal-close:hover,
+#vault-optin-modal .tool-modal-close:hover {
+    color: #1A0A14 !important;
+}
+
+#sneak-peek-modal h3,
+#vault-optin-modal h3 {
+    color: #1A0A14 !important;
+}
+
+#sneak-peek-modal p,
+#vault-optin-modal p {
+    color: #7A5C6D !important;
+}
+
+#sneak-peek-bullets {
+    background: #FAF7F2 !important;
+    border: 1px solid rgba(232, 50, 122, 0.16) !important;
+}
+
+#sneak-peek-bullets div {
+    color: #3D2633 !important;
+}
+
+#sneak-peek-bullets i {
+    color: #15803D !important;
+    background: #DCFCE7 !important;
+    border-radius: 50% !important;
+    padding: 2px !important;
+}
+
+#sneak-peek-modal .tool-input,
+#vault-optin-modal .tool-input {
+    background: #FAF7F2 !important;
+    border: 1px solid rgba(26, 10, 20, 0.14) !important;
+    color: #1A0A14 !important;
+}
+
+#sneak-peek-modal .tool-input::placeholder,
+#vault-optin-modal .tool-input::placeholder {
+    color: #9E8592 !important;
+}
+
+#sneak-peek-modal .tool-input:focus,
+#vault-optin-modal .tool-input:focus {
+    background: #FFFFFF !important;
+    border-color: #E8327A !important;
+    box-shadow: 0 0 0 3px rgba(232, 50, 122, 0.12) !important;
+    outline: none !important;
+}
+
+#sneak-peek-modal .btn-card-secondary {
+    background: #FAF7F2 !important;
+    border: 1px solid rgba(26, 10, 20, 0.12) !important;
+    color: #1A0A14 !important;
+    text-decoration: none !important;
+    padding: 0.65rem 1rem !important;
+    font-weight: 600 !important;
+}
+
+#sneak-peek-modal .btn-card-secondary:hover {
+    background: #FFFFFF !important;
+    border-color: #E8327A !important;
+    color: #E8327A !important;
+}
+
 
 
 
